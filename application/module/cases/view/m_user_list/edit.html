@@ -1,0 +1,35 @@
+{extend name="common/base" }
+
+{block name="content"}
+<div class="am-g">
+	<div class="am-u-sm-12">
+		<form class="am-form ajax-form" method="post" action="{:module_url('edit',['id' => $_id])}">
+		
+			{$widget->form('text', ['title' => '用户名', 'name' => 'user_name', 'value' => $user_list['user_name']])}
+			
+                        {$widget->form('text', ['title' => '登录密码', 'type' => 'password', 'name' => 'pwd', 'value' =>'' ])}
+			
+			
+                        {$widget->form('radio', ['title' => '性别', 'name' => 'sex', 'value' => 1,'list'=>$sexlist])}
+			
+			{$widget->form('text', ['title' => '邮箱', 'name' => 'email', 'value' => $user_list['email']])}
+			
+                        {$widget->form('text', ['title' => '手机号码', 'name' => 'tel', 'value' => $user_list['tel']])}
+                        
+                        {$widget->form('text', ['title' => '所在公司', 'name' => 'company', 'value' => $user_list['company']])}
+		
+			{$widget->form('image', ['title' => '头像', 'name' => 'avatar', 'value' => $user_list['avatar'], 'width' => 600])}
+			
+			{$widget->form('radio', ['title' => '用户状态', 'name' => 'u_status', 'value' => 1, 'list' => $userstatus])}
+	               
+		
+			
+			{$widget->form('text', ['title' => '用户排序', 'name' => 'sort', 'value' => $user_list['sort']])}
+			
+			
+			{$widget->form('submit', ['title' => '用户操作'])}
+			
+		</form>
+	</div>
+</div>
+{/block}
