@@ -1,0 +1,49 @@
+.login-wrapper
+{
+    display: inline-block;
+    text-decoration:none;
+}
+.login-wrapper:hover{
+    text-decoration:none;
+}
+.login-wrapper span
+{
+    width: 100%;
+}
+@media (min-width:768px)
+{
+    .login-wrapper
+    {
+        float: left;
+
+        margin-left: 40px;
+    }
+}@media (min-width:993px)
+{
+    .login-wrapper
+    {
+        margin-left: 60px;
+    }
+}@media (min-width:1200px)
+{
+    .login-wrapper
+    {
+    	font-size: 18px;
+        margin-left: 80px;
+        margin-top: 20px;
+        color:#0085c4;
+        font-weight: bold;
+    }
+}
+@media (max-width:767px)
+{
+    .login-wrapper
+    {
+    font-size: 2rem;
+    display: block;
+    text-align: center;
+    padding: 5px 0;
+    color:#0085c4;
+    font-weight: bold;
+    }
+}

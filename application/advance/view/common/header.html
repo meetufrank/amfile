@@ -11,6 +11,7 @@
       <a class="logo-wrapper" href="{:url('/am')}">
         <span class="logo1"><img src="{$static_path}/advance/img/logo.png" alt=""></span>
       </a>
+      <a class="login-wrapper" href="Mylogin.html">登录</a>
       <ul class="menu-wrapper clearfix">
          {volist name="service_list" id="sl"}
          <li class="menubar menubar-{$sl.id}"><a href="{:url('/service/'.$sl.id)}"><span class="bar-background"></span><span class="bar-text">{$sl.typename}</span><span class="bottom-gradient"></span></a><span class="right-gradient"></span></li>
