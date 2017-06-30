@@ -26,7 +26,7 @@ class Login extends Controller
     //展示登录页面
     public function index()
     {
-
+        $this->siteTitle='advance|medical 登录';
  
          
         
@@ -103,5 +103,20 @@ class Login extends Controller
     protected function getView()
     {
         return ViewService::getSingleton()->getView();
+    }
+    
+       //退出
+    public function logout() {
+        cookie('phone_user_id', null);
+        cookie('phone_user_name', null);
+        cookie('phone_user_sign', null);
+        cookie('phone_user_avatar', null);
+        if(!empty(cookie('amback'))){
+                $url= cookie('amback');
+            }else{
+                $url=url('/am');
+            }
+
+            $this->success('退出成功',$url,'',2);
     }
 }

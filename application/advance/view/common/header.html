@@ -11,7 +11,11 @@
       <a class="logo-wrapper" href="{:url('/am')}">
         <span class="logo1"><img src="{$static_path}/advance/img/logo.png" alt=""></span>
       </a>
-      <a class="login-wrapper" href="Mylogin.html">登录</a>
+        {if condition="$userid neq 0"}
+      <a class="login-wrapper" href="{:url('Login/logout')}">{$minedata.user_name|mb_substr=###,0,4,'utf-8'},退出</a>
+       {else/}
+        <a class="login-wrapper" href="{:url('Login/index')}">登录</a>
+       {/if}
       <ul class="menu-wrapper clearfix">
          {volist name="service_list" id="sl"}
          <li class="menubar menubar-{$sl.id}"><a href="{:url('/service/'.$sl.id)}"><span class="bar-background"></span><span class="bar-text">{$sl.typename}</span><span class="bottom-gradient"></span></a><span class="right-gradient"></span></li>
@@ -37,7 +41,7 @@
         </div>
       </div>
       <div class="flex-mask">
-        <div class="diagnose">
+        <div class="diagnose logvilad" >
           <div class="image-wrapper"><img src="{$static_path}/advance/img/diagnose.png" alt=""></div>
           <div class="diagnose-text">一键咨询</div>
         </div>
@@ -52,6 +56,6 @@
         <img src="{$static_path}/advance/img/444.jpg" alt="">
       </div>
     </div>
-    <div class="mobile-diagnose">
+    <div class="mobile-diagnose logvilad">
       <div class="diagnose-text">一键咨询</div>
     </div>

@@ -12,7 +12,7 @@ use core\cases\validate\CaseValidate;
 use core\cases\model\CaseModel;
 use core\cases\logic\CaseTypeLogic;
 use core\cases\model\AreaModel;
-
+use core\cases\model\ChatUserModel;
 class Index extends Controller
 {
     /**
@@ -42,9 +42,28 @@ class Index extends Controller
             $this->assignProvinceList();
             //获取国家列表
             $this->getCountryList();
+            
+            //获取当前用户信息
+            $userid=cookie('phone_user_id')? cookie('phone_user_id'):0;
+            $this->assign('userid', $userid);
+            $chatuser=ChatUserModel::getInstance();
+            $cuname=$chatuser->alias_name;
+            if($userid){
+                $where=[
+                   $cuname. '.id'=>$userid
+                    ];
+            }else{
+                $where=[];
+            }
+            $this->getUserList($where);
 
     }
-           //获取国家数组
+    protected function getUserList($where){
+        $chatuser=ChatUserModel::getInstance();
+        $data=$chatuser->getUserlist($where)->find();
+        $this->assign('minedata',$data);
+    }
+    //获取国家数组
     protected function getCountryList(){
          
          $logic =CaseTypeLogic::getInstance();
@@ -140,7 +159,15 @@ class Index extends Controller
                 'country'=>$request->param('country',1),
                 'email'=>$request->param('email')
             ];
-        $data['userid']=3;
+            if(cookie('phone_user_id')){
+                $data['userid']= cookie('phone_user_id');
+            }else{
+                $msg['error']=2;
+                $msg['msg']='请登录';
+                echo $this->error($msg); 
+                exit;
+            }
+        
        $case_validate=CaseValidate::getInstance();
         $result =$case_validate->scene('add')->check($data);
         $msg=[];

@@ -358,7 +358,13 @@ $(function() {
                     if(data.code==1){
                          $(".form-feedback-wrapper").show()
                     }else{
-                        alert(data.msg.msg);
+                        if(data.msg.error==2){
+                            window.location.href=window.__loginurl__;
+                        }else{
+                            alert(data.msg.msg);
+                        }
+                        
+                      
                     }
                    
                 },

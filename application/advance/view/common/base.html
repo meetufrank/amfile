@@ -46,6 +46,7 @@
   
   <script type="text/javascript">
       window.__addurl__='{:url(\'Index/addCase\')}';
+      window.__loginurl__='{:url(\'Login/index\')}';
     $(function(){
         
 
@@ -136,7 +137,14 @@
 
 
 });
-   
+ $.each($('.logvilad'),function(i){
+     $(this).click(function(){
+         if({$userid}==0){
+             window.location.href='{:url(\'Login/index\')}';
+         }
+     })
+     
+ })
 </script>
   {block name="jscode"}{/block}
 </body>

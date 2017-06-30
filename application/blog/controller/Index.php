@@ -50,6 +50,7 @@ class Index extends Controller
         $this->siteTitle = '首页';
         
         $articleList = IndexService::getSingleton()->getArticleListHome();
+ 
         $this->assign('article_list', $articleList);
         
         return $this->fetch('index');

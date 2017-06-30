@@ -146,7 +146,7 @@ class CaseModel extends Model
         if (empty($record)) {
             return $articleKey;
         } else {
-            return $this->getNewArticleKey();
+            return $this->getNewCaseKey();
         }
     }
     
