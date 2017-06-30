@@ -22,7 +22,7 @@
           <span class="mobile-close-button"><span>&#10006;</span></span>
       </div>
       <div class="m-form-choice-wrapper">
-        <a type="button" class="btn m-btn-medical m-btn-login" href="{:url('Login/index')}">登录</a>
+        
         {volist name="service_list" id="sl"}
                 <a type="button" class="btn m-btn-medical {$sl.mobile_style}" href="{:url('/mobile_form/'.$sl.id)}{$sl.m_id_name}">{$sl.typename}</a>
         {/volist}
@@ -41,7 +41,6 @@
         <div class="home-header-text">请先选择您的问诊类别<span class="image-wrapper"><img src="{$static_path}/advance/img/form-arrow.png" alt=""></span></div>
         <span class="close-button"><span>&#10006;</span></span>
       </div>
-        <a type="button" class="btn mylogin" href="{:url('Login/index')}">登录</a>
       <div class="form-choice-wrapper">
           {volist name="service_list" id="sl"}
            <button type="button" class="btn btn-medical {$sl.pc_style}">{$sl.typename}</button>
