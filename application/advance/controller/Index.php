@@ -104,8 +104,9 @@ class Index extends Controller
     /*
      * mobile form
      */
-    public function mobile_form() {
-        
+    public function mobile_form($id) {
+        $this->siteTitle = 'advance|medical填写case';
+        $this->assign('service_id', $id);;
         return $this->fetch();
     }
     

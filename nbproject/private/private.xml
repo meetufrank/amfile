@@ -5,13 +5,11 @@
         <group>
             <file>file:/E:/www/tpadmin/application/advance/controller/Index.php</file>
             <file>file:/E:/www/tpadmin/application/advance/view/common/header.html</file>
-            <file>file:/E:/www/tpadmin/application/route.php</file>
-            <file>file:/E:/www/tpadmin/application/blog/view/index/index.html</file>
-            <file>file:/E:/www/tpadmin/application/advance/view/index/index.html</file>
-            <file>file:/E:/www/tpadmin/application/advance/view/index/service_details.html</file>
-            <file>file:/E:/www/tpadmin/application/advance/view/index/medical_resource.html</file>
-            <file>file:/E:/www/tpadmin/application/advance/view/common/base.html</file>
+            <file>file:/E:/www/tpadmin/public/static/advance/js/forms.js</file>
+            <file>file:/E:/www/tpadmin/public/static/advance/js/m_form.js</file>
+            <file>file:/E:/www/tpadmin/application/advance/view/index/mobile_form.html</file>
             <file>file:/E:/www/tpadmin/application/advance/view/common/footer.html</file>
+            <file>file:/E:/www/tpadmin/application/advance/view/common/base.html</file>
         </group>
     </open-files>
 </project-private>
