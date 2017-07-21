@@ -24,7 +24,8 @@ class CaseValidate extends Validate
         'district'=>'requireIf:country,1',
         'address' => 'require|max:200',
         'preferred_phone'=>['require','regex'=>'^((0\d{2,3}-\d{7,8})|(1[3584]\d{9}))$'],
-        'email'=>'require|email',
+        'email'=>['require','regex'=>'^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$'],
+        'illness'=>'require',
         'userid'=>'require',
         'sort'=>'number'
 
@@ -49,15 +50,16 @@ class CaseValidate extends Validate
         'applicant_name.max' => '申请人姓名长度最多不能超过20',
         'preferred_phone.require'=>'首选电话必须填写',
         'preferred_phone.regex'=>'首选电话格式不正确',
-        'address.require' => '地址不能为空',
+        'address.require' => '详细地址不能为空',
         'address.max' => '地址长度超过200',
         'userid.require' => '提交case的用户必须选择',
         'country.require'=>'国家必须选择',
-        'province.requireIf' => '省必须选择',
-        'city.requireIf' => '市必须选择',
-        'district.requireIf' => '区必须选择',
+        'province.requireIf' => '省市区必须选择',
+        'city.requireIf' => '省市区必须选择',
+        'district.requireIf' => '省市区必须选择',
         'email.require'=>'邮箱需要填写',
-        'email.email'=>'邮箱格式不正确',
+        'email.regex'=>'邮箱格式不正确',
+        'illness.require' => '病情描述必须填写',
         'sort.number'=>'排序必须填写数字'
         
     ];
@@ -81,6 +83,7 @@ class CaseValidate extends Validate
             'province',
             'district',
             'email',
+            'illness',
             'isme',
             'relationship',
             'sort'
@@ -97,6 +100,7 @@ class CaseValidate extends Validate
             'province',
             'district',
             'email',
+            'illness',
             'isme',
             'relationship',
             'sort'

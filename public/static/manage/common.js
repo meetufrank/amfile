@@ -1,3 +1,4 @@
+
 // 警告弹窗
 window.alert = window.commonAlert = function(text, code) {
 	if(code == 1) {
@@ -198,6 +199,7 @@ $(function() {
 
 	// 输入框
 	$('.nd-input').on('change', function() {
+           
 		var url = $(this).attr('url'),
 			value = $(this).val();
 		if(url) {

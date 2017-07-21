@@ -5,6 +5,7 @@ use think\Request;
 use think\Session;
 use core\cases\model\CaseModel;
 use core\cases\model\CaseTypeModel;
+use core\cases\model\ChatUserModel;
 use core\cases\logic\CaseTypeLogic;
 use core\cases\model\CountryModel;
 use core\cases\model\AreaModel;
@@ -12,6 +13,10 @@ use core\manage\logic\UserLogic;
 use core\manage\model\UserModel;
 use core\cases\logic\ChatUserLogic;
 use core\cases\validate\CaseValidate;
+use core\cases\logic\CaseLogic;
+use core\cases\model\ChatGroupModel;
+use core\cases\model\GroupDetailModel;
+use app\manage\service\LoginService;
 class CaseList extends Base
 {
 
@@ -33,6 +38,45 @@ class CaseList extends Base
         ];
       
         $this->assignCaseList($map);
+        
+        //是否监听
+        $this->isJt();
+        return $this->fetch();
+    }
+
+    /*
+     * 当前登录帐号是否监听
+     */
+    public function isJt() {
+        $login = LoginService::getSingleton();   
+        $loginUser = $login->getLoginUser();
+        $id=$loginUser['user_id'];
+        $logic =UserLogic::getInstance();
+        $list=$logic->isJT($id);
+        if(!empty($list)){
+            $is_jt=1;
+        }else{
+            $is_jt=0;
+        }
+        $this->assign('is_jt', $is_jt);
+    }
+       /**
+     * case详情
+     *
+     * @param Request $request            
+     * @return string
+     */
+    public function case_content($id)
+    {
+        
+        $this->siteTitle = 'case详情';
+        
+        // case详情
+        $model = CaseModel::getInstance();
+        
+       //获取case详情
+        $case_list=CaseLogic::getInstance()->casesById($id);
+      $this->assign('case_list',$case_list[0]);
         return $this->fetch();
     }
 
@@ -130,7 +174,8 @@ class CaseList extends Base
          
          $logic =UserLogic::getInstance();
          $where=[
-             'user_gid'=>2
+             'user_gid'=>config('am_casemanage'),
+             'user_status'=>1
          ];
          $case_manager=$logic->getSelectList($where);
          $case_manager[0]=[
@@ -140,13 +185,27 @@ class CaseList extends Base
         ksort($case_manager);  //排序
          $this->assign('case_manager',$case_manager);
      }
-            //获取casemanage数组
+            //获取监听数组
+    protected function getJtList(){
+         
+         $logic =UserLogic::getInstance();
+         $where=[
+             'user_gid'=>config('am_jianting'),
+             'user_status'=>1
+         ];
+         $jt_list=$logic->getSelectList($where);
+       
+        ksort($jt_list);  //排序
+         $this->assign('jt_list',$jt_list);
+     }
+            //获取普通用户数组
     protected function getUserList(){
          
          $logic = ChatUserLogic::getInstance();
          $where=[
              'is_manager'=>0,
-             'managerid'=>0
+             'managerid'=>0,
+             'delete_time'=>0
          ];
          $chatuser=$logic->getSelectUser($where);
 
@@ -186,13 +245,124 @@ class CaseList extends Base
     public function modify(Request $request)
     {
         $fields = [
-            'sort',
             'case_status',
-            'case_manager'
+            'case_manager',
+           
         ];
+        
+        $field=$request->param('field');
+        $value=$request->param('value','');
+        
+        
+      
+        if($field=='case_manager'){
+            $value && $this->actionByManager($value);
+        }
+        if($field=='case_status'){
+            
+            $value && $this->actionByStatus($value);
+            
+        }
+        
         $this->_modify(CaseModel::class, $fields);
     }
- 
+ /*
+  * 如果接收到case_manager的值需要将case assigned
+  * 
+  */
+     public function actionByManager($value) {
+         $map = [
+            'id' => $this->_id()
+        ];
+        //建立聊天群组
+        $this->addGroup();
+         
+         $data=[
+                    'case_status'=>2
+                ];
+         
+       CaseModel::getInstance()->save($data,$map);
+       $data=ChatUserModel::where('managerid',$value)->find();
+       if($data){
+         $username=$data['nickname'];
+           $msg=new \message\mess();
+           $url='http://'.$_SERVER['HTTP_HOST'].'/service';
+            $mess_content='【蜜柚网】'.$username.'(先生/女士),您好,您被指定负责新的case，请及时登录 '.$url.' 选择接收或者拒绝';
+                $msg->send($data['tel'], $mess_content);
+            
+       }
+       
+     }
+  
+     /*
+      * 新建群组
+      */
+     public function addGroup(){
+         $id= $this->_id();
+         $casemodel=CaseModel::getInstance();
+        //获取case详情
+        $case=CaseLogic::getInstance()->casesById($id);
+       
+
+        //新建群组
+        $data=[
+            'group_name'=>$case['case_code'],
+            'avatar'=>$case['user_avatar'],
+            'owner_name'=>$case['case_username'],
+            'owner_id'=>$case['userid'],
+            'addtime'=>time(),
+            'status'=>1
+        ];
+        // 添加
+            $model = ChatGroupModel::getInstance();
+            $status = $model->save($data);
+            $casemodel->where(['id'=>$id])->update(['groupid'=>$model['id']]);
+           
+       
+        
+     }
+     
+    /*
+     * 根据接收不同的状态进行不同的操作
+     * 
+     */
+    public function actionByStatus($value) {
+        $id= $this->_id();
+        $where = [
+            'id' => $id
+        ];
+        $case=CaseLogic::getInstance()->casesById($id);
+        $group=GroupDetailModel::getInstance();
+        switch ($value) {
+                case 1:
+                  //查询casemanager用户信息
+                $managerdata=ChatUserModel::getInstance()->where(['managerid'=>$case['case_manager']])->find();
+                $userid=$managerdata['id'];   //casemanager用户id
+                $groupid=$case['groupid'];
+                
+                $map=[
+                    'group_id'=>$groupid,
+                    'user_id'=>$userid   
+                ];
+                 $group->where($map)->update(['status'=>0]);   //修改该用户在该表中的状态
+                $data=[
+                    'case_manager'=>0
+                ];
+               
+                CaseModel::getInstance()->save($data,$where);
+                    break;
+                case 5:
+                    
+                    $alldata=$this->editByJt($case);  //分配聊天室
+                      $group->saveAll($alldata);
+                      
+                      break;
+                
+                default:
+                    break;
+            }
+    }
+   
         /**
      * 添加case
      *
@@ -222,12 +392,12 @@ class CaseList extends Base
                 'treatment_hospital' => $request->param('treatment_hospital'),
                  'specialty' => $request->param('specialty'),
                  'case_type' => $request->param('case_type'),
-                 'case_manager' => $request->param('case_manager'),
                 'case_note' => $request->param('case_note'),
                 'sort' => $request->param('sort',0),
                 'userid' => $request->param('userid'),
                 'country'=>$request->param('country'),
-                'email'=>$request->param('email')
+                'email'=>$request->param('email'),
+                'case_code'=>$request->param('case_code')
             ];
           
                         // 验证
@@ -236,6 +406,7 @@ class CaseList extends Base
             // 添加
             $model = CaseModel::getInstance();
             $status = $model->save($data);
+           
             $this->success('新增成功', self::JUMP_REFERER);
         } else {
             $this->siteTitle = '新增case';
@@ -252,14 +423,15 @@ class CaseList extends Base
             //获取国家列表
             $this->getCountryList();
           
-     
+                //获取监听列表
+            $this->getJtList();
         
             //获取服务类型列表
         $this->getTypeList();
             //获取状态类型列表
         //$this->getStatusList();
             //获取case_manager列表
-        $this->getManagerList();
+       // $this->getManagerList();
                     //获取用户列表
         $this->getUserList();
             return $this->fetch();
@@ -297,21 +469,89 @@ class CaseList extends Base
                 'treatment_hospital' => $request->param('treatment_hospital'),
                  'specialty' => $request->param('specialty'),
                  'case_type' => $request->param('case_type'),
-                 'case_manager' => $request->param('case_manager'),
                 'case_note' => $request->param('case_note'),
                 'sort' => $request->param('sort',0),
                  'country'=>$request->param('country'),
-                'email'=>$request->param('email')
+                'email'=>$request->param('email'),
+                'case_code'=>$request->param('case_code')
             ];
             
-;
-            
+
+           
             // 修改
             $model = CaseModel::getInstance();
             $map = [
             'id' => $caseid
             ];
             $status = $model->save($data,$map);
+            
+            if($status){
+                $jt_arr=$request->param('jtlist/a',[]);
+               
+                $case=CaseLogic::getInstance()->casesById($caseid);
+                
+                $group=GroupDetailModel::getInstance();
+                if($case['groupid']){
+                      
+                          $jtid_arr=[];
+                              foreach ($case->jtarr as $vo) {
+                                      $jtid_arr[] = $vo['id'];
+                                    }
+                        foreach ($jtid_arr as $key => $value) {
+                         $jtdata=ChatUserModel::getInstance()->where(['managerid'=>$value])->find();//jt
+                         
+                         //查询该监听是否在群中或者有无加群记录
+                         $map = [
+                        'group_id' => $case['groupid'],
+                        'user_id' => $jtdata['id']
+                         ];
+                         
+                           $group->where($map)->update(['status'=>0]); 
+                        }
+                         
+                      
+                      
+                     CaseLogic::getInstance()->joinjt($caseid, $jt_arr);
+                     
+                     if(!empty($jt_arr)){
+                          //监听
+                      $alldata=[];
+                      
+                      
+                     foreach ($jt_arr as $key => $value) {
+                         $jtdata=ChatUserModel::getInstance()->where(['managerid'=>$value])->find();//jt
+                        
+                         //查询该监听是否在群中或者有无加群记录
+                         $map = [
+                        'group_id' =>$case['groupid'],
+                        'user_id' => $jtdata['id']
+                         ];
+                          
+                    $count=$group->where($map)->count();
+                   
+                    if($count){
+                           $group->where($map)->update(['status'=>1]); 
+                      }else{
+                        
+                          $data=[
+                              'user_id'=>$jtdata['id'],
+                              'user_name'=>$jtdata['user_name'],
+                              'user_avatar'=>$jtdata['avatar'],
+                              'group_id'=>$case['groupid'],
+                              'status'=>1 
+                          ];
+                           
+                          $alldata[]=$data;
+                         
+                       }
+                      }
+                      
+                    $group->saveall($alldata);
+                     }
+                     
+                }
+               
+            }
             $this->success('修改成功', self::JUMP_REFERER);
         } else {
             $this->siteTitle = '编辑case';
@@ -325,13 +565,18 @@ class CaseList extends Base
                 $alias.'.id'=>$caseid
                 ];
           $case_list=$model->getCaseList($map)->select();
-          
+          $case_list=$case_list[0];
         }else{
             $this->error('非法操作', self::JUMP_REFERER);
         }
         
-  
-        $this->assign('case_list', $case_list[0]);
+         $jtarr= [];
+        foreach ($case_list->jtarr as $vo) {
+            $jtarr[] = $vo['id'];
+        }
+        
+        $case_list['case_jt']=$jtarr;
+        $this->assign('case_list', $case_list);
             
            //性别
             $this->getSexList();
@@ -344,20 +589,77 @@ class CaseList extends Base
             //获取国家列表
             $this->getCountryList();
           
-     
+      //获取监听列表
+            $this->getJtList();
         
             //获取服务类型列表
         $this->getTypeList();
             //获取状态类型列表
-        $this->getStatusList();
+       // $this->getStatusList();
             //获取case_manager列表
-        $this->getManagerList();
+        //$this->getManagerList();
         
             return $this->fetch();
         
         }
     }
     
+    /*
+     * 根据case修改编辑聊天室
+     */
+    public function editByJt($case){
+         $chatuser=ChatUserModel::getInstance();
+                    
+                    $managerdata=$chatuser->where(['managerid'=>$case['case_manager']])->find();//casemanager
+                    $groupid=$case['groupid'];
+                    $case_manager=$case['case_manager'];
+                    $user_id=$case['userid'];
+                    $user_name=$case['case_username'];
+                    $user_avatar=$case['user_avatar'];
+                   
+                    
+                    $alldata=[];
+                   $group=GroupDetailModel::getInstance();
+                    //查询该case_manager是否在群中或者有无加群记录
+                    $map=[
+                          'group_id'=>$groupid,
+                          'user_id'=>$managerdata['id']                         
+                      ];
+                      $count=$group->where($map)->count();
+                      if($count){
+                           $group->where($map)->update(['status'=>1]); 
+                      }else{
+                          $data=[
+                              'user_id'=>$managerdata['id'],
+                              'user_name'=>$managerdata['user_name'],
+                              'user_avatar'=>$managerdata['avatar'],
+                              'group_id'=>$groupid,
+                              'status'=>1 
+                          ];
+                          $alldata[]=$data;
+                      }
+                   
+                   //患者
+                    $map=[
+                          'group_id'=>$groupid,
+                          'user_id'=>$user_id                        
+                      ];
+                      $count=$group->where($map)->count();
+                      if($count){
+                           $group->where($map)->update(['status'=>1]); 
+                      }else{
+                          $data=[
+                              'user_id'=>$user_id,
+                              'user_name'=>$user_name,
+                               'user_avatar'=>$user_avatar,
+                              'group_id'=>$groupid,
+                              'status'=>1 
+                          ];
+                          $alldata[]=$data;
+                      }
+                      
+                      return $alldata;
+    }
         /**
      * 删除case
      *

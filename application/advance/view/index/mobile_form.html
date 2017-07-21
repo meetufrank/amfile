@@ -210,7 +210,7 @@
         </div>
         <div class="contract-check-error"></div>
         <div class="form-navigation clearfix">
-          <a type="button" class="back-to-home btn btn-navigate pull-left" href="javascript:window.location.href=window.history.go(-1);">返回</a>
+          <a type="button" class="back-to-home btn btn-navigate pull-left" href="{:url('/am')}">返回</a>
           <button type="button" class="previous btn btn-navigate pull-left">上一步</button>
           <button type="button" class="next btn btn-navigate pull-right">下一步</button>
           <input type="submit" value="提交" class="btn btn-navigate pull-right">
@@ -220,7 +220,7 @@
     <div class="form-feedback-wrapper">
       <div class="form-feedback">
         <p>递交成功，我们将会尽快联系您。</p>
-        <a class="btn form-feedback-btn" href="javascript:window.location.href=window.history.go(-1);">我知道了</a>
+        <a class="btn form-feedback-btn" href="{:url('/am')}">我知道了</a>
       </div>
     </div>
     <div class="contract-context">
@@ -283,7 +283,7 @@
 			type:'post',
                         async: false,
 			success:function(re){
-				var html='<option value="">请选择</option>';
+				var html='<option value="0">请选择</option>';
                                 $("[name='district']").html(html);
 				var item=re.data;
 				for(var i in item){
@@ -304,7 +304,7 @@
 			dataType:'json',
 			type:'post',
 			success:function(re){
-				var html='<option value="">请选择</option>';
+				var html='<option value="0">请选择</option>';
 				var item=re.data;
 				for(var i in item){
 					html +='<option value="'+item[i]['id']+'" >'+item[i]['area_name']+'</option>';
@@ -314,20 +314,20 @@
 		})
       }
       	$("[name='province']").change(function(){
-		$("[name='city']").html('<option value="">loading……</option>');
+		$("[name='city']").html('<option value="0">请选择</option>');
                 getcity($(this).val());
                 $("[name='district']").val();
 	})
 	$("[name='city']").change(function(){
-		$("[name='district']").html('<option value="">loading……</option>');
+		$("[name='district']").html('<option value="0">请选择</option>');
 
                 getdistrict($(this).val());
 	})
 	var pro_id=$("[name='province']").val();
         if(pro_id>0){
-            $("[name='city']").html('<option value="">loading……</option>');
+            $("[name='city']").html('<option value="0">请选择</option>');
             getcity($("[name='province']").val());
-            $("[name='district']").html('<option value="">loading……</option>');
+            $("[name='district']").html('<option value="0">请选择</option>');
             getdistrict($("[name='province']").val());
         }
 

@@ -42,27 +42,15 @@
         <div id="demo" style="overflow:auto;"></div>
         <div id="main1" class="main-hide">
             <div class="content-main">
-               <!-- {eq name="userdata.is_manager" value="0"}-->
+               
                 <div class="main-header">
-                    <div class="mheader-top"><img src="__PHONE__/img/huanzhe1.jpg"></div>
-                    <p class="mheader-bottom-one">王强</p>
-                    <p class="mheader-bottom-two">蜜柚网</p>
+                    <div class="mheader-top"><img src="{$userdata.avatar}"></div>
+                    <p class="mheader-bottom-one">{$userdata.nickname}</p>
+                    <!-- {eq name="userdata.managerid" value="0"}-->
+                    <p class="mheader-bottom-two">{$userdata.companyname}</p>
+                    <!--{/eq}-->
                 </div>
-               <!-- {else/}-->
-                   <!-- {if condition="$is_jt eq 0" }-->
-                                <div class="main-header">
-                    <div class="mheader-top"><img src="__PHONE__/img/doctor1.jpg"></div>
-                    <p class="mheader-bottom-one">Mary</p>
-      
-                </div>
-                   <!--{else/}-->
-                    <div class="main-header">
-                    <div class="mheader-top"><img src="__PHONE__/img/jianting.jpg"></div>
-                    <p class="mheader-bottom-one">Frank</p>
-      
-                </div>
-                   <!--{/if}-->
-               <!-- {/eq}-->
+             
                     <table class="maintable" >
                         <thead>
                             <tr>

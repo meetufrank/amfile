@@ -267,7 +267,7 @@ class Base extends Controller
         
         // 值
         $value = $request->param('value', '');
-        
+      
         // 修改
         $map = [
             'id' => $this->_id()

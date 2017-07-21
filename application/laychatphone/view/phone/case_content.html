@@ -10,32 +10,28 @@
 </head>
 <body>
     <section class="aui-content-padded my-mais-content">
-         {if condition="$case_content.case_manager neq 0 " }
-        <div class="mais-per-logo"><img src="__PHONE__/img/doctor1.jpg" class="mais-img"></div>
-       
-        <div class="mais-per-mains">
-            <p class="maisa-name">Case manager</p>
-            <p class="maisa-names">Mary</p>
-        </div>
+      
 
-        {else/}
+    
             
-                <div class="mais-per-logo"><img src="__PHONE__/img/huanzhe1.jpg" class="mais-img"></div>
+        <div class="mais-per-logo"><img src="__PHONE__/img/huanzhe1.jpg" class="mais-img"></div>
        
         <div class="mais-per-mains">
-<!--            <p class="maisa-name">患者</p>-->
-            <p class="maisa-names">王强</p>
+       <p class="maisa-name">&nbsp;</p>
+            <p class="maisa-names">yangyang</p>
         </div>
-        {/if}
+        
         <div class="mais-per-content">
             <div class="manegermain"><span class="manegerspan">Case ID:{$case_content.case_code}</span></div>
             <div class="manegermain"><span class="manegerspan">Type:</span>{$case_content.typename}</div>
-            <div class="manegermain"><span class="manegerspan">Case coordinator:</span>{$case_content.user_name}</div>
+            <div class="manegermain"><span class="manegerspan">Case coordinator:</span>pangdi</div>
             <div class="manegermain"><span class="manegerspan">Time:</span>{$case_content.create_time}</div>
             <div class="maneger-ms"><span class="manegerspan">Case描述:</span></div>
             <div class="maneger-text">{if condition="$case_content.illness"}{$case_content.illness}{else/}暂无{/if}</div>
         </div>
-        <!--{if condition="$case_content.case_status neq 2 or $is_jt eq 1 or $is_manager eq 0"}-->
+   
+    {if condition="$case_content.case_status neq 2 or $is_jt eq 1 or $is_manager eq 0"}
+    
         {if condition="$case_content.case_status neq 2 and $case_content.case_status neq 1"}
         <footer class="aui-bar-mais aui-bar-tab-mais" id="footer">
             
@@ -47,8 +43,9 @@
          
          
         </footer>
-         {/if}
-         <!-- {else/}-->
+        {/if}
+           
+    {else/}
                  <footer class="aui-bar-mais aui-bar-tab-mais" id="footer">
 
           
@@ -58,7 +55,8 @@
             </div>
          
         </footer>
-   <!-- {/if}-->
+          
+    {/if}
         
     </section>
 </body>
@@ -69,8 +67,8 @@
 
     
  
-    function tourl(){
-        window.location.href="{:url('Phone/index')}";
+    function tourl(id){
+        window.location.href="{:url('Phone/index',array('id'=>$case_content['id']))}";
     }
     function updatestatus(status){
         var id="{$case_content.id}";

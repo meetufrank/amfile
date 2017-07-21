@@ -15,7 +15,7 @@ class Cases extends Model
     protected $autoWriteTimestamp = true;
     //根据条件获取case列表
     public function getList(array $arr=null){
-        
+        $arr['delete_time']=0;
         return $this->alias('c')->field("c.*,st.typename,cs.name,mu.user_name")
                 ->join('cases_case_type st','c.case_type=st.id')
                 ->join('cases_case_status cs','c.case_status=cs.id')

@@ -5,12 +5,12 @@
 <div class="am-g">
 	<div class="am-u-sm-12">
 		<form class="am-form ajax-form" method="post" action="{:module_url('add')}">
-		
+		{$widget->form('text', ['title' => 'caseID', 'name' => 'case_code', 'value' => '','r_md_num'=>2,'attr'=>' maxlength="30"'])}
                     {$widget->form('text', ['title' => '患者姓名', 'name' => 'username', 'value' => '','r_md_num'=>2,'attr'=>' maxlength="20"'])}
 	                {$widget->form('date', ['title' => '出生日期', 'name' => 'birthday', 'value' => '','r_md_num'=>3])}
 			{$widget->form('radio', ['title' => '性别', 'name' => 'sex', 'value' => $sexlist[0]['value'],'list'=>$sexlist])}
                         {$widget->form('select', ['title' => '服务类型', 'name' => 'case_type', 'value' => '','list'=>$typelist])}
-                        {$widget->form('select', ['title' => 'case_manager', 'name' => 'case_manager', 'value' => '','list'=>$case_manager])}
+
                          {$widget->form('select', ['title' => '提交case的用户', 'name' => 'userid', 'value' => '','list'=>$chatuser])}
                         {$widget->form('radio', ['title' => '是否本人', 'name' => 'isme', 'value' => $islist[1]['value'],'list'=>$islist])}
                         {$widget->form('text', ['title' => '与患者的关系', 'name' => 'relationship', 'value' => '', 'form_id'=>'id="relationbox"','r_md_num'=>2])}

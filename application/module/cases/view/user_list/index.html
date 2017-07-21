@@ -42,7 +42,8 @@
             <thead>
                 <tr>
                     <th >头像</th>
-                    <th>用户名</th>
+                    <th>登录名</th>
+                    <th>姓名</th>
                     <th>性别</th>
                     <th >邮箱</th>
                     <th >手机号</th>
@@ -59,6 +60,7 @@
                         <div class="article-cover" style="background-image: url('{$vo.avatar}');"></div>
                     </td>
                     <td class="am-text-middle">{$vo.user_name}</td>
+                    <td class="am-text-middle">{$vo.nickname}</td>
                     <td class="am-text-middle">{if condition="$vo.sex eq 1"}男{else/}女{/if}</td>
                     <td class="am-text-middle">
                         {$vo.email}
@@ -67,7 +69,7 @@
                         {$vo.tel}
                     </td>
                      <td class="am-text-middle">
-                        {$vo.company}
+                        {$vo.companyname}
                     </td>
                     <td class="am-text-middle">
                         {$widget->row('text', ['value' => $vo['sort'], 'url' => module_url('modify', ['id' => $vo['id'], 'field' => 'sort'])])}

@@ -136,12 +136,12 @@ class Index extends Controller
     public function addCase(Request $request) {
          if ($request->isPost()) {
             $data = [
-                'username' => $request->param('username'),
+                'username' => str_replace(' ', '',$request->param('username')),
                 'birthday' => $request->param('birthday'),
                 'sex' => $request->param('sex'),
                 'isme' => $request->param('isme'),
                 'relationship' => $request->param('relationship'),
-                'applicant_name' => $request->param('applicant_name'),
+                'applicant_name' => str_replace(' ', '',$request->param('applicant_name')),
                 'address' => $request->param('address'),
                 'province' => $request->param('province', 110000),
                 'city' => $request->param('city', 110100),
@@ -157,8 +157,9 @@ class Index extends Controller
                  'case_type' => $request->param('case_type'),
                 'sort' => $request->param('sort',0), 
                 'country'=>$request->param('country',1),
-                'email'=>$request->param('email')
+                'email'=>str_replace(' ', '',$request->param('email'))
             ];
+            
             if(cookie('phone_user_id')){
                 $data['userid']= cookie('phone_user_id');
             }else{

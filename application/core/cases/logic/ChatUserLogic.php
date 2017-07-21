@@ -3,7 +3,7 @@ namespace core\cases\logic;
 
 use core\Logic;
 use core\cases\model\ChatUserModel;
-
+use core\cases\model\CompanyModel;
 class ChatUserLogic extends Logic
 {
 
@@ -46,6 +46,27 @@ class ChatUserLogic extends Logic
                 'value' => 0
             ]
         ];
+    }
+     /*
+  * 获取用户下拉列表
+  */
+    
+        public function getSelectCompany($where=[],$sort_name='sort',$sort='desc')
+    {
+
+           $data= CompanyModel::getInstance()->where($where)->order($sort_name, $sort)->select();
+           $list=[
+
+           ];
+           foreach ($data as $key => $value) {
+               $list[]=[
+                 'name'=>$value['name'],
+                 'value'=>$value['id']
+               ];
+           }
+           
+           
+           return $list;
     }
           /**
      * 查询某条件下用户数据是否重复

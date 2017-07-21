@@ -1,11 +1,11 @@
 <div class="bottom-nav-wrapper clearfix">
       <ul class="bottom-nav">
-        <li><a href="{:url('/service/1')}#diagnose">诊疗意见</a></li>
-        <li><a href="{:url('/service/1')}#foreign">海外治疗</a></li>
-        <li><a href="{:url('/service/2')}#pressure" class="special-text">专属心理和职业教练疏导</a></li>
-        <li><a href="{:url('/service/3')}#statistics">体检数据解读</a></li>
-        <li><a href="{:url('/service/3')}#subhealth" class="special-text">亚健康/慢病管理</a></li>
-        <li><a href="{:url('/service/4')}#resource" class="special-text">医生推荐和医疗机构导航</a></li>
+        <li><a href="{:url('/services/1')}#diagnose">诊疗意见</a></li>
+        <li><a href="{:url('/services/1')}#foreign">海外治疗</a></li>
+        <li><a href="{:url('/services/2')}#pressure" class="special-text">专属心理和职业教练疏导</a></li>
+        <li><a href="{:url('/services/3')}#statistics">体检数据解读</a></li>
+        <li><a href="{:url('/services/3')}#subhealth" class="special-text">亚健康/慢病管理</a></li>
+        <li><a href="{:url('/services/4')}#resource" class="special-text">医生推荐和医疗机构导航</a></li>
       </ul>
     </div>
     <div class="medical-footer">
@@ -136,7 +136,7 @@
               <div class="col-xs-7 col-sm-8">
                 <div class="col-xs-4 col-sm-4 address-choose">
                   <select id="province" name="province">
-                      <option value="">省</option>
+                      <option value="0">省</option>
                        {volist name="area" id="vo"}
                          <option  value="{$vo['id']}" >{$vo['area_name']}</option>
                          {/volist}
@@ -144,13 +144,13 @@
                 </div>
                 <div class="col-xs-4 col-sm-4 address-choose">
                   <select id="city" name="city">
-                      <option value="">市</option>
+                      <option value="0">市</option>
                   
                   </select>
                 </div>
                 <div class="col-xs-4 col-sm-4 address-choose">
                   <select id="district" name="district">
-                      <option value="">区</option>
+                      <option value="0">区</option>
                   
                   </select>
                 </div>

@@ -9,7 +9,7 @@ use core\manage\model\UserModel;
 use core\manage\logic\UserLogic;
 use core\cases\logic\ChatUserLogic;
 use core\cases\logic\CaseTypeLogic;
-
+use core\cases\validate\ChatUserValidate;
 class MUserList extends Base
 {
 
@@ -46,7 +46,16 @@ class MUserList extends Base
          $this->assign('userstatus',$case_manager);
      }
 
-     
+                 //获取可用公司列表数组
+    protected function assignCompanyList(){
+         
+         $logic =ChatUserLogic::getInstance();
+         $where=[
+             'status'=>1
+         ];
+         $company_list=$logic->getSelectCompany($where);
+         $this->assign('company_list',$company_list);
+     }
 
  
  
@@ -62,6 +71,8 @@ class MUserList extends Base
             $data = [
                 'user_name' => $request->param('user_name'),
                 'pwd' => $request->param('pwd'),
+                 'pwd_again'=>$request->param('pwd_again'),
+                 'nickname' => $request->param('nickname'),
                 'sex' => $request->param('sex'),
                 'avatar' => $request->param('avatar'),
                 'company' => $request->param('company'),
@@ -75,7 +86,8 @@ class MUserList extends Base
             if(empty($request->param('managerid'))){
                 $this->error('非法操作', self::JUMP_REFERER);
             }
-            
+              // 验证
+            $this->_validate(ChatUserValidate::class, $data, 'add');
           //检测用户名重复
            $where=[
                  
@@ -102,6 +114,7 @@ class MUserList extends Base
             $model = ChatUserModel::getInstance();
             //加密密码
             $data['pwd']= md5($data['pwd']);
+            unset($data['pwd_again']);
             $status = $model->save($data);
             $this->success('新增成功', self::JUMP_REFERER);
         } else {
@@ -113,6 +126,8 @@ class MUserList extends Base
             
           //用户状态
           $this->getUserStatus();
+           //公司列表
+          $this->assignCompanyList();
             
          if($request->param('forid')){
              $this->assign('managerid',$request->param('forid'));
@@ -141,6 +156,7 @@ class MUserList extends Base
             $data = [
                 'user_name' => $request->param('user_name'),
                 'sex' => $request->param('sex'),
+                 'nickname' => $request->param('nickname'),
                 'avatar' => $request->param('avatar'),
                 'company' => $request->param('company'),
                 'tel' => $request->param('tel'),
@@ -149,8 +165,18 @@ class MUserList extends Base
                 'u_status' => $request->param('u_status')
 
             ];
-          if($request->param('pwd')){
+                     // 修改
+           if($request->param('pwd')){
               $data['pwd']=$request->param('pwd');
+              $data['pwd_again']=$request->param('pwd_again');
+                 // 验证
+            $this->_validate(ChatUserValidate::class, $data, 'edit_password');
+            //加密密码
+            $data['pwd']= md5($data['pwd']);
+            unset($data['pwd_again']);
+          }else{
+              // 验证
+            $this->_validate(ChatUserValidate::class, $data, 'edit_info');
           }
           //检测用户名重复
            $where=[
@@ -184,6 +210,7 @@ class MUserList extends Base
             $map = [
             'managerid' => $userid
             ];
+            
             $status = $model->save($data,$map);
             $this->success('修改成功', self::JUMP_REFERER);
         } else {
@@ -210,6 +237,8 @@ class MUserList extends Base
           //用户状态
           $this->getUserStatus();
           
+          //公司列表
+          $this->assignCompanyList();
             return $this->fetch();
         
         }

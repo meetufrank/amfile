@@ -14,27 +14,33 @@ class Base extends Controller
 {
     public function _initialize()
     {
-        if(empty(cookie('phone_user_id'))){
+        
             $login = LoginService::getSingleton();   
             $loginUser = $login->getLoginUser();
-            if(empty($loginUser)){   //是否已经登录后台
-                $this->redirect(url('/amchat'));
-            }else{
+            if(!empty($loginUser)){   //是否已经登录后台
+               
                         // 管理员ID
                      $ma_id = $loginUser['user_id'];
                      $chatuser=new ChatUser;
                   $userdata = $chatuser->where('managerid', $ma_id)->find();
-                  if(empty($userdata)){
-                       $this->redirect(url('/amchat'));
-                  }else{
+                  if(!empty($userdata)){
+
                                   //设置session标识状态
                         cookie('phone_user_name', $userdata['user_name']);
                         cookie('phone_user_id', $userdata['id']);
                         cookie('phone_user_sign', $userdata['sign']);
                         cookie('phone_user_avatar', $userdata['avatar']);
-                  }
-            }
+                  }else{
+                if(!cookie('phone_user_id')){
+                    $this->redirect(url('/service'));
+                }
+                }
+            }else{
+                if(!cookie('phone_user_id')){
+                    $this->redirect(url('/service'));
+                }
+                }
             
-        }
+        
     }
 }

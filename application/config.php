@@ -11,7 +11,8 @@ return [
         'common',
         'core',
         'module',
-        'extra'
+        'extra',
+        'install'
     ],
     
     'default_module' => 'advance',//默认模块	

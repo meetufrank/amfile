@@ -83,7 +83,8 @@ socket.onerror = function () {
 //连接成功时触发
 socket.onopen = function(){
     // 登录
-    var login_data = '{"type":"init","id":"' + uid + '", "username":"' + uname + '", "avatar":"' + avatar + '", "sign":"' + sign + '"}';
+    var servername='{$server_name}';
+    var login_data = '{"type":"init","id":"' + uid + '", "username":"' + uname + '", "avatar":"' + avatar + '", "sign":"' + sign + '","servername":"'+servername+'"}';
     socket.send( login_data );
   //  layer.msg('连接成功');
 };

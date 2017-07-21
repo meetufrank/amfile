@@ -10,80 +10,8 @@ use core\manage\logic\UserLogic;
 use core\cases\logic\ChatUserLogic;
 use core\cases\logic\CaseTypeLogic;
 use core\cases\validate\ChatUserValidate;
-class UserList extends Base
+class SUserList extends Base
 {
-
-    /**
-     * 用户列表
-     *
-     * @param Request $request            
-     * @return string
-     */
-    public function index(Request $request)
-    {
-        
-        $this->siteTitle = '用户列表';
-        //获取用户表别名
-        $chatuser_alias=ChatUserModel::getInstance()->alias_name;
-               // 用户列表
-        $map = [
-            $chatuser_alias.'.delete_time' => 0
-        ];
-      
-        $this->assignUserList($map);
-        return $this->fetch();
-    }
-
-/**
-     * 赋值用户列表
-     *
-     * @param array $map            
-     *
-     * @return void
-     */
-    protected function assignUserList($map)
-    {
-        $request = Request::instance();
-
-                //获取用户表别名
-        $chatuser_alias=ChatUserModel::getInstance()->alias_name;
-        // 查询条件-关键词
-        $keyword = $request->param('user_name');
-        if ($keyword != '') {
-            $map[$chatuser_alias.'.user_name'] = [
-                'like',
-                '%' . $keyword . '%'
-            ];
-        }
-        $this->assign('keyword', $keyword);
-        
-        
-        $map[$chatuser_alias.'.managerid']=0;
-        // 分页列表
-        $model = ChatUserModel::getInstance();
-        $user_list=$model->getUserList($map);
-   
-        $this->_page($user_list);
-        
-        //查询case管理人员id字符串
-//        $map=[
-//            'user_gid'=> config('am_casemanage')
-//        ];
-//        $managestr = UserModel::where($map)->column('id');
-//        $this->assign('managestr', implode(',',$managestr));
-//        //查询监听人员id字符串
-//           $map=[
-//            'user_gid'=> config('am_jianting')
-//        ];
-//        $jiantingstr = UserModel::where($map)->column('id');
-//        $this->assign('jiantingstr', implode(',',$jiantingstr));
-        
-          //用户状态
-          $this->getUserStatus();
-    }
-
-    
-
 
 
        //获取性别数组
@@ -100,6 +28,7 @@ class UserList extends Base
        $logic =ChatUserLogic::getInstance();
        if(is_array($where)){
        foreach ($where as $key => $value) {
+          
            $result=$logic->IsOnly($value['where']);
            if(!$result){
                $this->error($value['msg']);
@@ -116,7 +45,8 @@ class UserList extends Base
          $case_manager=$logic->getSelectStatus();
          $this->assign('userstatus',$case_manager);
      }
-            //获取可用公司列表数组
+
+                 //获取可用公司列表数组
     protected function assignCompanyList(){
          
          $logic =ChatUserLogic::getInstance();
@@ -127,22 +57,7 @@ class UserList extends Base
          $this->assign('company_list',$company_list);
      }
 
-     
-
-     /**
-     * 更改case
-     *
-     * @param Request $request            
-     * @return mixed
-     */
-    public function modify(Request $request)
-    {
-        $fields = [
-            'sort',
-            'u_status'
-        ];
-        $this->_modify(ChatUserModel::class, $fields);
-    }
+ 
  
         /**
      * 添加case
@@ -156,22 +71,24 @@ class UserList extends Base
             $data = [
                 'user_name' => $request->param('user_name'),
                 'pwd' => $request->param('pwd'),
-                'pwd_again'=>$request->param('pwd_again'),
-                'nickname' => $request->param('nickname'),
+                 'pwd_again'=>$request->param('pwd_again'),
+                 'nickname' => $request->param('nickname'),
                 'sex' => $request->param('sex'),
                 'avatar' => $request->param('avatar'),
                 'company' => $request->param('company'),
+                 'managerid' => $request->param('managerid',0),
                 'tel' => $request->param('tel'),
                 'email' => $request->param('email'),
                 'sort' => $request->param('sort'),
-                'u_status' => $request->param('u_status')
-
+                'u_status' => $request->param('u_status'),
+                'is_manager'=>1
             ];
-            
-          
-           // 验证
+            if(empty($request->param('managerid'))){
+                $this->error('非法操作', self::JUMP_REFERER);
+            }
+              // 验证
             $this->_validate(ChatUserValidate::class, $data, 'add');
-            //检测用户名重复
+          //检测用户名重复
            $where=[
                  
                [
@@ -185,6 +102,10 @@ class UserList extends Base
                [
                    'where'=>['email'=>$data['email']],
                    'msg'=>'邮箱已存在'
+               ],
+               [
+                   'where'=>['managerid'=>$data['managerid']],
+                   'msg'=>'该管理员已开通layim帐号'
                ]
          
            ];
@@ -205,11 +126,14 @@ class UserList extends Base
             
           //用户状态
           $this->getUserStatus();
-            
-          
-          //公司列表
+           //公司列表
           $this->assignCompanyList();
-  
+            
+         if($request->param('forid')){
+             $this->assign('managerid',$request->param('forid'));
+         }else{
+             $this->error('非法操作', self::JUMP_REFERER); 
+         }
           
     
 
@@ -227,6 +151,7 @@ class UserList extends Base
     public function edit(Request $request)
     {
         $userid=$this->_id();
+        $userid || $this->error('非法操作');
         if ($request->isPost()) {
             $data = [
                 'user_name' => $request->param('user_name'),
@@ -240,15 +165,13 @@ class UserList extends Base
                 'u_status' => $request->param('u_status')
 
             ];
-          
-          
-            // 修改
+                     // 修改
            if($request->param('pwd')){
               $data['pwd']=$request->param('pwd');
               $data['pwd_again']=$request->param('pwd_again');
                  // 验证
             $this->_validate(ChatUserValidate::class, $data, 'edit_password');
-             //加密密码
+            //加密密码
             $data['pwd']= md5($data['pwd']);
             unset($data['pwd_again']);
           }else{
@@ -261,31 +184,33 @@ class UserList extends Base
                [
                    'where'=>[
                        'user_name'=>$data['user_name'],
-                       'id'=>['neq',$userid]
+                       'managerid'=>['neq',$userid]
                    ],
                    'msg'=>'用户名已存在'
                ],
                [
                    'where'=>[
                        'tel'=>$data['tel'],
-                       'id'=>['neq',$userid]
+                       'managerid'=>['neq',$userid]
                        ],
                    'msg'=>'手机号已存在'
                ],
                [
                    'where'=>[
                        'email'=>$data['email'],
-                       'id'=>['neq',$userid]
+                       'managerid'=>['neq',$userid]
                    ],
                    'msg'=>'邮箱已存在'
                ]
          
            ];
            $this->UserOnly($where);
+            // 修改
             $model = ChatUserModel::getInstance();
             $map = [
-            'id' => $userid
+            'managerid' => $userid
             ];
+            
             $status = $model->save($data,$map);
             $this->success('修改成功', self::JUMP_REFERER);
         } else {
@@ -294,8 +219,7 @@ class UserList extends Base
          $model = ChatUserModel::getInstance();   
         $user_alias=$model->alias_name;
             $map=[
-               $user_alias. '.id'=>$userid,
-               $user_alias.'.managerid'=>0
+               $user_alias.'.managerid'=>$userid
             ];
         
         $user_list=$model->getUserList($map)->select();
@@ -320,15 +244,5 @@ class UserList extends Base
         }
     }
     
-        /**
-     * 删除case
-     *
-     * @param Request $request            
-     * @return mixed
-     */
-    public function delete(Request $request)
-    {
-        $this->_delete(ChatUserModel::class, true);
-    }
-
+    
 }

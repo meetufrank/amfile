@@ -21,7 +21,7 @@ class User extends Base
         $this->siteTitle = '用户管理';
         
         // 分页列表
-        $list = UserModel::getInstance()->select();
+        $list = UserModel::getInstance()->where(['id'=>['neq',1]])->select();
         foreach ($list as $key => $value) {
             if($value['user_gid']==config('am_casemanage')||$value['user_gid']==config('am_jianting')){
                 $ishave=$this->ishave(['managerid'=>$value['id']]);

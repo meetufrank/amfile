@@ -2,7 +2,7 @@
 namespace core\cases\model;
 
 use core\Model;
-
+use think\Request;
 class CaseModel extends Model
 {
 
@@ -28,6 +28,14 @@ class CaseModel extends Model
     protected $insert = [
         'case_code'
     ];
+        /**
+     * 更新时自动完成
+     *
+     * @var array
+     */
+    protected $update = [
+        'case_code'
+    ];
 /*
  * 定义别名变量
  */
@@ -44,8 +52,15 @@ class CaseModel extends Model
         $city=AreaModel::getInstance()->alias_name[1];   //市
         $district=AreaModel::getInstance()->alias_name[2]; //区
         $user=ChatUserModel::getInstance()->alias_name; //用户
-        $case_list = $this->withCates()->field($alias.'.*,'.$aliastype.'.typename,'.$counry.'.name as country_name,'.$province.'.area_name as province_name ,'.$city.'.area_name as city_name ,'.$district.'.area_name as district_name ,'.$user.'.user_name as case_username')->where($map)
-            ->order($alias.'.sort desc, '.$alias.'.create_time desc');
+        $status=CaseStatusModel::getInstance()->alias_name; //状态
+        $case_list = $this->withCates()->field(
+                $alias.'.*,'
+                .$aliastype.'.typename,'
+                .$counry.'.name as country_name,'.$province.'.area_name as province_name ,'.$city.'.area_name as city_name ,'.$district.'.area_name as district_name ,'
+                .$user.'.user_name as case_username , '.$user.'.avatar as user_avatar , '
+                .$status.'.color as statuscolor ,'.$status.'.name as statusname'
+                )->where($map)
+            ->order($status.'.sort desc, '.$alias.'.sort desc,'.$alias.'.create_time desc');
         
         
         return $case_list;
@@ -59,6 +74,15 @@ class CaseModel extends Model
     {
         return $this->alias($this->alias_name);
     }
+           /**
+     * 关联监听组
+     *
+     * @return \think\model\relation\BelongsToMany
+     */
+    public function jtarr()
+    {
+        return $this->belongsToMany(UserModel::class, JtModel::getInstance()->getTableShortName(), 'user_id', 'cases_id');
+    }
    /**
      * 连接分类
      *
@@ -70,9 +94,33 @@ class CaseModel extends Model
         $query=$this->joinCates($query);//加入分类
         $query= $this->withUser($query);//加入用户
         $query=$this->joinCountry($query);//加入国家
+        $query= $this->joinStatus($query); //加入状态
         return $this->joinAddress($query);
     }
-
+    
+    
+         /**
+     * 连接监听组
+     *
+     * @return \think\db\Query
+     */
+    protected function joinjt($query)
+    {
+        $jt= JtModel::getInstance();
+        $user= UserModel::getInstance();
+        return $query->join(JtModel::getInstance()->getTableShortName() .' '.$jt->alias_name,$this->alias_name.'.id ='.$jt->alias_name.'.cases_id')
+            ->join(JtModel::getInstance()->getTableShortName().' '.$jt->alias_name,$user->alias_name. '.id ='.$jt->alias_name.'.user_id');
+    }
+   /**
+     * 连接状态
+     *
+     * @return \think\db\Query
+     */
+    public function joinStatus($query)
+    {
+        $casestatus= CaseStatusModel::getInstance();
+        return $query->join($casestatus->getTableShortName() . ' '.$casestatus->alias_name, $this->alias_name.'.case_status = '.$casestatus->alias_name.'.id');
+    }
     /**
      * 连接提交case用户
      *
@@ -125,9 +173,34 @@ class CaseModel extends Model
      *
      * @return string
      */
-    protected function setCaseCodeAttr()
+    protected function setCaseCodeAttr($value=null)
     {
-        return $this->getNewCaseKey();
+        
+        $request=\think\Request::instance();
+        $id=Request::instance()->param('id');
+        $field=$request->param('field');
+        if(!$id){
+             $status=0;
+        }else{
+            if($field){
+                 $map=[
+                     'id'=>$id,
+                      'delete_time'=>0
+                 ];
+                 $code = $this->where($map)->find();
+                 return $code['case_code'];
+                 exit;
+             }else{
+                 $status=1;
+             }
+           
+        }
+        
+      
+            return $this->getNewCaseKey($value,$status);
+      
+           
+        
     }
 
     /**
@@ -135,19 +208,46 @@ class CaseModel extends Model
      *
      * @return string
      */
-    public function getNewCaseKey()
+    public function getNewCaseKey($value=null,$status=0)
     {
+       $request = Request::instance();
        
-        $articleKey=$this->gethtime();
-        $map = [
-            'case_code' => $articleKey
-        ];
+   
+      if($value){
+              $articleKey=$value;
+              $type=1;
+        }else{ 
+            
+                 $articleKey=$this->gethtime();
+                 $type=2;
+             
+              
+         }
+      if($status==0){
+          $map = [
+            'case_code' => $articleKey,
+            'delete_time'=>0
+           ];
+      }else{
+          $map = [
+            'case_code' => $articleKey,
+            'delete_time'=>0,
+              'id'=>['neq',Request::instance()->param('id')]
+           ];
+      }
+        
         $record = $this->where($map)->find();
         if (empty($record)) {
             return $articleKey;
         } else {
-            return $this->getNewCaseKey();
+            if($type==2){
+                return $this->getNewCaseKey();
+            }else{
+                $this->error('caseId已存在请重新添加');
+            }
+            
         }
+       
     }
     
     /*

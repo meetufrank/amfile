@@ -5,19 +5,21 @@
 	<div class="am-u-sm-12">
 		<form class="am-form ajax-form" method="post" action="{:module_url('add')}">
 		
-			{$widget->form('text', ['title' => '用户名', 'name' => 'user_name', 'value' => ''])}
+			{$widget->form('text', ['title' => '登录名', 'name' => 'user_name', 'value' => '','r_md_num'=>3])}
+                        {$widget->form('text', ['title' => '姓名', 'name' => 'nickname', 'value' => '','r_md_num'=>1])}
+                        {$widget->form('select', ['title' => '公司', 'name' => 'company', 'value' => '1','list'=>$company_list])}
 			
-                        {$widget->form('text', ['title' => '登录密码', 'type' => 'password', 'name' => 'pwd', 'value' => ''])}
+                        {$widget->form('text', ['title' => '登录密码', 'type' => 'password', 'name' => 'pwd', 'value' => '','r_md_num'=>3])}
 			
-			{$widget->form('text', ['title' => '重复密码', 'type' => 'password', 'name' => 'pwd_again', 'value' => ''])}
+			{$widget->form('text', ['title' => '重复密码', 'type' => 'password', 'name' => 'pwd_again', 'value' => '','r_md_num'=>3])}
 			
                         {$widget->form('radio', ['title' => '性别', 'name' => 'sex', 'value' => 1,'list'=>$sexlist])}
 			
-			{$widget->form('text', ['title' => '邮箱', 'name' => 'email', 'value' => ''])}
+			{$widget->form('text', ['title' => '邮箱', 'name' => 'email', 'value' => '','r_md_num'=>3])}
 			
-                        {$widget->form('text', ['title' => '手机号码', 'name' => 'tel', 'value' => ''])}
+                        {$widget->form('text', ['title' => '手机号码', 'name' => 'tel', 'value' => '','r_md_num'=>3])}
                         
-                        {$widget->form('text', ['title' => '所在公司', 'name' => 'company', 'value' => ''])}
+
 		
 			{$widget->form('image', ['title' => '头像', 'name' => 'avatar', 'value' => '', 'width' => 600])}
 			

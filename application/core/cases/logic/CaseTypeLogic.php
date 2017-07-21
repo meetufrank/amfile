@@ -33,7 +33,7 @@ class CaseTypeLogic extends Logic
   * 获取状态下拉列表
   */
     
-        public function getSelectStatus($sort_name='sort',$sort='asc')
+        public function getSelectStatus($sort_name='sort',$sort='desc')
     {
            $data= CaseStatusModel::getInstance()->order($sort_name, $sort)->select();
            $list=[

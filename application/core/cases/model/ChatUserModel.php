@@ -34,7 +34,8 @@ class ChatUserModel extends Model
 
    public function getUserlist($map=null) {
        $user_alias= $this->alias_name;//chatuser表别名
-       $user_list= $this->withCates()->field($user_alias.'.*')->where($map)->order($user_alias.'.sort desc');
+       $company_alias= CompanyModel::getInstance()->alias_name;  //公司别名
+       $user_list= $this->withCates()->field($user_alias.'.*,'.$company_alias.'.name as companyname')->where($map)->order($user_alias.'.sort desc');
        return $user_list;
    }
    /*
@@ -42,11 +43,17 @@ class ChatUserModel extends Model
     */
    public function withCates() {
        $query= $this->alias($this->alias_name); //本表别名
-       
+       $query= $this->joinCompany($query);
        
        
        return $query;
        
+   }
+   
+   
+   public function joinCompany($query) {
+       $company= CompanyModel::getInstance();
+       return $query->join($company->getTableShortName().' '.$company->alias_name,$this->alias_name.'.company = '.$company->alias_name.'.id');
    }
   
 }

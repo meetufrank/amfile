@@ -87,7 +87,7 @@
 			type:'post',
                         async: false,
 			success:function(re){
-				var html='<option value="">请选择</option>';
+				var html='<option value="0">请选择</option>';
                                 $("[name='district']").html(html);
 				var item=re.data;
 				for(var i in item){
@@ -108,7 +108,7 @@
 			dataType:'json',
 			type:'post',
 			success:function(re){
-				var html='<option value="">请选择</option>';
+				var html='<option value="0">请选择</option>';
 				var item=re.data;
 				for(var i in item){
 					html +='<option value="'+item[i]['id']+'" >'+item[i]['area_name']+'</option>';
@@ -118,20 +118,20 @@
 		})
       }
       	$("[name='province']").change(function(){
-		$("[name='city']").html('<option value="">loading……</option>');
+		$("[name='city']").html('<option value="0">请选择</option>');
                 getcity($(this).val());
                 $("[name='district']").val();
 	})
 	$("[name='city']").change(function(){
-		$("[name='district']").html('<option value="">loading……</option>');
+		$("[name='district']").html('<option value="0">请选择</option>');
 
                 getdistrict($(this).val());
 	})
 	var pro_id=$("[name='province']").val();
         if(pro_id>0){
-            $("[name='city']").html('<option value="">loading……</option>');
+            $("[name='city']").html('<option value="0">请选择</option>');
             getcity($("[name='province']").val());
-            $("[name='district']").html('<option value="">loading……</option>');
+            $("[name='district']").html('<option value="0">请选择</option>');
             getdistrict($("[name='province']").val());
         }
 

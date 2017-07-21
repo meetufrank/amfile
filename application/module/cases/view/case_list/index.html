@@ -41,35 +41,101 @@
         <table class="am-table am-table-striped am-table-radius am-table-bordered am-form">
             <thead>
                 <tr>
-                    <th>case编号</th>
-                    <th>Name</th>
-                    <th>case manager</th>
-                    <th>服务类型</th>
-                    <th>case_manager</th>
-                    <th>状态</th>
-                    <th>操作</th>
+                    <th style="text-align:center;">case编号</th>
+                    <th style="text-align:center;">当前状态</th>
+                    
+                    <th style="text-align:center;">Name</th>
+                    <th style="text-align:center;">国家</th>
+                    <th style="text-align:center;">服务类型</th>
+                    <th style="text-align:center;">case_manager</th>
+                    <th style="text-align:center;">可选状态</th>
+                    <th style="text-align:center;">操作</th>
                 </tr>
             </thead>
             <tbody>
             {volist name="_list" id="vo"}
                 <tr>
+                    
                     <td class="am-text-center am-text-middle">
-                        <div class="am-text-middle">{$vo.case_code}</div>
+                        <div class="am-text-middle"><a class="am-btn am-btn-link am-btn-xs am-text-primary" target="_blank" href="">{$vo.case_code}</a></div>
                     </td>
+                    <td class="am-text-middle">
+                        <span class="am-badge {$vo.statuscolor}  am-round">{$vo.statusname}</span>
+                         </td>
                     <td class="am-text-middle">{$vo.username}</td>
                     <td class="am-text-middle">{$vo.country_name}</td>
                     <td class="am-text-middle">{$vo.typename}</td>
-                    <td class="am-text-middle">
-                            {$widget->row('select', ['value' => $vo['case_manager'], 'list' => $case_manager, 'url' => module_url('modify', ['id' => $vo['id'], 'field' => 'case_manager'])])}
+                    
+            {php}
+            $status_arr=[];
+            $manager_arr=$case_manager;
+            $jt_status=0;
+            switch($vo['case_status']){
+                  case 1:
+                  foreach($status_list as $k=>$v){
+                      if($v['value']==4||$v['value']==$vo['case_status']){
+                         $status_arr[]=$status_list[$k];
+                      }
+                  }
+                  break;
+                  case 2 :
+                  foreach($status_list as $k=>$v){
+                      if($v['value']==1||$v['value']==4||$v['value']==5||$v['value']==$vo['case_status']){
+                         $status_arr[]=$status_list[$k];
+                      }
+                  }
+                  foreach($manager_arr as $kk=>$vv){
+                  if($vv['value']!=$vo['case_manager']){
+                      unset($manager_arr[$kk]);
+                   }
+                  }
+                  break;
+                
+
+                  case 5:
+                  foreach($status_list as $k=>$v){
+                      if($v['value']==1||$v['value']==4||$v['value']==3||$v['value']==$vo['case_status']){
+                         $status_arr[]=$status_list[$k];
+                      }
+                  }
+                  foreach($manager_arr as $kk=>$vv){
+                  if($vv['value']!=$vo['case_manager']){
+                      unset($manager_arr[$kk]);
+                   }
+                  }
+                  $jt_status=1;
+                  
+                  break;
+                 default:
+                  foreach($status_list as $k=>$v){
+                      if($v['value']==$vo['case_status']){
+                         $status_arr[]=$status_list[$k];
+                      }
+                  }
+                  foreach($manager_arr as $kk=>$vv){
+                  if($vv['value']!=$vo['case_manager']){
+                      unset($manager_arr[$kk]);
+                   }
+                  }
+                  break;
+                  
+            }{/php}
+            <td class="am-text-middle">
+                            {$widget->row('select', ['value' => $vo['case_manager'], 'list' => $manager_arr, 'url' => module_url('modify', ['id' => $vo['id'], 'field' => 'case_manager'])])}
                     </td>
                     <td class="am-text-middle">
-                        {$widget->row('select', ['value' => $vo['case_status'], 'list' => $status_list, 'url' => module_url('modify', ['id' => $vo['id'], 'field' => 'case_status'])])}
+                     
+                        {$widget->row('select', ['value' => $vo['case_status'], 'list' => $status_arr, 'url' => module_url('modify', ['id' => $vo['id'], 'field' => 'case_status'])])}
+                        
                     </td>
+                    
                     <td class="am-text-middle">
                         <div class="am-btn-toolbar">
                             <div class="am-btn-group am-btn-group-xs">
+                                {if condition="$is_jt eq 1 and $jt_status eq 1"}
                                 {$widget->row('button', ['title' => '协助', 'class' => 'am-text-primary', 'icon' => 'am-icon-eye', 'attr' => 'target="new"', 'url' => url('laychatphone/Phone/index', ['id' => $vo['id']])])}
-                                {$widget->row('button', ['title' => '编辑', 'class' => 'am-text-secondary', 'icon' => 'am-icon-pencil-square-o', 'url' => module_url('edit', ['id' => $vo['id']])])}
+                                {/if}
+                                {$widget->row('button', ['title' => '编辑', 'class' => 'am-text-secondary ', 'icon' => 'am-icon-pencil-square-o', 'url' => module_url('edit', ['id' => $vo['id']])])}
                                 {$widget->row('button', ['title' => '删除', 'class' => 'am-text-danger ajax-get ajax-confirm', 'icon' => 'am-icon-trash-o', 'url' => module_url('delete', ['id' => $vo['id']])])}
                             </div>
                         </div>

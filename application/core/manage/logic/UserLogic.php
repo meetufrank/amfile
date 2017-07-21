@@ -51,6 +51,21 @@ class UserLogic extends Logic
         return $userId == 1;
     }
 
+    
+    /*
+     * 该id帐号是否监听
+     * 
+     */
+    public function isJT($id){
+         $where=[
+             'user_gid'=>config('am_jianting'),
+             'id'=>$id,
+             'user_status'=>1
+         ];
+         $list = UserModel::getInstance()->where($where)->find();
+         return $list;
+    }
+     
     /**
      * 处理密码数据
      *

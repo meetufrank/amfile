@@ -14,12 +14,19 @@ use app\laychatphone\model\ChatGroup;
 use app\laychatphone\model\Cases;
 use think\Request;
 use app\laychatphone\model\Message;
-
+use core\cases\logic\CaseLogic;
+use core\cases\model\ChatGroupModel;
+use core\cases\model\GroupDetailModel;
+use core\cases\model\CaseModel;
+use core\cases\model\ChatUserModel;
 class Phone extends Base
 {
     public function index()
     {
-        
+        $this->assign('server_name',$_SERVER['SERVER_NAME']);
+        $request=Request::instance();
+        $caseid=$request->param('id');
+        $caseid || $caseid=1;
         //聊天用户
         $userInfo = [
             'id' => cookie('phone_user_id'),
@@ -37,11 +44,14 @@ class Phone extends Base
         $mine = $chatuser->where('id', $uid)->find();
        
             
-           $chatdata= db('cases_case')->alias('c')->field('vg.group_name,vg.id,vg.avatar')->join(['nd_cases_chatgroup'=>'vg'],'c.groupid=vg.id')->where('c.id',1)->find();
- 
+           $chatdata= db('cases_case')->alias('c')->field('vg.group_name,vg.id,vg.avatar')->join(['nd_cases_chatgroup'=>'vg'],'c.groupid=vg.id')->where(['c.id'=>$caseid])->find();
+         if(empty($chatdata)){
+             echo '聊天室不存在';
+             exit;
+         }
           //查询当前用户的所处的群组
         $groupArr = $groupdetailModle->alias('j')->field('c.group_name groupname,c.id,c.avatar')
-            ->join(['nd_cases_chatgroup'=>'c'], 'j.group_id = c.id')->where('j.user_id', $uid)
+            ->join(['nd_cases_chatgroup'=>'c'], 'j.group_id = c.id')->where(['j.user_id'=>$uid,'j.status'=>1] )
             ->group('j.group_id')->select();
 
             $this->updateLog($chatdata['id']); //更新聊天记录
@@ -134,6 +144,7 @@ class Phone extends Base
     //手机端case详情
     public function case_content($id=1){
         $action_data=$this->getIdentity();
+        //print_r($action_data['is_jt']);exit;
          $this->assign('is_jt',$action_data['is_jt']);
          $this->assign('action_data',$action_data);
         if($id){;
@@ -155,7 +166,10 @@ class Phone extends Base
                 // 查询自己的信息
         $uid = cookie('phone_user_id');
         $mine = $chatuser->where('id', $uid)->find();
-        $this->assign('is_manager',$mine['is_manager']);
+        $company= db('cases_company')->where('id',$mine['company'])->find();
+        //print_r($mine['is_manager']);exit;
+        $mine['companyname']=$company['name'];
+        $this->assign('is_manager',$mine['managerid']);
         return $mine;
     }
     //检测登录者身份
@@ -163,7 +177,7 @@ class Phone extends Base
 
         $mine= $this->getperson();
         $is_jt=0;
-        if($mine['is_manager']){
+        if($mine['managerid']){
             
             
             $jt_where=['id'=>$mine['managerid'],'user_gid'=>3];
@@ -193,6 +207,8 @@ class Phone extends Base
             $mine= $this->getperson();
               $casemodel=new Cases;
               $caseid=$casemodel->where('id',$id)->value('case_manager');
+//              print_r($caseid);
+//              print_r($mine['managerid']);exit;
               if($mine['managerid']==$caseid){
                   return true;
               }else{
@@ -207,16 +223,65 @@ class Phone extends Base
       $status=input('post.status');
 
       if($this->validate_manager($id)){
-          
+        $case=CaseLogic::getInstance()->casesById($id);    
      
       if(!$status){
           $casemodel->where('id',$id)->setField(['case_manager'=>0,'case_status'=>1,'pended'=>1]);
            $data['msg']='确认成功';
           $data['url']=url("Phone/case_list");
       }else{
+                      $chatuser=ChatUserModel::getInstance();
+                    $groupid=$case['groupid'];
+                    $case_manager=$case['case_manager'];
+                    $managerdata=$chatuser->where(['managerid'=>$case_manager])->find();//casemanager
+                    $user_id=$case['userid'];
+                    $user_name=$case['case_username'];
+                    $user_avatar=$case['user_avatar'];
+                           
+                    
+                    $alldata=[];
+                   $group=GroupDetailModel::getInstance();
+                    //查询该case_manager是否在群中或者有无加群记录
+                    $map=[
+                          'group_id'=>$groupid,
+                          'user_id'=>$managerdata['id']                         
+                      ];
+                      $count=$group->where($map)->count();
+                      if($count){
+                           $group->where($map)->update(['status'=>1]); 
+                      }else{
+                          $data=[
+                              'user_id'=>$managerdata['id'],
+                              'user_name'=>$managerdata['user_name'],
+                              'user_avatar'=>$managerdata['avatar'],
+                              'group_id'=>$groupid,
+                              'status'=>1 
+                          ];
+                          $alldata[]=$data;
+                      }
+                    
+                      //患者
+                    $map=[
+                          'group_id'=>$groupid,
+                          'user_id'=>$user_id                        
+                      ];
+                      $count=$group->where($map)->count();
+                      if($count){
+                           $group->where($map)->update(['status'=>1]); 
+                      }else{
+                          $data=[
+                              'user_id'=>$user_id,
+                              'user_name'=>$user_name,
+                              'user_avatar'=>$user_avatar,
+                              'group_id'=>$groupid,
+                              'status'=>1 
+                          ];
+                          $alldata[]=$data;
+                      }
+                      $group->saveAll($alldata);
           $casemodel->where('id',$id)->setField(['case_status'=>5]);
           $data['msg']='确认成功';
-          $data['url']=url("Phone/case_content");
+          $data['url']=url("Phone/case_content",['id'=>$id]);
       }
       
        }else{
@@ -232,25 +297,31 @@ class Phone extends Base
         
        $data= $this->getIdentity();
  
- 
+     //print_r($data);exit;
         $casemodel=new Cases;
   
-        if($data['mine']['is_manager']){
- 
+        if($data['mine']['managerid']){
+       
             if(!$data['is_jt']){
-                $arr=['case_manager'=>$data['mine']['managerid']];
+                $arr=[
+                    'case_manager'=>$data['mine']['managerid'],
+                    'delete_time'=>0
+                        ];
             }else{
                 $arr=[];
             }
             $case_list=$casemodel->getList($arr);  //获取case列表
         }else{
-            $arr=['userid'=>$data['mine']['id']];
+            $arr=[
+                'userid'=>$data['mine']['id'],
+                'delete_time'=>0
+                    ];
             $case_list=$casemodel->getList($arr);  //获取case列表
         }
-
+  
         $this->assign('action',$data['action']);
         $this->assign('is_jt',$data['is_jt']);
-        $this->assign('is_manager',$data['mine']['is_manager']);
+        $this->assign('is_manager',$data['mine']['managerid']);
         $this->assign('case_list',$case_list);
         $this->assign('userdata',$data['mine']);
         return $this->fetch();
@@ -319,6 +390,7 @@ class Phone extends Base
             $cook_id= cookie('phone_user_id');
             //查询该用户是否可以查询该群组聊天记录
             $count=db('cases_groupdetail')->where(['user_id'=>$cook_id,'group_id'=>$id])->count();
+           $chatlogs=[];
             if($count){
                 
             
@@ -336,6 +408,8 @@ class Phone extends Base
                 $result[$key]['timestamp']=$result[$key]['timestamp']*1000;
             }
                 $this->assign('chatlogs', json_encode($result));
+              }else{
+                  $this->assign('chatlogs', json_encode($chatlogs));
               }
     
         }

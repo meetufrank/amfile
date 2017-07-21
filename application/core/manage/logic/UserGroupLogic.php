@@ -14,7 +14,7 @@ class UserGroupLogic extends Logic
      */
     public function getSelectList()
     {
-        return UserGroupModel::getInstance()->field('id as value, group_name as name')->select();
+        return UserGroupModel::getInstance()->field('id as value, group_name as name')->where(['id'=>['neq',1]])->select();
     }
 
     /**

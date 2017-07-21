@@ -34,7 +34,7 @@ $(function() {
         }
     }),
     $(".relation-between").click(function() {
-        $("#is-patient-self1").is(":checked") ? ($("#other-relation").prop("disabled", !0), $("#other-relation").val("0"), $("#other-relation").addClass("not-mandatory"), $("#applicant-name").val($("#patient-name").val())) : $("#is-patient-self2").is(":checked") && ($("#other-relation").prop("disabled", !1), $("#other-relation").removeClass("not-mandatory"), $("#applicant-name").val(""))
+        $("#is-patient-self1").is(":checked") ? ($("#other-relation").prop("disabled", !0), $("#other-relation").val("0"), $("#other-relation").addClass("not-mandatory"), $("#applicant-name").val($("#patient-name").val())) : $("#is-patient-self2").is(":checked") && ($("#other-relation").prop("disabled", !1), $("#other-relation").removeClass("not-mandatory"))
     });
  
     $(".contract-click").on("click",
@@ -85,39 +85,46 @@ $(function() {
 $(function() {
     $(".medical-form").validate({
         rules: {
-            patient_name: {
+            username: {
                 required: !0
             },
-            patient_birth: {
+            birthday: {
                 required: !0,
                 date: !0
             },
-            patient_gender: {
+            sex: {
                 required: !0
             },
-            other_relation: {
-                valueNotEquals: "0"
-            },
+           
             applicant_name: {
                 required: !0
             },
             province: {
-                valueNotEquals: "省"
+                valueNotEquals: "0"
             },
-            address_details: {
+            city: {
+                valueNotEquals: "0"
+            },
+            district: {
+                valueNotEquals: "0"
+            },
+            address: {
                 required: !0
             },
-            user_zip: {
+            zip_code: {
                 required: !0
             },
-            user_first_phone: {
+            preferred_phone: {
                 required: !0
             },
-            user_email: {
+            email: {
                 required: !0,
                 email: !0
             },
-            user_time: {
+            preferred_time: {
+                required: !0
+            },
+            illness: {
                 required: !0
             },
             aux_file: {
@@ -129,39 +136,46 @@ $(function() {
             }
         },
         messages: {
-            patient_name: {
+            username: {
                 required: "此项为必填项"
             },
-            patient_birth: {
+            birthday: {
                 required: "此项为必填项",
                 date: "请填写正确的日期格式"
             },
-            patient_gender: {
+            sex: {
                 required: "此项为必填项"
             },
-            other_relation: {
-                valueNotEquals: "此项为必填项"
-            },
+            
             applicant_name: {
                 required: "此项为必填项"
             },
             province: {
                 valueNotEquals: "此项为必填项"
             },
-            address_details: {
+            city: {
+                valueNotEquals: "此项为必填项"
+            },
+            district: {
+                valueNotEquals: "此项为必填项"
+            },
+            address: {
                 required: "此项为必填项"
             },
-            user_zip: {
+            zip_code: {
                 required: "此项为必填项"
             },
-            user_first_phone: {
+            preferred_phone: {
                 required: "此项为必填项"
             },
-            user_email: {
+            email: {
                 required: "此项为必填项",
                 email: "请填写合法的email地址"
             },
-            user_time: {
+            preferred_time: {
+                required: "此项为必填项"
+            },
+            illness: {
                 required: "此项为必填项"
             },
             aux_file: {
@@ -213,13 +227,7 @@ $(function() {
                 name: "user_time",
                 value: a.join(",")
             });
-            for (var r = 1,
-            n = "",
-            o = "",
-            c = "",
-            l = ["北京", "上海", "重庆", "天津"], i = t.length - 1; i >= 0; i--)"province" == t[i].name && ("海外" == t[i].value ? r = t[i + 1].value: -1 !== l.indexOf(t[i].value) ? (n = t[i].value, o = t[i].value + "市", c = t[i + 1].value) : (n = t[i].value, o = t[i + 1].value), t.splice(i, 2));
 
-            for (var i = t.length - 1; i >= 0; i--)"address_details" == t[i].name && (t[i].value = c + t[i].value);
             $.ajax({
                 url: window.__addurl__,
                 type: "POST",

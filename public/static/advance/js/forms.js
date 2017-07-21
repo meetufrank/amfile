@@ -62,8 +62,10 @@ $(function() {
         $(".doctor-group").removeAttr("style")
     }),
     $(".form-feedback-btn").click(function() {
+        
         $(".close-button").trigger("click"),
         $(".form-feedback-wrapper").removeAttr("style")
+        window.location.href=window.location.href;
     }),
     $(window).resize(function() {
         setTimeout(resizeForm, 0)
@@ -124,18 +126,25 @@ $(function() {
         $(".change-label").text("请简要说明您的病情，并描述你想要从医疗专家意见书中得知什么")
     }),
     $(".btn-health").click(function() {
+        
+        //$(".optional-checkbox").css({"display":"block","color":"#0775aa"}),
+        
         $(".app-mask").addClass("health-mask"),
         $(".form-inner-wrapper").addClass("form-show-health"),
         $(".contract-context").addClass("contract-context2"),
         $("#form-type").val(2)
     }),
     $(".btn-pressure").click(function() {
+        //$(".optional-checkbox").css({"display":"block","color":"#9d3373"}),
+        
         $(".app-mask").addClass("pressure-mask"),
         $(".form-inner-wrapper").addClass("form-show-pressure"),
         $(".contract-context").addClass("contract-context3"),
         $("#form-type").val(3)
     }),
     $(".btn-resource").click(function() {
+        //$(".optional-checkbox").css({"display":"block","color":"#563e96"}),
+        
         $(".app-mask").addClass("resource-mask"),
         $(".form-inner-wrapper").addClass("form-show-resource"),
         $(".contract-context").addClass("contract-context4"),
@@ -150,7 +159,7 @@ $(function() {
         }
     }),
     $(".relation-between").click(function() {
-        $("#is-patient-self1").is(":checked") ? ($("#other-relation").prop("disabled", !0), $("#other-relation").val("0"), $("#other-relation").addClass("not-mandatory"), $("#applicant-name").val($("#patient-name").val())) : $("#is-patient-self2").is(":checked") && ($("#other-relation").prop("disabled", !1), $("#other-relation").removeClass("not-mandatory"), $("#applicant-name").val(""))
+        $("#is-patient-self1").is(":checked") ? ($("#other-relation").prop("disabled", !0), $("#other-relation").val("0"), $("#other-relation").addClass("not-mandatory"), $("#applicant-name").val($("#patient-name").val())) : $("#is-patient-self2").is(":checked") && ($("#other-relation").prop("disabled", !1), $("#other-relation").removeClass("not-mandatory"))
     });
 //    $("#province, #city").citylist({
 //        data: data,
@@ -220,39 +229,46 @@ $(function() {
 $(function() {
     $(".medical-form").validate({
         rules: {
-            patient_name: {
+            username: {
                 required: !0
             },
-            patient_birth: {
+            birthday: {
                 required: !0,
                 date: !0
             },
-            patient_gender: {
+            sex: {
                 required: !0
             },
-            other_relation: {
-                valueNotEquals: "0"
-            },
+            
             applicant_name: {
                 required: !0
             },
             province: {
-                valueNotEquals: "省"
+                valueNotEquals: "0"
             },
-            address_details: {
+            city: {
+                valueNotEquals: "0"
+            },
+            district: {
+                valueNotEquals: "0"
+            },
+            address: {
                 required: !0
             },
-            user_zip: {
+            zip_code: {
                 required: !0
             },
-            user_first_phone: {
+            preferred_phone: {
                 required: !0
             },
-            user_email: {
+            email: {
                 required: !0,
                 email: !0
             },
-            user_time: {
+            preferred_time: {
+                required: !0
+            },
+            illness: {
                 required: !0
             },
             aux_file: {
@@ -264,39 +280,46 @@ $(function() {
             }
         },
         messages: {
-            patient_name: {
+            username: {
                 required: "此项为必填项"
             },
-            patient_birth: {
+            birthday: {
                 required: "此项为必填项",
                 date: "请填写正确的日期格式"
             },
-            patient_gender: {
+            sex: {
                 required: "此项为必填项"
             },
-            other_relation: {
-                valueNotEquals: "此项为必填项"
-            },
+            
             applicant_name: {
                 required: "此项为必填项"
             },
-            province: {
+             province: {
                 valueNotEquals: "此项为必填项"
             },
-            address_details: {
+            city: {
+                valueNotEquals: "此项为必填项"
+            },
+            district: {
+                valueNotEquals: "此项为必填项"
+            },
+            address: {
                 required: "此项为必填项"
             },
-            user_zip: {
+            zip_code: {
                 required: "此项为必填项"
             },
-            user_first_phone: {
+            preferred_phone: {
                 required: "此项为必填项"
             },
-            user_email: {
+            email: {
                 required: "此项为必填项",
                 email: "请填写合法的email地址"
             },
-            user_time: {
+            preferred_time: {
+                required: "此项为必填项"
+            },
+            illness: {
                 required: "此项为必填项"
             },
             aux_file: {
@@ -342,13 +365,7 @@ $(function() {
                 name: "user_time",
                 value: r.join(",")
             });
-            for (var o = 1,
-            n = "",
-            i = "",
-            c = "",
-            s = ["北京", "上海", "重庆", "天津"], a = t.length - 1; a >= 0; a--)"province" == t[a].name && ("海外" == t[a].value ? o = t[a + 1].value: -1 !== s.indexOf(t[a].value) ? (n = t[a].value, i = t[a].value + "市", c = t[a + 1].value) : (n = t[a].value, i = t[a + 1].value), t.splice(a, 2));
- 
-            for (var a = t.length - 1; a >= 0; a--)"address_details" == t[a].name && (t[a].value = c + t[a].value);
+            
             $.ajax({
                 url: window.__addurl__,
                 type: "POST",

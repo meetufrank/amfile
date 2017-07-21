@@ -28,6 +28,11 @@ class SelectForm extends Form
             }
         }
         $html .= '</select>';
+        // 提示
+        if (! empty($data['tip'])) {
+            $html .= '(' . $data['tip'] . ')';
+        }
+        
         $html .= '</div>';
         $html .= '</div>';
         

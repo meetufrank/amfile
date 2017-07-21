@@ -25,11 +25,11 @@ return [
     'module/:_module_/:_controller_/:_action_' => 'manage/loader/run',
     'admin'=>'manage/start/login',
     //AM聊天
-    'amchat'=>'laychatphone/Login/index',
+    'service'=>'laychatphone/Login/index',
     
     //advance
     'am'=>'advance/Index/index',
-    'service/:id'=>'advance/Index/Service_details',
+    'services/:id'=>'advance/Index/service_details',
     'mobile_form/:id'=>'advance/Index/mobile_form'
     
 ];
