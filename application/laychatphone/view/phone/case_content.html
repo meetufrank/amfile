@@ -13,15 +13,29 @@
       
 
     
-            
+        <!-- 单人 --> 
         <div class="mais-per-logo"><img src="__PHONE__/img/huanzhe1.jpg" class="mais-img"></div>
-       
         <div class="mais-per-mains">
-       <p class="maisa-name">&nbsp;</p>
+            <p class="maisa-name">&nbsp;</p>
             <p class="maisa-names">yangyang</p>
+        </div>
+
+        <!--头像双人-->
+        <div class="mais-per-logo" id="img-double">
+            <div class="mais-double">
+                <div class="mais-img-double">
+                    <img src="__PHONE__/img/huanzhe1.jpg">
+                    <p class="mais-double-name">姓名</p>
+                </div>
+                <div class="mais-img-doubles">
+                    <img src="__PHONE__/img/huanzhe1.jpg">
+                    <p class="mais-double-name">姓名</p>
+                </div>
+            </div>
         </div>
         
         <div class="mais-per-content">
+            
             <div class="manegermain"><span class="manegerspan">Case ID:{$case_content.case_code}</span></div>
             <div class="manegermain"><span class="manegerspan">Type:</span>{$case_content.typename}</div>
             <div class="manegermain"><span class="manegerspan">Case coordinator:</span>pangdi</div>
@@ -63,9 +77,11 @@
 <script type="text/javascript" src="__PHONE__/script/api.js" ></script>
 <script type="text/javascript" src="__PHONE__/script/aui-tab.js" ></script>
 <script type="text/javascript" src="__PHONE__/script/jquery-1.8.3.js" ></script>
+
+
 <script type="text/javascript">
 
-    
+   
  
     function tourl(id){
         window.location.href="{:url('Phone/index',array('id'=>$case_content['id']))}";

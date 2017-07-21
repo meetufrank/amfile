@@ -29,6 +29,9 @@
 		font-size: 1rem;
 		font-weight: bolder;
 	}
+	.mais-per-content{
+		top:8rem;
+	}
 }
 /* 判断iphone6 */
 @media only screen and (min-width:375px) and (max-width: 413px){
@@ -65,6 +68,9 @@
 		font-size:1.3rem;
 		font-weight: bolder;
 	}
+	.mais-per-content{
+		top:9rem;
+	}
 }
 /* 判断iphone6plus */
 @media only screen and (min-width: 414px) and (max-width: 767px){
@@ -99,6 +105,9 @@
 	.order-mheader-bottom-one{
 		font-size:1.3rem;
 		font-weight: bolder;
+	}
+	.mais-per-content{
+		top:9.4rem;
 	}
 }
 /* 判断ipad */
@@ -136,6 +145,9 @@
 		font-size:1.5rem;
 		font-weight: bolder;
 	}
+	.mais-per-content{
+		top:12rem;
+	}
 }
 /* ipad横屏 */
 @media only screen and (min-device-width :1024px) and (max-device-height : 768px){
@@ -171,6 +183,9 @@
 	.order-mheader-bottom-one{
 		font-size:1.5rem;
 		font-weight: bolder;
+	}
+	.mais-per-content{
+		top:25rem;
 	}
 }
 }
@@ -481,7 +496,7 @@ table.order-maintable td{
 	position: absolute;
 	background-color: white;
 	z-index: 2;
-	top: 9.4rem;
+/*	top: 9.4rem;*/
 /*	padding-top:1rem;*/
 	padding-bottom: 1rem;
 	padding-right:1.5rem;
@@ -571,4 +586,36 @@ table.order-maintable td{
     box-sizing: border-box;
     -webkit-user-select: none;
     user-select: none;
+}
+/*20170721*/
+.mais-double{
+	width:100%;
+    margin: 0 auto;
+}
+.mais-img-double,.mais-img-doubles{
+	width:50%;
+	float: left;
+	display: inline-block;
+/*    border: 1px solid black;*/
+    text-align: center;
+    vertical-align: middle;
+    background-color: white;
+    padding-top: 10px;
+}
+.mais-img-double img,.mais-img-doubles img{
+	margin: 0 auto;
+	width:75%;
+	height:auto;
+	border-radius: 50%;
+	-moz-border-radius:50%;
+	-webkit-border-radius:50%;
+	box-shadow:0 0 15px gray; 
+}
+.mais-double-name,.mais-double-names{
+	text-align: center;
+}
+.mais-double-name{
+	color: #c3c6d3;
+	font-size:0.8rem;
+	margin-top: 0.5rem;
 }
