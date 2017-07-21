@@ -19,6 +19,7 @@ use core\cases\model\ChatGroupModel;
 use core\cases\model\GroupDetailModel;
 use core\cases\model\CaseModel;
 use core\cases\model\ChatUserModel;
+
 class Phone extends Base
 {
     public function index()
@@ -154,6 +155,14 @@ class Phone extends Base
             $case_content=$casemodel->getList($arr);  //获取单条case
             $case_content=$case_content[0];
             $manager_content = $chatuser->where('managerid', $case_content['case_manager'])->find();
+            $case=CaseLogic::getInstance()->casesById($id);
+            $jt_arr=[];
+            foreach ($case->jtarr as $vo) {
+                   $jtdata=ChatUserModel::getInstance()->where(['managerid'=>$vo['id']])->find();//jt
+                   $jt_arr[]=$jtdata['nickname'];
+                  }
+            $case_content['jt_str']= implode(',', $jt_arr);   
+            
             $this->assign('manager_content',$manager_content);
             $this->assign('case_content',$case_content);
         }
