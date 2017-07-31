@@ -127,7 +127,7 @@ $(function() {
     }),
     $(".btn-health").click(function() {
         
-        //$(".optional-checkbox").css({"display":"block","color":"#0775aa"}),
+        $(".optional-checkbox").css({"display":"block","color":"#0775aa"}),
         
         $(".app-mask").addClass("health-mask"),
         $(".form-inner-wrapper").addClass("form-show-health"),
@@ -135,7 +135,7 @@ $(function() {
         $("#form-type").val(2)
     }),
     $(".btn-pressure").click(function() {
-        //$(".optional-checkbox").css({"display":"block","color":"#9d3373"}),
+        $(".optional-checkbox").css({"display":"block","color":"#9d3373"}),
         
         $(".app-mask").addClass("pressure-mask"),
         $(".form-inner-wrapper").addClass("form-show-pressure"),
@@ -143,7 +143,7 @@ $(function() {
         $("#form-type").val(3)
     }),
     $(".btn-resource").click(function() {
-        //$(".optional-checkbox").css({"display":"block","color":"#563e96"}),
+        $(".optional-checkbox").css({"display":"block","color":"#563e96"}),
         
         $(".app-mask").addClass("resource-mask"),
         $(".form-inner-wrapper").addClass("form-show-resource"),
