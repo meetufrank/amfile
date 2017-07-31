@@ -44,8 +44,8 @@
             <div class="content-main">
                
                 <div class="main-header">
-                    <div class="mheader-top"><img src="{$userdata.avatar}"></div>
-                    <p class="mheader-bottom-one">{$userdata.nickname}</p>
+                    <div class="mheader-top"><img src="{$userdata.avatar|default='__PHONE__/img/moren.png'}"></div>
+                    <p class="mheader-bottom-one">{$userdata.nickname|default='暂未设定'}</p>
                     <!-- {eq name="userdata.managerid" value="0"}-->
                     <p class="mheader-bottom-two">{$userdata.companyname}</p>
                     <!--{/eq}-->

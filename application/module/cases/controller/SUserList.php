@@ -10,6 +10,7 @@ use core\manage\logic\UserLogic;
 use core\cases\logic\ChatUserLogic;
 use core\cases\logic\CaseTypeLogic;
 use core\cases\validate\ChatUserValidate;
+use app\common\sendemail\SendUser;
 class SUserList extends Base
 {
 
@@ -51,7 +52,8 @@ class SUserList extends Base
          
          $logic =ChatUserLogic::getInstance();
          $where=[
-             'status'=>1
+             'status'=>1,
+             'id'=>1
          ];
          $company_list=$logic->getSelectCompany($where);
          $this->assign('company_list',$company_list);
@@ -110,6 +112,9 @@ class SUserList extends Base
          
            ];
            $this->UserOnly($where);
+           //发送邮箱
+            $email=new SendUser();
+            $email->addSend($data,2);
             // 添加
             $model = ChatUserModel::getInstance();
             //加密密码
@@ -171,6 +176,9 @@ class SUserList extends Base
               $data['pwd_again']=$request->param('pwd_again');
                  // 验证
             $this->_validate(ChatUserValidate::class, $data, 'edit_password');
+            //发送邮箱
+            $email=new SendUser();
+            $email->editSend($data);
             //加密密码
             $data['pwd']= md5($data['pwd']);
             unset($data['pwd_again']);

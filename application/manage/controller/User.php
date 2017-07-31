@@ -7,6 +7,7 @@ use core\manage\model\UserModel;
 use core\manage\validate\UserValidate;
 use core\manage\logic\UserGroupLogic;
 use core\cases\logic\ChatUserLogic;
+use core\cases\model\ChatUserModel;
 class User extends Base
 {
 
@@ -171,7 +172,10 @@ class User extends Base
         } elseif ($this->userId == $userId) {
             $this->error('自己不能删除自己');
         }
-        
+        $where=[
+          'managerid'=>$userId 
+        ];
+        ChatUserModel::getInstance()->where($where)->delete(); 
         $this->_delete(UserModel::class, false);
     }
 

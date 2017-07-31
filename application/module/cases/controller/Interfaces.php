@@ -11,6 +11,8 @@ namespace module\cases\controller;
 use think\Controller;
 use think\Request;
 use core\cases\model\AreaModel;
+use core\cases\model\CompanyModel;
+use core\cases\logic\CompanyLogic;
 class Interfaces extends Controller
 {
              
@@ -32,5 +34,14 @@ class Interfaces extends Controller
     	$data['data']=$current_county;
         
     	 return json($data);
+    }
+    
+    public function getCompanyMore(Request $request){
+         $companyid=$request->param('companyid');
+        $typeid=CompanyModel::getInstance()->where(['id'=>$companyid])->value('type');
+       
+//        $data=CompanyLogic::getInstance()->getMoreContent();
+        
+        return json($typeid);
     }
 }

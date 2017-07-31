@@ -7,8 +7,18 @@
 		
 			{$widget->form('text', ['title' => '登录名', 'name' => 'user_name', 'value' => '','r_md_num'=>3])}
                         {$widget->form('text', ['title' => '姓名', 'name' => 'nickname', 'value' => '','r_md_num'=>1])}
-                        {$widget->form('select', ['title' => '公司', 'name' => 'company', 'value' => '1','list'=>$company_list])}
-			
+                        {$widget->form('select', ['title' => '公司', 'name' => 'company', 'value' => 1,'list'=>$company_list])}
+                        {volist name="companymore" id="cm" key="k"}
+                        <div id="moreform{$k-1}" style="display:none;">
+                        {volist name="cm" id="vo"}
+                         {if condition="isset($vo['list'])"}
+                         {$widget->form($vo.type, ['title' => $vo['title'], 'name' => $vo['name'], 'value' => $vo['value'],'list'=>$vo['list']])}
+                         {else/}
+                         {$widget->form($vo.type, ['title' =>$vo['title'], 'name' => $vo['name'], 'value' =>$vo['value'],'r_md_num'=>3])}
+                          {/if}
+                        {/volist}
+                        </div>
+                        {/volist}
                         {$widget->form('text', ['title' => '登录密码', 'type' => 'password', 'name' => 'pwd', 'value' => '','r_md_num'=>3])}
 			
 			{$widget->form('text', ['title' => '重复密码', 'type' => 'password', 'name' => 'pwd_again', 'value' => '','r_md_num'=>3])}
@@ -19,7 +29,7 @@
 			
                         {$widget->form('text', ['title' => '手机号码', 'name' => 'tel', 'value' => '','r_md_num'=>3])}
                         
-
+                        
 		
 			{$widget->form('image', ['title' => '头像', 'name' => 'avatar', 'value' => '', 'width' => 600])}
 			
@@ -35,4 +45,33 @@
 		</form>
 	</div>
 </div>
+{/block}
+{block name="script"}
+
+<script type="text/javascript" src="{$lib_path}/jquery/2.0.0/jquery.min.js?_={$site_version}"></script>
+ <script type="text/javascript">
+ getmoreContent($("select[name='company']").val());
+$("select[name='company']").change(function(){
+    var companyid=$(this).val();
+    $("#moreform"+companyid).hide();
+         getmoreContent(companyid);
+      });
+      
+      
+    function getmoreContent(id){
+         $.ajax({
+			url:"{:module_url('Interfaces/getCompanyMore')}",
+			data:{companyid:id},
+			dataType:'json',
+			type:'post',
+                        async: false,
+			success:function(data){
+                              
+				$("#moreform"+data).show();
+                            
+                           
+			}
+		})
+    }
+</script>
 {/block}

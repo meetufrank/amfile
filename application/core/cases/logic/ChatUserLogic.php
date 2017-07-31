@@ -75,7 +75,8 @@ class ChatUserLogic extends Logic
      */
     
     public function IsOnly($where=null) {
-       $where['delete_time']=0;       
+       $where['delete_time']=0;   
+      
        $count=ChatUserModel::getInstance()->where($where)->count(); 
        $result=true;
        $count && $result=false;

@@ -148,13 +148,19 @@ class Phone extends Base
         //print_r($action_data['is_jt']);exit;
          $this->assign('is_jt',$action_data['is_jt']);
          $this->assign('action_data',$action_data);
-        if($id){;
+        if($id){
             $casemodel=new Cases;
              $chatuser=new ChatUser;
             $arr=['nd_cases_case.id'=>$id];
             $case_content=$casemodel->getList($arr);  //获取单条case
             $case_content=$case_content[0];
-            $manager_content = $chatuser->where('managerid', $case_content['case_manager'])->find();
+             $manager_content=[];
+            if($case_content['case_manager']){
+               $manager_content = $chatuser->where('managerid', $case_content['case_manager'])->find(); 
+            }
+            
+            
+            $user_content = $chatuser->where('id', $case_content['userid'])->find();
             $case=CaseLogic::getInstance()->casesById($id);
             $jt_arr=[];
             foreach ($case->jtarr as $vo) {
@@ -162,7 +168,7 @@ class Phone extends Base
                    $jt_arr[]=$jtdata['nickname'];
                   }
             $case_content['jt_str']= implode(',', $jt_arr);   
-            
+             $this->assign('user_content',$user_content);
             $this->assign('manager_content',$manager_content);
             $this->assign('case_content',$case_content);
         }
@@ -185,6 +191,7 @@ class Phone extends Base
     private function getIdentity(){
 
         $mine= $this->getperson();
+        
         $is_jt=0;
         if($mine['managerid']){
             
@@ -319,12 +326,14 @@ class Phone extends Base
             }else{
                 $arr=[];
             }
+           
             $case_list=$casemodel->getList($arr);  //获取case列表
         }else{
             $arr=[
                 'userid'=>$data['mine']['id'],
                 'delete_time'=>0
                     ];
+             
             $case_list=$casemodel->getList($arr);  //获取case列表
         }
   

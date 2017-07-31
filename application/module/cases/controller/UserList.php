@@ -9,7 +9,9 @@ use core\manage\model\UserModel;
 use core\manage\logic\UserLogic;
 use core\cases\logic\ChatUserLogic;
 use core\cases\logic\CaseTypeLogic;
+use core\cases\logic\CompanyLogic;
 use core\cases\validate\ChatUserValidate;
+use app\common\sendemail\SendUser;
 class UserList extends Base
 {
 
@@ -167,7 +169,13 @@ class UserList extends Base
                 'u_status' => $request->param('u_status')
 
             ];
-            
+            if($data['company']){
+                $id=CompanyLogic::getInstance()->getTypeById($data['company']);
+                $content=CompanyLogic::getInstance()->getMoreContent();
+                foreach ($content[$id] as $key => $value) {
+                    $data[$key]=$request->param($key);
+                }
+            }
           
            // 验证
             $this->_validate(ChatUserValidate::class, $data, 'add');
@@ -189,12 +197,16 @@ class UserList extends Base
          
            ];
            $this->UserOnly($where);
+           //发送邮箱
+            $email=new SendUser();
+            $email->addSend($data);
             // 添加
             $model = ChatUserModel::getInstance();
             //加密密码
             $data['pwd']= md5($data['pwd']);
             unset($data['pwd_again']);
             $status = $model->save($data);
+           
             $this->success('新增成功', self::JUMP_REFERER);
         } else {
             $this->siteTitle = '新增用户';
@@ -209,15 +221,20 @@ class UserList extends Base
           
           //公司列表
           $this->assignCompanyList();
-  
+        
+         //获取更多内容
           
-    
-
+         $this->assign('companymore',$this->getCompanyMore());
             return $this->fetch();
         }
     }
-    
-    
+  
+    /*
+     * 获取公司额外填写信息数组
+     */
+    public function getCompanyMore($data=null){
+         return CompanyLogic::getInstance()->getMoreContent($data);
+    }
        /**
      * 编辑case
      *
@@ -240,6 +257,13 @@ class UserList extends Base
                 'u_status' => $request->param('u_status')
 
             ];
+            if($data['company']){
+                $id=CompanyLogic::getInstance()->getTypeById($data['company']);
+                $content=CompanyLogic::getInstance()->getMoreContent();
+                foreach ($content[$id] as $key => $value) {
+                    $data[$key]=$request->param($key);
+                }
+            }
           
           
             // 修改
@@ -248,6 +272,9 @@ class UserList extends Base
               $data['pwd_again']=$request->param('pwd_again');
                  // 验证
             $this->_validate(ChatUserValidate::class, $data, 'edit_password');
+             //发送邮箱
+            $email=new SendUser();
+            $email->editSend($data);
              //加密密码
             $data['pwd']= md5($data['pwd']);
             unset($data['pwd_again']);
@@ -315,11 +342,15 @@ class UserList extends Base
           
           //公司列表
           $this->assignCompanyList();
-            return $this->fetch();
+          //获取更多内容
+         
+         $this->assign('companymore',$this->getCompanyMore($user_list[0]));
+            
+         return $this->fetch();
         
         }
     }
-    
+ 
         /**
      * 删除case
      *
