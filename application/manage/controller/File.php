@@ -107,6 +107,7 @@ class File extends Base
     public function upload()
     {
         $this->siteTitle = '文件上传';
+        
         return $this->fetch();
     }
 

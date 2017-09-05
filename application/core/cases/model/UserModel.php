@@ -41,7 +41,7 @@ class UserModel extends Model
      */
     public function getUserList()
     {
-        $list = $this->select();
+        $list = $this->where(['delete_time'=>0])->select();
         $users = [];
         foreach ($list as $vo) {
             $users[$vo['id']] = [

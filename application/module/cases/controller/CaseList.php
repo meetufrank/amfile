@@ -17,6 +17,10 @@ use core\cases\logic\CaseLogic;
 use core\cases\model\ChatGroupModel;
 use core\cases\model\GroupDetailModel;
 use app\manage\service\LoginService;
+use core\manage\model\FileModel;
+use core\cases\model\CompanyModel;
+use core\cases\model\JtModel;
+use app\common\sendemail\SendUser;
 class CaseList extends Base
 {
 
@@ -52,9 +56,11 @@ class CaseList extends Base
         $login = LoginService::getSingleton();   
         $loginUser = $login->getLoginUser();
         $id=$loginUser['user_id'];
+        $this->assign('userid', $id);//管理员当前登录id
         $logic =UserLogic::getInstance();
         $list=$logic->isJT($id);
         if(!empty($list)){
+            
             $is_jt=1;
         }else{
             $is_jt=0;
@@ -129,10 +135,10 @@ class CaseList extends Base
         // 分页列表
         $model = CaseModel::getInstance();
         $case_list=$model->getCaseList($map);
-
-        $this->_page($case_list);
         
+        $this->casePage($case_list);
         
+      
         $this->getTypeList();
         
         $this->getStatusList();
@@ -142,7 +148,28 @@ class CaseList extends Base
         $this->getManagerList();
         
     }
-
+//case分页
+    public function casePage($model, $rowNum = null, \Closure $perform = null){
+        $rowNum || $rowNum = config('manage_row_num');
+        $rowNum || $rowNum = 10;
+        
+      $model = $this->buildModel($model);
+        
+        $list = $model->paginate($rowNum);
+        $perform && $perform($list);
+        foreach ($list as $key => $value) {
+             $jtarr=[];
+            foreach ($value->jtarr as $k => $v) {
+                $jtarr[]=$v['id'];
+            }
+            $list[$key]['jtarr']= $jtarr;
+           
+        }
+       
+        $this->assign('_list', $list);
+        $this->assign('_page', $list->render());
+        $this->assign('_total', $list->total());
+    }
 
     //获取类型数组
      protected function getTypeList(){
@@ -153,7 +180,14 @@ class CaseList extends Base
          $this->assign('typelist',$typelist);
      }
     
-     
+ //获取科室数组
+     protected function getKsList(){
+         
+         $logic =CaseTypeLogic::getInstance();
+         $kslist=$logic->getSelectKs();
+
+         $this->assign('kslist',$kslist);
+     } 
 
   //获取状态数组
     protected function getStatusList(){
@@ -176,6 +210,7 @@ class CaseList extends Base
          $logic =UserLogic::getInstance();
          $where=[
              'user_gid'=>config('am_casemanage'),
+             'delete_time'=>0,
              'user_status'=>1
          ];
          $case_manager=$logic->getSelectList($where);
@@ -192,7 +227,8 @@ class CaseList extends Base
          $logic =UserLogic::getInstance();
          $where=[
              'user_gid'=>config('am_jianting'),
-             'user_status'=>1
+             'user_status'=>1,
+             'delete_time'=>0
          ];
          $jt_list=$logic->getSelectList($where);
        
@@ -284,12 +320,15 @@ class CaseList extends Base
          
        CaseModel::getInstance()->save($data,$map);
        $data=ChatUserModel::where('managerid',$value)->find();
+      
+      
        if($data){
          $username=$data['nickname'];
            $msg=new \message\mess();
            $url='http://'.$_SERVER['HTTP_HOST'].'/service';
-            $mess_content='【蜜柚网】'.$username.'(先生/女士),您好,您被指定负责新的case，请及时登录 '.$url.' 选择接收或者拒绝';
-                $msg->send($data['tel'], $mess_content);
+           $data['url']=$url;
+           $mess_content=ChatUserLogic::getInstance()->getLanguage($data,1); //获取短信内容
+            $msg->send($data['tel'], $mess_content['content']);
             
        }
        
@@ -353,7 +392,14 @@ class CaseList extends Base
                 CaseModel::getInstance()->save($data,$where);
                     break;
                 case 5:
+                    //发送通知邮件
+                  
                     
+                    $userdata=ChatUserModel::getInstance()->where(['managerid'=>$case['case_manager'],'delete_time'=>0])->find();
+                    $userdata['case_code']=$case['case_code'];
+                   
+                    $email=new SendUser();
+                    $email->acceptCase($userdata);
                     $alldata=$this->editByJt($case);  //分配聊天室
                       $group->saveAll($alldata);
                       
@@ -398,9 +444,16 @@ class CaseList extends Base
                 'userid' => $request->param('userid'),
                 'country'=>$request->param('country'),
                 'email'=>$request->param('email'),
-                'case_code'=>$request->param('case_code')
+                'case_code'=>$request->param('case_code'),
+                'ks_type'=>$request->param('ks_type',1)
             ];
           
+            if($request->param('options')){
+                $file=FileModel::getInstance()->where(['file_url'=>$request->param('options')])->find();
+                if(!empty($file)){
+                    $data['options']=$file['id'];
+                }
+            }
                         // 验证
             $this->_validate(CaseValidate::class, $data, 'add');
             
@@ -435,6 +488,8 @@ class CaseList extends Base
        // $this->getManagerList();
                     //获取用户列表
         $this->getUserList();
+       //获取case科室列表
+       $this->getKsList();
             return $this->fetch();
         }
     }
@@ -474,10 +529,16 @@ class CaseList extends Base
                 'sort' => $request->param('sort',0),
                  'country'=>$request->param('country'),
                 'email'=>$request->param('email'),
-                'case_code'=>$request->param('case_code')
+                'case_code'=>$request->param('case_code'),
+                'ks_type'=>$request->param('ks_type')
             ];
-            
-
+            if($request->param('options')){
+                $file=FileModel::getInstance()->where(['file_url'=>$request->param('options')])->find();
+                if(!empty($file)){
+                    $data['options']=$file['id'];
+                }
+            }
+                
            
             // 修改
             $model = CaseModel::getInstance();
@@ -575,7 +636,9 @@ class CaseList extends Base
         foreach ($case_list->jtarr as $vo) {
             $jtarr[] = $vo['id'];
         }
-        
+        //查询附件信息
+        $filearr=FileModel::getInstance()->where(['id'=>$case_list['options']])->find();
+        $case_list['options_data']=$filearr;
         $case_list['case_jt']=$jtarr;
         $this->assign('case_list', $case_list);
             
@@ -599,7 +662,8 @@ class CaseList extends Base
        // $this->getStatusList();
             //获取case_manager列表
         //$this->getManagerList();
-        
+        //获取科室列表
+        $this->getKsList();
             return $this->fetch();
         
         }
@@ -621,6 +685,49 @@ class CaseList extends Base
                     
                     $alldata=[];
                    $group=GroupDetailModel::getInstance();
+                   //配置默认监听
+                   //查询该用户所属公司下方有效监听数组
+                   $companyarr=CompanyModel::getInstance()->where(['id'=>$managerdata['company']])->find();
+                   $default_jt=[];
+                   empty($companyarr) || $default_jt=explode(',', $companyarr['default']);
+                   $jt_arr=[];
+                   foreach (@$default_jt as $key => $value) {
+                       $jtcount= UserModel::getInstance()->where(['delete_time'=>0,'id'=>$value,'user_gid'=> config('am_jianting')])->count();
+                       if($jtcount){
+                           $jt_arr[]=$value;
+                       }
+                   }
+                   //将监听数组分配至聊天室
+                   foreach (@$jt_arr as $key => $value) {
+                       $caseid=$case['id'];
+                       //查询监听有没有跟被该case指定过
+                      $cj_count=JtModel::getInstance()->where(['cases_id'=>$caseid,'user_id'=>$value])->count();
+                      $cj_map=[
+                          'cases_id'=>$caseid,
+                          'user_id'=>$value                        
+                      ];
+                      if(!$cj_count){
+                          JtModel::getInstance()->save($cj_map);
+                      }
+                       $jtdata=$chatuser->where(['managerid'=>$value])->find();//casemanager
+                       $map=[
+                          'group_id'=>$groupid,
+                          'user_id'=>$jtdata['id']                         
+                      ];
+                      $count=$group->where($map)->count();
+                      if($count){
+                           $group->where($map)->update(['status'=>1]); 
+                      }else{
+                          $data=[
+                              'user_id'=>$jtdata['id'],
+                              'user_name'=>$jtdata['user_name'],
+                              'user_avatar'=>$jtdata['avatar'],
+                              'group_id'=>$groupid,
+                              'status'=>1 
+                          ];
+                          $alldata[]=$data;
+                      }
+                   }
                     //查询该case_manager是否在群中或者有无加群记录
                     $map=[
                           'group_id'=>$groupid,

@@ -67,6 +67,8 @@
                     <td class="am-text-middle">{$vo.typename}</td>
                     
             {php}
+             
+             
             $status_arr=[];
             $manager_arr=$case_manager;
             $jt_status=0;
@@ -132,7 +134,7 @@
                     <td class="am-text-middle">
                         <div class="am-btn-toolbar">
                             <div class="am-btn-group am-btn-group-xs">
-                                {if condition="$is_jt eq 1 and $jt_status eq 1"}
+                                {if condition="$is_jt eq 1 and $jt_status eq 1 and in_array($userid, $vo['jtarr']) eq 1"}
                                 {$widget->row('button', ['title' => '协助', 'class' => 'am-text-primary', 'icon' => 'am-icon-eye', 'attr' => 'target="new"', 'url' => url('laychatphone/Phone/index', ['id' => $vo['id']])])}
                                 {/if}
                                 {$widget->row('button', ['title' => '编辑', 'class' => 'am-text-secondary ', 'icon' => 'am-icon-pencil-square-o', 'url' => module_url('edit', ['id' => $vo['id']])])}

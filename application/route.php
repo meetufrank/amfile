@@ -30,6 +30,6 @@ return [
     //advance
     'am'=>'advance/Index/index',
     'services/:id'=>'advance/Index/service_details',
-    'mobile_form/:id'=>'advance/Index/mobile_form'
-    
+    'mobile_form/:id'=>'advance/Index/mobile_form',
+    'loginApi'=>'medicalapi/User/Login'
 ];

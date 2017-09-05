@@ -24,6 +24,7 @@ class Start extends Base
      */
     public function login(Request $request)
     {
+     
         // 是否需要验证码
         $needVerify = Config::get('manage_verify_code');
         

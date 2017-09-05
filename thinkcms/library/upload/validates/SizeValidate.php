@@ -21,14 +21,19 @@ class SizeVaildate extends Validate
         
         // 最小值判断
         $minSize = $common->translateBytes($this->getOption('min_size'));
+        
         if ($minSize && $file->getSize() < $minSize) {
-            throw new \Exception('文件小于允许文件上传的最小值[' . $common->formatBytes($minSize) . ']');
+            $data['msg']='文件小于允许文件上传的最小值[' . $common->formatBytes($minSize) . ']';
+            echo json_encode($data);exit;
+            //throw new \Exception('文件小于允许文件上传的最小值[' . $common->formatBytes($minSize) . ']');
         }
         
         // 最大值判断
         $maxSize = $common->translateBytes($this->getOption('max_size'));
         if ($maxSize && $file->getSize() > $maxSize) {
-            throw new \Exception('文件超过允许文件上传的最大值[' . $common->formatBytes($maxSize) . ']');
+            $data['msg']='文件超过允许文件上传的最大值[' . $common->formatBytes($maxSize) . ']';
+            echo json_encode($data);exit;
+            //throw new \Exception('文件超过允许文件上传的最大值[' . $common->formatBytes($maxSize) . ']');
         }
         
         return true;

@@ -5,6 +5,7 @@ use core\Logic;
 use core\cases\model\CaseTypeModel;
 use core\cases\model\CaseStatusModel;
 use core\cases\model\CountryModel;
+use core\cases\model\KsModel;
 class CaseTypeLogic extends Logic
 {
 
@@ -70,7 +71,26 @@ class CaseTypeLogic extends Logic
            
            return $list;
     }
+         /*
+  * 获取科室列表
+  */
     
+        public function getSelectKs($sort_name='ks_sort',$sort='desc')
+    {
+           $data= KsModel::getInstance()->order($sort_name, $sort)->select();
+           $list=[
+
+           ];
+           foreach ($data as $key => $value) {
+               $list[]=[
+                 'name'=>$value['ks_name'].'('.$value['ks_ename'].')',
+                 'value'=>$value['ks_id']
+               ];
+           }
+           
+           
+           return $list;
+    }  
           /*
   * 获取性别下拉列表
   */

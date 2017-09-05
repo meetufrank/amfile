@@ -38,13 +38,23 @@ class ChatUserModel extends Model
        $user_list= $this->withCates()->field($user_alias.'.*,'.$company_alias.'.name as companyname')->where($map)->order($user_alias.'.sort desc');
        return $user_list;
    }
+   //获取casemanager表列表
+    public function getCmlist($map=null) {
+       $user_alias= $this->alias_name;//chatuser表别名
+       $company_alias= CompanyModel::getInstance()->alias_name;  //公司别名
+       $manager_list= UserModel::getInstance()->alias_name;
+       $user_list= $this->withCates(1)->field($user_alias.'.*,'.$company_alias.'.name as companyname')->where($map)->order($user_alias.'.sort desc');
+       return $user_list;
+   }
    /*
     * 加入各级关联
     */
-   public function withCates() {
+   public function withCates($type=0) {
        $query= $this->alias($this->alias_name); //本表别名
        $query= $this->joinCompany($query);
-       
+       if($type>0){
+        $query= $this->joinUser($query);
+       }
        
        return $query;
        
@@ -55,5 +65,9 @@ class ChatUserModel extends Model
        $company= CompanyModel::getInstance();
        return $query->join($company->getTableShortName().' '.$company->alias_name,$this->alias_name.'.company = '.$company->alias_name.'.id');
    }
-  
+   //加入管理员
+    public function joinUser($query) {
+       $user= UserModel::getInstance();
+       return $query->join($user->getTableShortName().' '.$user->alias_name,$this->alias_name.'.managerid = '.$user->alias_name.'.id');
+   }
 }

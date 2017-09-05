@@ -1,5 +1,42 @@
 {extend name="common/base" }
+{block name="style"}
+<style type="text/css">
+    /*20170731*/
+.a-upload {
+    padding: 4px 10px;
+    height:30px;
+    line-height: 20px;
+    position: relative;
+    cursor: pointer;
+    color: #888;
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    display: inline-block;
+    *display: inline;
+    *zoom: 1
+}
 
+.a-upload  input {
+    position: absolute;
+    font-size: 100px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    cursor: pointer
+}
+
+.a-upload:hover {
+    color: #444;
+    background: #eee;
+    border-color: #ccc;
+    text-decoration: none
+}
+
+</style>
+{/block}
 {block name="content"}
 
 <div class="am-g">
@@ -10,6 +47,7 @@
 	                {$widget->form('date', ['title' => '出生日期', 'name' => 'birthday', 'value' => $case_list['birthday'],'r_md_num'=>3])}
 			{$widget->form('radio', ['title' => '性别', 'name' => 'sex', 'value' =>$case_list['sex'],'list'=>$sexlist])}
                         {$widget->form('select', ['title' => '服务类型', 'name' => 'case_type', 'value' =>$case_list['case_type'],'list'=>$typelist])}
+                        {$widget->form('select', ['title' => '科室', 'name' => 'ks_type', 'value' => $case_list['ks_type'],'list'=>$kslist])}
                         {if condition="($case_list['case_status'] eq 2) or ($case_list['case_status'] eq 5)"}
                         {$widget->form('select', ['title' => '监听人员选择', 'name' => 'jtlist[]', 'value' => $case_list['case_jt'], 'list' => $jt_list, 'attr' => 'multiple','tip'=>'*可多选,重复点击可取消'])}
                         {/if}
@@ -56,6 +94,35 @@
                         {$widget->form('text', ['title' => '当前治疗的医院', 'name' => 'treatment_hospital', 'value' =>$case_list['treatment_hospital'],'r_md_num'=>3,'attr'=>' maxlength="40"'])}
                         {$widget->form('text', ['title' => '当前治疗的专科', 'name' => 'specialty', 'value' =>$case_list['specialty'],'r_md_num'=>2,'attr'=>' maxlength="30"'])}
                         {$widget->form('textarea', ['title' => 'case备注', 'name' => 'case_note', 'value' =>$case_list['case_note'],'attr'=>' maxlength="300"'])}
+                        <div class="am-g am-margin-top-sm" >
+                             <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                 上传附件
+                             </div> 
+                          
+                            
+                            <div class="am-u-sm-8 am-u-md-7 am-u-end">  
+                                 <a href="javascript:;" class="a-upload">点击上传附件
+                                 <input type="file" name="upload_file" id="upload_file">
+                
+                                 </a>
+                                <span id="upload_result">
+                                    {if condition="empty($case_list['options_data'])"}
+                                    [暂无附件]
+                                     {else/}
+                                     {$case_list['options_data']['file_hash']}.{$case_list['options_data']['file_ext']}
+                                     {/if}
+                                </span>
+                                 
+                                      <p>(*文件仅支持单个JPG,PDF,JPEG,PNG,DOC,ZIP格式,多个文件请压缩ZIP上传,最大上传大小为10M。)</p>
+                                {if condition="!empty($case_list['options_data'])"}
+                                      <div > 
+                                          <a href="{:module_url('Interfaces/DownloadFile',['hash_str'=>$case_list['options_data']['file_hash']])}" class="a-upload"  target="_blank">点击下载附件
+                                 
+                                 </a>
+                                </div>
+                                {/if}
+                            </div>
+                        </div>
                         {$widget->form('text', ['title' => '排序', 'name' => 'sort', 'value' =>$case_list['sort'],'r_md_num'=>1,'attr'=>' maxlength="6"'])}
 
                         
@@ -178,6 +245,46 @@
             $("[name='district']").html('<option value="">loading……</option>');
             getdistrict($("[name='city']").val());
         }
+        
+              // 上传文件
+	$('#upload_file').on('change', function(){
+		
+		var uploadFile = $(this).get(0).files[0];
+		
+		if(typeof uploadFile == 'undefined'){
+			return false;
+		}
+		
+		var formData = new FormData();
+		
+		formData.append('upload_file', uploadFile);
+		var ajaxOption = {
+			url 	: '{:url("advance/Upload/upload")}',
+			type	: 'post',
+			data	: formData,
+			dataType: 'json',
+			timeout	: 0,
+			processData : false,
+			contentType : false,
+			success	: function(res){
+				
+				if(res.code == 1){
+					$('#upload_result').html('<span >['+res.data.hash+'.'+res.data.ext+']</span>');
+				       $('#upload_file').before('<input type="hidden" value="'+res.data.url+'" name="options"/>');
+				}else{
+					$('#upload_result').html('<span >['+res.msg+']</span>');
+				}
+			},
+			error : function(xhr){
+				
+				$('#upload_result').html('<span >[网络链接错误]</span>');
+			}
+		};
+		$.ajax(ajaxOption);
+	});
+        
+        
+       
 
 
 });

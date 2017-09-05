@@ -37,7 +37,6 @@ window.confirmAlert = function(text, success, error) {
 		onclose: onError
 	});
 };
-// confirmAlert('确定要删除吗?');
 
 // 输入弹窗
 window.promptAlert = function(text, value, success, error) {
@@ -199,10 +198,12 @@ $(function() {
 
 	// 输入框
 	$('.nd-input').on('change', function() {
-           
+            
+                  
 		var url = $(this).attr('url'),
 			value = $(this).val();
-		if(url) {
+                var ajax_func = function() {
+				if(url) {
 			url = url.replace('.html', '');
 			url = url + '/value/' + value + '.html';
 			$.ajax({
@@ -211,8 +212,16 @@ $(function() {
 				dataType: 'json',
 				success: ajaxSuccess,
 				error: ajaxError
-			});
-		}
+			      });
+		         }
+                            };
+                confirmAlert('确认要执行该操作吗?', function() {
+					ajax_func();
+				}, function() {
+				    window.location.href=window.location.href;
+				});               
+                
+		
 	});
 
 	// 搜索框
