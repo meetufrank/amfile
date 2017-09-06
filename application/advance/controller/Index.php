@@ -13,6 +13,7 @@ use core\cases\model\CaseModel;
 use core\cases\logic\CaseTypeLogic;
 use core\cases\model\AreaModel;
 use core\cases\model\ChatUserModel;
+use core\manage\model\FileModel;
 class Index extends Controller
 {
     /**
@@ -31,6 +32,7 @@ class Index extends Controller
      */
     public function _initialize()
     {
+       
         parent::_initialize();
         
         //记录当前url
@@ -94,6 +96,7 @@ class Index extends Controller
      */
     public function index()
     {
+        
        $this->siteTitle = 'advance|medical首页';
 
         return $this->fetch();
@@ -157,9 +160,15 @@ class Index extends Controller
                  'case_type' => $request->param('case_type'),
                 'sort' => $request->param('sort',0), 
                 'country'=>$request->param('country',1),
-                'email'=>str_replace(' ', '',$request->param('email'))
+                'email'=>str_replace(' ', '',$request->param('email')),
+               
             ];
-            
+            if($request->param('options')){
+                $file=FileModel::getInstance()->where(['file_url'=>$request->param('options')])->find();
+                if(!empty($file)){
+                    $data['options']=$file['id'];
+                }
+            }
             if(cookie('phone_user_id')){
                 $data['userid']= cookie('phone_user_id');
             }else{

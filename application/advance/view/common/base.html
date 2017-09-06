@@ -43,7 +43,8 @@
   <script type="text/javascript" src="{$static_path}/advance/js/vendor/DatetimePicker-i18n-zh-CN.js?_={$site_version}"></script>
   <script type="text/javascript" src="{$static_path}/advance/js/main.js?_={$site_version}"></script>
   <script type="text/javascript" src="{$static_path}/advance/js/forms.js?_={$site_version}"></script>
-  
+
+ 
   <script type="text/javascript">
       window.__addurl__='{:url(\'Index/addCase\')}';
       window.__loginurl__='{:url(\'Login/index\')}';
@@ -145,6 +146,43 @@
      })
      
  })
+
+// 上传文件
+	$('#upload_file').on('change', function(){
+		
+		var uploadFile = $(this).get(0).files[0];
+		
+		if(typeof uploadFile == 'undefined'){
+			return false;
+		}
+		
+		var formData = new FormData();
+		
+		formData.append('upload_file', uploadFile);
+		var ajaxOption = {
+			url 	: '{:url("advance/Upload/upload")}',
+			type	: 'post',
+			data	: formData,
+			dataType: 'json',
+			timeout	: 0,
+			processData : false,
+			contentType : false,
+			success	: function(res){
+				
+				if(res.code == 1){
+					$('#upload_result').html('<span >['+res.data.hash+'.'+res.data.ext+']</span>');
+				       $('#upload_file').before('<input type="hidden" value="'+res.data.url+'" name="options"/>');
+				}else{
+					$('#upload_result').html('<span >['+res.msg+']</span>');
+				}
+			},
+			error : function(xhr){
+				
+				$('#upload_result').html('<span >[网络链接错误]</span>');
+			}
+		};
+		$.ajax(ajaxOption);
+	});
 </script>
   {block name="jscode"}{/block}
 </body>

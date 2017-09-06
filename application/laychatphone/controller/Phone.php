@@ -13,13 +13,18 @@ use app\laychatphone\model\GroupDetail;
 use app\laychatphone\model\ChatGroup;
 use app\laychatphone\model\Cases;
 use think\Request;
+use think\Db;
 use app\laychatphone\model\Message;
 use core\cases\logic\CaseLogic;
 use core\cases\model\ChatGroupModel;
 use core\cases\model\GroupDetailModel;
 use core\cases\model\CaseModel;
 use core\cases\model\ChatUserModel;
-
+use core\cases\logic\ChatUserLogic;
+use core\cases\model\JtModel;
+use core\cases\model\CompanyModel;
+use core\manage\model\UserModel;
+use app\common\sendemail\SendUser;
 class Phone extends Base
 {
     public function index()
@@ -246,10 +251,21 @@ class Phone extends Base
            $data['msg']='确认成功';
           $data['url']=url("Phone/case_list");
       }else{
-                      $chatuser=ChatUserModel::getInstance();
+      
+          $chatuser=ChatUserModel::getInstance();
+                    
+                    
+                    
+                      
                     $groupid=$case['groupid'];
                     $case_manager=$case['case_manager'];
-                    $managerdata=$chatuser->where(['managerid'=>$case_manager])->find();//casemanager
+                    
+                    $managerdata=$chatuser->where(['managerid'=>$case_manager,'delete_time'=>0])->find();
+                    $managerdata['case_code']=$case['case_code'];
+                       //发送接收通知邮件
+                    $email=new SendUser();
+                    $email->acceptCase($managerdata);
+                    
                     $user_id=$case['userid'];
                     $user_name=$case['case_username'];
                     $user_avatar=$case['user_avatar'];
@@ -257,6 +273,50 @@ class Phone extends Base
                     
                     $alldata=[];
                    $group=GroupDetailModel::getInstance();
+                    //配置默认监听
+                   //查询该用户所属公司下方有效监听数组
+                   $companyarr=CompanyModel::getInstance()->where(['id'=>$managerdata['company']])->find();
+                   $default_jt=[];
+                   empty($companyarr) || $default_jt=explode(',', $companyarr['default']);
+                   $jt_arr=[];
+                   foreach (@$default_jt as $key => $value) {
+                       $jtcount= UserModel::getInstance()->where(['delete_time'=>0,'id'=>$value,'user_gid'=> config('am_jianting')])->count();
+                       if($jtcount){
+                           $jt_arr[]=$value;
+                       }
+                   }
+                   //将监听数组分配至聊天室
+                   foreach (@$jt_arr as $key => $value) {
+                       $caseid=$case['id'];
+                       //查询监听有没有跟被该case指定过
+                      $cj_count=JtModel::getInstance()->where(['cases_id'=>$caseid,'user_id'=>$value])->count();
+                      $cj_map=[
+                          'cases_id'=>$caseid,
+                          'user_id'=>$value                        
+                      ];
+                     
+                      if(!$cj_count){
+                          JtModel::getInstance()->save($cj_map);
+                      }
+                       $jtdata=$chatuser->where(['managerid'=>$value])->find();//casemanager
+                       $map=[
+                          'group_id'=>$groupid,
+                          'user_id'=>$jtdata['id']                         
+                      ];
+                      $count=$group->where($map)->count();
+                      if($count){
+                           $group->where($map)->update(['status'=>1]); 
+                      }else{
+                          $data=[
+                              'user_id'=>$jtdata['id'],
+                              'user_name'=>$jtdata['user_name'],
+                              'user_avatar'=>$jtdata['avatar'],
+                              'group_id'=>$groupid,
+                              'status'=>1 
+                          ];
+                          $alldata[]=$data;
+                      }
+                   }
                     //查询该case_manager是否在群中或者有无加群记录
                     $map=[
                           'group_id'=>$groupid,
@@ -394,14 +454,24 @@ class Phone extends Base
         public function sendMsg(){
             $data=input('post.data');
             $data=json_decode($data,true);
+            
             $msg=new \message\mess();
+            $content=ChatUserLogic::getInstance()->getLanguage($data['mess_content'], 4);
+            $insert=[
+                'content'=>$content['content'],
+                'tel'=>$data['tel'],
+                'user_id'=>$data['mess_content']['id'],
+                'create_time'=>time()
+            ];
+            Db::name('cases_messlog')->insert($insert);
             if($data){
-                $msg->send($data['tel'], $data['mess_content']);
+                $msg->send($data['tel'], $content['content']);
             }
       
         }
         
 
+        
         
         public function updateLog($id){
             $perPage=21; //由于layim框架的显示问题，这里需要多一条数据，用户看到的是20条数据

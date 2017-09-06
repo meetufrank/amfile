@@ -5,7 +5,7 @@ use think\Request;
 use think\Session;
 
 use core\cases\model\ChatUserModel;
-use core\manage\model\UserModel;
+use core\cases\model\UserModel;
 use core\manage\logic\UserLogic;
 use core\cases\logic\ChatUserLogic;
 use core\cases\logic\CaseTypeLogic;
@@ -61,6 +61,7 @@ class UserList extends Base
         
         
         $map[$chatuser_alias.'.managerid']=0;
+        $this->assign('wherelist', json_encode($map));
         // 分页列表
         $model = ChatUserModel::getInstance();
         $user_list=$model->getUserList($map);
@@ -84,9 +85,24 @@ class UserList extends Base
           $this->getUserStatus();
     }
 
-    
-
-
+    //导出excel用户表格
+    public function exportUser(Request $request) {
+        $map=$request->param('map');
+        
+        $map=json_decode($map,TRUE);
+        
+        ChatUserLogic::getInstance()->exportUser($map);
+    }
+    //导出excel用户表格
+    public function importUser(Request $request) {
+        if ($request->isPost()) {
+           
+            ChatUserLogic::getInstance()->importUser($request->param('options'));
+            exit;
+        }else{
+           return $this->fetch();
+        }
+    }
 
        //获取性别数组
     protected function getSexList(){
@@ -166,7 +182,9 @@ class UserList extends Base
                 'tel' => $request->param('tel'),
                 'email' => $request->param('email'),
                 'sort' => $request->param('sort'),
-                'u_status' => $request->param('u_status')
+                'u_status' => $request->param('u_status'),
+                'language'=>$request->param('language',1),
+                'area'=>$request->param('area')
 
             ];
             if($data['company']){
@@ -225,10 +243,21 @@ class UserList extends Base
          //获取更多内容
           
          $this->assign('companymore',$this->getCompanyMore());
+         
+         
+         //获取语言列表
+         $this->getLangList();
             return $this->fetch();
         }
     }
-  
+  /*
+   * 获取语言列表
+   */
+  public function getLangList() {
+      $list=ChatUserLogic::getInstance()->getLanguageList();
+      $this->assign('languagelist', $list);
+      
+  }
     /*
      * 获取公司额外填写信息数组
      */
@@ -254,7 +283,9 @@ class UserList extends Base
                 'tel' => $request->param('tel'),
                 'email' => $request->param('email'),
                 'sort' => $request->param('sort'),
-                'u_status' => $request->param('u_status')
+                'u_status' => $request->param('u_status'),
+                 'language'=>$request->param('language'),
+                'area'=>$request->param('area')
 
             ];
             if($data['company']){
@@ -265,6 +296,9 @@ class UserList extends Base
                 }
             }
           
+           if(!$data['language']){
+               $data['language']=ChatUserModel::getInstance()->where(['id'=>$userid])->value('language');
+           }
           
             // 修改
            if($request->param('pwd')){
@@ -275,6 +309,7 @@ class UserList extends Base
              //发送邮箱
             $email=new SendUser();
             $email->editSend($data);
+           
              //加密密码
             $data['pwd']= md5($data['pwd']);
             unset($data['pwd_again']);
@@ -327,6 +362,7 @@ class UserList extends Base
         
         $user_list=$model->getUserList($map)->select();
        
+       
         if($user_list){
             $this->assign('user_list', $user_list[0]);
         }else{
@@ -342,10 +378,12 @@ class UserList extends Base
           
           //公司列表
           $this->assignCompanyList();
-          //获取更多内容
-         
-         $this->assign('companymore',$this->getCompanyMore($user_list[0]));
-            
+          
+         //获取更多内容
+          $this->assign('companymore',$this->getCompanyMore($user_list[0]));
+        
+            //获取语言列表
+         $this->getLangList();
          return $this->fetch();
         
         }

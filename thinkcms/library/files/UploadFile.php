@@ -14,6 +14,7 @@ class UploadFile extends LocalFile
      */
     public function load($file)
     {
+        
         if ($file['error'] > 0) {
             switch ($file['error']) {
                 case 1:
@@ -44,7 +45,12 @@ class UploadFile extends LocalFile
                     $msg = '未知的上传错误';
                     break;
             }
-            throw new \Exception($msg);
+            //新加
+            $data['msg']=$msg;
+            
+            echo json_encode($data);
+            exit;
+            //throw new \Exception($msg);
         }
         return parent::load($file['tmp_name']);
     }

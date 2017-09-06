@@ -24,7 +24,9 @@ class ExtensionVaildate extends Validate
         
         // 后缀判断
         if (! in_array($file->getExtension(), $extensions)) {
-            throw new \Exception('不允许上传后缀为[' . $file->getExtension() . ']的文件');
+            $data['msg']='错误后缀文件!';
+            echo json_encode($data);exit;
+            //throw new \Exception('不允许上传后缀为[' . $file->getExtension() . ']的文件');
         }
         
         return true;

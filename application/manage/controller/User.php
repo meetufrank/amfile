@@ -22,7 +22,7 @@ class User extends Base
         $this->siteTitle = '用户管理';
         
         // 分页列表
-        $list = UserModel::getInstance()->where(['id'=>['neq',1]])->select();
+        $list = UserModel::getInstance()->where(['id'=>['neq',1],'delete_time'=>0])->select();
         foreach ($list as $key => $value) {
             if($value['user_gid']==config('am_casemanage')||$value['user_gid']==config('am_jianting')){
                 $ishave=$this->ishave(['managerid'=>$value['id']]);
@@ -172,11 +172,9 @@ class User extends Base
         } elseif ($this->userId == $userId) {
             $this->error('自己不能删除自己');
         }
-        $where=[
-          'managerid'=>$userId 
-        ];
-        ChatUserModel::getInstance()->where($where)->delete(); 
-        $this->_delete(UserModel::class, false);
+       
+        
+        $this->_delete(UserModel::class, true);
     }
 
     /**

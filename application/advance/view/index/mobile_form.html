@@ -176,9 +176,10 @@
           </div>
         </div>
         <a href="javascript:;" class="a-uploadphone">
-                <input type="file" name="" id="upload_file">点击上传文件
-        </a>
-        <p>手机端仅支持JPG,PDF.多个文件请压缩ZIP上传</p>
+                <input type="file" name="upload_file" id="upload_file">点击上传文件
+                
+        </a><span id="upload_result"></span>
+        <p>文件仅支持单个JPG,PDF,JPEG,PNG,DOC,ZIP格式,多个文件请压缩ZIP上传,最大上传大小为10M</p>
         <div class="form-group optional-checkbox">
           <div class="col-sm-12">
             <input type="checkbox" id="doctor-checkbox" name="doctor_checkbox">
@@ -335,9 +336,44 @@
             getdistrict($("[name='province']").val());
         }
 
-
-});
+// 上传文件
+	$('#upload_file').on('change', function(){
+		
+		var uploadFile = $(this).get(0).files[0];
+		
+		if(typeof uploadFile == 'undefined'){
+			return false;
+		}
+		
+		var formData = new FormData();
+		
+		formData.append('upload_file', uploadFile);
+		var ajaxOption = {
+			url 	: '{:url("advance/Upload/upload")}',
+			type	: 'post',
+			data	: formData,
+			dataType: 'json',
+			timeout	: 0,
+			processData : false,
+			contentType : false,
+			success	: function(res){
+				
+				if(res.code == 1){
+					$('#upload_result').html('<span >['+res.data.hash+'.'+res.data.ext+']</span>');
+				       $('#upload_file').before('<input type="hidden" value="'+res.data.url+'" name="options"/>');
+				}else{
+					$('#upload_result').html('<span >['+res.msg+']</span>');
+				}
+			},
+			error : function(xhr){
+				
+				$('#upload_result').html('<span >[网络链接错误]</span>');
+			}
+		};
+		$.ajax(ajaxOption);
+	});
    
+})
 </script>
 
   <script type="text/javascript" src="{$static_path}/advance/js/vendor/jquery.validate.min.js"></script>

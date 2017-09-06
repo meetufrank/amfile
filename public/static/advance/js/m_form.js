@@ -75,8 +75,9 @@ $(function() {
 $(function() {
     if (window.location.hash) {
         var e = window.location.hash.substr(1);
-        "pressure" === e ? ($(".m-form-step-indicator").addClass("m-form-step-indicator2"), $(".medical-form").addClass("medical-form2"), $(".contract-context").addClass("contract-context2"), $("#form-type").val(2), $(".form-feedback-wrapper").addClass("form-feedback-wrapper2")) : "private" === e ? ($(".m-form-step-indicator").addClass("m-form-step-indicator3"), $(".medical-form").addClass("medical-form3"), $(".contract-context").addClass("contract-context3"), $("#form-type").val(3), $(".form-feedback-wrapper").addClass("form-feedback-wrapper3")) : "medical" === e && ($(".m-form-step-indicator").addClass("m-form-step-indicator4"), $(".medical-form").addClass("medical-form4"), $(".contract-context").addClass("contract-context4"), $("#form-type").val(4), $(".form-feedback-wrapper").addClass("form-feedback-wrapper4"))
-    } else $(".optional-checkbox").css("display", "block"),
+        "pressure" === e ? ($(".m-form-step-indicator").addClass("m-form-step-indicator2"), $(".medical-form").addClass("medical-form2"), $(".contract-context").addClass("contract-context2"), $("#form-type").val(2), $(".form-feedback-wrapper").addClass("form-feedback-wrapper2"),$(".optional-checkbox").css({"display":"block","color":"#0775aa"})) : "private" === e ? ($(".m-form-step-indicator").addClass("m-form-step-indicator3"), $(".medical-form").addClass("medical-form3"), $(".contract-context").addClass("contract-context3"), $("#form-type").val(3), $(".form-feedback-wrapper").addClass("form-feedback-wrapper3"),$(".optional-checkbox").css({"display":"block","color":"#9d3373"})) : "medical" === e && ($(".m-form-step-indicator").addClass("m-form-step-indicator4"), $(".medical-form").addClass("medical-form4"), $(".contract-context").addClass("contract-context4"), $("#form-type").val(4), $(".form-feedback-wrapper").addClass("form-feedback-wrapper4"), $(".optional-checkbox").css({"display":"block","color":"#563e96"}))
+    }
+    $(".optional-checkbox").css("display", "block"),
     $(".change-label").text("请简要说明您的病情，并描述你想要从医疗专家意见书中得知什么");
     $(".optional-checkbox").click(function() {
         $("#doctor-checkbox").is(":checked") ? $(".doctor-group").css("display", "block") : $(".doctor-group").removeAttr("style")

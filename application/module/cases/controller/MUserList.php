@@ -5,7 +5,7 @@ use think\Request;
 use think\Session;
 
 use core\cases\model\ChatUserModel;
-use core\manage\model\UserModel;
+use core\cases\model\UserModel;
 use core\manage\logic\UserLogic;
 use core\cases\logic\ChatUserLogic;
 use core\cases\logic\CaseTypeLogic;
@@ -83,7 +83,9 @@ class MUserList extends Base
                 'email' => $request->param('email'),
                 'sort' => $request->param('sort'),
                 'u_status' => $request->param('u_status'),
-                'is_manager'=>1
+                'is_manager'=>1,
+                'language'=>$request->param('language'),
+                'area'=>$request->param('area')
             ];
             if(empty($request->param('managerid'))){
                 $this->error('非法操作', self::JUMP_REFERER);
@@ -140,12 +142,32 @@ class MUserList extends Base
              $this->error('非法操作', self::JUMP_REFERER); 
          }
           
-    
+    //获取语言列表
+         $this->getLangList();
 
             return $this->fetch();
         }
     }
-    
+      //导出excel用户表格
+   public function exportUser() {
+       //获取用户表别名
+        $chatuser_alias=ChatUserModel::getInstance()->alias_name;
+        $manager_alias=UserModel::getInstance()->alias_name;
+        $map=[
+            $chatuser_alias.'.delete_time' => 0,
+            $manager_alias.'.user_gid'=> config('am_casemanage')
+        ];
+        
+        ChatUserLogic::getInstance()->exportCmanager($map);
+    }
+     /*
+   * 获取语言列表
+   */
+  public function getLangList() {
+      $list=ChatUserLogic::getInstance()->getLanguageList();
+      $this->assign('languagelist', $list);
+      
+  }
     
        /**
      * 编辑case
@@ -167,9 +189,14 @@ class MUserList extends Base
                 'tel' => $request->param('tel'),
                 'email' => $request->param('email'),
                 'sort' => $request->param('sort'),
-                'u_status' => $request->param('u_status')
-
+                'u_status' => $request->param('u_status'),
+                'language'=>$request->param('language'),
+                'area'=>$request->param('area')
             ];
+             if(!$data['language']){
+               $data['language']=ChatUserModel::getInstance()->where(['id'=>$userid])->value('language');
+           }
+          
                      // 修改
            if($request->param('pwd')){
               $data['pwd']=$request->param('pwd');
@@ -247,6 +274,8 @@ class MUserList extends Base
           
           //公司列表
           $this->assignCompanyList();
+          //获取语言列表
+         $this->getLangList();
             return $this->fetch();
         
         }

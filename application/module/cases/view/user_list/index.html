@@ -15,7 +15,7 @@
 <form action="{:module_url('index')}" class="search-form">
 <div class="am-g">
 
-    <div class="am-u-sm-12 am-u-md-3">
+    <div class="am-u-sm-12 am-u-md-5">
         <div class="am-btn-toolbar">
             <div class="am-btn-group am-btn-group-xs">
                 <a class="am-btn am-btn-default" href="{:module_url('add')}">
@@ -23,6 +23,13 @@
                 </a>
                 <a class="am-btn am-btn-default nd-refresh">
                     <span class="am-icon-refresh"></span> 刷新
+                </a>
+                <a class="am-btn am-btn-default " id="export">
+                    <span class="am-icon-level-down"></span> 导出excel
+                </a>
+                
+                <a class="am-btn am-btn-default "  target="_blank" href="{:module_url('importUser')}">
+                    <span class="am-icon-level-up"></span> 导入excel
                 </a>
             </div>
         </div>
@@ -97,4 +104,18 @@
         {/if}
     </div>
 </div>
+{/block}
+
+{block name="script"}
+
+<script type="text/javascript" src="{$lib_path}/jquery/2.0.0/jquery.min.js?_={$site_version}"></script>
+ <script type="text/javascript">
+     $("#export").click(function(e){
+         e.preventDefault();
+         window.location.href="{:module_url('exportUser',array('map'=>$wherelist))}";
+       
+       
+     });
+     
+ </script>
 {/block}

@@ -23,6 +23,7 @@ class Upload extends Base
      */
     public function upload(Request $request)
     {
+        
         $option = $request->param('upload_option');
         $option && $option = json_decode($option, true);
         $option || $option = [];
@@ -153,6 +154,7 @@ class Upload extends Base
         // 上传文件
         $type = is_array($file) ? FileFactory::TYPE_UPLOAD : FileFactory::TYPE_STREAM;
         $upfile = FileFactory::make($type);
+        
         $upfile->load($file);
         
         // 上传对象

@@ -37,6 +37,7 @@ class UserLogic extends Logic
                 'value' => $vo['id']
             ];
         }
+       
         return $users;
     }
 

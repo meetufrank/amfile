@@ -53,12 +53,14 @@ class CaseModel extends Model
         $district=AreaModel::getInstance()->alias_name[2]; //区
         $user=ChatUserModel::getInstance()->alias_name; //用户
         $status=CaseStatusModel::getInstance()->alias_name; //状态
+        $ks= KsModel::getInstance()->alias_name;//科室
         $case_list = $this->withCates()->field(
                 $alias.'.*,'
                 .$aliastype.'.typename,'
                 .$counry.'.name as country_name,'.$province.'.area_name as province_name ,'.$city.'.area_name as city_name ,'.$district.'.area_name as district_name ,'
                 .$user.'.user_name as case_username , '.$user.'.avatar as user_avatar , '
-                .$status.'.color as statuscolor ,'.$status.'.name as statusname'
+                .$status.'.color as statuscolor ,'.$status.'.name as statusname , '
+                .$ks.'.ks_name ,'.$ks.'.ks_ename '
                 )->where($map)
             ->order($status.'.sort desc, '.$alias.'.sort desc,'.$alias.'.create_time desc');
         
@@ -95,10 +97,20 @@ class CaseModel extends Model
         $query= $this->withUser($query);//加入用户
         $query=$this->joinCountry($query);//加入国家
         $query= $this->joinStatus($query); //加入状态
+        $query= $this->joinKs($query);  //加入科室
         return $this->joinAddress($query);
     }
     
-    
+           /**
+     * 连接科室
+     *
+     * @return \think\db\Query
+     */
+    protected function joinKs($query)
+    {
+        $ks= KsModel::getInstance();
+        return $query->join($ks->getTableShortName() . ' '.$ks->alias_name, $this->alias_name.'.ks_type = '.$ks->alias_name.'.ks_id');
+    }  
          /**
      * 连接监听组
      *

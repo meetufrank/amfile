@@ -136,7 +136,7 @@ class Upload implements UploadInterface
             $path = $storage->getOption('dir') . str_replace(array_keys($vars), array_values($vars), $this->_pathFormat);
         }
         $info['path'] = $path;
-        
+       
         // 上传验证钩子
         $this->callHook(self::HOOK_UPLOAD_CHECK, $info);
         
