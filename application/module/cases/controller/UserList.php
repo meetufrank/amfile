@@ -18,12 +18,12 @@ class UserList extends Base
     /**
      * 用户列表
      *
-     * @param Request $request            
+     * @param Request $request
      * @return string
      */
     public function index(Request $request)
     {
-        
+
         $this->siteTitle = '用户列表';
         //获取用户表别名
         $chatuser_alias=ChatUserModel::getInstance()->alias_name;
@@ -31,7 +31,7 @@ class UserList extends Base
         $map = [
             $chatuser_alias.'.delete_time' => 0
         ];
-      
+
         $this->assignUserList($map);
         return $this->fetch();
     }
@@ -39,7 +39,7 @@ class UserList extends Base
 /**
      * 赋值用户列表
      *
-     * @param array $map            
+     * @param array $map
      *
      * @return void
      */
@@ -58,16 +58,16 @@ class UserList extends Base
             ];
         }
         $this->assign('keyword', $keyword);
-        
-        
+
+
         $map[$chatuser_alias.'.managerid']=0;
         $this->assign('wherelist', json_encode($map));
         // 分页列表
         $model = ChatUserModel::getInstance();
         $user_list=$model->getUserList($map);
-   
+
         $this->_page($user_list);
-        
+
         //查询case管理人员id字符串
 //        $map=[
 //            'user_gid'=> config('am_casemanage')
@@ -80,7 +80,7 @@ class UserList extends Base
 //        ];
 //        $jiantingstr = UserModel::where($map)->column('id');
 //        $this->assign('jiantingstr', implode(',',$jiantingstr));
-        
+
           //用户状态
           $this->getUserStatus();
     }
@@ -88,15 +88,15 @@ class UserList extends Base
     //导出excel用户表格
     public function exportUser(Request $request) {
         $map=$request->param('map');
-        
+
         $map=json_decode($map,TRUE);
-        
+
         ChatUserLogic::getInstance()->exportUser($map);
     }
     //导出excel用户表格
     public function importUser(Request $request) {
         if ($request->isPost()) {
-           
+
             ChatUserLogic::getInstance()->importUser($request->param('options'));
             exit;
         }else{
@@ -106,13 +106,13 @@ class UserList extends Base
 
        //获取性别数组
     protected function getSexList(){
-         
+
          $logic =CaseTypeLogic::getInstance();
          $case_manager=$logic->getSelectSex();
          $this->assign('sexlist',$case_manager);
      }
 
-     
+
      //验证唯一
     protected function UserOnly($where=null){
        $logic =ChatUserLogic::getInstance();
@@ -124,19 +124,19 @@ class UserList extends Base
            }
        }
       }
- 
-       
+
+
      }
             //获取用户状态数组
     protected function getUserStatus(){
-         
+
          $logic =ChatUserLogic::getInstance();
          $case_manager=$logic->getSelectStatus();
          $this->assign('userstatus',$case_manager);
      }
             //获取可用公司列表数组
     protected function assignCompanyList(){
-         
+
          $logic =ChatUserLogic::getInstance();
          $where=[
              'status'=>1
@@ -145,12 +145,12 @@ class UserList extends Base
          $this->assign('company_list',$company_list);
      }
 
-     
+
 
      /**
      * 更改case
      *
-     * @param Request $request            
+     * @param Request $request
      * @return mixed
      */
     public function modify(Request $request)
@@ -161,11 +161,11 @@ class UserList extends Base
         ];
         $this->_modify(ChatUserModel::class, $fields);
     }
- 
+
         /**
      * 添加case
      *
-     * @param Request $request            
+     * @param Request $request
      * @return string
      */
     public function add(Request $request)
@@ -194,12 +194,12 @@ class UserList extends Base
                     $data[$key]=$request->param($key);
                 }
             }
-          
+
            // 验证
             $this->_validate(ChatUserValidate::class, $data, 'add');
             //检测用户名重复
            $where=[
-                 
+
                [
                    'where'=>['user_name'=>$data['user_name']],
                    'msg'=>'用户名已存在'
@@ -212,7 +212,7 @@ class UserList extends Base
                    'where'=>['email'=>$data['email']],
                    'msg'=>'邮箱已存在'
                ]
-         
+
            ];
            $this->UserOnly($where);
            //发送邮箱
@@ -224,27 +224,27 @@ class UserList extends Base
             $data['pwd']= md5($data['pwd']);
             unset($data['pwd_again']);
             $status = $model->save($data);
-           
+
             $this->success('新增成功', self::JUMP_REFERER);
         } else {
             $this->siteTitle = '新增用户';
-           
-            
+
+
            //性别
             $this->getSexList();
-            
+
           //用户状态
           $this->getUserStatus();
-            
-          
+
+
           //公司列表
           $this->assignCompanyList();
-        
+
          //获取更多内容
-          
+
          $this->assign('companymore',$this->getCompanyMore());
-         
-         
+
+
          //获取语言列表
          $this->getLangList();
             return $this->fetch();
@@ -256,7 +256,7 @@ class UserList extends Base
   public function getLangList() {
       $list=ChatUserLogic::getInstance()->getLanguageList();
       $this->assign('languagelist', $list);
-      
+
   }
     /*
      * 获取公司额外填写信息数组
@@ -267,7 +267,7 @@ class UserList extends Base
        /**
      * 编辑case
      *
-     * @param Request $request            
+     * @param Request $request
      * @return mixed
      */
     public function edit(Request $request)
@@ -295,11 +295,11 @@ class UserList extends Base
                     $data[$key]=$request->param($key);
                 }
             }
-          
+
            if(!$data['language']){
                $data['language']=ChatUserModel::getInstance()->where(['id'=>$userid])->value('language');
            }
-          
+
             // 修改
            if($request->param('pwd')){
               $data['pwd']=$request->param('pwd');
@@ -309,7 +309,7 @@ class UserList extends Base
              //发送邮箱
             $email=new SendUser();
             $email->editSend($data);
-           
+
              //加密密码
             $data['pwd']= md5($data['pwd']);
             unset($data['pwd_again']);
@@ -319,7 +319,7 @@ class UserList extends Base
           }
           //检测用户名重复
            $where=[
-                 
+
                [
                    'where'=>[
                        'user_name'=>$data['user_name'],
@@ -341,7 +341,7 @@ class UserList extends Base
                    ],
                    'msg'=>'邮箱已存在'
                ]
-         
+
            ];
            $this->UserOnly($where);
             $model = ChatUserModel::getInstance();
@@ -352,47 +352,47 @@ class UserList extends Base
             $this->success('修改成功', self::JUMP_REFERER);
         } else {
             $this->siteTitle = '编辑用户';
-            
-         $model = ChatUserModel::getInstance();   
+
+         $model = ChatUserModel::getInstance();
         $user_alias=$model->alias_name;
             $map=[
                $user_alias. '.id'=>$userid,
                $user_alias.'.managerid'=>0
             ];
-        
+
         $user_list=$model->getUserList($map)->select();
-       
-       
+
+
         if($user_list){
             $this->assign('user_list', $user_list[0]);
         }else{
             $this->error(非法操作);
         }
-   
+
 
                    //性别
             $this->getSexList();
-            
+
           //用户状态
           $this->getUserStatus();
-          
+
           //公司列表
           $this->assignCompanyList();
-          
+
          //获取更多内容
           $this->assign('companymore',$this->getCompanyMore($user_list[0]));
-        
+
             //获取语言列表
          $this->getLangList();
          return $this->fetch();
-        
+
         }
     }
- 
+
         /**
      * 删除case
      *
-     * @param Request $request            
+     * @param Request $request
      * @return mixed
      */
     public function delete(Request $request)
