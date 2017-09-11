@@ -35,6 +35,7 @@ class ChatUserModel extends Model
    public function getUserlist($map=null) {
        $user_alias= $this->alias_name;//chatuser表别名
        $company_alias= CompanyModel::getInstance()->alias_name;  //公司别名
+       
        $user_list= $this->withCates()->field($user_alias.'.*,'.$company_alias.'.name as companyname')->where($map)->order($user_alias.'.sort desc');
        return $user_list;
    }
@@ -59,8 +60,27 @@ class ChatUserModel extends Model
        return $query;
        
    }
-   
-   
+          /**
+     * 关联科室组
+     *
+     * @return \think\model\relation\BelongsToMany
+     */
+    public function ksarr()
+    {
+        return $this->belongsToMany(KsModel::class, CkModel::getInstance()->getTableShortName(), 'ks_id', 'user_id');
+    }
+            /**
+     * 连接科室组
+     *
+     * @return \think\db\Query
+     */
+    protected function joinKs($query)
+    {
+        $ks= KsModel::getInstance();
+        $ck= CkModel::getInstance(); //关联表
+        return $query->join($ck->getTableShortName() .' '.$ck->alias_name,$this->alias_name.'.id ='.$ck->alias_name.'.user_id')
+            ->join($ck->getTableShortName().' '.$ck->alias_name,$ks->alias_name. '.ks_id ='.$ck->alias_name.'.ks_id');
+    }
    public function joinCompany($query) {
        $company= CompanyModel::getInstance();
        return $query->join($company->getTableShortName().' '.$company->alias_name,$this->alias_name.'.company = '.$company->alias_name.'.id');

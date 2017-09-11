@@ -33,7 +33,6 @@ class CaseList extends Base
     public function index(Request $request)
     {
         
-        
         $this->siteTitle = 'case列表';
         //获取case表的别名
         $case_alias=CaseModel::getInstance()->alias_name;

@@ -123,6 +123,8 @@ class MUserList extends Base
             $data['pwd']= md5($data['pwd']);
             unset($data['pwd_again']);
             $status = $model->save($data);
+            $ks_arr=$request->param('kslist/a',[]);
+            ChatUserLogic::getInstance()->joinks($model->id, $ks_arr);
             $this->success('新增成功', self::JUMP_REFERER);
         } else {
             $this->siteTitle = '新增用户';
@@ -136,18 +138,35 @@ class MUserList extends Base
            //公司列表
           $this->assignCompanyList();
             
-         if($request->param('forid')){
-             $this->assign('managerid',$request->param('forid'));
+         $managerid=$request->param('forid');
+         if($managerid){
+             $this->assign('managerid',$managerid);
          }else{
              $this->error('非法操作', self::JUMP_REFERER); 
          }
-          
     //获取语言列表
          $this->getLangList();
-
+  //该用户是否是casemanager
+         $cmlist=UserLogic::getInstance()->isCm($managerid);
+         //print_r($cmlist);exit;
+         if(!empty($cmlist)){
+             //获取科室列表
+             $this->getKsList();
+             $this->assign('isCm', 1);
+         }else{
+             $this->assign('isCm', 0);
+         }
             return $this->fetch();
         }
     }
+        //获取科室数组
+     protected function getKsList(){
+         
+         $logic = ChatUserLogic::getInstance();
+         $kslist=$logic->getSelectKs();
+
+         $this->assign('kslist',$kslist);
+     } 
       //导出excel用户表格
    public function exportUser() {
        //获取用户表别名
@@ -243,23 +262,32 @@ class MUserList extends Base
             // 修改
             $model = ChatUserModel::getInstance();
             $map = [
+            'delete_time'=>0,
             'managerid' => $userid
             ];
             
             $status = $model->save($data,$map);
+           $id=ChatUserLogic::getInstance()->getUserId($map);
+            $ks_arr=$request->param('kslist/a',[]);
+            ChatUserLogic::getInstance()->joinks($id, $ks_arr);
             $this->success('修改成功', self::JUMP_REFERER);
         } else {
             $this->siteTitle = '编辑用户';
             
-         $model = ChatUserModel::getInstance();   
+        $model = ChatUserModel::getInstance();   
         $user_alias=$model->alias_name;
             $map=[
+               $user_alias.'.delete_time'=>0,
                $user_alias.'.managerid'=>$userid
             ];
         
         $user_list=$model->getUserList($map)->select();
-       
         if($user_list){
+            $ksarr= [];
+            foreach ($user_list[0]->ksarr as $vo) {
+                $ksarr[] = $vo['ks_id'];
+            }
+            $user_list[0]['ks_list']=$ksarr;
             $this->assign('user_list', $user_list[0]);
         }else{
             $this->error(非法操作);

@@ -26,7 +26,7 @@ class Base extends Controller
         $request= Request::instance();
        
       
-        //print_r(json_encode($request->param()));exit;
+       // print_r(json_encode($request->param()));exit;
 //       echo urlencode(base64_encode(json_encode($request->param())));
 //       exit;
 //        exit;
