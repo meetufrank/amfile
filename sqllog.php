@@ -26,3 +26,14 @@ ADD COLUMN `abbreviation`  varchar(10) NULL AFTER `default`;
 ALTER TABLE `nd_cases_company`
 ADD COLUMN `apiid`  varchar(100) NULL COMMENT '//公司api Id' AFTER `abbreviation`,
 ADD COLUMN `apipwd`  varchar(255) NULL COMMENT '//公司API密码' AFTER `apiid`;
+
+
+//新建表
+CREATE TABLE `nd_cases_chatuser_ks` (
+`id`  int(10) NOT NULL AUTO_INCREMENT COMMENT '//id' ,
+`user_id`  int(10) NOT NULL COMMENT 'casemanagerid' ,
+`ks_id`  int(10) NOT NULL COMMENT '//科室id',
+`status`  int(2) NOT NULL DEFAULT 1 COMMENT '//状态' ,
+PRIMARY KEY (`id`)
+)
+;

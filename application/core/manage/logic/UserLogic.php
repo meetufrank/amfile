@@ -37,6 +37,7 @@ class UserLogic extends Logic
                 'value' => $vo['id']
             ];
         }
+       
         return $users;
     }
 
@@ -51,7 +52,19 @@ class UserLogic extends Logic
         return $userId == 1;
     }
 
-    
+        /*
+     * 该id帐号是否casemanager
+     * 
+     */
+    public function isCm($id){
+         $where=[
+             'user_gid'=>config('am_casemanage'),
+             'id'=>$id,
+             'user_status'=>1
+         ];
+         $list = UserModel::getInstance()->where($where)->find();
+         return $list;
+    }
     /*
      * 该id帐号是否监听
      * 

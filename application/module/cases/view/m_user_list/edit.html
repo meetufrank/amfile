@@ -10,7 +10,9 @@
                         {$widget->form('select', ['title' => '公司', 'name' => 'company', 'value' =>$user_list['company'],'list'=>$company_list])}
                         {$widget->form('text', ['title' => '登录密码', 'type' => 'password', 'name' => 'pwd', 'value' =>'','r_md_num'=>3] )}
 			{$widget->form('text', ['title' => '重复密码', 'type' => 'password', 'name' => 'pwd_again', 'value' => '','r_md_num'=>3])}
-			
+			{if condition="$isCm eq 1"}
+			{$widget->form('select', ['title' => '擅长科室', 'name' => 'kslist[]', 'value' =>$user_list['ks_list'], 'list' => $kslist, 'attr' => 'multiple','tip'=>'*可多选,重复点击可取消'])}
+                        {/if}
                         {$widget->form('radio', ['title' => '性别', 'name' => 'sex', 'value' => $user_list['sex'],'list'=>$sexlist])}
 			  {$widget->form('text', ['title' => '联系地址', 'name' => 'area', 'value' => $user_list['area'],'r_md_num'=>3])}
 			{$widget->form('text', ['title' => '邮箱', 'name' => 'email', 'value' => $user_list['email'],'r_md_num'=>3])}

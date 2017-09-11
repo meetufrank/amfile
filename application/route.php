@@ -31,5 +31,7 @@ return [
     'am'=>'advance/Index/index',
     'services/:id'=>'advance/Index/service_details',
     'mobile_form/:id'=>'advance/Index/mobile_form',
-    'loginApi'=>'medicalapi/User/Login'
+    'loginApi'=>'medicalapi/User/Login',//获取个人信息接口
+    'caseApi'=>'medicalapi/User/submitCase', //提交case接口
+    'downloadArea'=>'advance/Download/downloadAreaList' //下载地址表
 ];

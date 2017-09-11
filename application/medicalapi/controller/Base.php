@@ -10,6 +10,11 @@ use core\cases\model\CompanyModel;
 use core\cases\model\ChatUserModel;
 use core\cases\logic\ChatUserLogic;
 use core\cases\logic\CompanyLogic;
+use cms\upload\processes\CropProcess;
+use cms\upload\processes\OrientationProcess;
+use app\common\App;
+use app\common\factories\FileFactory;
+use cms\upload\validates\CaseApiVaildate;
 Header("Access-Control-Allow-Origin: * ");
 Header("Access-Control-Allow-Methods: POST");
 Header('Access-Control-Allow-Headers:x-requested-with,content-type'); 
@@ -19,6 +24,18 @@ class Base extends Controller
     function _initialize() {
         header("Content-type: text/html; charset=utf-8");
         $request= Request::instance();
+       
+      
+       // print_r(json_encode($request->param()));exit;
+//       echo urlencode(base64_encode(json_encode($request->param())));
+//       exit;
+//        exit;
+//        $body='eyJ1c2VybmFtZSI6IndhbmdxaWFuZ0BtZWV0dXV1LmNvbSIsInB3ZCI6IjEyMyIsImNhc2VfdHlwZSI6IjEiLCJjX3VzZXJuYW1lIjoiXHU3MzhiXHU1ZjNhIiwiYmlydGhkYXkiOiIxOTkzLTAyLTAxIiwic2V4IjoiMSIsImlzbWUiOiIxIiwicmVsYXRpb25zaGlwIjoiIiwiYXBwbGljYW50X25hbWUiOiJcdTczOGJcdTVmM2EiLCJjb3VudHJ5IjoiMSIsInByb3ZpbmNlIjoiMTEwMDAwIiwiY2l0eSI6IjExMDEwMCIsImRpc3RyaWN0IjoiMTEwMTAxIiwiYWRkcmVzcyI6Ilx1NmQ0Ylx1OGJkNVx1NTczMFx1NTc0MCIsInppcF9jb2RlIjoiIiwiZW1haWwiOiI5NzIyNzA1MTZAcXEuY29tIiwicHJlZmVycmVkX3Bob25lIjoiMTg3MjE2Njc1MzEiLCJzdGFuZGJ5X3Bob25lIjoiIiwicHJlZmVycmVkX3RpbWUiOiI5OjAwfjEyOjAwIiwiaWxsbmVzcyI6Ilx1NzVjNVx1NGU4NiIsInRyZWF0bWVudF9kb2N0b3IiOiIiLCJ0cmVhdG1lbnRfaG9zcGl0YWwiOiIiLCJzcGVjaWFsdHkiOiIifQ%3D%3D';
+//        $time=1504165281;
+//        $apiid='fae1642cca025e189c745da5d8b06a57';
+//        $apipwd='39dfb57e2b525e81fe68445bfd25cf1a';
+//        echo md5(base64_encode($body.$time.$apiid.$apipwd));
+//        exit;
         if($request->isPost()){
         
         
@@ -111,7 +128,46 @@ class Base extends Controller
         
      }
      
- 
+   /**
+     * 上传case附件
+     *
+     * @param array $file            
+     * @param array $option            
+     *
+     * @return array
+     */
+    protected function uploadCaseFile($file)
+    {
+        // 上传文件
+        $type = is_array($file) ? FileFactory::TYPE_UPLOAD : FileFactory::TYPE_STREAM;
+        $upfile = FileFactory::make($type);
+        $upfile->load($file);
+        
+        // 上传对象
+        $upload = App::getSingleton()->upload;
+        
+        // 文件后缀
+        $extensions = ['zip','pdf','doc','jpeg','jpg','png'];
+        $maxsize='10M';
+        if (! empty($extensions)) {
+            $option = [
+                'extensions' => $extensions,
+                'max_size'=>$maxsize
+            ];
+            $upload->addValidate(new CaseApiVaildate($option));
+        }
+        
+        // 图片重力
+        $upload->addProcesser(new OrientationProcess());
+        
+        // 图片大小
+        if (isset($option['width']) || isset($option['height'])) {
+            $upload->addProcesser(new CropProcess($option));
+        }
+        
+        // 上传文件
+        return $upload->upload($upfile);
+    }
      
  
 }

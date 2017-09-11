@@ -8,10 +8,31 @@ use core\cases\model\CompanyModel;
 use excel\excels;
 use core\cases\logic\CompanyLogic;
 use core\manage\model\FileModel;
+use core\cases\model\KsModel;
 use core\Validate;
 class ChatUserLogic extends Logic
 {
+         /*
+  * 获取科室列表
+  */
+    
+        public function getSelectKs($sort_name='ks_sort',$sort='desc')
+    {
+           $data= KsModel::getInstance()->order($sort_name, $sort)->select();
+           $list=[
 
+           ];
+           unset($data[0]);
+           foreach ($data as $key => $value) {
+               $list[]=[
+                 'name'=>$value['ks_name'].'('.$value['ks_ename'].')',
+                 'value'=>$value['ks_id']
+               ];
+           }
+          
+           
+           return $list;
+    }  
  /*
   * 获取用户下拉列表
   */
@@ -812,4 +833,60 @@ class ChatUserLogic extends Logic
        
       return $list;
     }
+                       /**
+     * 查询某条件下有效用户id
+     *
+     * @return array
+     */
+    
+       public function getUserId($where=null) {
+        $user_alias= ChatUserModel::getInstance()->alias_name;//chatuser表别名
+        $where[$user_alias.'.delete_time']=0;                
+            
+        $id=ChatUserModel::getInstance()->alias($user_alias)->where($where)->value('id'); 
+        return $id;
+       }
+       
+   /**
+     * 新增或修改科室组
+     *
+     * @param array $data            
+     * @param array $ks_arr                     
+     *
+     * @return integer
+     */
+    public function joinks($id, $ks_arr = [])
+    {
+        
+         
+            
+            // 关联监听
+            $this->attachKs($id, $ks_arr);
+            
+         
+       
+    }
+
+
+    /**
+     * 关联科室组
+     *
+     * @param integer $id           
+     * @param array $ks_arr          
+     *
+     * @return void
+     */
+    public function attachKs($id, $ks_arr = [])
+    {
+        is_array($ks_arr) || $ks_arr = array_filter(explode(',', $ks_arr));
+        
+        // 保存关联
+        $user= ChatUserModel::get($id);
+        $user->ksarr()->detach();
+        if(!empty($ks_arr)){
+            return  $user->ksarr()->attach($ks_arr);
+        }
+       
+    }
+    
 }
