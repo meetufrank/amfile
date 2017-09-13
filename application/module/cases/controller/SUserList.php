@@ -11,6 +11,7 @@ use core\cases\logic\ChatUserLogic;
 use core\cases\logic\CaseTypeLogic;
 use core\cases\validate\ChatUserValidate;
 use app\common\sendemail\SendUser;
+use core\cases\model\CmWorkModel;
 class SUserList extends Base
 {
 
@@ -90,6 +91,7 @@ class SUserList extends Base
             if(empty($request->param('managerid'))){
                 $this->error('非法操作', self::JUMP_REFERER);
             }
+            $managerid=$request->param('managerid');
               // 验证
             $this->_validate(ChatUserValidate::class, $data, 'add');
           //检测用户名重复
@@ -122,6 +124,16 @@ class SUserList extends Base
             //加密密码
             $data['pwd']= md5($data['pwd']);
             unset($data['pwd_again']);
+            //验证是否是casemanager
+            $cmlist=UserLogic::getInstance()->isCm($managerid);
+            if(!empty($cmlist)){
+                $cmwmodel=CmWorkModel::getInstance();
+                $emptyarr=[
+                       'complete_count'=>0
+                       ];
+                $cmwmodel->save($emptyarr);
+                $data['workid']=$cmwmodel->id;
+            }
             $status = $model->save($data);
             $ks_arr=$request->param('kslist/a',[]);
             ChatUserLogic::getInstance()->joinks($model->id, $ks_arr);
@@ -262,14 +274,31 @@ class SUserList extends Base
            $this->UserOnly($where);
             // 修改
             $model = ChatUserModel::getInstance();
+            $cmwmodel=CmWorkModel::getInstance();
+            $usealias=$model->alias_name;//用户表别名
             $map = [
-                'delete_time'=>0,
-                'managerid' => $userid
+               'managerid' => $userid
             ];
-            
+            //查看该casemanager的工作信息是否还存在
+            $usercontent=ChatUserLogic::getInstance()->getUsers($map,1);
+            $id=$usercontent['id'];
+            //验证是否是casemanager
+            $cmlist=UserLogic::getInstance()->isCm($userid);
+            if(!empty($cmlist)){
+                if(!$usercontent['workid']){
+                   $emptyarr=[
+                       'complete_count'=>0
+                       ];
+                   $cmwmodel->save($emptyarr);
+                   $data['workid']=$cmwmodel->id; 
+                   
+                }
+                
+            }
+           
             $status = $model->save($data,$map);
             $ks_arr=$request->param('kslist/a',[]);
-            $id=ChatUserLogic::getInstance()->getUserId($map);
+            
             ChatUserLogic::getInstance()->joinks($id, $ks_arr);
             $this->success('修改成功', self::JUMP_REFERER);
         } else {

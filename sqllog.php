@@ -37,3 +37,8 @@ CREATE TABLE `nd_cases_chatuser_ks` (
 PRIMARY KEY (`id`)
 )
 ;
+
+//添加表字段
+ALTER TABLE `nd_cases_chatuser`
+ADD COLUMN `workid`  int(10) NOT NULL DEFAULT 0 COMMENT '//casemanager额外信息id' AFTER `u_status`;
+

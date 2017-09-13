@@ -19,9 +19,35 @@
 	{block name="siderbar"}
 		{include file="manage@common/siderbar" /}
 	{/block}
+        
 	<div class="tpl-content-wrapper">
+            
+
 		<div class="row-content am-cf">
+                   
 			<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+                            
+                               <ol class="am-breadcrumb wizard_style" >
+                                   {php}$wizard_count=0;{/php}
+                                   {foreach name="wizard" item="wi" key="k"}
+                                   {php}$wizard_count++;{/php}
+                                   
+                                  
+                                  
+                                  
+                                  {if condition="$k lt 2"}
+                                      {if condition="$wizard_count eq 1"}
+                                        <li ><span  class="am-icon-home" >{$wi.menu_name}</span></li>
+                                        {else/}
+                                         <li class="am-active">{$wi.menu_name}</li>
+                                        {/if}
+                                  {else/}
+                                    
+                                    <li><a href="{$wi.menu_url}" >{$wi.menu_name}</a></li>
+                                    
+                                  {/if}
+                                  {/foreach}
+                                </ol>
 				{block name="content"}{/block}
 			</div>
 		</div>

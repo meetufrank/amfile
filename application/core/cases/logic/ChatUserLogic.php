@@ -4,6 +4,7 @@ namespace core\cases\logic;
 use think\Loader;
 use core\Logic;
 use core\cases\model\ChatUserModel;
+use core\cases\model\UserModel;
 use core\cases\model\CompanyModel;
 use excel\excels;
 use core\cases\logic\CompanyLogic;
@@ -887,6 +888,26 @@ class ChatUserLogic extends Logic
             return  $user->ksarr()->attach($ks_arr);
         }
        
+    }
+    
+    
+    /*
+     * 获取有效的casemanager列表详细信息
+     */
+    
+    public function getCasemanager($where=null,$order='') {
+       $manage=UserModel::getInstance()->alias_name; //管理员表别名
+       $user=ChatUserModel::getInstance()->alias_name; //用户表别名
+       $where[$manage.'.user_gid']=config('am_casemanage');
+       $where[$manage.'.delete_time']=0;
+       $where[$user.'.delete_time']=0;
+       $where[$user.'.u_status']=1;
+       $list=ChatUserModel::getInstance()->getCmlist($where,$order);
+       
+
+       
+       
+       return $list;
     }
     
 }

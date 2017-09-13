@@ -144,7 +144,7 @@ class CaseList extends Base
         
         $this->getCountryList();
         
-        $this->getManagerList();
+        
         
     }
 //case分页
@@ -158,11 +158,27 @@ class CaseList extends Base
         $perform && $perform($list);
         foreach ($list as $key => $value) {
              $jtarr=[];
+             $users=[];
             foreach ($value->jtarr as $k => $v) {
                 $jtarr[]=$v['id'];
             }
             $list[$key]['jtarr']= $jtarr;
-           
+            if($value['case_manager']){
+                $map=[
+                   'managerid'=>$value['case_manager']
+                ];
+                $users=ChatUserLogic::getInstance()->getUsers($map,1);
+            }
+            if(!empty($users)){
+                $list[$key]['managername']= $users['nickname'].'('.$users['user_name'].')';
+            }else{
+                if($value['case_status']==2){
+                    $list[$key]['managername']= '等待接受中'; 
+                }else{
+                   $list[$key]['managername']= '未指定'; 
+                }
+                
+            }
         }
        
         $this->assign('_list', $list);
@@ -203,23 +219,7 @@ class CaseList extends Base
          $country_list=$logic->getSelectCountry();
          $this->assign('country_list',$country_list);
      }
-       //获取casemanage数组
-    protected function getManagerList(){
-         
-         $logic =UserLogic::getInstance();
-         $where=[
-             'user_gid'=>config('am_casemanage'),
-             'delete_time'=>0,
-             'user_status'=>1
-         ];
-         $case_manager=$logic->getSelectList($where);
-         $case_manager[0]=[
-             'name'=>'无',
-             'value'=>0
-             ];
-        ksort($case_manager);  //排序
-         $this->assign('case_manager',$case_manager);
-     }
+    
             //获取监听数组
     protected function getJtList(){
          
@@ -370,7 +370,9 @@ class CaseList extends Base
         $where = [
             'id' => $id
         ];
+       
         $case=CaseLogic::getInstance()->casesById($id);
+      
         $group=GroupDetailModel::getInstance();
         switch ($value) {
                 case 1:
@@ -483,8 +485,7 @@ class CaseList extends Base
         $this->getTypeList();
             //获取状态类型列表
         //$this->getStatusList();
-            //获取case_manager列表
-       // $this->getManagerList();
+           
                     //获取用户列表
         $this->getUserList();
        //获取case科室列表
@@ -553,7 +554,7 @@ class CaseList extends Base
                 
                 $group=GroupDetailModel::getInstance();
                 if($case['groupid']){
-                      
+                     
                           $jtid_arr=[];
                               foreach ($case->jtarr as $vo) {
                                       $jtid_arr[] = $vo['id'];
@@ -621,12 +622,8 @@ class CaseList extends Base
         $model = CaseModel::getInstance();
         $case_list=[];
         if($caseid){
-            $alias= CaseModel::getInstance()->alias_name; //case表别名
-            $map=[
-                $alias.'.id'=>$caseid
-                ];
-          $case_list=$model->getCaseList($map)->select();
-          $case_list=$case_list[0];
+           $case_list=CaseLogic::getInstance()->casesById($caseid);
+
         }else{
             $this->error('非法操作', self::JUMP_REFERER);
         }
@@ -659,8 +656,7 @@ class CaseList extends Base
         $this->getTypeList();
             //获取状态类型列表
        // $this->getStatusList();
-            //获取case_manager列表
-        //$this->getManagerList();
+    
         //获取科室列表
         $this->getKsList();
             return $this->fetch();

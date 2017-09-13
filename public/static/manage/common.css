@@ -1,7 +1,10 @@
 body {
 	font-size: 1.3rem;
 }
-
+.wizard_style{
+    padding: 0em 0em;
+    font-size: 100%;
+}
 .am-selected {
 	width: auto;
 	min-width: 120px;

@@ -5,3 +5,4 @@
 *.log
 thinkphp
 composer.lock
+/application/extra
