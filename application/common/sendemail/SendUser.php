@@ -62,6 +62,16 @@ class SendUser
 		
 		$emailtrue = $emails->activeEmail($to,$YouxiangContent['title'],$YouxiangContent['content']);
     }
+    
+    
+    
+    
+    //预约邮件
+    public function yuyueemail($to,$subject,$body){
+        //调用email接口方法
+        $emails = new Cs();
+        $emails->sentemail($to,$subject,$body);
+    }
 }
 
 

@@ -38,6 +38,42 @@ PRIMARY KEY (`id`)
 )
 ;
 
+
+//预约信息表
+DROP TABLE IF EXISTS `nd_appointment_info`;
+CREATE TABLE `nd_appointment_info` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '预约信息表id',
+  `phone` varchar(255) NOT NULL COMMENT '联系电话',
+  `email` varchar(255) NOT NULL COMMENT '邮箱',
+  `advisory_details` text NOT NULL COMMENT '咨询内容简介',
+  `time_qid` int(11) NOT NULL COMMENT '关联预约时间段id',
+  `submitdate` varchar(255) NOT NULL DEFAULT '' COMMENT '预约日期',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+
+
+
+//webex预约视频表
+DROP TABLE IF EXISTS `nd_appointment_meeting`;
+CREATE TABLE `nd_appointment_meeting` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'webex预约视频表 id',
+  `meetmeetingkey` varchar(255) NOT NULL COMMENT '会议id',
+  `hostmeetingurl` text NOT NULL COMMENT '主持人开会地址  ',
+  `joinmeetingurl` text NOT NULL COMMENT '加会地址',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+//预约时间段表
+DROP TABLE IF EXISTS `nd_appointment_time_quantum`;
+CREATE TABLE `nd_appointment_time_quantum` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '预约时间段表 id',
+  `time_quantum` time NOT NULL COMMENT '时间段',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+
+
 //添加表字段
 ALTER TABLE `nd_cases_chatuser`
 ADD COLUMN `workid`  int(10) NOT NULL DEFAULT 0 COMMENT '//casemanager额外信息id' AFTER `u_status`;

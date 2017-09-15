@@ -21,7 +21,8 @@ Header('Access-Control-Allow-Headers:x-requested-with,content-type');
 class Base extends Controller
 {
     protected $body=[];
-    function _initialize() {
+    //function _initialize() {
+    function a(){
         header("Content-type: text/html; charset=utf-8");
         $request= Request::instance();
        
