@@ -834,6 +834,26 @@ class ChatUserLogic extends Logic
        
       return $list;
     }
+                          /**
+     * 查询某条件下用户数据(包含关联数据)
+     *
+     * @return array
+     */
+    
+    public function getUsersAll($where=null,$type=0,$fileds='') {
+       $user_alias= ChatUserModel::getInstance()->alias_name;//chatuser表别名
+       $company_alias= CompanyModel::getInstance()->alias_name;  //公司别名
+//       $where[$user_alias.'.delete_time']=0;   
+        if($type){
+           $list=ChatUserModel::getInstance()->getUserlist($where)->find();  
+        }else{
+            $list=ChatUserModel::getInstance()->getUserlist($where)->select();  
+        }
+       
+      
+       
+      return $list;
+    }
                        /**
      * 查询某条件下有效用户id
      *

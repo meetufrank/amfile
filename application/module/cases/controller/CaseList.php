@@ -82,7 +82,28 @@ class CaseList extends Base
         
        //获取case详情
         $case_list=CaseLogic::getInstance()->casesById($id);
-      $this->assign('case_list',$case_list[0]);
+       // print_r($case_list);exit;
+        if(empty($case_list)){
+            $this->error('该case不存在或失效', self::JUMP_BACK);
+            exit;
+        }
+        if($case_list['case_manager']){
+            $map=[
+                'managerid'=>$case_list['case_manager']
+            ];
+            $users=ChatUserLogic::getInstance()->getUsersAll($map,1);
+             
+            $this->assign('users',$users);
+        }else{
+            $this->assign('users',[]);
+        }
+       
+        $jtarr=[];
+        foreach ($case_list->jtarr as $key => $value) {
+            $jtarr[]=$value['user_name'];
+        }
+        $this->assign('jtstr', implode(',', $jtarr));
+        $this->assign('case_list',$case_list);
         return $this->fetch();
     }
 
@@ -129,7 +150,14 @@ class CaseList extends Base
                 '%' . $keyword . '%'
             ];
         }
-        $this->assign('keyword', $keyword);
+         $this->assign('keyword', $keyword);
+        //查询条件-负责人
+        $managerid= $request->param('managerid');
+        if ($managerid) {
+            $managerid = intval($managerid);
+            $map[$case_alias.'.case_manager'] = $managerid;
+        }
+        $this->assign('managerid', $managerid);
         
         // 分页列表
         $model = CaseModel::getInstance();
@@ -143,9 +171,7 @@ class CaseList extends Base
         $this->getStatusList();
         
         $this->getCountryList();
-        
-        
-        
+ 
     }
 //case分页
     public function casePage($model, $rowNum = null, \Closure $perform = null){
@@ -308,7 +334,8 @@ class CaseList extends Base
   */
      public function actionByManager($value) {
          $map = [
-            'id' => $this->_id()
+            'id' => $this->_id(),
+            'case_status'=>1
         ];
         //建立聊天群组
         $this->addGroup();
@@ -317,7 +344,11 @@ class CaseList extends Base
                     'case_status'=>2
                 ];
          
-       CaseModel::getInstance()->save($data,$map);
+       $result=CaseModel::getInstance()->save($data,$map);
+       if(!$result){
+           $this->error('请将case状态调整至pending再进行修改');
+           exit;
+       }
        $data=ChatUserModel::where('managerid',$value)->find();
       
       
@@ -773,5 +804,8 @@ class CaseList extends Base
     {
         $this->_delete(CaseModel::class, true);
     }
+                
+    
 
+        
 }

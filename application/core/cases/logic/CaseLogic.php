@@ -64,7 +64,12 @@ class CaseLogic extends Logic
             $case_alias.'.id'=>$id
         ];
         $case = $casemodel->getCaseList($map)->select();
-        return $case[0];
+        if(!empty($case)){
+          return $case[0];  
+        }else{
+            return [];
+        }
+        
     }
    
   

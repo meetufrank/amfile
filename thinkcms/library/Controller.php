@@ -3,9 +3,10 @@ namespace cms;
 
 use think\Url;
 use think\Request;
+use think\Response;
 use think\Config;
 use cms\View;
-
+use think\exception\HttpResponseException;
 class Controller
 {
 
@@ -179,5 +180,23 @@ class Controller
         } else {
             return Url::build($url);
         }
+    }
+    
+    /**
+     * 获取\think\response\Redirect对象实例
+     * @param mixed         $url 重定向地址 支持Url::build方法的地址
+     * @param array|integer $params 额外参数
+     * @param integer       $code 状态码
+     * @param array         $with 隐式传参
+     * @return \think\response\Redirect
+     */
+    function redirect($url = [], $params = [], $code = 302, $with = [])
+    {
+        if (is_integer($params)) {
+            $code   = $params;
+            $params = [];
+        }
+        $response=Response::create($url, 'redirect', $code)->params($params)->with($with);
+        throw new HttpResponseException($response);
     }
 }

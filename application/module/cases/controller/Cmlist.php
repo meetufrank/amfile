@@ -1,11 +1,14 @@
 <?php
 namespace module\cases\controller;
 
+
+
 use think\Request;
 use think\Session;
 use think\config;
 use core\cases\logic\ChatUserLogic;
 use core\cases\logic\CaseLogic;
+use core\cases\model\ChatUserModel;
 class Cmlist extends Base
 {
 
@@ -25,7 +28,7 @@ class Cmlist extends Base
             $this->assign('caseid', $request->param('caseid'));
         }
         $this->assginIndex();
-       return $this->fetch(); 
+        return $this->fetch(); 
         
     }
     
@@ -35,6 +38,19 @@ class Cmlist extends Base
      */
     protected function assginIndex() {
         $map=[];
+         $request = Request::instance();
+       $useralias=ChatUserModel::getInstance()->alias_name;
+        // 查询条件-关键词
+        $keyword = $request->param('keyword');
+        if ($keyword != '') {
+            $map[$useralias.'.nickname'] = [
+                'like',
+                '%' . $keyword . '%'
+            ];
+        }
+     
+         $this->assign('keyword', $keyword);
+        
         $this->getManagerList($map);
     }
     
@@ -68,8 +84,15 @@ class Cmlist extends Base
         $caseid= Request::instance()->param('caseid');
         $casedata=CaseLogic::getInstance()->casesById($caseid);
         if(empty($casedata)){
-            $this->error('未查询到该id的有效信息', self::JUMP_REFERER);
+            $this->error('未查询到该id的有效信息', module_url('case_list/index'));
             exit;
+        }
+        if($casedata['case_status']!=1){
+            $this->assign('allow_zd', 0);  //不允许指定
+//            $this->redirect(module_url('case_list/index'));
+           
+        }else{
+            $this->assign('allow_zd', 1);
         }
         $ar1=[];
         $ar2=[];
@@ -78,11 +101,19 @@ class Cmlist extends Base
         //排序整合(排序规则：符合科室优先->当前负责case最少->解决case最多)
         
         foreach ($list as $key => $value) {
+            $list[$key]['tuijian']=0;
             $ksname=[];
             $ksarr=[];
             //整合科室
             foreach($value->ksarr as $k=>$v){
-             $ksname[$v['ks_id']]=$v['ks_name'];
+                if($v['ks_id']==$casedata['ks_type']){
+                   $ksname[$v['ks_id']]='<span style="color:green;">'.$v['ks_name'].'</span>'; 
+                   $list[$key]['tuijian']=1;
+                }else{
+                   $ksname[$v['ks_id']]=$v['ks_name']; 
+                   
+                }
+             
              $ksarr[]=$v['ks_id'];
             }
             $ksstr=implode(',', $ksname);
@@ -108,7 +139,7 @@ class Cmlist extends Base
          array_multisort($ar1, $ar2,$userlist);
          array_multisort($ar3,SORT_DESC,$ar4,SORT_DESC,$userlist);
         
-      
+        
         $this->assign('userlist', $userlist);
         $this->assign('_page', $list->render());
         $this->assign('_total', $list->total());
