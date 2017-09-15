@@ -40,11 +40,14 @@ class ChatUserModel extends Model
        return $user_list;
    }
    //获取casemanager表列表
-    public function getCmlist($map=null) {
+    public function getCmlist($map=null,$order='') {
        $user_alias= $this->alias_name;//chatuser表别名
        $company_alias= CompanyModel::getInstance()->alias_name;  //公司别名
        $manager_list= UserModel::getInstance()->alias_name;
-       $user_list= $this->withCates(1)->field($user_alias.'.*,'.$company_alias.'.name as companyname')->where($map)->order($user_alias.'.sort desc');
+       if(empty($order)){
+        $order=$user_alias.'.sort desc';   
+       }
+       $user_list= $this->withCates(1)->field($user_alias.'.*,'.$company_alias.'.name as companyname')->where($map)->order($order);
        return $user_list;
    }
    /*
@@ -60,6 +63,15 @@ class ChatUserModel extends Model
        return $query;
        
    }
+         /**
+     * 关联casemanager工作信息表
+     *
+     * @return \think\model\relation\BelongsTo
+     */
+    public function worker()
+    {
+        return $this->belongsTo(CmWorkModel::class, 'workid', 'id');
+    }
           /**
      * 关联科室组
      *
@@ -69,6 +81,7 @@ class ChatUserModel extends Model
     {
         return $this->belongsToMany(KsModel::class, CkModel::getInstance()->getTableShortName(), 'ks_id', 'user_id');
     }
+ 
             /**
      * 连接科室组
      *

@@ -74,14 +74,7 @@ CREATE TABLE `nd_appointment_time_quantum` (
 
 
 
-
-
-
-
-
-
-
-
-
-
+//添加表字段
+ALTER TABLE `nd_cases_chatuser`
+ADD COLUMN `workid`  int(10) NOT NULL DEFAULT 0 COMMENT '//casemanager额外信息id' AFTER `u_status`;
 

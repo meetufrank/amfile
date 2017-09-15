@@ -57,7 +57,7 @@
                 <tr>
                     
                     <td class="am-text-center am-text-middle">
-                        <div class="am-text-middle"><a class="am-btn am-btn-link am-btn-xs am-text-primary" target="_blank" href="">{$vo.case_code}</a></div>
+                        <div class="am-text-middle"><a class="am-btn am-btn-link am-btn-xs am-text-primary"  href="{:module_url('cmlist/index',['caseid'=>$vo.id])}">{$vo.case_code}</a></div>
                     </td>
                     <td class="am-text-middle">
                         <span class="am-badge {$vo.statuscolor}  am-round">{$vo.statusname}</span>
@@ -70,8 +70,9 @@
              
              
             $status_arr=[];
-            $manager_arr=$case_manager;
+           
             $jt_status=0;
+            
             switch($vo['case_status']){
                   case 1:
                   foreach($status_list as $k=>$v){
@@ -79,6 +80,7 @@
                          $status_arr[]=$status_list[$k];
                       }
                   }
+                  
                   break;
                   case 2 :
                   foreach($status_list as $k=>$v){
@@ -86,11 +88,7 @@
                          $status_arr[]=$status_list[$k];
                       }
                   }
-                  foreach($manager_arr as $kk=>$vv){
-                  if($vv['value']!=$vo['case_manager']){
-                      unset($manager_arr[$kk]);
-                   }
-                  }
+                 
                   break;
                 
 
@@ -100,11 +98,7 @@
                          $status_arr[]=$status_list[$k];
                       }
                   }
-                  foreach($manager_arr as $kk=>$vv){
-                  if($vv['value']!=$vo['case_manager']){
-                      unset($manager_arr[$kk]);
-                   }
-                  }
+                 
                   $jt_status=1;
                   
                   break;
@@ -114,19 +108,15 @@
                          $status_arr[]=$status_list[$k];
                       }
                   }
-                  foreach($manager_arr as $kk=>$vv){
-                  if($vv['value']!=$vo['case_manager']){
-                      unset($manager_arr[$kk]);
-                   }
-                  }
+                 
                   break;
                   
             }{/php}
-            <td class="am-text-middle">
-                            {$widget->row('select', ['value' => $vo['case_manager'], 'list' => $manager_arr, 'url' => module_url('modify', ['id' => $vo['id'], 'field' => 'case_manager'])])}
-                    </td>
+            <td class="am-text-middle" style="text-align:center;">
+            {if condition='$vo.case_status eq 1'}<a class="am-btn am-btn-link am-btn-xs am-text-primary"  href="{:module_url('cmlist/index',['caseid'=>$vo.id])}">需要指派请点击</a>{else/}{$vo.managername}{/if}     
+             </td>
                     <td class="am-text-middle">
-                     
+                        
                         {$widget->row('select', ['value' => $vo['case_status'], 'list' => $status_arr, 'url' => module_url('modify', ['id' => $vo['id'], 'field' => 'case_status'])])}
                         
                     </td>

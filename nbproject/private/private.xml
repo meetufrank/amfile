@@ -3,18 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/www/tpadmin/application/module/cases/controller/MUserList.php</file>
-            <file>file:/E:/www/tpadmin/application/core/cases/logic/ChatUserLogic.php</file>
-            <file>file:/E:/www/tpadmin/application/module/cases/view/m_user_list/edit.html</file>
-            <file>file:/E:/www/tpadmin/application/core/cases/model/CkModel.php</file>
-            <file>file:/E:/www/tpadmin/application/core/cases/logic/CaseLogic.php</file>
-            <file>file:/E:/www/tpadmin/application/module/cases/controller/SUserList.php</file>
-            <file>file:/E:/www/tpadmin/application/core/cases/model/KsModel.php</file>
+            <file>file:/E:/www/tpadmin/application/module/cases/view/cmlist/index.html</file>
+            <file>file:/E:/www/tpadmin/extend/message/mess.php</file>
             <file>file:/E:/www/tpadmin/application/core/cases/model/ChatUserModel.php</file>
-            <file>file:/E:/www/tpadmin/sqllog.php</file>
-            <file>file:/E:/www/tpadmin/application/module/cases/view/s_user_list/add.html</file>
+            <file>file:/E:/www/tpadmin/application/core/cases/model/CmWorkModel.php</file>
             <file>file:/E:/www/tpadmin/application/module/cases/controller/CaseList.php</file>
-            <file>file:/E:/www/tpadmin/application/module/cases/view/s_user_list/edit.html</file>
+            <file>file:/E:/www/tpadmin/application/manage/controller/Base.php</file>
+            <file>file:/E:/www/tpadmin/application/module/cases/controller/Cmlist.php</file>
+            <file>file:/E:/www/tpadmin/application/core/cases/logic/ChatUserLogic.php</file>
+            <file>file:/E:/www/tpadmin/application/core/manage/logic/UserLogic.php</file>
+            <file>file:/E:/www/tpadmin/public/static/manage/common.js</file>
+            <file>file:/E:/www/tpadmin/application/module/cases/view/case_list/index.html</file>
+            <file>file:/E:/www/tpadmin/sqllog.php</file>
+            <file>file:/E:/www/tpadmin/application/manage/controller/UserGroup.php</file>
         </group>
     </open-files>
 </project-private>

@@ -1,6 +1,7 @@
 <?php
 namespace app\manage\controller;
 
+use think\Request;
 use think\Url;
 use think\Config;
 use think\db\Query;
@@ -124,14 +125,31 @@ class Base extends Controller
         // 菜单树
         $menuTree = $menu->getMenuTree();
         $this->assign('main_tree', $menuTree);
-        
+      
+        //加载操作导向菜单
+        $wizard=[];
+ 
+        foreach ($menuTree as $key => $value) {
+          foreach ($value as $k => $v) {
+                
+                if($v['menu_active']==1){
+                    $wizard[]=$v;
+                    
+ 
+                }
+            }  
+        }
+
+        $this->assign('wizard', $wizard);
+       
         // 主菜单
         $mainMenu = $menu->getMainMenu();
         $this->assign('main_menu', $mainMenu);
-        
+       
         // 侧边菜单
         $siderMenu = $menu->getSiderMenu();
         $this->assign('sider_menu', $siderMenu);
+        
     }
 
     /**
