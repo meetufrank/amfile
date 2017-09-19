@@ -13,9 +13,9 @@
 
 {block name="content"}
 <form action="{:module_url('index')}" class="search-form">
-<div class="am-g">
+<div class="am-g shuaixuan">
 
-    <div class="am-u-sm-12 am-u-md-3">
+    <div class="am-u-sm-12 am-u-md-12">
         <div class="am-btn-toolbar">
             <div class="am-btn-group am-btn-group-xs">
                 <a class="am-btn am-btn-default" href="{:module_url('add')}">
@@ -27,12 +27,13 @@
             </div>
         </div>
     </div>
-
-    {$widget->search('select', ['name' => 'casetype', 'value' => $casetype, 'list' => $typelist])}
-    {$widget->search('select', ['name' => 'country', 'value' => $country, 'list' => $country_list])}
-    {$widget->search('select', ['name' => 'status', 'value' => $status, 'list' => $status_list])}
+</div>
+    <div class="am-g">
+    {$widget->search('select', ['name' => 'casetype', 'value' => $casetype, 'list' => $typelist,'md_num' => 3,'search_name'=>'服务类型'])}
+    {$widget->search('select', ['name' => 'country', 'value' => $country, 'list' => $country_list,'md_num' => 3,'search_name'=>'国家'])}
+    {$widget->search('select', ['name' => 'status', 'value' => $status, 'list' => $status_list,'md_num' => 3,'search_name'=>'状态'])}
     {$widget->search('keyword', ['name' => 'keyword', 'holder' => '输入姓名', 'value' => $keyword,'md_num' => 3])}
- </div>
+    </div>
 </form>
 
 <div class="am-g">

@@ -23,7 +23,7 @@ abstract class Search
         'class' => '',
         'style' => '',
         'attr' => '',
-        
+        'search_name'=>'',
         'text' => '搜索',
         'target' => 'search-form'
     ];
