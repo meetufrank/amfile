@@ -42,7 +42,6 @@
 <div class="am-g">
 	<div class="am-u-sm-12">
 		<form class="am-form ajax-form" method="post" action="{:module_url('edit', ['id' => $_id])}">
-		        {$widget->form('text', ['title' => 'caseID', 'name' => 'case_code', 'value' => $case_list['case_code'],'r_md_num'=>2,'attr'=>' maxlength="30"'])}
 			{$widget->form('text', ['title' => '患者姓名', 'name' => 'username', 'value' => $case_list['username'],'r_md_num'=>2,'attr'=>' maxlength="20"'])}
 	                {$widget->form('date', ['title' => '出生日期', 'name' => 'birthday', 'value' => $case_list['birthday'],'r_md_num'=>3])}
                         

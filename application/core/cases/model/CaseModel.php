@@ -31,14 +31,7 @@ class CaseModel extends Model
     protected $insert = [
         'case_code'
     ];
-        /**
-     * 更新时自动完成
-     *
-     * @var array
-     */
-    protected $update = [
-        'case_code'
-    ];
+
 /*
  * 定义别名变量
  */

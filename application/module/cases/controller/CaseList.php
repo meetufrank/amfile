@@ -560,7 +560,6 @@ class CaseList extends Base
                 'sort' => $request->param('sort',0),
                  'country'=>$request->param('country'),
                 'email'=>$request->param('email'),
-                'case_code'=>$request->param('case_code'),
                 'ks_type'=>$request->param('ks_type')
             ];
             if($request->param('options')){
