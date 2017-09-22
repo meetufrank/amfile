@@ -82,7 +82,7 @@ class CaseList extends Base
         
        //获取case详情
         $case_list=CaseLogic::getInstance()->casesById($id);
-       // print_r($case_list);exit;
+       //print_r($case_list);exit;
         if(empty($case_list)){
             $this->error('该case不存在或失效', self::JUMP_BACK);
             exit;
@@ -652,6 +652,7 @@ class CaseList extends Base
             
         $model = CaseModel::getInstance();
         $case_list=[];
+   
         if($caseid){
            $case_list=CaseLogic::getInstance()->casesById($caseid);
 

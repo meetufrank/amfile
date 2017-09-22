@@ -21,22 +21,25 @@ Header('Access-Control-Allow-Headers:x-requested-with,content-type');
 class Base extends Controller
 {
     protected $body=[];
-    //function _initialize() {
-    function a(){
+    function _initialize() {
+    //function a(){a
         header("Content-type: text/html; charset=utf-8");
         $request= Request::instance();
        
       
-       // print_r(json_encode($request->param()));exit;
-//       echo urlencode(base64_encode(json_encode($request->param())));
-//       exit;
-//        exit;
-//        $body='eyJ1c2VybmFtZSI6IndhbmdxaWFuZ0BtZWV0dXV1LmNvbSIsInB3ZCI6IjEyMyIsImNhc2VfdHlwZSI6IjEiLCJjX3VzZXJuYW1lIjoiXHU3MzhiXHU1ZjNhIiwiYmlydGhkYXkiOiIxOTkzLTAyLTAxIiwic2V4IjoiMSIsImlzbWUiOiIxIiwicmVsYXRpb25zaGlwIjoiIiwiYXBwbGljYW50X25hbWUiOiJcdTczOGJcdTVmM2EiLCJjb3VudHJ5IjoiMSIsInByb3ZpbmNlIjoiMTEwMDAwIiwiY2l0eSI6IjExMDEwMCIsImRpc3RyaWN0IjoiMTEwMTAxIiwiYWRkcmVzcyI6Ilx1NmQ0Ylx1OGJkNVx1NTczMFx1NTc0MCIsInppcF9jb2RlIjoiIiwiZW1haWwiOiI5NzIyNzA1MTZAcXEuY29tIiwicHJlZmVycmVkX3Bob25lIjoiMTg3MjE2Njc1MzEiLCJzdGFuZGJ5X3Bob25lIjoiIiwicHJlZmVycmVkX3RpbWUiOiI5OjAwfjEyOjAwIiwiaWxsbmVzcyI6Ilx1NzVjNVx1NGU4NiIsInRyZWF0bWVudF9kb2N0b3IiOiIiLCJ0cmVhdG1lbnRfaG9zcGl0YWwiOiIiLCJzcGVjaWFsdHkiOiIifQ%3D%3D';
-//        $time=1504165281;
-//        $apiid='fae1642cca025e189c745da5d8b06a57';
-//        $apipwd='39dfb57e2b525e81fe68445bfd25cf1a';
-//        echo md5(base64_encode($body.$time.$apiid.$apipwd));
-//        exit;
+      //print_r(json_encode($request->param())); 
+      
+        
+/*     echo urlencode(base64_encode(json_encode($request->param())));
+      exit;   */
+     
+      
+/*     $body='eyJ1c2VybmFtZSI6IndhbmdxaWFuZ0BtZWV0dXV1LmNvbSIsInB3ZCI6IjEyMyIsImlzY2FzZSI6IjEiLCJjYXNlaWQiOiIzIiwicGhvbmUiOiIxODcyMTg4NzIyOSIsImVtYWlsIjoiMTYzNDI1OTk5NUBxcS5jb20iLCJhZHZpc29yeV9kZXRhaWxzIjoiXHU2MjExXHU4MTFhXHU3NWRiXHVmZjBjXHU3NWRiXHU2YjdiXHU0ZTg2Iiwic3VibWl0ZGF0ZSI6IjIwMTctMDktMTAiLCJ0aW1lX3F1YW50dW0iOiIwOTozMDowMCJ9';
+        $time=150416528;
+     $apiid='fae1642cca025e189c745da5d8b06a57';
+     $apipwd='39dfb57e2b525e81fe68445bfd25cf1a';
+  echo md5(base64_encode($body.$time.$apiid.$apipwd));
+ exit; */    
         if($request->isPost()){
         
         
@@ -52,9 +55,11 @@ class Base extends Controller
         $time=$request->param('timestamp');
         $sign=$request->param('sign');
         $body=$request->param('body');
+       
+
         //验证签名密钥
         $v_sign=md5(base64_encode($body.$time.$apiid.$apipwd));
-        
+    
         if($v_sign!==$sign){
              echo json_encode(['code' => 40004,'msg' => 'invalid code']);
              exit;

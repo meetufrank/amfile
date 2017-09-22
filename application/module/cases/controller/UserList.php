@@ -65,7 +65,7 @@ class UserList extends Base
         // 分页列表
         $model = ChatUserModel::getInstance();
         $user_list=$model->getUserList($map);
-
+       
         $this->_page($user_list);
 
         //查询case管理人员id字符串
@@ -273,6 +273,7 @@ class UserList extends Base
     public function edit(Request $request)
     {
         $userid=$this->_id();
+        
         if ($request->isPost()) {
             $data = [
                 'user_name' => $request->param('user_name'),
