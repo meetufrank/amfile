@@ -73,5 +73,19 @@ class CaseLogic extends Logic
     }
    
   
-  
+  /*
+   * 根据条件查询case数量
+   * 
+   * 
+   */
+    public function getCaseCount($map=null,$type=null){
+        $casemodel=CaseModel::getInstance();
+        $case_alias=$casemodel->alias_name;
+         //查询该case信息
+        if(!$type){
+            $map[ 'delete_time']  = 0;
+        }
+         $count = $casemodel->where($map)->count();
+         return $count;
+    }
 }

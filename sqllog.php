@@ -78,3 +78,26 @@ CREATE TABLE `nd_appointment_time_quantum` (
 ALTER TABLE `nd_cases_chatuser`
 ADD COLUMN `workid`  int(10) NOT NULL DEFAULT 0 COMMENT '//casemanager额外信息id' AFTER `u_status`;
 
+//添加语言表
+CREATE TABLE `nd_cases_lang` (
+`id`  int(10) NOT NULL AUTO_INCREMENT COMMENT '//语言编号' ,
+`l_name`  varchar(255) NOT NULL COMMENT '//语言名称' ,
+`sort`  int(10) NOT NULL COMMENT '//语言排序' ,
+PRIMARY KEY (`id`)
+)
+;
+//添加语言和用户关联中间表
+CREATE TABLE `nd_cases_chatuser_lang` (
+`id`  int(10) NOT NULL AUTO_INCREMENT COMMENT '//语言中间表id' ,
+`lang_id`  int(10) NOT NULL ,
+`user_id`  int(10) NOT NULL COMMENT '//用户id' ,
+PRIMARY KEY (`id`)
+)
+;
+
+ALTER TABLE `nd_cases_lang`
+ADD COLUMN `l_ename`  varchar(255) NOT NULL COMMENT '//英文名称' AFTER `id`;
+
+//加入国家简称
+ALTER TABLE `nd_cases_country`
+ADD COLUMN `abbreviation`  char(4) NOT NULL COMMENT '//简称' AFTER `sort`;

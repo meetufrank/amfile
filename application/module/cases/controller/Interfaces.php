@@ -37,11 +37,13 @@ class Interfaces extends Controller
     public function getDistrict(Request $request){
     	$model =AreaModel::getInstance();
     	$ParentId=$request->param('ParentId');
+        if($ParentId){
         $where='parent_id='.$ParentId;
     	$current_county=$model->getlist($where);
     	$data['data']=$current_county;
         
     	 return json($data);
+         }
     }
     
     public function getCompanyMore(Request $request){

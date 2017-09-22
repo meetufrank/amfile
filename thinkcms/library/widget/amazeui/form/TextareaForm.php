@@ -17,7 +17,12 @@ class TextareaForm extends Form
         $data = array_merge(self::$form, $data);
         
         $html = '<div class="am-g am-margin-top-sm">';
-        $html .= '<div class="am-u-sm-' . $data['l_sm_num'] . ' am-u-md-' . $data['l_md_num'] . ' am-text-right">' . $data['title'] . '</div>';
+         if($data['require']){
+            $require_str='<span style="color:red;">*</span>';
+        }else{
+            $require_str='';
+        }
+        $html .= '<div class="am-u-sm-' . $data['l_sm_num'] . ' am-u-md-' . $data['l_md_num'] . ' am-text-right">' .$require_str.$data['title'] . '</div>';
         $html .= '<div class="am-u-sm-' . $data['r_sm_num'] . ' am-u-md-' . $data['r_md_num'] . ' am-u-end">';
         $html .= '<textarea name="' . $data['name'] . '" placeholder="' . $data['holder'] . '" class="' . $data['class'] . '" style="' . $data['style'] . '" rows="' . $data['rows'] . '" ' . $data['attr'] . '>' . $data['value'] . '</textarea>';
         
