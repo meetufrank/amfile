@@ -47,6 +47,7 @@
             <thead>
                 <tr>
                     <th >casemanager姓名(登录名)</th>
+                    <th>擅长语言</th>
                     <th>擅长科室</th>
                     <th>当前case数量</th>
                     <th>case解决次数</th>
@@ -62,8 +63,9 @@
                       {if condition="$vo.tuijian eq 1"}<span class="am-badge am-badge-danger am-round">荐</span>{/if}
                       {$vo.nickname}({$vo.user_name})
                     </td>
+                    <td>{$vo.langstr}</td>
                     <td class="am-text-middle">{$vo.ksstr}</td>
-                    <td class="am-text-middle">{$vo.worker.case_count}</td>
+                    <td class="am-text-middle">{$vo.case_count}</td>
                     <td class="am-text-middle">{$vo.worker.complete_count}</td>
                     <td class="am-text-middle">
                        {$vo.tel}
@@ -74,7 +76,7 @@
                             <div class="am-btn-group am-btn-group-xs">
 
                                {if condition="$allow_zd eq 1"}{$widget->row('button', ['title' => '指定', 'class' => 'am-text-danger ajax-get ajax-confirm', 'icon' => 'am-icon-twitter', 'url' => module_url('case_list/modify', ['id' => $caseid, 'field' => 'case_manager','value'=>$vo['managerid']])])}{/if} 
-                                {if condition="$vo.worker.case_count gt 0 "}{$widget->row('button', ['title' => '查看他的case', 'class' => 'am-text-primary', 'icon' => 'am-icon-eye', 'attr' => 'target="new"', 'url' => module_url('case_list/index', ['managerid' => $vo['managerid']])])}{/if}
+                                {if condition="$vo.case_count gt 0 "}{$widget->row('button', ['title' => '查看他的case', 'class' => 'am-text-primary', 'icon' => 'am-icon-eye', 'attr' => 'target="new"', 'url' => module_url('case_list/index', ['managerid' => $vo['managerid']])])}{/if}
                             </div>
                         </div>
                     </td>

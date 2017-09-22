@@ -94,6 +94,9 @@ class Cmlist extends Base
         }else{
             $this->assign('allow_zd', 1);
         }
+        //查询条件 语言排序
+        $language=Request::instance()->param('language');
+        $language || $language=1;
         $ar1=[];
         $ar2=[];
         $ar3=[];
@@ -104,6 +107,21 @@ class Cmlist extends Base
             $list[$key]['tuijian']=0;
             $ksname=[];
             $ksarr=[];
+            $langname=[];
+            $langarr=[];
+            $map=[];
+            $count=0;
+            //整合擅长语言
+            foreach($value->langarr as $k=>$v){
+                if($v['id']==$language){
+                   $langname[$v['id']]='<span style="color:green;">'.$v['l_name'].'</span>'; 
+                   $list[$key]['tuijian']=1;
+                }else{
+                   $langname[$v['id']]=$v['l_name']; 
+                   
+                }
+                $langarr[]=$v['id'];
+            }
             //整合科室
             foreach($value->ksarr as $k=>$v){
                 if($v['ks_id']==$casedata['ks_type']){
@@ -116,18 +134,27 @@ class Cmlist extends Base
              
              $ksarr[]=$v['ks_id'];
             }
+            $langstr=implode(',', $langname);
+            if($langstr==''){
+                $langstr='未选择';
+            }
+            $list[$key]['langstr']=$langstr;
+            $r0= in_array($language, $langarr);
             $ksstr=implode(',', $ksname);
             $list[$key]['ksstr']=$ksstr;
             $r1= in_array($casedata['ks_type'], $ksarr);
-           
+            $map['case_manager'] = $list[$key]['managerid'];
+            $map['case_status'] = ['in','2,5'];
+            $count=CaseLogic::getInstance()->getCaseCount($map); //当前负责case次数
+            $r2=$count;
+            $list[$key]['case_count']=$count;
             if(!empty($value->worker)){
-                $r2=$value->worker->case_count;
+                
                 $r3=$value->worker->complete_count;
             }else{
-                $r2=0;
                 $r3=0;
             }
-             
+            $ar0[]=$r0?0:1;
             $ar1[]=$r1?0:1;
             $ar2[]=$r2?0:1;
             $ar3[]=$r3;
@@ -136,8 +163,9 @@ class Cmlist extends Base
         }
         $listdata=json_decode(json_encode($list),true); //转换数组
         $userlist=$listdata['data'];
-         array_multisort($ar1, $ar2,$userlist);
-         array_multisort($ar3,SORT_DESC,$ar4,SORT_DESC,$userlist);
+        array_multisort($ar0,$userlist);
+        array_multisort($ar1, $ar2,$userlist);
+        array_multisort($ar3,SORT_DESC,$ar4,SORT_DESC,$userlist);
         
         
         $this->assign('userlist', $userlist);

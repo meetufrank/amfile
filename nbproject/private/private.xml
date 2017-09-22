@@ -3,15 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/www/tpadmin/application/core/cases/model/CaseModel.php</file>
             <file>file:/E:/www/tpadmin/application/module/cases/view/cmlist/index.html</file>
             <file>file:/E:/www/tpadmin/application/module/cases/controller/Cmlist.php</file>
-            <file>file:/E:/www/tpadmin/application/core/cases/logic/ChatUserLogic.php</file>
-            <file>file:/E:/www/tpadmin/application/core/cases/logic/CaseLogic.php</file>
-            <file>file:/E:/www/tpadmin/application/module/cases/view/case_list/index.html</file>
-            <file>file:/E:/www/tpadmin/application/module/cases/view/case_list/case_content.html</file>
-            <file>file:/E:/www/tpadmin/application/manage/controller/UserGroup.php</file>
-            <file>file:/E:/www/tpadmin/application/module/cases/controller/CaseList.php</file>
+            <file>file:/E:/www/tpadmin/sqllog.php</file>
         </group>
     </open-files>
 </project-private>

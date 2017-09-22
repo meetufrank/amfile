@@ -3,6 +3,9 @@ namespace core\cases\model;
 
 use core\Model;
 use think\Request;
+use core\cases\logic\CountryLogic;
+use core\cases\logic\CaseLogic;
+use core\cases\logic\CompanyLogic;
 class CaseModel extends Model
 {
 
@@ -28,14 +31,7 @@ class CaseModel extends Model
     protected $insert = [
         'case_code'
     ];
-        /**
-     * 更新时自动完成
-     *
-     * @var array
-     */
-    protected $update = [
-        'case_code'
-    ];
+
 /*
  * 定义别名变量
  */
@@ -181,7 +177,7 @@ class CaseModel extends Model
     
  
     /**
-     * 自动设置文章key
+     * 自动设置caseId
      *
      * @return string
      */
@@ -190,85 +186,170 @@ class CaseModel extends Model
         
         $request=\think\Request::instance();
         $id=Request::instance()->param('id');
-        $field=$request->param('field');
         if(!$id){
-             $status=0;
-        }else{
-            if($field){
-                 $map=[
-                     'id'=>$id,
-                      'delete_time'=>0
-                 ];
-                 $code = $this->where($map)->find();
-                 return $code['case_code'];
-                 exit;
-             }else{
-                 $status=1;
-             }
-           
-        }
+            
+       
+        $field=$request->param();
+        $countryid=$field['country'];
+        $userid=$field['userid'];
+        
+       
+        
         
       
-            return $this->getNewCaseKey($value,$status);
+        return $this->getNewCaseKey($countryid,$userid);
       
-           
+        }
         
     }
 
     /**
-     * 获取一个新的文章Key
+     * 获取一个新的CaseID
      *
      * @return string
      */
-    public function getNewCaseKey($value=null,$status=0)
+    public function getNewCaseKey($countryid,$userid)
     {
        $request = Request::instance();
        
-   
-      if($value){
-              $articleKey=$value;
-              $type=1;
-        }else{ 
-            
-                 $articleKey=$this->gethtime();
-                 $type=2;
-             
-              
-         }
-      if($status==0){
-          $map = [
-            'case_code' => $articleKey,
-            'delete_time'=>0
-           ];
-      }else{
-          $map = [
-            'case_code' => $articleKey,
-            'delete_time'=>0,
-              'id'=>['neq',Request::instance()->param('id')]
-           ];
-      }
+      //查询国家信息
+        $countrymap=[
+            'id'=>$countryid
+        ];
+        $country=CountryLogic::getInstance()->getCountryList($countrymap, 1);
+        $country_abbreviation=$country['abbreviation'];
         
-        $record = $this->where($map)->find();
-        if (empty($record)) {
-            return $articleKey;
-        } else {
-            if($type==2){
-                return $this->getNewCaseKey();
-            }else{
-                $this->error('caseId已存在请重新添加');
-            }
+        //获取case总数(包含未删除)
+        $count=CaseLogic::getInstance()->getCaseCount([],1);
+        
+        /*
+         * 获取公司简称
+         */
+        //获取用户所在公司
+        $usermap=[
+            'id'=>$userid
+        ];
+        $companyid=ChatUserModel::getInstance()->where($usermap)->value('company');
+        if($companyid){
+          //获取公司信息 
+         $companymap=[
+             'id'=>$companyid
+         ];
+         $company=CompanyLogic::getInstance()->getCompanyList($companymap, 1);
+         $company_abbreviation=$company['abbreviation'];
+         
+        for ($index = 1; $index < 100; $index++) {
+            $caseid='';
+            $casemap=[];
             
+            $caseid=$country_abbreviation.sprintf("%'X6s", $count+$index).$company_abbreviation;
+            
+            $casemap=[
+                'case_code'=>$caseid
+            ];
+            $casecount=CaseLogic::getInstance()->getCaseCount($casemap,1);
+            if(!$casecount){
+                return $caseid;
+                break;
+            }
         }
+       }else{
+           exit;
+       } 
        
     }
     
-    /*
-     * 获取当前毫秒时间戳
-     */
-    public function gethtime(){
-         $articleKey = microtime();
-               list($s1, $s2) = explode(' ', $articleKey);		
-         return (float)sprintf('%.0f', (floatval($s1) + floatval($s2)) * 1000);
-    }
+
+//    
+//        /**
+//     * 自动设置文章key
+//     *
+//     * @return string
+//     */
+//    protected function setCaseCodeAttr($value=null)
+//    {
+//        
+//        $request=\think\Request::instance();
+//        $id=Request::instance()->param('id');
+//        $field=$request->param('field');
+//        if(!$id){
+//             $status=0;
+//        }else{
+//            if($field){
+//                 $map=[
+//                     'id'=>$id,
+//                      'delete_time'=>0
+//                 ];
+//                 $code = $this->where($map)->find();
+//                 return $code['case_code'];
+//                 exit;
+//             }else{
+//                 $status=1;
+//             }
+//           
+//        }
+//        
+//      
+//            return $this->getNewCaseKey($value,$status);
+//      
+//           
+//        
+//    }
+
+//    /**
+//     * 获取一个新的文章Key
+//     *
+//     * @return string
+//     */
+//    public function getNewCaseKey($value=null,$status=0)
+//    {
+//       $request = Request::instance();
+//       
+//   
+//      if($value){
+//              $articleKey=$value;
+//              $type=1;
+//        }else{ 
+//            
+//                 $articleKey=$this->gethtime();
+//                 $type=2;
+//             
+//              
+//         }
+//      if($status==0){
+//          $map = [
+//            'case_code' => $articleKey,
+//            'delete_time'=>0
+//           ];
+//      }else{
+//          $map = [
+//            'case_code' => $articleKey,
+//            'delete_time'=>0,
+//              'id'=>['neq',Request::instance()->param('id')]
+//           ];
+//      }
+//        
+//        $record = $this->where($map)->find();
+//        if (empty($record)) {
+//            return $articleKey;
+//        } else {
+//            if($type==2){
+//                return $this->getNewCaseKey();
+//            }else{
+//                $this->error('caseId已存在请重新添加');
+//            }
+//            
+//        }
+//       
+//    }
+//    
+//    /*
+//     * 获取当前毫秒时间戳
+//     */
+//    public function gethtime(){
+//         $articleKey = microtime();
+//               list($s1, $s2) = explode(' ', $articleKey);		
+//         return (float)sprintf('%.0f', (floatval($s1) + floatval($s2)) * 1000);
+//    }
 
 }

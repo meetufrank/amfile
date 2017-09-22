@@ -72,6 +72,15 @@ class ChatUserModel extends Model
     {
         return $this->belongsTo(CmWorkModel::class, 'workid', 'id');
     }
+              /**
+     * 关联语言组(擅长语言)
+     *
+     * @return \think\model\relation\BelongsToMany
+     */
+    public function langarr()
+    {
+        return $this->belongsToMany(LangModel::class, ChatuserLangModel::getInstance()->getTableShortName(), 'lang_id', 'user_id');
+    }
           /**
      * 关联科室组
      *

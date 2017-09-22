@@ -138,7 +138,9 @@ class MUserList extends Base
              
             $status = $model->save($data);
             $ks_arr=$request->param('kslist/a',[]);
+            $lang_arr=$request->param('langlist/a',[]);
             ChatUserLogic::getInstance()->joinks($model->id, $ks_arr);
+            ChatUserLogic::getInstance()->joinlang($model->id, $lang_arr);
             $this->success('新增成功', self::JUMP_REFERER);
         } else {
             $this->siteTitle = '新增用户';
@@ -166,6 +168,8 @@ class MUserList extends Base
          if(!empty($cmlist)){
              //获取科室列表
              $this->getKsList();
+              //获取擅长语言列表
+             $this->getBestLang();
              $this->assign('isCm', 1);
          }else{
              $this->assign('isCm', 0);
@@ -173,6 +177,14 @@ class MUserList extends Base
             return $this->fetch();
         }
     }
+             //获取擅长语言数组
+     protected function getBestLang(){
+         
+         $logic = ChatUserLogic::getInstance();
+         $bestlang=$logic->getBestLang();
+
+         $this->assign('bestlang',$bestlang);
+     } 
         //获取科室数组
      protected function getKsList(){
          
@@ -298,6 +310,9 @@ class MUserList extends Base
             $status = $model->save($data,$map);
             $ks_arr=$request->param('kslist/a',[]);
             ChatUserLogic::getInstance()->joinks($id, $ks_arr);
+            $langlist=$request->param('langlist/a',[]);
+            
+            ChatUserLogic::getInstance()->joinlang($id, $langlist);
             $this->success('修改成功', self::JUMP_REFERER);
         } else {
             $this->siteTitle = '编辑用户';
@@ -315,7 +330,12 @@ class MUserList extends Base
             foreach ($user_list[0]->ksarr as $vo) {
                 $ksarr[] = $vo['ks_id'];
             }
+            $langarr= [];
+            foreach ($user_list[0]->langarr as $vo) {
+                $langarr[] = $vo['id'];
+            }
             $user_list[0]['ks_list']=$ksarr;
+            $user_list[0]['bestlang']=$langarr;
             $this->assign('user_list', $user_list[0]);
         }else{
             $this->error(非法操作);
@@ -332,6 +352,18 @@ class MUserList extends Base
           $this->assignCompanyList();
           //获取语言列表
          $this->getLangList();
+         //该用户是否是casemanager
+         $cmlist=UserLogic::getInstance()->isCm($userid);
+         //print_r($cmlist);exit;
+         if(!empty($cmlist)){
+             //获取科室列表
+             $this->getKsList();
+             //获取擅长语言列表
+             $this->getBestLang();
+             $this->assign('isCm', 1);
+         }else{
+             $this->assign('isCm', 0);
+         }
             return $this->fetch();
         
         }

@@ -33,7 +33,12 @@ class ImageForm extends Form
         $data['uuid'] = md5(serialize($data));
         
         $html = '<div class="am-g am-margin-top-sm">';
-        $html .= '<div class="am-u-sm-' . $data['l_sm_num'] . ' am-u-md-' . $data['l_md_num'] . ' am-text-right">' . $data['title'] . '</div>';
+         if($data['require']){
+            $require_str='<span style="color:red;">*</span>';
+        }else{
+            $require_str='';
+        }
+        $html .= '<div class="am-u-sm-' . $data['l_sm_num'] . ' am-u-md-' . $data['l_md_num'] . ' am-text-right">' . $require_str.$data['title'] . '</div>';
         $html .= '<div class="am-u-sm-' . $data['r_sm_num'] . ' am-u-md-' . $data['r_md_num'] . ' am-u-end">';
         
         $html .= '<input type="hidden" name="' . $data['name'] . '" value="' . $data['value'] . '" id="upload_file_' . $data['uuid'] . '" />';

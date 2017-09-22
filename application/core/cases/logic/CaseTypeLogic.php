@@ -6,6 +6,7 @@ use core\cases\model\CaseTypeModel;
 use core\cases\model\CaseStatusModel;
 use core\cases\model\CountryModel;
 use core\cases\model\KsModel;
+
 class CaseTypeLogic extends Logic
 {
 
@@ -91,6 +92,7 @@ class CaseTypeLogic extends Logic
            
            return $list;
     }  
+
           /*
   * 获取性别下拉列表
   */

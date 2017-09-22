@@ -32,7 +32,7 @@
                         
                         {$widget->form('select', ['title' => '通知语言', 'name' => 'language', 'value' =>$user_list['language'],'list'=>$languagelist])}
 		
-			{$widget->form('image', ['title' => '头像', 'name' => 'avatar', 'value' => $user_list['avatar'], 'width' => 600])}
+			{$widget->form('image', ['title' => '头像', 'name' => 'avatar', 'value' => $user_list['avatar'], 'width' => 600,'require'=>false])}
 			
 			{$widget->form('radio', ['title' => '用户状态', 'name' => 'u_status', 'value' => 1, 'list' => $userstatus])}
 	               

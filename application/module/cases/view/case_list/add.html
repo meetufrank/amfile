@@ -42,7 +42,6 @@
 <div class="am-g">
 	<div class="am-u-sm-12">
 		<form class="am-form ajax-form" method="post" action="{:module_url('add')}">
-		{$widget->form('text', ['title' => 'caseID', 'name' => 'case_code', 'value' => '','r_md_num'=>2,'attr'=>' maxlength="30"'])}
                     {$widget->form('text', ['title' => '患者姓名', 'name' => 'username', 'value' => '','r_md_num'=>2,'attr'=>' maxlength="20"'])}
 	                {$widget->form('date', ['title' => '出生日期', 'name' => 'birthday', 'value' => '','r_md_num'=>3])}
 			{$widget->form('radio', ['title' => '性别', 'name' => 'sex', 'value' => $sexlist[0]['value'],'list'=>$sexlist])}
@@ -55,7 +54,7 @@
                         {$widget->form('select', ['title' => '国家', 'name' => 'country', 'value' => '1','list'=>$country_list])}
                         <div class="am-g am-margin-top-sm" id="address">
                              <div class="am-u-sm-4 am-u-md-2 am-text-right">
-                                 选择地址
+                                 <span style="color:red;">*</span>选择地址
                              </div> 
                               <div class="am-u-sm-8 am-u-md-7 am-u-end">  
                                     <select  name="province"  style="width:20%;display:inline;margin-right: 10px;" data-am-selected="{btnSize: 'sm', searchBox: 1, maxHeight: 300}">
@@ -72,18 +71,18 @@
                                     </select>
                               </div>
                        </div>
-                        {$widget->form('text', ['title' => '邮编', 'name' => 'zip_code', 'value' => '','r_md_num'=>2, 'form_id'=>'id="codebox"','attr'=>' maxlength="20"'])}
+                        {$widget->form('text', ['title' => '邮编', 'name' => 'zip_code', 'value' => '','r_md_num'=>2, 'form_id'=>'id="codebox"','attr'=>' maxlength="20"','require'=>false])}
                         
                         {$widget->form('textarea', ['title' => '详细地址', 'name' => 'address', 'value' => '','attr'=>' maxlength="200"'])}
                         {$widget->form('text', ['title' => '首选电话', 'name' => 'preferred_phone', 'value' => '','r_md_num'=>3])}
-                        {$widget->form('text', ['title' => '备用电话', 'name' => 'standby_phone', 'value' => '','r_md_num'=>3])}
+                        {$widget->form('text', ['title' => '备用电话', 'name' => 'standby_phone', 'value' => '','r_md_num'=>3,'require'=>false])}
                         {$widget->form('text', ['title' => '邮箱', 'name' => 'email', 'value' => '','r_md_num'=>3])}
-                        {$widget->form('textarea', ['title' => '方便接听电话时间', 'name' => 'preferred_time', 'value' => ''])}
+                        {$widget->form('textarea', ['title' => '方便接听电话时间', 'name' => 'preferred_time', 'value' => '','require'=>false])}
                         {$widget->form('textarea', ['title' => '病情描述', 'name' => 'illness', 'value' => '','attr'=>' maxlength="300"'])}
-                        {$widget->form('text', ['title' => '当前治疗的医生姓名', 'name' => 'treatment_doctor', 'value' => '','r_md_num'=>2,'attr'=>' maxlength="20"'])}
-                        {$widget->form('text', ['title' => '当前治疗的医院', 'name' => 'treatment_hospital', 'value' => '','r_md_num'=>3,'attr'=>' maxlength="40"'])}
-                        {$widget->form('text', ['title' => '当前治疗的专科', 'name' => 'specialty', 'value' => '','r_md_num'=>2,'attr'=>' maxlength="30"'])}
-                        {$widget->form('textarea', ['title' => 'case备注', 'name' => 'case_note', 'value' => '','attr'=>' maxlength="300"'])}
+                        {$widget->form('text', ['title' => '当前治疗的医生姓名', 'name' => 'treatment_doctor', 'value' => '','r_md_num'=>2,'attr'=>' maxlength="20"','require'=>false])}
+                        {$widget->form('text', ['title' => '当前治疗的医院', 'name' => 'treatment_hospital', 'value' => '','r_md_num'=>3,'attr'=>' maxlength="40"','require'=>false])}
+                        {$widget->form('text', ['title' => '当前治疗的专科', 'name' => 'specialty', 'value' => '','r_md_num'=>2,'attr'=>' maxlength="30"','require'=>false])}
+                        {$widget->form('textarea', ['title' => 'case备注', 'name' => 'case_note', 'value' => '','attr'=>' maxlength="300"','require'=>false])}
                         <div class="am-g am-margin-top-sm" >
                              <div class="am-u-sm-4 am-u-md-2 am-text-right">
                                  上传附件

@@ -36,6 +36,7 @@ abstract class Form
         'attr' => '',
         'option' => '',
         'inline' => true,
+        'require'=>true,
         
         'text_ok' => '确定',
         'text_cancel' => '取消',

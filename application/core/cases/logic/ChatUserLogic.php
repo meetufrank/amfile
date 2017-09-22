@@ -11,6 +11,7 @@ use core\cases\logic\CompanyLogic;
 use core\manage\model\FileModel;
 use core\cases\model\KsModel;
 use core\Validate;
+use core\cases\model\LangModel;
 class ChatUserLogic extends Logic
 {
          /*
@@ -31,6 +32,27 @@ class ChatUserLogic extends Logic
                ];
            }
           
+           
+           return $list;
+    }  
+    
+                 /*
+  * 获取擅长语言列表
+  */
+    
+        public function getBestLang($sort_name='sort',$sort='desc')
+    {
+           $data= LangModel::getInstance()->order($sort_name, $sort)->select();
+           $list=[
+
+           ];
+           foreach ($data as $key => $value) {
+               $list[]=[
+                 'name'=>$value['l_name'].'('.$value['l_ename'].')',
+                 'value'=>$value['id']
+               ];
+           }
+           
            
            return $list;
     }  
@@ -910,6 +932,47 @@ class ChatUserLogic extends Logic
        
     }
     
+       /**
+     * 新增或修改擅长语言组
+     *
+     * @param array $data            
+     * @param array $lang_arr                     
+     *
+     * 
+     */
+    public function joinlang($id, $lang_arr = [])
+    {
+        
+         
+            
+            // 关联监听
+            $this->attachLang($id, $lang_arr);
+            
+         
+       
+    }
+
+
+    /**
+     * 关联科室组
+     *
+     * @param integer $id           
+     * @param array $ks_arr          
+     *
+     * @return void
+     */
+    public function attachLang($id, $lang_arr = [])
+    {
+        is_array($lang_arr) || $lang_arr = array_filter(explode(',', $lang_arr));
+        
+        // 保存关联
+        $user= ChatUserModel::get($id);
+        $user->langarr()->detach();
+        if(!empty($lang_arr)){
+            return  $user->langarr()->attach($lang_arr);
+        }
+       
+    }
     
     /*
      * 获取有效的casemanager列表详细信息

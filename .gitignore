@@ -6,3 +6,4 @@
 thinkphp
 composer.lock
 /application/extra
+/nbproject/private/

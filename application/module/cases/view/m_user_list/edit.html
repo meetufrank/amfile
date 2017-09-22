@@ -12,6 +12,7 @@
 			{$widget->form('text', ['title' => '重复密码', 'type' => 'password', 'name' => 'pwd_again', 'value' => '','r_md_num'=>3])}
 			{if condition="$isCm eq 1"}
 			{$widget->form('select', ['title' => '擅长科室', 'name' => 'kslist[]', 'value' =>$user_list['ks_list'], 'list' => $kslist, 'attr' => 'multiple','tip'=>'*可多选,重复点击可取消'])}
+                        {$widget->form('select', ['title' => '擅长语言', 'name' => 'langlist[]', 'value' => $user_list['bestlang'], 'list' => $bestlang, 'attr' => 'multiple','tip'=>'*可多选,重复点击可取消'])}
                         {/if}
                         {$widget->form('radio', ['title' => '性别', 'name' => 'sex', 'value' => $user_list['sex'],'list'=>$sexlist])}
 			  {$widget->form('text', ['title' => '联系地址', 'name' => 'area', 'value' => $user_list['area'],'r_md_num'=>3])}
@@ -21,7 +22,7 @@
                         
                         {$widget->form('select', ['title' => '通知语言', 'name' => 'language', 'value' =>$user_list['language'],'list'=>$languagelist])}
 		
-			{$widget->form('image', ['title' => '头像', 'name' => 'avatar', 'value' => $user_list['avatar'], 'width' => 600])}
+			{$widget->form('image', ['title' => '头像', 'name' => 'avatar', 'value' => $user_list['avatar'], 'width' => 600,'require'=>false])}
 			
 			{$widget->form('radio', ['title' => '用户状态', 'name' => 'u_status', 'value' => 1, 'list' => $userstatus])}
 	               

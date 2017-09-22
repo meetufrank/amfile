@@ -156,6 +156,7 @@ class CaseList extends Base
         if ($managerid) {
             $managerid = intval($managerid);
             $map[$case_alias.'.case_manager'] = $managerid;
+            $map[$case_alias.'.case_status'] = ['in','2,5'];
         }
         $this->assign('managerid', $managerid);
         
@@ -476,7 +477,6 @@ class CaseList extends Base
                 'userid' => $request->param('userid'),
                 'country'=>$request->param('country'),
                 'email'=>$request->param('email'),
-                'case_code'=>$request->param('case_code'),
                 'ks_type'=>$request->param('ks_type',1)
             ];
           
@@ -560,7 +560,6 @@ class CaseList extends Base
                 'sort' => $request->param('sort',0),
                  'country'=>$request->param('country'),
                 'email'=>$request->param('email'),
-                'case_code'=>$request->param('case_code'),
                 'ks_type'=>$request->param('ks_type')
             ];
             if($request->param('options')){
