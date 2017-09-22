@@ -188,7 +188,7 @@ class Base extends Controller
         
         $list = $model->paginate($rowNum);
         $perform && $perform($list);
-      
+     
         $this->assign('_list', $list);
         $this->assign('_page', $list->render());
         $this->assign('_total', $list->total());

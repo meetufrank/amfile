@@ -75,7 +75,7 @@
                         <p class="lodemore" style="display: none;"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i>加载更多</p>
             </div>
         </div>
-        <div id="main2" class="main-hide">
+        <div id="yy" class="main-hide">
             <div class="content-main-order">
                 <div class="order-main-header">
                     <div class="order-mheader-top"><img src="__PHONE__/img/logo.png"></div>
@@ -127,10 +127,12 @@
                 <i class="aui-iconfont aui-icon-calendar"></i>
                 <div class="aui-bar-tab-label">Case</div>
             </div>
-            <div class="aui-bar-tab-item" tapmode>
-                <i class="aui-iconfont aui-icon-comment"></i>
-                <div class="aui-bar-tab-label">Appointment</div>
-            </div>
+          
+	            <div class="aui-bar-tab-item" tapmode>
+	                <i onclick="yuyue()" class="aui-iconfont aui-icon-comment"></i>
+	                <div class="aui-bar-tab-label" onclick="yuyue()">Appointment</div>
+	            </div>
+         
             <div class="aui-bar-tab-item" tapmode>
                 <i class="aui-iconfont aui-icon-my"></i>
                 <div class="aui-bar-tab-label">Me</div>
@@ -143,7 +145,19 @@
 <script type="text/javascript" src="__PHONE__/script/jquery-1.8.3.js" ></script>
 <script type="text/javascript" src="__PHONE__/script/lCalendar.js"></script>
 <script type="text/javascript" src="__PHONE__/script/aui-dialog.js"></script>
+
+<script>
+function yuyue(){
+	
+	 window.location.href="{:url('Yuyue/index')}";
+	
+}
+</script>
+
+
 <script type="text/javascript">
+
+
     window.onload=function(){ 
 
         var height=$(window).height();

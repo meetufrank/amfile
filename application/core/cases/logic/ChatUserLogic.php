@@ -923,10 +923,6 @@ class ChatUserLogic extends Logic
        $where[$user.'.delete_time']=0;
        $where[$user.'.u_status']=1;
        $list=ChatUserModel::getInstance()->getCmlist($where,$order);
-       
-
-       
-       
        return $list;
     }
     

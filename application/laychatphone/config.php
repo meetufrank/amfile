@@ -40,7 +40,8 @@ return [
         '__CSS__' => '/static/laychat/admin/css',
         '__JS__' => '/static/laychat/admin/js',
         '__COMMON__' => '/static/laychat/common',
-        '__PHONE__' => '/static/laychat/phone'
+        '__PHONE__' => '/static/laychat/phone',
+        '__YUYUE__' => '/static/laychat/phone/yuyue'
     ]
 
 ];
