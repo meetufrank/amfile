@@ -22,7 +22,7 @@ class UserGroup extends Base
         $this->siteTitle = '用户群组';
         
         // 记录列表
-        $list = UserGroupModel::getInstance()->select();
+    $list = UserGroupModel::getInstance()->where(['id'=>['neq',1]])->select();
         $this->_list($list);
         
         // 群组状态下拉
