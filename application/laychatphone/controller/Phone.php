@@ -446,7 +446,7 @@ class Phone extends Base
             cookie('phone_user_avatar', null);
             
             
-            return json(['url'=>url('Login/index')]);
+            return json(['url'=>url('/service')]);
         }
         
         
