@@ -989,4 +989,6 @@ class ChatUserLogic extends Logic
        return $list;
     }
     
+  
+    
 }
