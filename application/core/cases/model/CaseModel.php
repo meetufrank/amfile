@@ -181,15 +181,13 @@ class CaseModel extends Model
      *
      * @return string
      */
-    protected function setCaseCodeAttr($value=null)
+    protected function setCaseCodeAttr()
     {
         
         $request=\think\Request::instance();
-        $id=Request::instance()->param('id');
-        if(!$id){
-            
-       
+        
         $field=$request->param();
+        
         $countryid=$field['country'];
         $userid=$field['userid'];
         
@@ -199,7 +197,7 @@ class CaseModel extends Model
       
         return $this->getNewCaseKey($countryid,$userid);
       
-        }
+        
         
     }
 
@@ -229,7 +227,9 @@ class CaseModel extends Model
         $usermap=[
             'id'=>$userid
         ];
+        
         $companyid=ChatUserModel::getInstance()->where($usermap)->value('company');
+        
         if($companyid){
           //获取公司信息 
          $companymap=[
@@ -249,12 +249,14 @@ class CaseModel extends Model
             ];
             $casecount=CaseLogic::getInstance()->getCaseCount($casemap,1);
             if(!$casecount){
+                
                 return $caseid;
                 break;
             }
         }
+        
        }else{
-           exit;
+          return false;
        } 
        
     }

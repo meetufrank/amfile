@@ -271,7 +271,7 @@ class CaseList extends Base
              'delete_time'=>0
          ];
          $chatuser=$logic->getSelectUser($where);
-
+        
          $this->assign('chatuser',$chatuser);
      }
        //获取性别数组
@@ -451,7 +451,9 @@ class CaseList extends Base
      */
     public function add(Request $request)
     {
+        
         if ($request->isPost()) {
+            
             $data = [
                 'username' => $request->param('username'),
                 'birthday' => $request->param('birthday'),
@@ -477,7 +479,8 @@ class CaseList extends Base
                 'userid' => $request->param('userid'),
                 'country'=>$request->param('country'),
                 'email'=>$request->param('email'),
-                'ks_type'=>$request->param('ks_type',1)
+                'ks_type'=>$request->param('ks_type',1),
+          
             ];
           
             if($request->param('options')){
@@ -486,13 +489,14 @@ class CaseList extends Base
                     $data['options']=$file['id'];
                 }
             }
-                        // 验证
+             // 验证
             $this->_validate(CaseValidate::class, $data, 'add');
             
             // 添加
             $model = CaseModel::getInstance();
-            $status = $model->save($data);
            
+            $status = $model->save($data);
+         
             $this->success('新增成功', self::JUMP_REFERER);
         } else {
             $this->siteTitle = '新增case';
