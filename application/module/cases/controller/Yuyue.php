@@ -70,12 +70,21 @@ class Yuyue extends Base{
     public function doctor(){
         $request = Request::instance();
         $yuyueinfoid = $request->param('id');
+        
+        $zocdoc_info = Db::table('nd_appointment_zocdoc')->find();
+        
+        $zocdoc_state = $zocdoc_info['yuyue_state'];
 
+   
         //查询医生
         $list=ChatUserLogic::getInstance()->getCasemanager();
      
         //预约id
         $this -> assign('yuyueinfoid',$yuyueinfoid);
+        
+        //指定医生信息状态
+        $this -> assign("zocdoc_state",$zocdoc_state);
+        
         $this->wjpage($list);
     
         return $this -> fetch();
@@ -87,13 +96,13 @@ class Yuyue extends Base{
         
         $request = Request::instance();
         
-        
+   
         //添加预约医生表
         $yuyueinfoid = $request->param('yuyueid');
         $data['yuyueinfo_id'] = $yuyueinfoid;
         $doctorname  = $request->param('username');
         $data['doctorname'] = $doctorname;
-        $data['yuyue_state'] = 1;
+        $data['yuyue_state'] = 5;
         Db::table('nd_appointment_zocdoc')->insert($data);
         
         
@@ -104,17 +113,21 @@ class Yuyue extends Base{
         $time_quantumselect =  Db::table('nd_appointment_time_quantum')->where('id = '.$yuyueinfo[0]['time_qid'])->select();
         $time_quantum = $time_quantumselect[0]['time_quantum'];
         $submitdate = $yuyueinfo[0]['submitdate'];
-  
-      
+    
+    
         
         //邮件
         $email = new SendUser();
+   
         //主持人
         $GethosturlMeeting_Theme = "advance-medical预约会议邀请:".$yuyueinfo[0]['user_name'];
-        $GethosturlMeeting_Body = "您好，<br/>advance-medical 邀请您主持以下预约会议,请在个人中心确人。<br/><br/>会议时间： $submitdate $time_quantum <br/>请及时在个人中心确认该预约!!!";
+      
+        $GethosturlMeeting_Body = "您好，<br/>advance-medical 邀请您主持以下预约会议,请在个人中心确认。<br/><br/>会议时间： $submitdate $time_quantum <br/>请及时在个人中心确认该预约!!!";
+
         $email -> yuyueemail(1,$GethosturlMeeting_Theme,$GethosturlMeeting_Body,'j.wang@meetuuu.com');
-        
+       
         $this->success('指定医生成功!!!', self::JUMP_REFERER);
+        
     }
   
     

@@ -110,10 +110,10 @@
 								<li><i class="icon-eye2"></i>功能待定</li>
 								<li><a href="#">查看详情<i class="icon-arrow-right22"></i></a></li>
 							</ul> -->
-							{if condition="$vo.appointment_state eq 1"} <button class="orderlist-cancel-button col-lg-12" type="button" id="yuyueinfobto{$vo.id}" onClick="ordercancel({$vo.id});">取消</button>
-							{elseif condition="$vo.appointment_state eq 2"/}<button class="orderlist-cancel-button col-lg-12" type="button" id="yuyueinfobto{$vo.id}" onClick="ordercancel({$vo.id});">取消</button>
+							{if condition="$vo.appointment_state eq 1"} <button class="orderlist-cancel-button col-lg-12" type="button" id="yuyueinfobto{$vo.id}" onClick="ordercancel({$vo.id});">拒绝</button>
+							{elseif condition="$vo.appointment_state eq 2"/}<button class="orderlist-cancel-button col-lg-12" type="button" id="yuyueinfobto{$vo.id}" onClick="ordercancel({$vo.id});">拒绝</button>
 							{elseif condition="$vo.appointment_state eq 3"/}
-							{elseif condition="$vo.appointment_state eq 4"/}<button style="display:none;" class="orderlist-cancel-button col-lg-12" type="button" id="yuyueinfobtocancel{$vo.id}">已取消</button>
+							{elseif condition="$vo.appointment_state eq 4"/}<button style="display:none;" class="orderlist-cancel-button col-lg-12" type="button" id="yuyueinfobtocancel{$vo.id}">已拒绝</button>
 							{/if}
 							
 							

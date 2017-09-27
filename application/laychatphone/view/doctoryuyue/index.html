@@ -110,13 +110,13 @@
 							{if condition="$vo.appointment_state eq 1"} 委派中
 							{elseif condition="$vo.appointment_state eq 2"/}预约成功
 							{elseif condition="$vo.appointment_state eq 3"/}已完成
-							{elseif condition="$vo.appointment_state eq 4"/}取消预约
+							{elseif condition="$vo.appointment_state eq 4"/}拒绝预约
 							{/if}
 							</p>
 						    {if condition="$vo.appointment_state eq 1"} 
 						    <button id="confirmyuyue{$vo.yuyueinfoid}{$vo.doctorid}" class="orderlist-cancel-button col-lg-12" type="button" onClick="confirmyuyue({$vo.yuyueinfoid},{$vo.doctorid});">确认</button>
-							<button id="cancel{$vo.yuyueinfoid}" class="orderlist-cancel-button col-lg-12" type="button" onClick="ordercancel({$vo.yuyueinfoid});">取消</button>
-							{elseif condition="$vo.appointment_state eq 2"/}<button id="cancel{$vo.yuyueinfoid}" class="orderlist-cancel-button col-lg-12" type="button" onClick="ordercancel({$vo.yuyueinfoid});">取消</button>
+							<button id="cancel{$vo.yuyueinfoid}" class="orderlist-cancel-button col-lg-12" type="button" onClick="ordercancel({$vo.yuyueinfoid});">拒绝</button>
+							{elseif condition="$vo.appointment_state eq 2"/}<button id="cancel{$vo.yuyueinfoid}" class="orderlist-cancel-button col-lg-12" type="button" onClick="ordercancel({$vo.yuyueinfoid});">拒绝</button>
 							{elseif condition="$vo.appointment_state eq 3"/}
 							{elseif condition="$vo.appointment_state eq 4"/}
 							{/if}

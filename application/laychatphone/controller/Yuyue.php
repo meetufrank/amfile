@@ -51,7 +51,7 @@ class Yuyue extends Base
             ->join('nd_appointment_time_quantum t','a.time_qid = t.id')
             ->join('nd_appointment_zocdoc z','a.id = z.yuyueinfo_id')
             ->field("a.id as yuyueinfoid,z.id as doctorid,a.submitdate,a.user_name,a.appointment_state,t.time_quantum,a.iscase")
-            ->where("z.doctorname = '".$uName."'")
+            ->where("z.doctorname = '".$uName."' and a.appointment_state != 4")
             ->select();
             
             //print_r($info);exit;
@@ -65,7 +65,7 @@ class Yuyue extends Base
     
     public function creatingmeeting($yuyueinfoid,$doctorid){
         
-        
+      
         //获取用户提交预约信息
         $yuyueinfo =  Db::table('nd_appointment_info')->where('id = '.$yuyueinfoid)->select();
        
@@ -78,6 +78,11 @@ class Yuyue extends Base
         $times = date('m/d/Y H:i:s',$time);
         //预约日期
         $submitdate = $yuyueinfo[0]['submitdate'];
+        
+   
+        
+        
+        
         
       
         //添加会议，获取会议信息
@@ -157,14 +162,17 @@ Eof;
         $joinMeetingURLs = str_replace("https//advance-medical.webex.com.cn/","https://advance-medical.webex.com.cn/",$joinMeetingURL);
         //echo $joinMeetingURLs;
         $data['joinmeetingurl'] = $joinMeetingURLs;
+
+        $data['yuyueinfoid'] = $yuyueinfoid;
+        $data['doctorid'] = $doctorid;
+        Db::table('nd_appointment_meeting')->insert($data);
         
-   
+        //修改预约状态
+        Db::table('nd_appointment_info')->where('id', $yuyueinfoid)->update(['appointment_state' => 2]);
         
-      
-        
-        
-      
-        
+        Db::table('nd_appointment_zocdoc')->where('id', $doctorid)->update(['yuyue_state' => 2]);
+
+
         //邮件
         $email = new SendUser();
         //开会人
@@ -179,15 +187,9 @@ Eof;
         $GethosturlMeeting_Body = "您好，<br/>advance-medical 邀请您主持以下预约会议。<br/><br/><strong>$Meeting_Topic</strong><br/>$submitdate<br/>$time_quantum | 中国时间（北京，GMT+08:00） | 2 小时<br/>会议密码： $meetingPassword<br/>".'<a href="'.$hostMeetingURLs.'">到时间后，请主持会议。</a>';
         $email -> yuyueemail(1,$GethosturlMeeting_Theme,$GethosturlMeeting_Body,'j.wang@meetuuu.com');
         
+       
+       
         
-        //修改预约状态
-        Db::table('nd_appointment_info')->where('id', $yuyueinfoid)->update(['appointment_state' => 2]);
-        
-        Db::table('nd_appointment_zocdoc')->where('id', $doctorid)->update(['yuyue_state' => 2]);
-        Db::table('nd_appointment_meeting')->insert($data);
-        
-        //添加视频会议信息
-        Db::table('nd_appointment_meeting')->insert($data);
     }
     
     
@@ -263,6 +265,9 @@ Eof;
         
         //是否关联case
         $data['iscase'] = 2;
+        
+        
+        //用户预约时间
         
         //添加预约信息到数据库
         Db::table('nd_appointment_info')->insert($data);
