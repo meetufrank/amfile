@@ -100,7 +100,9 @@ window.jumpAlert = function(text, code, url, wait) {
 // Ajax成功
 window.ajaxSuccess = function(data) {
 	ajaxDone();
+      
 	if(data.url) {
+            
 		jumpAlert(data.msg, data.code, data.url, data.wait);
 	} else {
 		commonAlert(data.msg, data.code);
@@ -210,6 +212,7 @@ $(function() {
 				url: url,
 				type: 'get',
 				dataType: 'json',
+                                async:false, 
 				success: ajaxSuccess,
 				error: ajaxError
 			      });
