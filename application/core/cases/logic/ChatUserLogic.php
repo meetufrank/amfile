@@ -259,7 +259,7 @@ class ChatUserLogic extends Logic
               'value'=>3, 
               'data'=>[
                 1=>[
-                  'content'=>'【蜜柚网】'.$data['nickname'].'(先生/女士),您好,您被指定负责新的case，请及时登录 '.$data['url'].' 选择接收或者拒绝',
+                  'content'=>'【Medical service】Dear Mr/Ms '.$data['nickname'].',you are assigned to be responsible for the new case，Please log in  '.$data['url'].' choose to receive or refuse!',
                   'description'=>'被指定case发给casemanager的短信内容'  
                  ],
                 2=>[
@@ -304,7 +304,7 @@ class ChatUserLogic extends Logic
                   'description'=>'用户寻求帮助，casemanager不在线casemanager收到的短信'  
                  ],
                 5=>[
-                  'content'=>'',
+                  'content'=>'测试自动回复（英文）',
                   'description'=>'layim用户咨询，casemanger超过十分钟未回复的时候对用户的自动回复'  
                  ],
                 6=>[
