@@ -124,10 +124,6 @@ class Yuyue extends Base
 <?xml version="1.0" encoding="UTF-8"?><serv:message xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><header><securityContext><siteName>advance-medical</siteName><webExID>zhaojing@advance-medical.com.cn</webExID><password>1314Maggie</password></securityContext></header><body><bodyContent xsi:type="java:com.webex.service.binding.meeting.CreateMeeting"><accessControl><meetingPassword>$meetingPassword</meetingPassword></accessControl><metaData><confName>Sample Meeting</confName><agenda>$Meeting_Topic</agenda></metaData><schedule><startDate>$times</startDate><duration>20</duration></schedule></bodyContent></body></serv:message>
 Eof;
         
-        
-        
-      
-        
         $CreateMeeting_array = curlxml($CreateMeeting);
         
         $meetmeetingkey = $CreateMeeting_array['servbody']['servbodyContent']['meetmeetingkey'];
