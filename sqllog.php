@@ -101,3 +101,6 @@ ADD COLUMN `l_ename`  varchar(255) NOT NULL COMMENT '//英文名称' AFTER `id`;
 //加入国家简称
 ALTER TABLE `nd_cases_country`
 ADD COLUMN `abbreviation`  char(4) NOT NULL COMMENT '//简称' AFTER `sort`;
+
+ALTER TABLE `nd_cases_case_type`
+ADD COLUMN `typeename`  varchar(255) NOT NULL AFTER `pc_style`;

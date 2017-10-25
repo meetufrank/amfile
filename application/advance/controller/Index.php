@@ -146,9 +146,9 @@ class Index extends Controller
                 'relationship' => $request->param('relationship'),
                 'applicant_name' => str_replace(' ', '',$request->param('applicant_name')),
                 'address' => $request->param('address'),
-                'province' => $request->param('province', 110000),
-                'city' => $request->param('city', 110100),
-                'district' => $request->param('district', 110101),
+                'province' => $request->param('province',110000),
+                'city' => $request->param('city',110100),
+                'district' => $request->param('district',110101),
                 'zip_code' => $request->param('zip_code'),
                 'preferred_phone' => $request->param('preferred_phone'),
                 'standby_phone' => $request->param('standby_phone'),
@@ -159,10 +159,19 @@ class Index extends Controller
                  'specialty' => $request->param('specialty'),
                  'case_type' => $request->param('case_type'),
                 'sort' => $request->param('sort',0), 
-                'country'=>$request->param('country',1),
-                'email'=>str_replace(' ', '',$request->param('email')),
+                'country'=>$request->param('country',1) || 1,
+                'email'=>str_replace(' ', '',$request->param('email'))
                
             ];
+             if(empty($data['province'])){
+               $data['province']=110000;
+           }
+           if(empty($data['city'])){
+               $data['city']=110100;
+           }
+           if(empty($data['district'])){
+               $data['district']=110101;
+           }
             if($request->param('options')){
                 $file=FileModel::getInstance()->where(['file_url'=>$request->param('options')])->find();
                 if(!empty($file)){
@@ -171,6 +180,8 @@ class Index extends Controller
             }
             if(cookie('phone_user_id')){
                 $data['userid']= cookie('phone_user_id');
+               // 动态绑定属性
+                Request::instance()->bind('userid',$data['userid']);
             }else{
                 $msg['error']=2;
                 $msg['msg']='请登录';

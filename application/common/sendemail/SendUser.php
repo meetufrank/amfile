@@ -2,6 +2,7 @@
 namespace app\common\sendemail;
 use email\Cs;
 use core\cases\logic\ChatUserLogic;
+use think\Queue;
 class SendUser
 {
     
@@ -24,8 +25,13 @@ class SendUser
               }else{
                   $is='manager';
               }
-		$YouxiangContent=ChatUserLogic::getInstance()->getLanguage($user,2); //获取短信内容
-		$emailtrue = $emails->activeEmail($to,$YouxiangContent['title'],$YouxiangContent['content'][$is]);
+		$YouxiangContent=ChatUserLogic::getInstance()->getLanguage($user,2); //获取邮件内容
+                $email_data['to']=$to;
+                $email_data['title']=$YouxiangContent['title'];
+                $email_data['content']=$YouxiangContent['content'][$is];
+                //加入任务队列中
+                Queue::push('app\common\jobs\QueueClient@sendMAIL', $email_data, $queue ='jobs');
+		//$emailtrue = $emails->activeEmail($to,$YouxiangContent['title'],$YouxiangContent['content'][$is]);
     }
         /*
      * AM应用的layim用户表修改密码
@@ -40,8 +46,13 @@ class SendUser
         $user['url']=$url;
 		//邮件主题
         
-	$YouxiangContent=ChatUserLogic::getInstance()->getLanguage($user,3); //获取短信内容
-		
+	$YouxiangContent=ChatUserLogic::getInstance()->getLanguage($user,3); //获取邮件内容
+		$email_data['to']=$to;
+                $email_data['title']=$YouxiangContent['title'];
+                $email_data['content']=$YouxiangContent['content'];
+                //加入任务队列中
+                //Queue::push('app\common\jobs\QueueClient@sendMAIL', $email_data, $queue ='jobs');
+                
 		$emailtrue = $emails->activeEmail($to,$YouxiangContent['title'],$YouxiangContent['content']);
     }
     
@@ -50,7 +61,7 @@ class SendUser
      */
        public function acceptCase($user=[]){
         //调用email接口方法
-	    $emails = new Cs();
+//	    $emails = new Cs();
 		
 		//为1请求发送邮件
 		$to = $user['email'];
@@ -58,19 +69,27 @@ class SendUser
         $user['url']=$url;
 		//邮件主题
         
-	$YouxiangContent=ChatUserLogic::getInstance()->getLanguage($user,6); //获取短信内容
-		
-		$emailtrue = $emails->activeEmail($to,$YouxiangContent['title'],$YouxiangContent['content']);
+	$YouxiangContent=ChatUserLogic::getInstance()->getLanguage($user,6); //获取邮件内容
+		$email_data['to']=$to;
+                $email_data['title']=$YouxiangContent['title'];
+                $email_data['content']=$YouxiangContent['content'];
+                //加入任务队列中
+                Queue::push('app\common\jobs\QueueClient@sendMAIL', $email_data, $queue ='jobs');
+		//$emailtrue = $emails->activeEmail($to,$YouxiangContent['title'],$YouxiangContent['content']);
     }
     
     
     
     
     //预约邮件
-    public function yuyueemail($to,$subject,$body,$receivingparty){
-        //调用email接口方法
-        $emails = new Cs();
-        $emails->sentemail($to,$subject,$body,$receivingparty);
+    public function yuyueemail($to,$title,$content){
+      
+               $email_data['to']=$to;
+                $email_data['title']=$title;
+                $email_data['content']=$content;
+                //加入任务队列中
+                Queue::push('app\common\jobs\QueueClient@sendMAIL', $email_data, $queue ='jobs');
+        //$emails->activeEmail($to,$subject,$body,$receivingparty);
     }
 }
 

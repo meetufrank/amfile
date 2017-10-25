@@ -26,20 +26,25 @@ class Base extends Controller
         header("Content-type: text/html; charset=utf-8");
         $request= Request::instance();
        
-      
+//      $time=time();
+//      echo $time."<br/>";
+//      $apiid=md5('SGJK'.$time);
+//      $apipwd=md5($time.'SGJK');
+//      echo $apiid.'<br/>';
+//      echo $apipwd.'<br/>';exit;
       //print_r(json_encode($request->param())); 
       
         
-/*     echo urlencode(base64_encode(json_encode($request->param())));
-      exit;   */
+//    echo urlencode(base64_encode('{"username":"wangqiang@meetuuu.com","pwd":"123","case_type":"1","c_username":"\u738b\u5f3a","birthday":"1993-02-01","sex":"1","isme":"1","relationship":"","applicant_name":"\u738b\u5f3a","country":"1","province":"110000","city":"110100","district":"110101","address":"\u6d4b\u8bd5\u5730\u5740","zip_code":"","email":"972270516@qq.com","preferred_phone":"18721667531","standby_phone":"","preferred_time":"9:00~12:00","illness":"\u75c5\u4e86","treatment_doctor":"","treatment_hospital":"","specialty":""}'));
+//      exit;   
      
-      
-/*     $body='eyJ1c2VybmFtZSI6IndhbmdxaWFuZ0BtZWV0dXV1LmNvbSIsInB3ZCI6IjEyMyIsImlzY2FzZSI6IjEiLCJjYXNlaWQiOiIzIiwicGhvbmUiOiIxODcyMTg4NzIyOSIsImVtYWlsIjoiMTYzNDI1OTk5NUBxcS5jb20iLCJhZHZpc29yeV9kZXRhaWxzIjoiXHU2MjExXHU4MTFhXHU3NWRiXHVmZjBjXHU3NWRiXHU2YjdiXHU0ZTg2Iiwic3VibWl0ZGF0ZSI6IjIwMTctMDktMTAiLCJ0aW1lX3F1YW50dW0iOiIwOTozMDowMCJ9';
-        $time=150416528;
-     $apiid='fae1642cca025e189c745da5d8b06a57';
-     $apipwd='39dfb57e2b525e81fe68445bfd25cf1a';
-  echo md5(base64_encode($body.$time.$apiid.$apipwd));
- exit; */    
+     
+//     $body='eyJ1c2VybmFtZSI6IndhbmdxaWFuZ0BtZWV0dXV1LmNvbSIsInB3ZCI6IjEyMyIsImNhc2VfdHlwZSI6IjEiLCJjX3VzZXJuYW1lIjoiXHU3MzhiXHU1ZjNhIiwiYmlydGhkYXkiOiIxOTkzLTAyLTAxIiwic2V4IjoiMSIsImlzbWUiOiIxIiwicmVsYXRpb25zaGlwIjoiIiwiYXBwbGljYW50X25hbWUiOiJcdTczOGJcdTVmM2EiLCJjb3VudHJ5IjoiMSIsInByb3ZpbmNlIjoiMTEwMDAwIiwiY2l0eSI6IjExMDEwMCIsImRpc3RyaWN0IjoiMTEwMTAxIiwiYWRkcmVzcyI6Ilx1NmQ0Ylx1OGJkNVx1NTczMFx1NTc0MCIsInppcF9jb2RlIjoiIiwiZW1haWwiOiI5NzIyNzA1MTZAcXEuY29tIiwicHJlZmVycmVkX3Bob25lIjoiMTg3MjE2Njc1MzEiLCJzdGFuZGJ5X3Bob25lIjoiIiwicHJlZmVycmVkX3RpbWUiOiI5OjAwfjEyOjAwIiwiaWxsbmVzcyI6Ilx1NzVjNVx1NGU4NiIsInRyZWF0bWVudF9kb2N0b3IiOiIiLCJ0cmVhdG1lbnRfaG9zcGl0YWwiOiIiLCJzcGVjaWFsdHkiOiIifQ%3D%3D';
+//        $time=1504165281;
+//     $apiid='fae1642cca025e189c745da5d8b06a57';
+//     $apipwd='39dfb57e2b525e81fe68445bfd25cf1a';
+//  echo md5(base64_encode($body.$time.$apiid.$apipwd));
+// exit;   
         if($request->isPost()){
         
         
@@ -59,7 +64,7 @@ class Base extends Controller
 
         //验证签名密钥
         $v_sign=md5(base64_encode($body.$time.$apiid.$apipwd));
-    
+   
         if($v_sign!==$sign){
              echo json_encode(['code' => 40004,'msg' => 'invalid code']);
              exit;
