@@ -124,7 +124,7 @@ class Yuyue extends Base{
       
         $GethosturlMeeting_Body = "您好，<br/>advance-medical 邀请您主持以下预约会议,请在个人中心确认。<br/><br/>会议时间： $submitdate $time_quantum <br/>请及时在个人中心确认该预约!!!";
 
-        $email -> yuyueemail(1,$GethosturlMeeting_Theme,$GethosturlMeeting_Body,'j.wang@meetuuu.com');
+        $email -> yuyueemail($yuyueinfo[0]['email'],$GethosturlMeeting_Theme,$GethosturlMeeting_Body);
        
         $this->success('指定医生成功!!!', self::JUMP_REFERER);
         

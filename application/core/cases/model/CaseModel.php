@@ -6,6 +6,7 @@ use think\Request;
 use core\cases\logic\CountryLogic;
 use core\cases\logic\CaseLogic;
 use core\cases\logic\CompanyLogic;
+use core\cases\logic\ChatUserLogic;
 class CaseModel extends Model
 {
 
@@ -181,25 +182,54 @@ class CaseModel extends Model
      *
      * @return string
      */
-    protected function setCaseCodeAttr($value=null)
+    protected function setCaseCodeAttr()
     {
         
-        $request=\think\Request::instance();
-        $id=Request::instance()->param('id');
-        if(!$id){
-            
-       
+              $request=\think\Request::instance();
+          if($request->userid){
+              $userid=$request->userid;
+          }
+        
+        
         $field=$request->param();
-        $countryid=$field['country'];
-        $userid=$field['userid'];
-        
-       
-        
-        
-      
-        return $this->getNewCaseKey($countryid,$userid);
-      
+        if(isset($field['counry'])&&(isset($field['userid']))){
+            //后台递交
+           $countryid=$field['country'];
+           $userid=$field['userid']; 
+           return $this->getNewCaseKey($countryid,$userid);
+        }elseif(isset($field['body'])){
+            //接口调用
+            $body=$field['body'];
+            //urldecode解密
+         $body=urldecode($body);
+         //base64解密
+         $body= base64_decode($body);
+         if(!is_null(json_decode($body,true))){
+             $userdata=json_decode($body,true); 
+             $user_alias= ChatUserModel::getInstance()->alias_name;//chatuser表别名
+             $map=[
+           $user_alias.'.u_status'=>1,
+           $user_alias.'.user_name'=>$userdata['username'],
+           $user_alias.'.pwd'=>md5($userdata['pwd'])
+            ];
+           $userid= ChatUserLogic::getInstance()->getUserId($map);  //该用户id
+             $countryid=$userdata['country'];
+           return $this->getNewCaseKey($countryid,$userid);
+         }else{
+             exit;
+         }
+            
+        }elseif($userid){
+           
+            //前端页面提交
+           $countryid=$field['country'];
+           $userid=$userid; 
+           return $this->getNewCaseKey($countryid,$userid);
         }
+      
+        
+      
+        
         
     }
 
@@ -229,7 +259,9 @@ class CaseModel extends Model
         $usermap=[
             'id'=>$userid
         ];
+        
         $companyid=ChatUserModel::getInstance()->where($usermap)->value('company');
+        
         if($companyid){
           //获取公司信息 
          $companymap=[
@@ -249,12 +281,14 @@ class CaseModel extends Model
             ];
             $casecount=CaseLogic::getInstance()->getCaseCount($casemap,1);
             if(!$casecount){
+                
                 return $caseid;
                 break;
             }
         }
+        
        }else{
-           exit;
+          return false;
        } 
        
     }

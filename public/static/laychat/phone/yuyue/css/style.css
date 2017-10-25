@@ -16,7 +16,7 @@ body {
   font-size: 14px;
   line-height: 1.7;
   color: gray;
-  background: #e8e8e8;
+  // background: #e8e8e8;
 }
 
 #page {
@@ -108,7 +108,7 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 @media screen and (max-width: 768px) {
   .fh5co-nav {
-    margin: 0;
+    margin: 0;a
   }
 }
 .fh5co-nav .top-menu {
@@ -1153,7 +1153,8 @@ input[type="text"] {
   height: 25px;
   cursor: pointer;
   text-decoration: none;
-  top: 25px !important;
+  // top: 25px !important;
+  top:10px !important;
 }
 .fh5co-nav-toggle.active i::before, .fh5co-nav-toggle.active i::after {
   background: #444;
@@ -1247,7 +1248,7 @@ input[type="text"] {
 }
 @media screen and (max-width: 768px) {
   .fh5co-nav-toggle {
-    display: block;
+    // display: block;
   }
 }
 
