@@ -10,7 +10,7 @@ class Doctoryuyue extends Base{
         //登录用户名
         $uName=$_COOKIE['phone_user_name'];
         
-        print_r($uName);exit;
+        
         return $this->fetch();
     }
 }

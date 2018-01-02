@@ -989,6 +989,7 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
 	margin-left: auto;
 	margin-right: auto;
 	transform: translateY(-50%);
+        opacity: 0.9;
 }
 
 .tpl-login-remember-me {
@@ -1189,7 +1190,8 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
 	width: 450px;
 	max-width: 90%;
 	padding: 40px 40px 25px;
-	background-color: #fff;
+	/*background-color: #fff;*/
+        background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 60%, #fff), linear-gradient(70deg, #e0f1ff 32%, #fffae3);
 	border-radius: 4px;
 }
 

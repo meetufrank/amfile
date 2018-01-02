@@ -55,7 +55,7 @@ class CaseModel extends Model
                 $alias.'.*,'
                 .$aliastype.'.typename,'
                 .$counry.'.name as country_name,'.$province.'.area_name as province_name ,'.$city.'.area_name as city_name ,'.$district.'.area_name as district_name ,'
-                .$user.'.user_name as case_username , '.$user.'.avatar as user_avatar , '
+                .$user.'.user_name as case_username , '.$user.'.avatar as user_avatar , '.$user.'.company as user_company , '
                 .$status.'.color as statuscolor ,'.$status.'.name as statusname , '
                 .$ks.'.ks_name ,'.$ks.'.ks_ename '
                 )->where($map)
@@ -186,18 +186,21 @@ class CaseModel extends Model
     {
         
               $request=\think\Request::instance();
-          if($request->userid){
-              $userid=$request->userid;
-          }
-        
+//          if($request->userid){
+//              $userid=$request->userid;
+//          }
+//        
         
         $field=$request->param();
-        if(isset($field['counry'])&&(isset($field['userid']))){
+        if(isset($field['country'])&&(isset($field['userid']))){
+           
             //后台递交
            $countryid=$field['country'];
            $userid=$field['userid']; 
            return $this->getNewCaseKey($countryid,$userid);
+           exit;
         }elseif(isset($field['body'])){
+            
             //接口调用
             $body=$field['body'];
             //urldecode解密
@@ -215,20 +218,22 @@ class CaseModel extends Model
            $userid= ChatUserLogic::getInstance()->getUserId($map);  //该用户id
              $countryid=$userdata['country'];
            return $this->getNewCaseKey($countryid,$userid);
+           exit;
          }else{
              exit;
          }
             
-        }elseif($userid){
+        }elseif($request->userid){
            
             //前端页面提交
            $countryid=$field['country'];
-           $userid=$userid; 
+           $userid=$request->userid; 
            return $this->getNewCaseKey($countryid,$userid);
+           exit;
         }
       
         
-      
+    
         
         
     }

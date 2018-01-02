@@ -23,23 +23,23 @@ class Base extends Controller
     protected $body=[];
     function _initialize() {
     //function a(){a
-        header("Content-type: text/html; charset=utf-8");
+//        header("Content-type: text/html; charset=utf-8");
         $request= Request::instance();
        
 //      $time=time();
 //      echo $time."<br/>";
-//      $apiid=md5('SGJK'.$time);
-//      $apipwd=md5($time.'SGJK');
+//      $apiid=md5('THEYUN'.$time);
+//      $apipwd=md5($time.'THEYUN');
 //      echo $apiid.'<br/>';
 //      echo $apipwd.'<br/>';exit;
-      //print_r(json_encode($request->param())); 
+//      print_r(json_encode($request->param())); 
       
         
-//    echo urlencode(base64_encode('{"username":"wangqiang@meetuuu.com","pwd":"123","case_type":"1","c_username":"\u738b\u5f3a","birthday":"1993-02-01","sex":"1","isme":"1","relationship":"","applicant_name":"\u738b\u5f3a","country":"1","province":"110000","city":"110100","district":"110101","address":"\u6d4b\u8bd5\u5730\u5740","zip_code":"","email":"972270516@qq.com","preferred_phone":"18721667531","standby_phone":"","preferred_time":"9:00~12:00","illness":"\u75c5\u4e86","treatment_doctor":"","treatment_hospital":"","specialty":""}'));
+//    echo urlencode(base64_encode('{"username":"wangqiang@meetuuu.com","pwd":"123","where":"eyJjYXNlaWQiOnsiZXEiOiJlM2FhYjBlOTZmOWM3YmI4ZDA3OTI4NzhmYTg0MzU3YyJ9fQ%3D%3D","field":"caseid,case_status","limit":"1"}'));
 //      exit;   
      
      
-//     $body='eyJ1c2VybmFtZSI6IndhbmdxaWFuZ0BtZWV0dXV1LmNvbSIsInB3ZCI6IjEyMyIsImNhc2VfdHlwZSI6IjEiLCJjX3VzZXJuYW1lIjoiXHU3MzhiXHU1ZjNhIiwiYmlydGhkYXkiOiIxOTkzLTAyLTAxIiwic2V4IjoiMSIsImlzbWUiOiIxIiwicmVsYXRpb25zaGlwIjoiIiwiYXBwbGljYW50X25hbWUiOiJcdTczOGJcdTVmM2EiLCJjb3VudHJ5IjoiMSIsInByb3ZpbmNlIjoiMTEwMDAwIiwiY2l0eSI6IjExMDEwMCIsImRpc3RyaWN0IjoiMTEwMTAxIiwiYWRkcmVzcyI6Ilx1NmQ0Ylx1OGJkNVx1NTczMFx1NTc0MCIsInppcF9jb2RlIjoiIiwiZW1haWwiOiI5NzIyNzA1MTZAcXEuY29tIiwicHJlZmVycmVkX3Bob25lIjoiMTg3MjE2Njc1MzEiLCJzdGFuZGJ5X3Bob25lIjoiIiwicHJlZmVycmVkX3RpbWUiOiI5OjAwfjEyOjAwIiwiaWxsbmVzcyI6Ilx1NzVjNVx1NGU4NiIsInRyZWF0bWVudF9kb2N0b3IiOiIiLCJ0cmVhdG1lbnRfaG9zcGl0YWwiOiIiLCJzcGVjaWFsdHkiOiIifQ%3D%3D';
+//     $body='eyJ1c2VybmFtZSI6IndhbmdxaWFuZ0BtZWV0dXV1LmNvbSIsInB3ZCI6IjEyMyIsIndoZXJlIjoiZXlKallYTmxhV1FpT25zaVpYRWlPaUpsTTJGaFlqQmxPVFptT1dNM1ltSTRaREEzT1RJNE56aG1ZVGcwTXpVM1l5SjlmUSUzRCUzRCIsImZpZWxkIjoiY2FzZWlkLGNhc2Vfc3RhdHVzIiwibGltaXQiOiIxIn0%3D';
 //        $time=1504165281;
 //     $apiid='fae1642cca025e189c745da5d8b06a57';
 //     $apipwd='39dfb57e2b525e81fe68445bfd25cf1a';
@@ -53,7 +53,7 @@ class Base extends Controller
        
         $apiid=$request->param('apiid');
         if(empty($apiid)){
-           echo json_encode(['code' => 40001,'msg' => 'invalid code']);
+           echo json_encode(['code' => '40001','msg' => 'invalid code']);
            exit;
         }
         $apipwd=$request->param('apipwd');
@@ -64,21 +64,25 @@ class Base extends Controller
 
         //验证签名密钥
         $v_sign=md5(base64_encode($body.$time.$apiid.$apipwd));
-   
         if($v_sign!==$sign){
-             echo json_encode(['code' => 40004,'msg' => 'invalid code']);
+             echo json_encode(['code' => '40004','msg' => 'invalid code']);
              exit;
         }
         //解密body
         $this->jmbody($body);
         $body=$this->body; //赋值给类的属性
-        $username=$body['username'];
-        $pwd=$body['pwd'];
+       
         //验证用户名和密码
-        if(empty($username)){
-           echo json_encode(['code' => 50001,'msg' => 'invalid code']);
+        if(!isset($body['username'])){
+           echo json_encode(['code' => '50001','msg' => 'invalid code']);
            exit;
         }
+        if(!isset($body['pwd'])){
+           echo json_encode(['code' => '50002','msg' => 'invalid code']);
+           exit;
+        }
+        $username=$body['username'];
+        $pwd=$body['pwd'];
         $usermap=[
             'user_name'=>$username,
             'pwd'=> md5($pwd)
@@ -88,10 +92,10 @@ class Base extends Controller
             unset($usermap['pwd']);
             $user_content=$this->ishave($usermap);
             if(empty($user_content)){
-               echo json_encode(['code' => 50001,'msg' => 'invalid code']);
+               echo json_encode(['code' => '50001','msg' => 'invalid code']);
                exit;
             }else{
-               echo json_encode(['code' => 50002,'msg' => 'invalid code']);
+               echo json_encode(['code' => '50002','msg' => 'invalid code']);
                exit; 
             }
             
@@ -108,15 +112,15 @@ class Base extends Controller
             unset($companymap['apipwd']);
             $company_content=CompanyLogic::getInstance()->getCompanyList($companymap,1);
             if(empty($company_content)){
-                echo json_encode(['code' => 40001,'msg' => 'invalid code']);
+                echo json_encode(['code' => '40001','msg' => 'invalid code']);
                 exit;
             }else{
-               echo json_encode(['code' => 40002,'msg' => 'invalid code']);
+               echo json_encode(['code' => '40002','msg' => 'invalid code']);
                exit;
             }
         }
         }else{
-           echo json_encode(['code' => -1,'msg' => 'invalid code']);
+           echo json_encode(['code' => '-1','msg' => 'invalid code']);
            exit;
         }
      }

@@ -52,6 +52,7 @@
                         {$widget->form('text', ['title' => '与患者的关系', 'name' => 'relationship', 'value' => '', 'form_id'=>'id="relationbox"','r_md_num'=>2])}
                         {$widget->form('text', ['title' => '申请人姓名', 'name' => 'applicant_name', 'value' => '','r_md_num'=>2,'attr'=>' maxlength="20"'])}
                         {$widget->form('select', ['title' => '国家', 'name' => 'country', 'value' => '1','list'=>$country_list])}
+                        {$widget->form('text', ['title' => '省（州）', 'name' => 'e_province', 'value' => '','r_md_num'=>2,'attr'=>' maxlength="50" id="e_province"'])}
                         <div class="am-g am-margin-top-sm" id="address">
                              <div class="am-u-sm-4 am-u-md-2 am-text-right">
                                  <span style="color:red;">*</span>选择地址
@@ -133,10 +134,11 @@
              if(country_val!=1){
                  $("#address").hide();
                  $("#codebox").hide();
-                 
+                 $("#e_province").parent().parent().show();
              }else{
                  $("#address").show();
                  $("#codebox").show();
+                 $("#e_province").parent().parent().hide();
              }
             
         }

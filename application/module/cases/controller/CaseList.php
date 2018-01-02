@@ -206,8 +206,16 @@ class CaseList extends Base
                 }
                 
             }
+            //查询公司
+            if($value['user_company']){
+                $cmap=[
+                    'id'=>$value['user_company']
+                ];
+                $company=CompanyModel::getInstance()->where($cmap)->value('name');
+                $list[$key]['company_name']= $company;
+            }
         }
-       
+     
         $this->assign('_list', $list);
         $this->assign('_page', $list->render());
         $this->assign('_total', $list->total());
@@ -480,6 +488,7 @@ class CaseList extends Base
                 'country'=>$request->param('country'),
                 'email'=>$request->param('email'),
                 'ks_type'=>$request->param('ks_type',1),
+                'e_province'=>$request->param('e_province')
           
             ];
           
@@ -496,7 +505,16 @@ class CaseList extends Base
             $model = CaseModel::getInstance();
            
             $status = $model->save($data);
-         
+            $userid=$data['userid'];
+            $map=[
+                'id'=>$userid
+            ];
+            $user=ChatUserLogic::getInstance()->getUserlist($map,1);
+            if(isset($user['email'])||!empty($user['email'])){
+                    //发送邮件  
+                    $email=new SendUser();
+                    $email->addCaseSend($user);
+              }
             $this->success('新增成功', self::JUMP_REFERER);
         } else {
             $this->siteTitle = '新增case';
@@ -564,7 +582,8 @@ class CaseList extends Base
                 'sort' => $request->param('sort',0),
                  'country'=>$request->param('country'),
                 'email'=>$request->param('email'),
-                'ks_type'=>$request->param('ks_type')
+                'ks_type'=>$request->param('ks_type'),
+                'e_province'=>$request->param('e_province')
             ];
             if($request->param('options')){
                 $file=FileModel::getInstance()->where(['file_url'=>$request->param('options')])->find();

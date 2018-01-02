@@ -70,7 +70,7 @@
        <div class="am-u-sm-3"><strong>国家</strong></div>
        <div class="am-u-sm-3"><span>{$case_list.country_name}</span></div>
        <div class="am-u-sm-3"><strong>所在省市区</strong></div>
-       <div class="am-u-sm-3"><span>{if condition="$case_list.country eq 1"}{$case_list.province_name}-{$case_list.city_name}-{$case_list.district_name}{else/}N/N{/if}</span></div>
+       <div class="am-u-sm-3"><span>{if condition="$case_list.country eq 1"}{$case_list.province_name}-{$case_list.city_name}-{$case_list.district_name}{else/}{$case_list.e_province}{/if}</span></div>
        </div>
        <div class="am-g myam-g">
        <div class="am-u-sm-3"><strong>详细地址</strong></div>

@@ -174,9 +174,40 @@ class User extends Base
         }
        
         
-        $this->_delete(UserModel::class, true);
+        $this->user_delete(UserModel::class, true);
     }
+    /**
+     * 删除记录
+     *
+     * @param mixed $model            
+     * @param string $isSoft            
+     * @param string $url            
+     * @return void
+     */
+    protected function user_delete($model, $isSoft = false, $url = null)
+    {
+        $map = [
+            'id' => $this->_id()
+        ];
+        $model = $this->buildModel($model);
+        $url || $url = self::JUMP_REFRESH;
+        
+        $status = $isSoft ? $model->softDelete($map) : $model->where($map)->delete();
+          if($this->_id()){
+            $map=[
+              'managerid'=>$this->_id(),
+              'delete_time'=>0
+            ];
+           
 
+            ChatUserModel::getInstance()->softDelete($map);
+        }
+        if ($status) {
+            $this->success('删除成功', $url);
+        } else {
+            $this->error('删除失败');
+        }
+    }
     /**
      * 赋值用户群组下拉
      *

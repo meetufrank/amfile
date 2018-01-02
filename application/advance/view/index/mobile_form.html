@@ -94,6 +94,13 @@
                 </select>
               </div>
             </div>
+            <div class="form-group">
+              <label for="country" class="col-xs-5 col-sm-4 control-label medical-label">省(州)</label>
+              <div class="col-xs-7 col-sm-8">
+                  <input type="text" class="form-control" id="e_province" name="e_province">
+              </div>
+            </div>
+            
              <div class="form-group">
               <label for="user-address" class="col-xs-5 col-sm-4 control-label medical-label"><span class="has-width">地址</span></label>
               <div class="col-xs-7 col-sm-8">
@@ -251,20 +258,20 @@
      $(function(){
         
 
-
-        function isChina(){
+function isChina(){
              var country_val=$("select[name='country']").val();
              if(country_val!=1){
                  $("#province").hide();
                  $("#city").hide();
                  $("#district").hide();
                  $("#zip_code").parent().parent().hide();
-                 
+                 $("#e_province").parent().parent().show();
              }else{
                  $("#province").show();
                  $("#city").show();
                  $("#district").show();
                  $("#zip_code").parent().parent().show();
+                 $("#e_province").parent().parent().hide();
              }
          }
             

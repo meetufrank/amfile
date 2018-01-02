@@ -437,7 +437,7 @@ class App
                     echo $output;
                 }
             }
-
+            
             if (!empty($config['root_namespace'])) {
                 Loader::addNamespace($config['root_namespace']);
             }

@@ -52,19 +52,20 @@
         
 
 
-        function isChina(){
+               function isChina(){
              var country_val=$("select[name='country']").val();
              if(country_val!=1){
                  $("#province").hide();
                  $("#city").hide();
                  $("#district").hide();
                  $("#zip_code").parent().parent().hide();
-                 
+                 $("#e_province").parent().parent().show();
              }else{
                  $("#province").show();
                  $("#city").show();
                  $("#district").show();
                  $("#zip_code").parent().parent().show();
+                 $("#e_province").parent().parent().hide();
              }
          }
             

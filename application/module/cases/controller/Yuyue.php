@@ -98,14 +98,22 @@ class Yuyue extends Base{
         
    
         //添加预约医生表
-        $yuyueinfoid = $request->param('yuyueid');
+            $yuyueinfoid = $request->param('yuyueid');
         $data['yuyueinfo_id'] = $yuyueinfoid;
         $doctorname  = $request->param('username');
         $data['doctorname'] = $doctorname;
+        //查询医生邮箱
+        $docid = $request->param('id');
         $data['yuyue_state'] = 5;
+        $data['doctorid']=$docid;
         Db::table('nd_appointment_zocdoc')->insert($data);
         
-        
+         //查询医生
+        $useralias=ChatUserModel::getInstance()->alias_name; //用户表别名
+        $map=[
+            $useralias.'.id'=>$docid
+        ];
+        $docdata=ChatUserLogic::getInstance()->getCasemanager($map)->find();
         //查找会议信息
         $yuyueinfo = Db::table('nd_appointment_info')->where('id',$yuyueinfoid)->select();
         
@@ -120,11 +128,11 @@ class Yuyue extends Base{
         $email = new SendUser();
    
         //主持人
-        $GethosturlMeeting_Theme = "advance-medical预约会议邀请:".$yuyueinfo[0]['user_name'];
+        $GethosturlMeeting_Theme = "advance-medical预约会议邀请:".$docdata['user_name'];
       
         $GethosturlMeeting_Body = "您好，<br/>advance-medical 邀请您主持以下预约会议,请在个人中心确认。<br/><br/>会议时间： $submitdate $time_quantum <br/>请及时在个人中心确认该预约!!!";
 
-        $email -> yuyueemail($yuyueinfo[0]['email'],$GethosturlMeeting_Theme,$GethosturlMeeting_Body);
+        $email -> yuyueemail($docdata['email'],$GethosturlMeeting_Theme,$GethosturlMeeting_Body);
        
         $this->success('指定医生成功!!!', self::JUMP_REFERER);
         

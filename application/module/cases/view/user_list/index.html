@@ -55,8 +55,8 @@
                     <th >邮箱</th>
                     <th >手机号</th>
                     <th >公司</th>
-                    <th style="width:6%;">排序</th>
-                    <th style="width:6%;">状态</th>
+                    <th >注册时间</th>
+                    <th >状态</th>
                     <th>操作</th>
                 </tr>
             </thead>
@@ -79,7 +79,7 @@
                         {$vo.companyname}
                     </td>
                     <td class="am-text-middle">
-                        {$widget->row('text', ['value' => $vo['sort'], 'url' => module_url('modify', ['id' => $vo['id'], 'field' => 'sort'])])}
+                        {$vo.create_time}
                     </td>
                     <td class="am-text-middle">
                         {$widget->row('select',['value' => $vo['u_status'], 'list' => $userstatus, 'url' => module_url('modify', ['id' => $vo['id'], 'field' => 'u_status'])])}

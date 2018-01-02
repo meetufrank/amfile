@@ -3,7 +3,7 @@ namespace core\cases\logic;
 
 use core\Logic;
 use core\cases\model\CaseModel;
-
+use core\cases\model\CaseStatusModel;
 class CaseLogic extends Logic
 {
 
@@ -88,4 +88,24 @@ class CaseLogic extends Logic
          $count = $casemodel->where($map)->count();
          return $count;
     }
+
+
+/*
+ * 获取关联case详情
+ * 
+ */
+       public function getCaseList($mr,$mr2=null,$field,$limit){
+        $casemodel=CaseModel::getInstance();
+        $casestatus=CaseStatusModel::getInstance();
+        $status_name=$casestatus->alias_name;
+        $case_alias=$casemodel->alias_name;
+         $query= CaseModel::getInstance()->alias($case_alias)->
+                 join($casestatus->getTableShortName() . ' '.$status_name, $case_alias.'.case_status = '.$status_name.'.id');
+         
+            
+        
+       return $query->field($field)->where($mr)->where($mr2)->limit($limit)->select();
+         
+    }
+    
 }

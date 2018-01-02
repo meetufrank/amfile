@@ -14,6 +14,8 @@ use core\cases\logic\CaseTypeLogic;
 use core\cases\model\AreaModel;
 use core\cases\model\ChatUserModel;
 use core\manage\model\FileModel;
+use app\common\sendemail\SendUser;
+use core\cases\logic\ChatUserLogic;
 class Index extends Controller
 {
     /**
@@ -159,8 +161,9 @@ class Index extends Controller
                  'specialty' => $request->param('specialty'),
                  'case_type' => $request->param('case_type'),
                 'sort' => $request->param('sort',0), 
-                'country'=>$request->param('country',1) || 1,
-                'email'=>str_replace(' ', '',$request->param('email'))
+                'country'=>$request->param('country',1),
+                'email'=>str_replace(' ', '',$request->param('email')),
+                'e_province' => $request->param('e_province'),
                
             ];
              if(empty($data['province'])){
@@ -200,6 +203,17 @@ class Index extends Controller
                         // 添加
             $model = CaseModel::getInstance();
             $status = $model->save($data);
+            $userid=$data['userid'];
+            $map=[
+                'id'=>$userid
+            ];
+            $user=ChatUserLogic::getInstance()->getUserlist($map,1);
+            if(isset($user['email'])||!empty($user['email'])){
+                    //发送邮件  
+                    $email=new SendUser();
+                    $email->addCaseSend($user);
+              }
+            
             $msg['error']=0;
             $msg['msg']='新增成功';
               echo $this->success($msg);  

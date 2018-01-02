@@ -68,7 +68,10 @@ class Yuyue extends Base
       
         //获取用户提交预约信息
         $yuyueinfo =  Db::table('nd_appointment_info')->where('id = '.$yuyueinfoid)->select();
-       
+       //获取医生信息
+        $doctordata=Db::table('nd_appointment_zocdoc')->where('id = '.$doctorid)->find();
+        $casemanager=$doctordata['doctorid'];
+        $doctorinfo =  Db::table('nd_cases_chatuser')->where(['id '=>$casemanager,'delete_time'=>0])->select();
         //预约时间段
         $time_quantumselect =  Db::table('nd_appointment_time_quantum')->where('id = '.$yuyueinfo[0]['time_qid'])->select();
         $time_quantum = $time_quantumselect[0]['time_quantum'];
@@ -84,7 +87,7 @@ class Yuyue extends Base
         
         
         
-      
+
         //添加会议，获取会议信息
         //对url的xml参数进行culr获取
         function curlxml($strxml){
@@ -114,7 +117,7 @@ class Yuyue extends Base
             
         }
         
-        
+             
         //创建会议
         //会议主题
         $Meeting_Topic = "advance-medical预约会议";
@@ -162,7 +165,7 @@ Eof;
         $data['yuyueinfoid'] = $yuyueinfoid;
         $data['doctorid'] = $doctorid;
         Db::table('nd_appointment_meeting')->insert($data);
-        
+         
         //修改预约状态
         Db::table('nd_appointment_info')->where('id', $yuyueinfoid)->update(['appointment_state' => 2]);
         
@@ -174,16 +177,17 @@ Eof;
         //开会人
         $GetjoinurlMeeting_Theme = "advance-medical预约会议邀请:".$yuyueinfo[0]['user_name'];
         $GetjoinurlMeeting_Body = "您好，<br/>advance-medical 邀请您加入以下预约会议。<br/><br/><strong>$Meeting_Topic</strong><br/>$submitdate<br/>$time_quantum | 中国时间（北京，GMT+08:00） | 2 小时<br/>会议密码： $meetingPassword<br/>".'<a href="'.$joinMeetingURLs.'">到时间后，请加入会议。</a>';
-        $email -> yuyueemail(1,$GetjoinurlMeeting_Theme,$GetjoinurlMeeting_Body,'jiang.wang@meetuuu.com');
         
+        $email -> yuyueemail($yuyueinfo[0]['email'],$GetjoinurlMeeting_Theme,$GetjoinurlMeeting_Body);
+        
+ 
     
-        
         //主持人
-        $GethosturlMeeting_Theme = "advance-medical预约会议邀请:".$yuyueinfo[0]['user_name'];
+        $GethosturlMeeting_Theme = "advance-medical预约会议邀请:".$doctorinfo[0]['user_name'];
         $GethosturlMeeting_Body = "您好，<br/>advance-medical 邀请您主持以下预约会议。<br/><br/><strong>$Meeting_Topic</strong><br/>$submitdate<br/>$time_quantum | 中国时间（北京，GMT+08:00） | 2 小时<br/>会议密码： $meetingPassword<br/>".'<a href="'.$hostMeetingURLs.'">到时间后，请主持会议。</a>';
-        $email -> yuyueemail(1,$GethosturlMeeting_Theme,$GethosturlMeeting_Body,'j.wang@meetuuu.com');
+        $email -> yuyueemail($doctorinfo[0]['email'],$GethosturlMeeting_Theme,$GethosturlMeeting_Body);
         
-       
+         
        
         
     }
@@ -193,16 +197,12 @@ Eof;
         
 
         $yuyueinfoid = $_POST['yuyueinfoid'];
-        $data['yuyueinfoid'] = $yuyueinfoid;
 
         $doctorid = $_POST['doctorid'];
-        $data['doctorid'] = $doctorid;
+
         
-        $a = $this->creatingmeeting($yuyueinfoid,$doctorid);
-        print_r($a);exit;
-       
-      
-        echo 1;   
+         $this->creatingmeeting($yuyueinfoid,$doctorid);
+ 
       
     }
     
