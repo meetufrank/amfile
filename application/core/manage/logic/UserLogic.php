@@ -13,9 +13,10 @@ class UserLogic extends Logic
      *
      * @return array
      */
-    public function getSelectStatus()
+    public function getSelectStatus($type=1)
     {
-        return [
+        if($type==1){
+            return [
             [
                 'name' => '启用',
                 'value' => 1
@@ -25,6 +26,19 @@ class UserLogic extends Logic
                 'value' => 0
             ]
         ];
+        }else{
+            return [
+            [
+                'name' => 'Open',
+                'value' => 1
+            ],
+            [
+                'name' => 'Close',
+                'value' => 0
+            ]
+        ];
+        }
+        
     }
 
     public function getSelectList($where=[])

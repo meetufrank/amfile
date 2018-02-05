@@ -27,6 +27,9 @@
             <?php break;?>
         <?php } ?>
         <p class="detail"></p>
+        {*<p class="jump">
+            页面自动 <a id="href" href="<?php echo($url);?>">跳转</a> 等待时间： <b id="wait"><?php echo($wait);?></b>
+        </p>*}
         <p class="jump">
             页面自动 <a id="href" href="<?php echo($url);?>">跳转</a> 等待时间： <b id="wait"><?php echo($wait);?></b>
         </p>

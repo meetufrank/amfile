@@ -53,8 +53,10 @@ class Login extends Controller
                'user_name'=>$userName,
                'u_status'=>1
            ];
+ 
             $user = $chatuser->field('id,user_name,pwd,sign,avatar,is_manager')
                 ->where($where)->find();
+           
             if(empty($user)){
                 return json(['code' => -1, 'data' => '', 'msg' => '用户不存在']);
             }

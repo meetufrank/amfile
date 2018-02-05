@@ -139,7 +139,7 @@ class Base extends Controller
                 }
             }  
         }
-
+       
         $this->assign('wizard', $wizard);
        
         // 主菜单

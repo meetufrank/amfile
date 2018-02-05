@@ -11,56 +11,72 @@ class CompanyLogic extends Logic
      * 获取对应的公司类型额外字段数组
      */
     public function getMoreContent(
-            $data=['birthday'=>'','policy'=>'','idtype'=>'','idnumber'=>'','start_time'=>'','stop_time'=>'','change_content'=>'']
+            $data=['birthday'=>'','policy'=>'','idtype'=>'','idnumber'=>'','start_time'=>'','stop_time'=>'','change_content'=>''],$type=1
             ){
         
         //获取证件类型数组
-        $idtype=$this->getIdType();
-       
+        $idtype=$this->getIdType(2);
+       if($type==1){
+           $birthday='出生日期';
+           $start_time='保单开始日期';
+           $stop_time='保单结束日期';
+           $policy='保单号';
+           $idtypename='证件类型';
+           $idnumber='证件号';
+           $change_content='保单变更信息';
+       }else{
+          $birthday='Date of Birth';
+           $start_time='Begins of Policy';
+           $stop_time='End of Policy';
+           $policy='Policy number';
+           $idtypename='Type of Certificate';
+           $idnumber='Number';
+           $change_content='Policy change Information'; 
+       }
         return $arr=[
             [],
             [
               'birthday'=> [
                    'type'=>'date',
-                   'title'=>'出生日期',
+                   'title'=>$birthday,
                    'name'=>'birthday',
                    'value'=>$data['birthday']
                ],
                 'start_time'=> [
                    'type'=>'date',
-                   'title'=>'保单开始日期',
+                   'title'=>$start_time,
                    'name'=>'start_time',
                    'value'=>$data['start_time'] 
                ],
                 'stop_time'=> [
                    'type'=>'date',
-                   'title'=>'保单结束日期',
+                   'title'=>$stop_time,
                    'name'=>'stop_time',
                    'value'=>$data['stop_time'] 
                ],
              'policy'=>[
                    'type'=>'text',
-                   'title'=>'保单号',
+                   'title'=>$policy,
                    'name'=>'policy',
                    'value'=>$data['policy'] 
                ],
               'idtype'=> [
                    'type'=>'select',
-                   'title'=>'证件类型',
+                   'title'=>$idtypename,
                    'name'=>'idtype',
                    'value'=>$data['idtype'] ,
                    'list'=>$idtype
                ],
                'idnumber'=> [
                    'type'=>'text',
-                   'title'=>'证件号',
+                   'title'=>$idnumber,
                    'name'=>'idnumber',
                    'value'=>$data['idnumber'] 
                    
                 ],
                 'change_content'=>[
                    'type'=>'textarea',
-                   'title'=>'保单变更信息',
+                   'title'=>$change_content,
                    'name'=>'change_content',
                    'value'=>$data['change_content'] 
                ]
@@ -72,8 +88,9 @@ class CompanyLogic extends Logic
     /*
      * 获取证件类型数组
      */
-    public function getIdType() {
-        return [
+    public function getIdType($type=1) {
+        if($type==1){
+            return [
            [
                'name'=>'身份证',
                'value'=>1
@@ -82,7 +99,20 @@ class CompanyLogic extends Logic
               'name'=>'护照',
                'value'=>2   
             ]
-        ];
+         ];
+        }else{
+           return [
+           [
+               'name'=>'ID Card',
+               'value'=>1
+           ],
+            [
+              'name'=>'Passport',
+               'value'=>2   
+            ]
+        ]; 
+        }
+        
     }
       /*
      * 根据id查询公司类型

@@ -25,6 +25,7 @@ abstract class Search
         'attr' => '',
         'search_name'=>'',
         'text' => '搜索',
+        'select_default'=>'不限',
         'target' => 'search-form'
     ];
 

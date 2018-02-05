@@ -50,22 +50,27 @@
 			<div class="jump-area">
 				<h1><span class="{$code?'am-icon-check-square':'am-icon-times-circle'} am-icon-lg jump-icon {$code?'am-text-success':'am-text-danger'}"></span></h1>
 				<h1 class="jump-tip" title="{$msg}">{$msg}</h1>
-				<p>
+<!--				<p>
 					<a href="javascript:jumpUrl();"><span class="jump-wait">{$wait}</span> 秒后自动跳转链接</a>
 				</p>
+                                <p>
+					<a href="javascript:jumpUrl();"><span class="jump-wait">{$wait}</span> seconds after the jump automatically</a>
+				</p>-->
 			</div>
 		</div>
 		<script type="text/javascript" src="{$lib_path}/jquery/2.0.0/jquery.min.js?_={$site_version}"></script>
 		<script>
-			var wait = "{$wait}";
+                    
+//			var wait = "{$wait}";
+                       var wait = "2";
 			var url = "{$url}";
-
+                       
 			$(function() {
 				countDown();
 			});
 
 			function countDown() {
-				$('.jump-wait').text(wait);
+//				$('.jump-wait').text(wait);
 				wait--;
 				if(wait <= 0) {
 					setTimeout(jumpUrl, 1000);

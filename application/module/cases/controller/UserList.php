@@ -390,6 +390,38 @@ class UserList extends Base
         }
     }
 
+    
+    /*
+     * 重置密码
+     */
+    public function resetpwd(Request $request) {
+        $id=$request->param('userid');
+        $map=[
+            'id'=>$id
+        ];
+        $users=ChatUserLogic::getInstance()->getUserlist($map,1);
+        if(empty($users)){
+             return json(['code'=>0,'msg'=>'该用户状态异常或者不存在']);
+        }
+        if(empty($users['email'])){
+            return json(['code'=>0,'msg'=>'该用户邮件为空，请手动为他设置密码!']);
+        }
+        $pwd=rand(100000,999999);
+        $users['pwd']=$pwd;
+        //发送邮箱
+            $email=new SendUser();
+         $email->editSend($users);
+        $data=[
+            'pwd'=>md5($pwd)
+        ];
+        
+        $result=ChatUserModel::getInstance()->save($data,$map);
+        if($result){
+            
+            return json(['code'=>1,'msg'=>'重置成功!密码已发送至用户邮箱']);
+        }
+       
+    }
         /**
      * 删除case
      *

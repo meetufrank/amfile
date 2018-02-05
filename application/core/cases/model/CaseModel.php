@@ -7,6 +7,7 @@ use core\cases\logic\CountryLogic;
 use core\cases\logic\CaseLogic;
 use core\cases\logic\CompanyLogic;
 use core\cases\logic\ChatUserLogic;
+use app\common\sendemail\SendUser;
 class CaseModel extends Model
 {
 
@@ -53,8 +54,8 @@ class CaseModel extends Model
         $ks= KsModel::getInstance()->alias_name;//科室
         $case_list = $this->withCates()->field(
                 $alias.'.*,'
-                .$aliastype.'.typename,'
-                .$counry.'.name as country_name,'.$province.'.area_name as province_name ,'.$city.'.area_name as city_name ,'.$district.'.area_name as district_name ,'
+                .$aliastype.'.typename,'.$aliastype.'.typeename,'
+                .$counry.'.name as country_name,'.$counry.'.ename as country_ename,'.$province.'.area_name as province_name ,'.$city.'.area_name as city_name ,'.$district.'.area_name as district_name ,'
                 .$user.'.user_name as case_username , '.$user.'.avatar as user_avatar , '.$user.'.company as user_company , '
                 .$status.'.color as statuscolor ,'.$status.'.name as statusname , '
                 .$ks.'.ks_name ,'.$ks.'.ks_ename '
@@ -246,7 +247,7 @@ class CaseModel extends Model
     public function getNewCaseKey($countryid,$userid)
     {
        $request = Request::instance();
-       
+       $field=$request->param();
       //查询国家信息
         $countrymap=[
             'id'=>$countryid
@@ -264,7 +265,7 @@ class CaseModel extends Model
         $usermap=[
             'id'=>$userid
         ];
-        
+         
         $companyid=ChatUserModel::getInstance()->where($usermap)->value('company');
         
         if($companyid){
@@ -286,7 +287,31 @@ class CaseModel extends Model
             ];
             $casecount=CaseLogic::getInstance()->getCaseCount($casemap,1);
             if(!$casecount){
-                
+                //如果成功获取case编号，先给用户发送邮件
+//               $userinfo= ChatUserLogic::getInstance()->getUserlist($usermap,1);
+//                if(isset($user['email'])||!empty($user['email'])){
+//                        //发送邮件  
+//                        $email=new SendUser();
+//                        $email->addCaseSend($user);
+//                  }
+                  
+                 //给公司绑定的每个邮箱发送邮件
+                 //查询公司绑定的邮箱列表
+                 $companylist=db('cases_company_email')->where(['c_id'=>$companyid])->select();
+                 if(!empty($companylist)){
+                     foreach ($companylist as $key => $value) {
+                        $user=[];
+                        $user['email']=$value['email'];
+                        $user['language']=$value['language'];
+                        $user['case_code']=$casecount;
+                        $user['nickname']=$field['username'];
+                        if(isset($user['email'])||!empty($user['email'])){
+                        //发送邮件  
+                        $email=new SendUser();
+                        $email->addCaseSend($user);
+                         }
+                     }
+                 }
                 return $caseid;
                 break;
             }

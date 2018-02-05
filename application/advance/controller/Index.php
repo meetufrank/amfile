@@ -203,16 +203,6 @@ class Index extends Controller
                         // 添加
             $model = CaseModel::getInstance();
             $status = $model->save($data);
-            $userid=$data['userid'];
-            $map=[
-                'id'=>$userid
-            ];
-            $user=ChatUserLogic::getInstance()->getUserlist($map,1);
-            if(isset($user['email'])||!empty($user['email'])){
-                    //发送邮件  
-                    $email=new SendUser();
-                    $email->addCaseSend($user);
-              }
             
             $msg['error']=0;
             $msg['msg']='新增成功';

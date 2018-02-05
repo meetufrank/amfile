@@ -24,7 +24,7 @@ class SelectSearch extends Search
         
         $html .= '<select name="' . $data['name'] . '" class="nd-search-field" data-am-selected="{btnSize: \'sm\', searchBox: 1, maxHeight: 300}">';
         if ($data['all']) {
-            $html .= '<option value="**">不限</option>';
+            $html .= '<option value="**">'.$data['select_default'].'</option>';
         }
         foreach ($data['list'] as $vo) {
             if ($data['value'] === $vo['value']) {

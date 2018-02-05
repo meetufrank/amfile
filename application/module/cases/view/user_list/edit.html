@@ -21,7 +21,15 @@
                         {/volist}
                         </div>
                         {/volist}
-                        {$widget->form('text', ['title' => '登录密码', 'type' => 'password', 'name' => 'pwd', 'value' =>'','r_md_num'=>3] )}
+<!--                        {$widget->form('text', ['title' => '登录密码', 'type' => 'password', 'name' => 'pwd', 'value' =>'','r_md_num'=>3] )}-->
+                        <div class="am-g am-margin-top-sm" >
+                            
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right" ><span style="color:red;">*</span>登录密码</div>
+                            <div class="am-u-sm-8 am-u-md-3 am-u-end" >
+                                <input type="password" class="am-input-sm" name="pwd" value="" />
+                            </div>
+                            <button type="button" class="am-btn am-btn-sm am-btn-primary " onClick="resetpwd({$_id});">重置密码</button>
+                        </div>
 			{$widget->form('text', ['title' => '重复密码', 'type' => 'password', 'name' => 'pwd_again', 'value' => '','r_md_num'=>3])}
 			
                         {$widget->form('radio', ['title' => '性别', 'name' => 'sex', 'value' => $user_list['sex'],'list'=>$sexlist])}
@@ -75,5 +83,24 @@ $("select[name='company']").change(function(){
 			}
 		})
     }
+     function resetpwd(id){
+         
+         $.ajax({
+			url:"{:module_url('resetpwd')}",
+			data:{userid:id},
+			dataType:'json',
+			type:'post',
+                        async: false,
+			success:function(data){
+                              
+				
+                                   alert(data.msg,data.code);
+                                
+                            
+                           
+			}
+		})
+    }
+    
 </script>
 {/block}

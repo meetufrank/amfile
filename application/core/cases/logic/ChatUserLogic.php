@@ -83,9 +83,10 @@ class ChatUserLogic extends Logic
      *
      * @return array
      */
-    public function getSelectStatus()
+    public function getSelectStatus($type=1)
     {
-        return [
+        if($type==1){
+            return [
             [
                 'name' => '启用',
                 'value' => 1
@@ -94,7 +95,20 @@ class ChatUserLogic extends Logic
                 'name' => '禁用',
                 'value' => 0
             ]
-        ];
+          ];
+        }else{
+           return [
+            [
+                'name' => 'Open',
+                'value' => 1
+            ],
+            [
+                'name' => 'Close',
+                'value' => 0
+            ]
+          ]; 
+        }
+        
     }
      /*
   * 获取用户公司下拉列表
@@ -138,6 +152,10 @@ class ChatUserLogic extends Logic
      */
     public function getLanguage($data,$k) {
         isset($data['case_code']) ||  $data['case_code']='';
+        isset($data['nickname']) ||  $data['nickname']='';
+        isset($data['url']) ||  $data['url']='';
+        isset($data['user_name']) ||  $data['user_name']='';
+        isset($data['pwd']) ||  $data['pwd']='';
         $arr= [
            1=>[
               'name'=>'中文简体',
@@ -220,9 +238,9 @@ class ChatUserLogic extends Logic
                   'title'=>'汇医服务提醒'
                  ],
                 7=>[
-                   'content'=>'添加case成功', 
+                   'content'=>'A new patient，'.$data['nickname'].'， has enrolled into ALLIANZ AYUDHYA/ ADVANCE MEDICAL Expert Second Medical Opinion (ESMO) service portal.', 
                    'description'=>'为用户添加成功case发送的邮件内容',
-                    'title'=>'汇医服务提醒'
+                    'title'=>'Reminder of medical service'
                 ]
               
               ]    
@@ -331,9 +349,9 @@ class ChatUserLogic extends Logic
                   'title'=>'Reminder of medical service'
                  ],
                 7=>[
-                   'content'=>'添加case成功(测试英文)', 
+                   'content'=>'A new patient，'.$data['nickname'].'， has enrolled into ALLIANZ AYUDHYA/ ADVANCE MEDICAL Expert Second Medical Opinion (ESMO) service portal.', 
                    'description'=>'为用户添加成功case发送的邮件内容',
-                    'title'=>'汇医服务提醒(测试英文)'
+                    'title'=>'Reminder of medical service'
                 ]
               ]    
            ]
@@ -352,8 +370,9 @@ class ChatUserLogic extends Logic
     /*
      * 获取语言列表
      */
-    public function getLanguageList(){
-        return [
+    public function getLanguageList($type=1){
+        if($type==1){
+            return [
           [
               'name'=>'简体中文',
               'value'=>1,
@@ -366,7 +385,24 @@ class ChatUserLogic extends Logic
               'name'=>'英文',
               'value'=>3,
           ]
-        ];
+        ]; 
+        }else{
+            return [
+          [
+              'name'=>'Simplified Chinese',
+              'value'=>1,
+          ],
+          [
+              'name'=>'Traditional Chinese',
+              'value'=>2,
+          ],
+            [
+              'name'=>'English',
+              'value'=>3,
+          ]
+        ]; 
+        }
+       
     }
     
     
@@ -774,7 +810,7 @@ class ChatUserLogic extends Logic
         exit;
     }
     
-    public function UserValidate($data){
+    public function UserValidate($data,$type=1){
         
         $result = ChatUserModel::getInstance()->validate(
                     $data,
@@ -786,21 +822,30 @@ class ChatUserLogic extends Logic
                     'email'=>'require',
                     'company'=>'require'
                     ]);
+        if($type==1){
+            $usermsg='用户名已存在';
+            $telmsg='手机号已存在';
+            $emailmsg='邮箱已存在';
+        }else{
+           $usermsg='Username already exists.';
+            $telmsg='Phone number already exists.';
+            $emailmsg='E-mail already exists.'; 
+        }
         if($result){
               //检测用户名重复
            $where=[
                  
                [
                    'where'=>['user_name'=>$data['user_name']],
-                   'msg'=>'用户名已存在'
+                   'msg'=>$usermsg
                ],
                [
                    'where'=>['tel'=>$data['tel']],
-                   'msg'=>'手机号已存在'
+                   'msg'=>$telmsg
                ],
                [
                    'where'=>['email'=>$data['email']],
-                   'msg'=>'邮箱已存在'
+                   'msg'=>$emailmsg
                ]
          
            ];
@@ -1003,6 +1048,7 @@ class ChatUserLogic extends Logic
        $list=ChatUserModel::getInstance()->getCmlist($where,$order);
        return $list;
     }
+    
     
   
     

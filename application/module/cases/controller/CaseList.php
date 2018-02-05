@@ -33,6 +33,7 @@ class CaseList extends Base
      */
     public function index(Request $request)
     {
+
         $this->siteTitle = 'case列表';
         //获取case表的别名
         $case_alias=CaseModel::getInstance()->alias_name;
@@ -505,16 +506,6 @@ class CaseList extends Base
             $model = CaseModel::getInstance();
            
             $status = $model->save($data);
-            $userid=$data['userid'];
-            $map=[
-                'id'=>$userid
-            ];
-            $user=ChatUserLogic::getInstance()->getUserlist($map,1);
-            if(isset($user['email'])||!empty($user['email'])){
-                    //发送邮件  
-                    $email=new SendUser();
-                    $email->addCaseSend($user);
-              }
             $this->success('新增成功', self::JUMP_REFERER);
         } else {
             $this->siteTitle = '新增case';
@@ -592,7 +583,8 @@ class CaseList extends Base
                 }
             }
                 
-           
+            // 验证
+            $this->_validate(CaseValidate::class, $data, 'edit');
             // 修改
             $model = CaseModel::getInstance();
             $map = [
