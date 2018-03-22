@@ -33,6 +33,24 @@ class Login extends Controller
         return $this->fetch();
     }
 
+      //重置密码
+    public function reset()
+    {
+        $this->siteTitle='advance|medical 重置密码';
+ 
+         
+        
+        return $this->fetch();
+    }
+    //重置密码验证resetverifv
+    public function resetverifv()
+    {
+        $this->siteTitle='advance|medical 验证身份';
+ 
+         
+        
+        return $this->fetch();
+    }
     //处理登录
     public function doLogin()
     {
