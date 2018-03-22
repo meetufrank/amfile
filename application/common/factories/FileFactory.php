@@ -61,6 +61,8 @@ class FileFactory extends Factory
      */
     public static function make($type, $option = array())
     {
+       $aa= new LocalFile();
+        $aa->setOption($option);
         if (isset(self::$maps[$type])) {
             $class = self::$maps[$type];
             return (new $class())->setOption($option);

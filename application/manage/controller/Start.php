@@ -52,7 +52,7 @@ class Start extends Base
             }
         } else {
             // 登录链接
-            $this->assign('login_url', Url::build('/admin'));
+            $this->assign('login_url', Url::build('/casecommander'));
             
             // 验证码链接
             if ($needVerify) {
@@ -69,6 +69,6 @@ class Start extends Base
     public function logout()
     {
         LoginService::getSingleton()->loginOut();
-        $this->success('退出登录成功', Url::build('/admin'));
+        $this->success('退出登录成功', Url::build('/casecommander'));
     }
 }

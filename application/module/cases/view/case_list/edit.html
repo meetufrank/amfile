@@ -42,7 +42,7 @@
 <div class="am-g">
 	<div class="am-u-sm-12">
 		<form class="am-form ajax-form" method="post" action="{:module_url('edit', ['id' => $_id])}">
-			{$widget->form('text', ['title' => '患者姓名', 'name' => 'username', 'value' => $case_list['username'],'r_md_num'=>2,'attr'=>' maxlength="20"'])}
+			{$widget->form('text', ['title' => '患者姓名', 'name' => 'username', 'value' => $case_list['username'],'r_md_num'=>2,'attr'=>' maxlength="50"'])}
 	                {$widget->form('date', ['title' => '出生日期', 'name' => 'birthday', 'value' => $case_list['birthday'],'r_md_num'=>3])}
                         
 			{$widget->form('radio', ['title' => '性别', 'name' => 'sex', 'value' =>$case_list['sex'],'list'=>$sexlist])}
@@ -53,7 +53,7 @@
                         {/if}
                          <div class="am-g am-margin-top-sm" >  
                         <div class="am-u-sm-4 am-u-md-2 am-text-right">
-                                <span style="color:red;">*</span> 提交case的用户
+                                 提交case的用户
                           </div>
                            <div class="am-u-sm-8 am-u-md-7 am-u-end">  
                                <span style="font-weight: bolder;">{$case_list['case_username']}</span>
@@ -61,7 +61,7 @@
                        </div>
                         {$widget->form('radio', ['title' => '是否本人', 'name' => 'isme', 'value' => $case_list['isme'],'list'=>$islist])}
                         {$widget->form('text', ['title' => '与患者的关系', 'name' => 'relationship', 'value' =>$case_list['relationship'], 'form_id'=>'id="relationbox"','r_md_num'=>2])}
-                        {$widget->form('text', ['title' => '申请人姓名', 'name' => 'applicant_name', 'value' =>$case_list['applicant_name'],'r_md_num'=>2,'attr'=>' maxlength="20"'])}
+                        {$widget->form('text', ['title' => '申请人姓名', 'name' => 'applicant_name', 'value' =>$case_list['applicant_name'],'r_md_num'=>2,'attr'=>' maxlength="50"'])}
                         {$widget->form('select', ['title' => '国家', 'name' => 'country', 'value' => $case_list['country'],'list'=>$country_list])}
                         {$widget->form('text', ['title' => '省（州）', 'name' => 'e_province', 'value' =>$case_list['e_province'],'r_md_num'=>2,'attr'=>' maxlength="50" id="e_province"'])}
                         <div class="am-g am-margin-top-sm" id="address">
@@ -124,7 +124,7 @@
                                 {/if}
                             </div>
                         </div>
-                        {$widget->form('text', ['title' => '排序', 'name' => 'sort', 'value' =>$case_list['sort'],'r_md_num'=>1,'attr'=>' maxlength="6"'])}
+                      
 
                         
                         {$widget->form('submit', ['title' => '用户操作'])}

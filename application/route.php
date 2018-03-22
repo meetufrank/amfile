@@ -23,7 +23,7 @@ return [
     
     // 后台
     'module/:_module_/:_controller_/:_action_' => 'manage/loader/run',
-    'admin'=>'manage/start/login',
+    'casecommander'=>'manage/start/login',
     //AM聊天
     'service'=>'laychatphone/Login/index',
     
@@ -35,5 +35,10 @@ return [
     'caseApi'=>'medicalapi/User/submitCase', //提交case接口
     'caseList'=>'medicalapi/User/getCaseList', //提交case接口
     'downloadArea'=>'advance/Download/downloadAreaList', //下载地址表
-    'yuyueApi'=>'medicalapi/Appointment/submitYuyue' //提交预约信息接口
+    'yuyueApi'=>'medicalapi/Appointment/submitYuyue', //提交预约信息接口
+    
+    
+    //国内保险公司
+    'allianzchina'=>'allianzchina/Index/index',
+    'edm/:date/:lang/:page'=>'edm/Index/index'
 ];

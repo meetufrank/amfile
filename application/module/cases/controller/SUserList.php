@@ -82,12 +82,19 @@ class SUserList extends Base
                  'managerid' => $request->param('managerid',0),
                 'tel' => $request->param('tel'),
                 'email' => $request->param('email'),
-                'sort' => $request->param('sort'),
+                'sort' => 0,
                 'u_status' => $request->param('u_status'),
                 'is_manager'=>1,
                  'language'=>$request->param('language'),
                 'area'=>$request->param('area')
             ];
+            if($data['avatar']==''){
+                if($data['sex']){
+                    $data['avatar']='/static/laychat/phone/img/moren.png';
+                }else{
+                    $data['avatar']='/static/laychat/phone/img/moren1.png';
+                }
+            }
             if(empty($request->param('managerid'))){
                 $this->error('非法操作', self::JUMP_REFERER);
             }

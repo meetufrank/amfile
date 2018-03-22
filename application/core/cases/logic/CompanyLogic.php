@@ -7,6 +7,7 @@ use core\cases\model\CompanyModel;
 class CompanyLogic extends Logic
 {
 
+   
     /*
      * 获取对应的公司类型额外字段数组
      */

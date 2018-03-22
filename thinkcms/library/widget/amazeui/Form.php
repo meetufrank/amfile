@@ -36,7 +36,7 @@ abstract class Form
         'attr' => '',
         'option' => '',
         'inline' => true,
-        'require'=>true,
+        'require'=>false,
         'select_default'=>'点击选择...',
 
         'text_ok' => '确定',

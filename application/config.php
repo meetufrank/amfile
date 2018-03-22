@@ -23,5 +23,6 @@ return [
                     'type' => '',
                     'auto_start' => true,
                     ],
+    'app_debug'=>true,
   
 ];

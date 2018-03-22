@@ -99,11 +99,11 @@ class ChatUserLogic extends Logic
         }else{
            return [
             [
-                'name' => 'Open',
+                'name' => 'Able',
                 'value' => 1
             ],
             [
-                'name' => 'Close',
+                'name' => 'Disable',
                 'value' => 0
             ]
           ]; 
@@ -151,11 +151,40 @@ class ChatUserLogic extends Logic
      * 获取用户接收邮件或短信语言
      */
     public function getLanguage($data,$k) {
+        error_reporting(E_ERROR | E_WARNING | E_PARSE);  //修改错误级别，防止报错
         isset($data['case_code']) ||  $data['case_code']='';
         isset($data['nickname']) ||  $data['nickname']='';
         isset($data['url']) ||  $data['url']='';
+        isset($data['eurl']) ||  $data['eurl']='';
         isset($data['user_name']) ||  $data['user_name']='';
         isset($data['pwd']) ||  $data['pwd']='';
+        isset($data['typename']) ||  $data['typename']='';
+        isset($data['typeename']) ||  $data['typeename']='';
+        isset($data['footstr']) ||  $data['footstr']='';
+        isset($data['efootstr']) ||  $data['efootstr']='';
+        isset($data['tfootstr']) ||  $data['tfootstr']='';
+        if(is_array($data)){
+            
+     
+        if(isset($data['field'])){
+            if($data['field']['country']==1){
+                $address=$data['field']['provincename'].'-'.$data['field']['cityname'].'-'.$data['field']['districtname'].'&nbsp;&nbsp;'.$data['field']['address'];
+               
+            }else{
+               $address=$data['field']['e_province'].'&nbsp;&nbsp;'.$data['field']['address']; 
+            }
+        }
+        
+       if(isset($data['field']['content'])){
+          eval('$casecontent='.$data['field']['content'].';');
+       }
+       if(isset($data['field']['econtent'])){
+          eval('$caseecontent='.$data['field']['econtent'].';');
+       }
+   
+          } 
+          
+         
         $arr= [
            1=>[
               'name'=>'中文简体',
@@ -163,26 +192,30 @@ class ChatUserLogic extends Logic
               'data'=>[
                 1=>[
                   'content'=>'【汇医服务】'.$data['nickname'].'(先生/女士),您好,您被指定负责新的case，请及时登录 '.$data['url'].' 选择接收或者拒绝',
-                  'description'=>'被指定case发给casemanager的短信内容'  
+                  'description'=>'被指定case发给casemanager的短信内容',
+                  'short_title'=>'汇医服务'
                  ],
                 2=>[
                   'content'=>[
                      
                      'user'=>"<strong>亲爱的".$data['nickname']."先生/女士,您好!</strong><br/>"
                         ."<br/>"
-                        ."您已经成功的取得了汇医服务申请系统的账号和密码：<br/>"
+                        ."我们了解到，您打算向全球领先的独立医疗咨询和倡导机构Advance Medical的".$data['typename']."提出一个案例。<br/>"
+                        ."<br/>"
+                        ."要加入Advance Medical门户网站，请访问：".$data['url']."<br/>"
                         ."<br/>"
                           ."登录帐号：".$data['user_name']."<br/>"
                         ."<br/>"
                           ."登录密码：".$data['pwd']."<br/>"
                         ."<br/>"
-                          ."您的保险产品覆盖独立国际医学专家意见服务，请参照您的保险条款界定的病种范围，在需要的时候您可以登录 ".$data['url']." 进行病案提交，我们的专案医生将在24（工作）小时内与您联络。<br/>"
-                        ."<br/>"
-                        ."请扫描下方二维码关注公众号，当您的case受理后，您可以进入公众号点击汇医咨询与您的专属医生进行沟通<br/>"
-                        .'<img src="http://demo.advance-medical.com.cn/static/laychat/common/images/ewm.jpg"  style="width:108px;height:108px;"/>'
                        ."<br/>"
-                          ."祝，安康！<br/>"
-                          ."汇医亚太区",
+                          ."登录后，请填写在线注册表格，医生会尽快与您联系以获取更多信息并帮助您解决医疗问题。<br/>"
+                        ."<br/>"
+//                        ."请扫描下方二维码关注公众号，当您的case受理后，您可以进入公众号点击汇医咨询与您的专属医生进行沟通<br/>"
+//                        .'<img src="http://demo.advance-medical.com.cn/static/laychat/common/images/ewm.jpg"  style="width:108px;height:108px;"/>'
+//                       ."<br/>"
+                          ."谢谢，<br/>"
+                          ."Advance医疗（亚太）",
                   
                       'manager'=>"<strong>亲爱的 ".$data['nickname']." 医生,您好!</strong><br/>"
                         ."<br/>"
@@ -194,35 +227,43 @@ class ChatUserLogic extends Logic
                         ."<br/>"
                           ."您可以登录 ".$data['url']."/service 进行case处理。<br/>"
                         ."<br/>"
-                      .'<img src="http://demo.advance-medical.com.cn/static/laychat/common/images/ewm.jpg"  style="width:108px;height:108px;"/>'
-                       ."<br/>"
-                          ."请关注公众号，进入点击右下角我的-在线IM系统进行咨询。"
+//                      .'<img src="http://demo.advance-medical.com.cn/static/laychat/common/images/ewm.jpg"  style="width:108px;height:108px;"/>'
+//                       ."<br/>"
+//                          ."请关注公众号，进入点击右下角我的-在线IM系统进行咨询。"
                       
                       
                   ],
                   'description'=>'添加用户帐号需要发送的邮件内容',
-                  'title'=>'汇医服务申请账号和密码'
-                    
+                  'title'=>'您的高级医疗门户用户名和密码已准备就绪',
+                  'short_title'=>'汇医服务'
                  ],
                 3=>[
-                  'content'=>"您好,".$data['nickname'].":<br/>"
-                          ."帐号：".$data['user_name']."<br/>修改"
-                          ."最新密码为：".$data['pwd']."<br/>"
-                          ."提示：若遗忘密码可联系管理员重置。"
+                  'content'=>"您好!".$data['nickname'].":<br/>"
+                          ."感谢您选择汇医！<br/>"
+                          ."您已申请了新的登陆密码。<br/>"
+                          ."用户名：".$data['user_name']."<br/>"
+                          ."新密码：".$data['pwd']."<br/>"
+                          ." 如果您有其他问题，请联系汇医".$data['footstr']."。"
                           ."<br/>"
-                          ."请扫描下方二维码关注公众号，当您的case受理后，您可以进入公众号点击汇医咨询与您的专属医生进行沟通<br/>"
-                          .'<img src="http://demo.advance-medical.com.cn/static/laychat/common/images/ewm.jpg"  style="width:108px;height:108px;"/>'
-                          ."<br/>",
+                          ."<br/>"
+                          ."感谢,<br/>"
+                          ."汇医（亚太地区）",
+//                          ."请扫描下方二维码关注公众号，当您的case受理后，您可以进入公众号点击汇医咨询与您的专属医生进行沟通<br/>"
+//                          .'<img src="http://demo.advance-medical.com.cn/static/laychat/common/images/ewm.jpg"  style="width:108px;height:108px;"/>'
+//                          ."<br/>",
                   'description'=>'修改用户密码需要发送的邮件内容',
-                  'title'=>'用户密码修改成功提醒'
+                  'title'=>'重置汇医密码',
+                  'short_title'=>'汇医服务'
                  ],
                 4=>[
                   'content'=>'【汇医服务】'.$data['nickname'].'医生,您好,有患者向您咨询问题，请及时登录  '.$data['url'].'/service  ，尽快回复',
-                  'description'=>'用户寻求帮助，casemanager不在线casemanager收到的短信'  
+                  'description'=>'用户寻求帮助，casemanager不在线casemanager收到的短信',
+                  'short_title'=>'汇医服务'
                  ],
                 5=>[
                   'content'=>'测试自动回复（中文）',
-                  'description'=>'layim用户咨询，casemanger超过十分钟未回复的时候对用户的自动回复'  
+                  'description'=>'layim用户咨询，casemanger超过十分钟未回复的时候对用户的自动回复',
+                  'short_title'=>'汇医服务'
                  ],
                 6=>[
                   'content'=>'【汇医服务】'.$data['nickname'].'医生，感谢您接受了病案'.$data['case_code'].'。在整个病案服务的过程中，病人可能通过以下三种方式与您沟通咨询：<br/>'
@@ -235,12 +276,14 @@ class ChatUserLogic extends Logic
                              .'汇医亚太区',
                              
                   'description'=>'casemanager接受新的case发送的短信',
-                  'title'=>'汇医服务提醒'
+                  'title'=>'汇医服务提醒',
+                  'short_title'=>'汇医服务'
                  ],
                 7=>[
-                   'content'=>'A new patient，'.$data['nickname'].'， has enrolled into ALLIANZ AYUDHYA/ ADVANCE MEDICAL Expert Second Medical Opinion (ESMO) service portal.', 
+                   'content'=>$casecontent, 
                    'description'=>'为用户添加成功case发送的邮件内容',
-                    'title'=>'Reminder of medical service'
+                   'title'=>'Reminder of medical service',
+                   'short_title'=>'汇医服务'
                 ]
               
               ]    
@@ -251,34 +294,41 @@ class ChatUserLogic extends Logic
               'data'=>[
                 1=>[
                   'content'=>'【汇医服务】'.$data['nickname'].'(先生/女士),您好,您被指定负责新的case，请及时登录 '.$data['url'].' 选择接收或者拒绝',
-                  'description'=>'被指定case发给casemanager的短信内容'  
+                  'description'=>'被指定case发给casemanager的短信内容',
+                  'short_title'=>'汇医服务'
                  ],
                 2=>[
                   'content'=>'',
                   'description'=>'添加用户帐号需要发送的邮件内容',
-                  'title'=>''  
+                  'title'=>'',
+                  'short_title'=>'汇医服务'
                  ],
                3=>[
                   'content'=>'么西',
                   'description'=>'修改用户密码需要发送的邮件内容',
-                  'title'=>'阿萨德' 
+                  'title'=>'阿萨德',
+                   'short_title'=>'汇医服务'
                  ],
                 4=>[
                   'content'=>'',
-                  'description'=>'用户寻求帮助，casemanager不在线casemanager收到的短信'  
+                  'description'=>'用户寻求帮助，casemanager不在线casemanager收到的短信',
+                  'short_title'=>'汇医服务'
                  ],
                 5=>[
                   'content'=>'',
-                  'description'=>'layim用户咨询，casemanger超过十分钟未回复的时候对用户的自动回复'  
+                  'description'=>'layim用户咨询，casemanger超过十分钟未回复的时候对用户的自动回复',
+                  'short_title'=>'汇医服务'
                  ],
                 6=>[
                   'content'=>'',
-                  'description'=>'casemanager接受新的case发送的短信'  
+                  'description'=>'casemanager接受新的case发送的短信',
+                  'short_title'=>'汇医服务'
                  ],
                 7=>[
-                   'content'=>'添加case成功(繁体)', 
+                   'content'=>'添加case成功(繁体)',
                    'description'=>'为用户添加成功case发送的邮件内容',
-                    'title'=>'汇医服务提醒'
+                    'title'=>'汇医服务提醒',
+                   'short_title'=>'汇医服务'
                 ]
               ]    
            ],
@@ -287,28 +337,32 @@ class ChatUserLogic extends Logic
               'value'=>3, 
               'data'=>[
                 1=>[
-                  'content'=>'【Medical service】Dear Mr/Ms '.$data['nickname'].',you are assigned to be responsible for the new case，Please log in  '.$data['url'].' choose to receive or refuse!',
-                  'description'=>'被指定case发给casemanager的短信内容'  
+                  'content'=>'【Medical service】Dear Mr/Ms '.$data['nickname'].', you are assigned to be responsible for the new case，Please log in  '.$data['url'].' choose to receive or refuse!',
+                  'description'=>'被指定case发给casemanager的短信内容',
+                  'short_title'=>'Advance Medical'
                  ],
                 2=>[
                   'content'=>[
                      
-                     'user'=>"<strong>Dear Mr/Ms ".$data['nickname']."</strong><br/>"
+                     'user'=>"<strong>Dear ".$data['nickname'].",</strong><br/>"
                         ."<br/>"
-                        ."You have successfully obtained the account for Advance Medical Case Services Portal:<br/>"
+                        ." We understand that you intend to open a case with the ".$data['typeename']." by Advance Medical, the world leader of independent medical advisory and advocacy.<br/>"
                         ."<br/>"
-                          ."User Name：".$data['user_name']."<br/>"
+                        ."To enrol in Advance Medical’s portal, please visit: ".$data['eurl']."<br/>"
                         ."<br/>"
-                          ."Passcode：".$data['pwd']."<br/>"
+                          ."Username：".$data['user_name']."<br/>"
                         ."<br/>"
-                          ."Your insurance package includes Independent Expert Medical Opinion service. You may refer to your insurance policy for relevant terms to use it. To open a case, you can log in ".$data['url']." and fill in a simple form, our licensed doctor will contact you within 24 (working hours).<br/>"
+                          ."Password：".$data['pwd']."<br/>"
                         ."<br/>"
-                          ."Best Regards.<br/>"
+                        ."<br/>"
+                          ."Once logged in, kindly fill in the online enrolment form and a physician will contact you shortly to obtain more information and help you with your medical issue.<br/>"
+                        ."<br/>"
+                          ."Thank you,<br/>"
                           ."Advance Medical (Asia Pacific)",
                   
                       'manager'=>"<strong>亲爱的 ".$data['nickname']." 医生,您好!</strong><br/>"
                         ."<br/>"
-                        ."您已经成功的取得了ADVANCE-MEDICAL PATIENT PORTAL账号密码如下<br/>"
+                        ." 您已经成功的取得了ADVANCE-MEDICAL PATIENT PORTAL账号密码如下<br/>"
                         ."<br/>"
                           ."登录帐号：".$data['user_name']."<br/>"
                         ."<br/>"
@@ -320,23 +374,36 @@ class ChatUserLogic extends Logic
                       
                   ],
                   'description'=>'添加用户帐号需要发送的邮件内容',
-                  'title'=>'Apply for medical service account number and password'  
+                  'title'=>'Your Advance Medical Portal Username & Password is Ready',
+                  'short_title'=>'Advance Medical'
                  ],
                 3=>[
-                  'content'=>'',
+                  'content'=>"Hello, ".$data['nickname'].":<br/>"
+                          ."Thank you for using Advance Medical’s services.<br/>"
+                          ."You have requested a new password.<br/>"
+                          ."Username :".$data['user_name']."<br/>"
+                          ."New password :".$data['pwd']."<br/>"
+                          ." If you have any additional questions. Please contact Advance Medical’s ".$data['efootstr']."."
+                          ."<br/>"
+                          ."<br/>"
+                          ."Thank you,<br/>"
+                          ."Advance Medical (APAC)",
                   'description'=>'修改用户密码需要发送的邮件内容',
-                  'title'=>''  
+                  'title'=>'Advance Medical Password is Reset ',
+                  'short_title'=>'Advance Medical'
                  ],
                 4=>[
-                  'content'=>'【Medical service】Dear Dr. '.$data['nickname'].',A patient has sent you a message. Please log in  '.$data['url'].'/service  ，and reply at your earliest convenience.',
-                  'description'=>'用户寻求帮助，casemanager不在线casemanager收到的短信'  
+                  'content'=>'【Medical service】Dear Dr. '.$data['nickname'].', A patient has sent you a message. Please log in  '.$data['url'].'/service  ，and reply at your earliest convenience.',
+                  'description'=>'用户寻求帮助，casemanager不在线casemanager收到的短信',
+                  'short_title'=>'Advance Medical'
                  ],
                 5=>[
                   'content'=>'测试自动回复（英文）',
-                  'description'=>'layim用户咨询，casemanger超过十分钟未回复的时候对用户的自动回复'  
+                  'description'=>'layim用户咨询，casemanger超过十分钟未回复的时候对用户的自动回复',
+                  'short_title'=>'Advance Medical'
                  ],
                 6=>[
-                  'content'=>'【Medical service】Dr '.$data['nickname'].',thank you for taking case '.$data['case_code'].' . Please be aware that patient may consult you in three ways:<br/>'
+                  'content'=>'【Medical service】Dr '.$data['nickname'].', thank you for taking case '.$data['case_code'].' . Please be aware that patient may consult you in three ways:<br/>'
                              .'<br/>'
                              .'1.Call our hotline. Case coordinator will inform you of patient’s call and case details for you to call back.<br/>'
                              .'2.Patient submits question over a secured Instant Messaging system. We will arrange an SMS to you upon receiving patient’s message, with a link. Click on the link and reply accordingly.<br/>'
@@ -346,12 +413,109 @@ class ChatUserLogic extends Logic
                              .'Advance Medical Asia Pacific',
                              
                   'description'=>'casemanager接受新的case发送的短信',
-                  'title'=>'Reminder of medical service'
+                  'title'=>'Reminder of medical service',
+                  'short_title'=>'Advance Medical'
                  ],
                 7=>[
-                   'content'=>'A new patient，'.$data['nickname'].'， has enrolled into ALLIANZ AYUDHYA/ ADVANCE MEDICAL Expert Second Medical Opinion (ESMO) service portal.', 
+                   'content'=>$caseecontent,
                    'description'=>'为用户添加成功case发送的邮件内容',
-                    'title'=>'Reminder of medical service'
+                   'title'=>'Reminder of medical service',
+                   'short_title'=>'Advance Medical'
+                ]
+              ]    
+           ],
+            4=>[
+              'name'=>'泰文',
+              'value'=>3, 
+              'data'=>[
+                1=>[
+                  'content'=>'【Medical service】Dear Mr/Ms '.$data['nickname'].', you are assigned to be responsible for the new case，Please log in  '.$data['url'].' choose to receive or refuse!',
+                  'description'=>'被指定case发给casemanager的短信内容',
+                  'short_title'=>'Advance Medical'
+                 ],
+                2=>[
+                  'content'=>[
+                     
+                     'user'=>"<strong>เรียน  ".$data['nickname'].",</strong><br/>"
+                        ."<br/>"
+                        ." พวกเราเข้าใจดีว่าคุณตั้งใจที่จะเปิดเคส ".$data['typeename']." โดย แอดวานซ์ เมดิคอล ซึ่งเป็นผู้นำของโลกด้านการให้คำปรึกษาและได้รับการสนับสนุนจากแพทย์ <br/>"
+                        ."<br/>"
+                        ."หากต้องการลงทะเบียน ในระบบ แอดวานซ์ เมดิคอล พอร์ทัล กรุณาเยี่ยมชม ".$data['eurl']."<br/>"
+                        ."<br/>"
+                          ."ชื่อผู้ใช้ ".$data['user_name']."<br/>"
+                        ."<br/>"
+                          ."รหัสผ่าน ".$data['pwd']."<br/>"
+                        ."<br/>"
+                        ."<br/>"
+                          ."เมื่อเข้าสู่ระบบกรุณากรอกแบบฟอร์มการลงทะเบียนออนไลน์และแพทย์จะติดต่อคุณในไม่ช้าเพื่อขอรับข้อมูลเ เพิ่มเติมและช่วยคุณแก้ไขปัญหาทางการแพทย์ของคุณ<br/>"
+                        ."<br/>"
+                          ."ขอขอบคุณ,<br/>"
+                          ."แอดวานซ์ เมดิคอล (เอเชียแปซิฟิก)",
+                  
+                      'manager'=>"<strong>亲爱的 ".$data['nickname']." 医生,您好!</strong><br/>"
+                        ."<br/>"
+                        ." 您已经成功的取得了ADVANCE-MEDICAL PATIENT PORTAL账号密码如下<br/>"
+                        ."<br/>"
+                          ."登录帐号：".$data['user_name']."<br/>"
+                        ."<br/>"
+                          ."登录密码：".$data['pwd']."<br/>"
+                        ."<br/>"
+                          ."您可以登录 ".$data['url']."/service 进行case处理。<br/>"
+                        ."<br/>"
+                          ."请关注公众号，进入点击右下角我的-在线IM系统进行咨询。"
+                      
+                  ],
+                  'description'=>'添加用户帐号需要发送的邮件内容',
+                  'title'=>'ชื่อผู้ใช้และรหัสผ่านของ แอดวานซ์ เมดิคอล พอร์ทัล พร้อมใช้แล้ว',
+                  'short_title'=>'แอดวานซ์ เมดิคอล'
+                 ],
+                3=>[
+                  'content'=>"สวัสดี, ".$data['nickname'].":<br/>"
+                          ."ขอขอบคุณที่ใช้บริการของ แอดวานซ์ เมดิคอล <br/>"
+                          ."คุณได้ขอรหัสผ่านใหม่<br/>"
+                          ."ชื่อผู้ใช้ :".$data['user_name']."<br/>"
+                          ."รหัสผ่านใหม่ :".$data['pwd']."<br/>"
+                          ." หากคุณมีคำถามเพิ่มเติม กรุณาติดต่อหา".$data['tfootstr']."."
+                          ."<br/>"
+                          ."<br/>"
+                          ."ขอขอบคุณ,<br/>"
+                          ."แอดวานซ์ เมดิคอล (APAC)",
+//                          ."Please scan the QR code below to pay attention to the public number, and when your case is accepted, you can enter the public number. Click on the consultation and your doctor to communicate.<br/>"
+//                          .'<img src="http://demo.advance-medical.com.cn/static/laychat/common/images/ewm.jpg"  style="width:108px;height:108px;"/>'
+//                          ."<br/>",
+                  'description'=>'修改用户密码需要发送的邮件内容',
+                  'title'=>'รหัสผ่านของ แอดวานซ์ เมดิคอล รีเซ็ต เรียบร้อยแล้ว',
+                  'short_title'=>'แอดวานซ์ เมดิคอล'
+                 ],
+                4=>[
+                  'content'=>'【Medical service】Dear Dr. '.$data['nickname'].', A patient has sent you a message. Please log in  '.$data['url'].'/service  ，and reply at your earliest convenience.',
+                  'description'=>'用户寻求帮助，casemanager不在线casemanager收到的短信',
+                  'short_title'=>'Advance Medical'
+                 ],
+                5=>[
+                  'content'=>'测试自动回复（英文）',
+                  'description'=>'layim用户咨询，casemanger超过十分钟未回复的时候对用户的自动回复',
+                  'short_title'=>'Advance Medical'
+                 ],
+                6=>[
+                  'content'=>'【Medical service】Dr '.$data['nickname'].', thank you for taking case '.$data['case_code'].' . Please be aware that patient may consult you in three ways:<br/>'
+                             .'<br/>'
+                             .'1.Call our hotline. Case coordinator will inform you of patient’s call and case details for you to call back.<br/>'
+                             .'2.Patient submits question over a secured Instant Messaging system. We will arrange an SMS to you upon receiving patient’s message, with a link. Click on the link and reply accordingly.<br/>'
+                             .'3.Patient sends an email to your advance-medical.com.cn mailbox. Please reply accordingly. <br/>'
+                             .'<br/>'
+                             .'Appreciate your effort.<br/>'
+                             .'Advance Medical Asia Pacific',
+                             
+                  'description'=>'casemanager接受新的case发送的短信',
+                  'title'=>'Reminder of medical service',
+                  'short_title'=>'Advance Medical'
+                 ],
+                7=>[
+                   'content'=>$caseecontent,
+                   'description'=>'为用户添加成功case发送的邮件内容',
+                   'title'=>'Reminder of medical service',
+                   'short_title'=>'Advance Medical'
                 ]
               ]    
            ]
@@ -362,7 +526,7 @@ class ChatUserLogic extends Logic
        
              $return_arr=$arr[$key]['data'][$k];
         
-       
+    
         return $return_arr;
     }
     
@@ -384,6 +548,10 @@ class ChatUserLogic extends Logic
             [
               'name'=>'英文',
               'value'=>3,
+          ],
+          [
+              'name'=>'泰文',
+              'value'=>4, 
           ]
         ]; 
         }else{
@@ -399,6 +567,10 @@ class ChatUserLogic extends Logic
             [
               'name'=>'English',
               'value'=>3,
+          ],
+            [
+              'name'=>'Thai',
+              'value'=>4, 
           ]
         ]; 
         }
@@ -615,7 +787,7 @@ class ChatUserLogic extends Logic
     
     //导入用户表
     public function importUser($dirname) {
-        echo '努力上传中,请不要关闭页面......';
+        echo 'Trying to upload, please do not close the page ...';
         set_time_limit(0);
         
         $excels=new excels();
@@ -647,13 +819,13 @@ class ChatUserLogic extends Logic
         $errdata=[];
         //循环获取表中的数据，$currentRow表示当前行，从哪行开始读取数据，索引值从0开始
         for ($currentRow = 2; $currentRow <= $allRow; $currentRow++) {
-            
+             $error=0;
             //从哪列开始，A表示第一列
             for ($currentColumn = 'A'; $currentColumn <= $allColumn; $currentColumn++) {
                 //数据坐标
                 $address = $currentColumn . $currentRow;
                 $old_val=$currentSheet->getCell($address)->getValue();
-               
+                
                 switch ($currentColumn) {
                     case 'B':  //登录名
                         $rowname='user_name';
@@ -667,7 +839,7 @@ class ChatUserLogic extends Logic
                         break;
                     case 'D':   //性别
                         $rowname='sex';
-                        if(trim($old_val)=='男'){
+                        if(trim(strtolower($old_val))=='男' || trim(strtolower($old_val))=='male'){
                             $value=1;
                         }else{
                             $value=0;
@@ -694,9 +866,13 @@ class ChatUserLogic extends Logic
                         $rowname='company';
                         if(is_array($companylist)){
                             foreach ($companylist as $kk => $vv) {
-                                if($vv['name']==$old_val){
+                                
+                                if(trim(strtolower($vv['name']))==trim(strtolower($old_val))){
                                   $value=$vv['id'];
                                 }
+                            }
+                            if(empty($value)){
+                               $error=1; 
                             }
                         }
                        
@@ -710,10 +886,10 @@ class ChatUserLogic extends Logic
                      case 'J':   //通知语言
                         $rowname='language';
                          
-                        foreach ($this->getLanguageList() as $kk => $vv) {
-                            if($vv['name']==$old_val){
-                                $value=$vv['value'];
-                            }
+                        if(trim(strtolower($old_val))=='english' || trim(strtolower($old_val))=='英语'){
+                            $value=3;
+                        }else{
+                            $value=1;
                         }
                     
                         break;
@@ -766,42 +942,48 @@ class ChatUserLogic extends Logic
                 }
                 $rowname=''; 
                 $value='';
-                 
+                
                 //读取到的数据，保存到数组$arr中
                 //$data[$currentRow][$currentColumn] = $currentSheet->getCell($address)->getValue();
             }
+           
          if($data[$currentRow]['sex']){
                 $data[$currentRow]['avatar']='/static/laychat/common/images/moren.png';
                 }else{
                 $data[$currentRow]['avatar']='/static/laychat/common/images/moren1.png';
            }
+         
            //验证
-           if(!$this->UserValidate($data[$currentRow])){
+           if(!$this->UserValidate($data[$currentRow]) || $error==1){
                  
-                 
+                
                  $errdata[]=$currentSheet->getCell('A'.$currentRow)->getValue();
                  unset($data[$currentRow]);
              }
+             
         }
-            
+          
           
        
         @unlink ( $dirname ); //删除上传的文件
+       
         if($data){
             $result=ChatUserModel::getInstance()->saveAll($data); 
             if(!$result){
              
       
-             echo '上传错误';
+             echo 'Upload error!';
+             exit;
          }
          
        
         }
-        $str=implode(',', $errdata);
-        if($str!=''){
-            echo '<br/>上传完成！错误数据有：序号 '.$str;
+       
+        if(!empty($errdata)){
+             $str=implode(',', $errdata);
+            echo '<br/>upload completed! The error data are: serial number is '.$str.'!';
         }else{
-            echo '<br/>上传完成！无错误数据';
+            echo '<br/>upload completed! No error data!';
         }
           
         
@@ -810,8 +992,8 @@ class ChatUserLogic extends Logic
         exit;
     }
     
-    public function UserValidate($data,$type=1){
-        
+    public function UserValidate($data,$type=2){
+          
         $result = ChatUserModel::getInstance()->validate(
                     $data,
                     [
@@ -822,6 +1004,7 @@ class ChatUserLogic extends Logic
                     'email'=>'require',
                     'company'=>'require'
                     ]);
+        
         if($type==1){
             $usermsg='用户名已存在';
             $telmsg='手机号已存在';
@@ -831,6 +1014,7 @@ class ChatUserLogic extends Logic
             $telmsg='Phone number already exists.';
             $emailmsg='E-mail already exists.'; 
         }
+      
         if($result){
               //检测用户名重复
            $where=[
@@ -849,6 +1033,7 @@ class ChatUserLogic extends Logic
                ]
          
            ];
+           
            if(is_array($where)){
                foreach ($where as $key => $value) {
                    $rr= $this->IsOnly($value['where']);
@@ -857,6 +1042,7 @@ class ChatUserLogic extends Logic
                    }
                }
               }
+             
         }
         return $result;
     }

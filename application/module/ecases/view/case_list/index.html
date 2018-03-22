@@ -51,6 +51,7 @@
                     <th style="text-align:center;">Category</th>
                     <th style="text-align:center;">Case manager</th>
                     <th style="text-align:center;">Status</th>
+                    <th style="text-align:center;">Time</th>
                     <th style="text-align:center;">Options</th>
                 </tr>
             </thead>
@@ -123,7 +124,7 @@
                         {$widget->row('select', ['value' => $vo['case_status'], 'list' => $status_arr, 'url' => module_url('modify', ['id' => $vo['id'], 'field' => 'case_status'])])}
                         
                     </td>
-                    
+                    <td class="am-text-middle" style="text-align:center;">{$vo.create_time}</td>
                     <td class="am-text-middle">
                         <div class="am-btn-toolbar">
                             <div class="am-btn-group am-btn-group-xs">

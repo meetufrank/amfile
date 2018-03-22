@@ -36,7 +36,7 @@ class ChatUserModel extends Model
        $user_alias= $this->alias_name;//chatuser表别名
        $company_alias= CompanyModel::getInstance()->alias_name;  //公司别名
        
-       $user_list= $this->withCates()->field($user_alias.'.*,'.$company_alias.'.name as companyname')->where($map)->order($user_alias.'.sort desc');
+       $user_list= $this->withCates()->field($user_alias.'.*,'.$company_alias.'.name as companyname')->where($map)->order($user_alias.'.create_time desc,'.$user_alias.'.sort desc');
        return $user_list;
    }
    //获取casemanager表列表

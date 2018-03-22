@@ -21,7 +21,7 @@
 			{$widget->form('text', ['title' => 'Email', 'name' => 'email', 'value' => '','r_md_num'=>3])}
 			
                         {$widget->form('text', ['title' => 'Mobile Number', 'name' => 'tel', 'value' => '','r_md_num'=>3])}
-                        {$widget->form('select', ['title' => 'Notification language', 'name' => 'language', 'value' =>'','list'=>$languagelist])}
+                        {$widget->form('select', ['title' => 'Notification language', 'name' => 'language', 'value' =>3,'list'=>$languagelist])}
 
 		
 			{$widget->form('image', ['title' => 'Avatar', 'name' => 'avatar', 'value' => '', 'width' => 600,'require'=>false])}
@@ -29,8 +29,7 @@
 			{$widget->form('radio', ['title' => 'User Status', 'name' => 'u_status', 'value' => 1, 'list' => $userstatus])}
 	               
 		
-			
-			{$widget->form('text', ['title' => 'Sort', 'name' => 'sort', 'value' => 0])}
+		
 			
 			
 			{$widget->form('submit', ['title' => 'User Operating','text_ok' => 'Ok','text_cancel' => 'Cancel'])}

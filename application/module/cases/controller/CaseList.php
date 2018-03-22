@@ -179,7 +179,7 @@ class CaseList extends Base
     public function casePage($model, $rowNum = null, \Closure $perform = null){
         $rowNum || $rowNum = config('manage_row_num');
         $rowNum || $rowNum = 10;
-        
+      
       $model = $this->buildModel($model);
         
         $list = $model->paginate($rowNum);
@@ -216,7 +216,7 @@ class CaseList extends Base
                 $list[$key]['company_name']= $company;
             }
         }
-     
+       
         $this->assign('_list', $list);
         $this->assign('_page', $list->render());
         $this->assign('_total', $list->total());
@@ -354,20 +354,22 @@ class CaseList extends Base
                     'case_status'=>2
                 ];
          
-       $result=CaseModel::getInstance()->save($data,$map);
+     $result=CaseModel::getInstance()->save($data,$map);
        if(!$result){
            $this->error('请将case状态调整至pending再进行修改');
            exit;
        }
-       $data=ChatUserModel::where('managerid',$value)->find();
+       $data=ChatUserModel::getInstance()->where('managerid',$value)->find();
       
-      
+     
        if($data){
          $username=$data['nickname'];
            $msg=new \message\mess();
            $url='http://'.$_SERVER['HTTP_HOST'].'/service';
            $data['url']=$url;
+           
            $mess_content=ChatUserLogic::getInstance()->getLanguage($data,1); //获取短信内容
+           
             $msg->send($data['tel'], $mess_content['content']);
             
        }
@@ -492,7 +494,15 @@ class CaseList extends Base
                 'e_province'=>$request->param('e_province')
           
             ];
-          
+           if(empty($data['province'])){
+               $data['province']=110000;
+           }
+           if(empty($data['city'])){
+               $data['city']=110100;
+           }
+           if(empty($data['district'])){
+               $data['district']=110101;
+           }
             if($request->param('options')){
                 $file=FileModel::getInstance()->where(['file_url'=>$request->param('options')])->find();
                 if(!empty($file)){
@@ -576,6 +586,15 @@ class CaseList extends Base
                 'ks_type'=>$request->param('ks_type'),
                 'e_province'=>$request->param('e_province')
             ];
+             if(empty($data['province'])){
+               $data['province']=110000;
+           }
+           if(empty($data['city'])){
+               $data['city']=110100;
+           }
+           if(empty($data['district'])){
+               $data['district']=110101;
+           }
             if($request->param('options')){
                 $file=FileModel::getInstance()->where(['file_url'=>$request->param('options')])->find();
                 if(!empty($file)){

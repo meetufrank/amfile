@@ -493,7 +493,15 @@ class CaseList extends Base
                 'e_province'=>$request->param('e_province')
           
             ];
-          
+           if(empty($data['province'])){
+               $data['province']=110000;
+           }
+           if(empty($data['city'])){
+               $data['city']=110100;
+           }
+           if(empty($data['district'])){
+               $data['district']=110101;
+           }
             if($request->param('options')){
                 $file=FileModel::getInstance()->where(['file_url'=>$request->param('options')])->find();
                 if(!empty($file)){
@@ -577,6 +585,15 @@ class CaseList extends Base
                 'ks_type'=>$request->param('ks_type'),
                 'e_province'=>$request->param('e_province')
             ];
+             if(empty($data['province'])){
+               $data['province']=110000;
+           }
+           if(empty($data['city'])){
+               $data['city']=110100;
+           }
+           if(empty($data['district'])){
+               $data['district']=110101;
+           }
             if($request->param('options')){
                 $file=FileModel::getInstance()->where(['file_url'=>$request->param('options')])->find();
                 if(!empty($file)){

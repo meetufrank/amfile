@@ -182,12 +182,19 @@ class UserList extends Base
                 'company' => $request->param('company'),
                 'tel' => $request->param('tel'),
                 'email' => $request->param('email'),
-                'sort' => $request->param('sort'),
+                'sort' => 0,
                 'u_status' => $request->param('u_status'),
                 'language'=>$request->param('language',1),
                 'area'=>$request->param('area')
 
             ];
+            if($data['avatar']==''){
+                if($data['sex']){
+                    $data['avatar']='/static/laychat/phone/img/moren.png';
+                }else{
+                    $data['avatar']='/static/laychat/phone/img/moren1.png';
+                }
+            }
             if($data['company']){
                 $id=CompanyLogic::getInstance()->getTypeById($data['company']);
                 $content=CompanyLogic::getInstance()->getMoreContent();
