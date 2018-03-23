@@ -309,7 +309,8 @@ class CaseModel extends Model
                         $emailcontent=db('cases_email_content')->where(['id'=>$value['casecontent']])->find();
                         $field['content']= $emailcontent['content'];
                         $field['econtent']=$emailcontent['econtent'];
-                        
+                        //用户所在公司
+                        $field['company']=$company['name'];
                         $field=$this->updatefield($field);
                         $user['field']=$field;
                         if(isset($user['email'])||!empty($user['email'])){
