@@ -624,7 +624,9 @@ class CaseList extends Base
                                     }
                         foreach ($jtid_arr as $key => $value) {
                          $jtdata=ChatUserModel::getInstance()->where(['managerid'=>$value])->find();//jt
-                         
+                         if(empty($jtdata)){
+                          $this->error('Check the listener with unopened layim!');
+                         }  
                          //查询该监听是否在群中或者有无加群记录
                          $map = [
                         'group_id' => $case['groupid'],
@@ -645,7 +647,9 @@ class CaseList extends Base
                       
                      foreach ($jt_arr as $key => $value) {
                          $jtdata=ChatUserModel::getInstance()->where(['managerid'=>$value])->find();//jt
-                        
+                        if(empty($jtdata)){
+                          $this->error('Check the listener with unopened layim!');
+                         }  
                          //查询该监听是否在群中或者有无加群记录
                          $map = [
                         'group_id' =>$case['groupid'],

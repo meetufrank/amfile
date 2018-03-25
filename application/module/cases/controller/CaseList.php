@@ -623,9 +623,12 @@ class CaseList extends Base
                               foreach ($case->jtarr as $vo) {
                                       $jtid_arr[] = $vo['id'];
                                     }
+                        
                         foreach ($jtid_arr as $key => $value) {
                          $jtdata=ChatUserModel::getInstance()->where(['managerid'=>$value])->find();//jt
-                         
+                         if(empty($jtdata)){
+                          $this->error('勾选中包含未开通layim的监听人员');
+                         }  
                          //查询该监听是否在群中或者有无加群记录
                          $map = [
                         'group_id' => $case['groupid'],
@@ -646,13 +649,15 @@ class CaseList extends Base
                       
                      foreach ($jt_arr as $key => $value) {
                          $jtdata=ChatUserModel::getInstance()->where(['managerid'=>$value])->find();//jt
-                        
+                        if(empty($jtdata)){
+                          $this->error('勾选中包含未开通layim的监听人员');
+                         } 
                          //查询该监听是否在群中或者有无加群记录
                          $map = [
                         'group_id' =>$case['groupid'],
                         'user_id' => $jtdata['id']
                          ];
-                          
+                        
                     $count=$group->where($map)->count();
                    
                     if($count){
