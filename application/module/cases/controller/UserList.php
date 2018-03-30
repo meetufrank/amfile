@@ -12,6 +12,7 @@ use core\cases\logic\CaseTypeLogic;
 use core\cases\logic\CompanyLogic;
 use core\cases\validate\ChatUserValidate;
 use app\common\sendemail\SendUser;
+
 class UserList extends Base
 {
 

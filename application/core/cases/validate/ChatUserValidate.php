@@ -58,6 +58,12 @@ class ChatUserValidate extends Validate
             'pwd',
             'pwd_again',
             'tel'
+        ],
+        'uadd'=> [
+            'user_name',
+            'nickname',
+            'pwd',
+            'tel'
         ]
 
     ];
