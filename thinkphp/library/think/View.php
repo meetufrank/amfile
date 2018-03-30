@@ -147,6 +147,7 @@ class View
      */
     public function fetch($template = '', $vars = [], $replace = [], $config = [], $renderContent = false)
     {
+       
         // 模板变量
         $vars = array_merge(self::$var, $this->data, $vars);
 

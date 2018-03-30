@@ -41,6 +41,8 @@ class SendUser
                        $comdata['url']=explode(',',$comdata['url']);
                        $user['url']=implode('和',$comdata['url']);
                        $user['eurl']=implode(' and ',$comdata['url']);
+                       //公司名称
+                       $user['companyname']=$comdata['name'];
                    }
                   $is='user';
               }else{

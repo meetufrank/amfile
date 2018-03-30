@@ -163,6 +163,7 @@ class ChatUserLogic extends Logic
         isset($data['footstr']) ||  $data['footstr']='';
         isset($data['efootstr']) ||  $data['efootstr']='';
         isset($data['tfootstr']) ||  $data['tfootstr']='';
+        isset($data['companyname']) ||  $data['companyname']='';
         if(is_array($data)){
             
      
@@ -200,16 +201,14 @@ class ChatUserLogic extends Logic
                      
                      'user'=>"<strong>亲爱的".$data['nickname']."先生/女士,您好!</strong><br/>"
                         ."<br/>"
-                        ."我们了解到，您打算向全球领先的独立医疗咨询和倡导机构Advance Medical的".$data['typename']."提出一个案例。<br/>"
-                        ."<br/>"
-                        ."要加入Advance Medical门户网站，请访问：".$data['url']."<br/>"
+                        ."感谢您注册".$data['companyname'].' '.$data['typename']."服务官网。以下是您的登录信息：<br/>"
                         ."<br/>"
                           ."登录帐号：".$data['user_name']."<br/>"
                         ."<br/>"
                           ."登录密码：".$data['pwd']."<br/>"
                         ."<br/>"
                        ."<br/>"
-                          ."登录后，请填写在线注册表格，医生会尽快与您联系以获取更多信息并帮助您解决医疗问题。<br/>"
+                          ."登录后，请填写在线注册表格，您的私人专案医生会尽快与您联系以获取更多信息并帮助您解决医疗问题。<br/>"
                         ."<br/>"
 //                        ."请扫描下方二维码关注公众号，当您的case受理后，您可以进入公众号点击汇医咨询与您的专属医生进行沟通<br/>"
 //                        .'<img src="http://demo.advance-medical.com.cn/static/laychat/common/images/ewm.jpg"  style="width:108px;height:108px;"/>'
