@@ -13,10 +13,10 @@
                         {volist name="cm" id="vo"}
                          {if condition="isset($vo['list'])"}
                          
-                         {$widget->form($vo.type, ['title' => $vo['title'], 'name' => $vo['name'], 'value' => $vo['value'],'list'=>$vo['list']])}
+                         {$widget->form($vo.type, ['title' => $vo['title'], 'name' => $vo['name'], 'value' => $vo['value'],'list'=>$vo['list'],'require'=>false])}
                          {else/}
                          
-                         {$widget->form($vo.type, ['title' =>$vo['title'], 'name' => $vo['name'], 'value' =>$vo['value'],'r_md_num'=>3])}
+                         {$widget->form($vo.type, ['title' =>$vo['title'], 'name' => $vo['name'], 'value' =>$vo['value'],'r_md_num'=>3,'require'=>false])}
                           {/if}
                         {/volist}
                         </div>
@@ -31,11 +31,11 @@
                             </div>
                             <button type="button" class="am-btn am-btn-sm am-btn-primary " onClick="resetpwd({$_id});">Reset Password</button>
                         </div>
-			{$widget->form('text', ['title' => 'Confirm Password', 'type' => 'password', 'name' => 'pwd_again', 'value' => '','r_md_num'=>3])}
+			{$widget->form('text', ['title' => 'Confirm Password', 'type' => 'password', 'name' => 'pwd_again', 'value' => '','r_md_num'=>3,'require'=>false])}
 			
                         {$widget->form('radio', ['title' => 'Gender', 'name' => 'sex', 'value' => $user_list['sex'],'list'=>$sexlist])}
-			     {$widget->form('text', ['title' => 'Residence Address', 'name' => 'area', 'value' => $user_list['area'],'r_md_num'=>3])}
-			{$widget->form('text', ['title' => 'Email', 'name' => 'email', 'value' => $user_list['email'],'r_md_num'=>3])}
+			     {$widget->form('text', ['title' => 'Residence Address', 'name' => 'area', 'value' => $user_list['area'],'r_md_num'=>3,'require'=>false])}
+			{$widget->form('text', ['title' => 'Email', 'name' => 'email', 'value' => $user_list['email'],'r_md_num'=>3,'require'=>false])}
 			
                         {$widget->form('text', ['title' => 'Mobile Number', 'name' => 'tel', 'value' => $user_list['tel'],'r_md_num'=>3])}
                         

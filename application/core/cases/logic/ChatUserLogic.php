@@ -358,7 +358,8 @@ class ChatUserLogic extends Logic
                         ."<br/>"
                           ."Thank you,<br/>"
                           ."Advance Medical (Asia Pacific)",
-                  
+//                   'user'=>$data['nickname'].", policy number ".$data['policy'].", has enrolled into the ".$data['typeename']." service. By submitting a case, ".$data['nickname']." has accepted associated terms and conditions of service.",
+                      
                       'manager'=>"<strong>亲爱的 ".$data['nickname']." 医生,您好!</strong><br/>"
                         ."<br/>"
                         ." 您已经成功的取得了ADVANCE-MEDICAL PATIENT PORTAL账号密码如下<br/>"
@@ -450,7 +451,8 @@ class ChatUserLogic extends Logic
                         ."<br/>"
                           ."ขอขอบคุณ,<br/>"
                           ."แอดวานซ์ เมดิคอล (เอเชียแปซิฟิก)",
-                  
+//                  'user'=>$data['nickname']." หมายเลขกรมธรรม์ ".$data['policy']." ได้ลงทะเบียนเข้าร่วมในบริการ ".$data['typeename'],
+                      
                       'manager'=>"<strong>亲爱的 ".$data['nickname']." 医生,您好!</strong><br/>"
                         ."<br/>"
                         ." 您已经成功的取得了ADVANCE-MEDICAL PATIENT PORTAL账号密码如下<br/>"

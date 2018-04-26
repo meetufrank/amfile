@@ -12,9 +12,9 @@
                         <div id="moreform{$k-1}" style="display:none;">
                         {volist name="cm" id="vo"}
                          {if condition="isset($vo['list'])"}
-                         {$widget->form($vo.type, ['title' => $vo['title'], 'name' => $vo['name'], 'value' => $vo['value'],'list'=>$vo['list']])}
+                         {$widget->form($vo.type, ['title' => $vo['title'], 'name' => $vo['name'], 'value' => $vo['value'],'list'=>$vo['list'],'require'=>false])}
                          {else/}
-                         {$widget->form($vo.type, ['title' =>$vo['title'], 'name' => $vo['name'], 'value' =>$vo['value'],'r_md_num'=>3])}
+                         {$widget->form($vo.type, ['title' =>$vo['title'], 'name' => $vo['name'], 'value' =>$vo['value'],'r_md_num'=>3,'require'=>false])}
                           {/if}
                         {/volist}
                         </div>
@@ -24,9 +24,9 @@
 			{$widget->form('text', ['title' => 'Confirm Password', 'type' => 'password', 'name' => 'pwd_again', 'value' => '','r_md_num'=>3])}
 			
                         {$widget->form('radio', ['title' => 'Gender', 'name' => 'sex', 'value' => 1,'list'=>$sexlist])}
-                        {$widget->form('text', ['title' => 'Residence Address', 'name' => 'area', 'value' => '','r_md_num'=>3])}
+                        {$widget->form('text', ['title' => 'Residence Address', 'name' => 'area', 'value' => '','r_md_num'=>3,'require'=>false])}
 			
-			{$widget->form('text', ['title' => 'Email', 'name' => 'email', 'value' => '','r_md_num'=>3])}
+			{$widget->form('text', ['title' => 'Email', 'name' => 'email', 'value' => '','r_md_num'=>3,'require'=>false])}
 			
                         {$widget->form('text', ['title' => 'Mobile Number', 'name' => 'tel', 'value' => '','r_md_num'=>3])}
                         
