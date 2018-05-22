@@ -108,4 +108,170 @@ class CaseLogic extends Logic
          
     }
     
+    
+    //根据case类型获取case额外字段
+    //$type 中文还是英文  1为中文
+     public function getMoreContent($data=[],$type=1)   
+    {
+        
+        //获取是否类型数组
+        $idtype=$this->getIdType($type);
+       if($type==1){
+           $Hypertension='高血压';
+           $highCholestero='高胆固醇';
+           $heartDisease='心脏病';
+           $kidneyDisease='肾脏疾病';
+           $eyeDisease='眼病';
+           $footLegProblems='脚或腿问题';
+           $msIssues='精神压力问题';
+           $mfConcerns='男性或女性的担忧';
+           $smokingDate='吸烟停止日期';
+           $alcoholDate ='酒精停止日期';
+           $MRBPressure='最近的血压';
+           $HbA1c='最近的HbA1c';
+           $isAccept='是否同意协议';
+       }else{
+          $Hypertension='Hypertension';
+           $highCholestero='High cholestero';
+           $heartDisease='Heart disease';
+           $kidneyDisease='Kidney disease';
+           $eyeDisease='Eye disease';
+           $footLegProblems='Foot or leg problems';
+           $msIssues='Mental stress issues'; 
+           $mfConcerns='Male or female concerns';
+           $smokingDate='Smoking stop date';
+           $alcoholDate='Alcohol stop date';
+           $MRBPressure='Most recent blood pressure';
+           $HbA1c='Most recent HbA1c';
+           $isAccept='Whether to agree to the agreements';
+       }
+        return $arr=[
+            1=>[],
+            2=>[
+              'Hypertension'=> [
+                   'type'=>'radio',
+                   'title'=>$Hypertension,
+                   'name'=>'Hypertension',
+                   'value'=> isset($data['Hypertension'])?$data['Hypertension']:0,
+                   'list'=>$idtype
+               ],
+                'highCholestero'=> [
+                   'type'=>'radio',
+                   'title'=>$highCholestero,
+                   'name'=>'highCholestero',
+                   'value'=> isset($data['highCholestero'])?$data['highCholestero']:0,
+                   'list'=>$idtype
+               ],
+                'heartDisease'=> [
+                   'type'=>'radio',
+                   'title'=>$heartDisease,
+                   'name'=>'heartDisease',
+                   'value'=>isset($data['heartDisease'])?$data['heartDisease']:0,
+                   'list'=>$idtype,
+               ],
+                 'kidneyDisease'=> [
+                   'type'=>'radio',
+                   'title'=>$kidneyDisease,
+                   'name'=>'kidneyDisease',
+                   'value'=>isset($data['kidneyDisease'])?$data['kidneyDisease']:0,
+                   'list'=>$idtype,
+               ],
+                'eyeDisease'=> [
+                   'type'=>'radio',
+                   'title'=>$eyeDisease,
+                   'name'=>'eyeDisease',
+                   'value'=>isset($data['eyeDisease'])?$data['eyeDisease']:0,
+                   'list'=>$idtype,
+               ],
+                'footLegProblems'=> [
+                   'type'=>'radio',
+                   'title'=>$footLegProblems,
+                   'name'=>'footLegProblems',
+                   'value'=>isset($data['footLegProblems'])?$data['footLegProblems']:0,
+                   'list'=>$idtype,
+               ],
+                'msIssues'=> [
+                   'type'=>'radio',
+                   'title'=>$msIssues,
+                   'name'=>'msIssues',
+                   'value'=>isset($data['msIssues'])?$data['msIssues']:0,
+                   'list'=>$idtype,
+               ],
+                'mfConcerns'=> [
+                   'type'=>'radio',
+                   'title'=>$mfConcerns,
+                   'name'=>'mfConcerns',
+                   'value'=>isset($data['mfConcerns'])?$data['mfConcerns']:0,
+                   'list'=>$idtype,
+               ],
+                'smokingDate'=> [
+                   'type'=>'date',
+                   'title'=>$smokingDate,
+                   'name'=>'smokingDate',
+                   'value'=>isset($data['smokingDate'])?$data['smokingDate']:'',
+               ],
+                'alcoholDate'=> [
+                   'type'=>'date',
+                   'title'=>$alcoholDate,
+                   'name'=>'alcoholDate',
+                   'value'=>isset($data['alcoholDate'])?$data['alcoholDate']:'',
+               ],
+                'MRBPressure'=> [
+                   'type'=>'date',
+                   'title'=>$MRBPressure,
+                   'name'=>'MRBPressure',
+                   'value'=>isset($data['MRBPressure'])?$data['MRBPressure']:'',
+               ],
+                'HbA1c'=> [
+                   'type'=>'date',
+                   'title'=>$HbA1c,
+                   'name'=>'HbA1c',
+                   'value'=>isset($data['HbA1c'])?$data['HbA1c']:'',
+               ],
+                'isAccept'=> [
+                   'type'=>'radio',
+                   'title'=>$isAccept,
+                   'name'=>'isAccept',
+                   'value'=>isset($data['isAccept'])?$data['isAccept']:1,
+                   'list'=>$idtype,
+               ]
+            
+            ],
+           3=>[],
+           4=>[]
+        ];
+    }
+                /*
+  * 获取是否下拉列表
+  */
+    
+        public function getIdType($type=1)
+    {
+            if($type==1){
+                return [
+            [
+                'name' => '是',
+                'value' => 1
+            ],
+            [
+                'name' => '否',
+                'value' => 0
+            ]
+        ];
+            }else{
+                 return [
+            [
+                'name' => 'Yes',
+                'value' => 1
+            ],
+            [
+                'name' => 'No',
+                'value' => 0
+            ]
+        ];
+            }
+       
+           
+    }
+    
 }

@@ -297,21 +297,26 @@ class CaseModel extends Model
                   
                  //给公司绑定的每个邮箱发送邮件
                  //查询公司绑定的邮箱列表
-                 $companylist=db('cases_company_email')->where(['c_id'=>$companyid])->select();
-                 if(!empty($companylist)){
+                 $companylist=db('cases_company_email')->where(['c_id'=>$companyid,'type'=>0])->select();   //0表示添加 case业务
+                 if(!empty($companylist)){ 
                      foreach ($companylist as $key => $value) {
                         $user=[];
                         $user['email']=$value['email'];
-                        $user['language']=$value['language'];
+                        
                         $user['case_code']=$casecount;
                          //根据公司获取case邮件内容
                         $value['casecontent'] || $value['casecontent']=1;
                         $emailcontent=db('cases_email_content')->where(['id'=>$value['casecontent']])->find();
                         $field['content']= $emailcontent['content'];
-                        $field['econtent']=$emailcontent['econtent'];
                         //用户所在公司
                         $field['company']=$company['name'];
                         $field=$this->updatefield($field);
+                        if($company['type']==1){
+                            $userinfo= ChatUserLogic::getInstance()->getUserlist(['id'=>$userid],1);
+                            $user['policy']=$userinfo['policy'];
+                        }else{
+                            $user['policy']='';
+                        }
                         $user['field']=$field;
                         if(isset($user['email'])||!empty($user['email'])){
                         //发送邮件  

@@ -42,6 +42,7 @@
 <div class="am-g">
 	<div class="am-u-sm-12">
 		<form class="am-form ajax-form" method="post" action="{:module_url('edit', ['id' => $_id])}">
+                     <input type="hidden" name="prevtype" />
 			{$widget->form('text', ['title' => 'Patient Name', 'name' => 'username', 'value' => $case_list['username'],'r_md_num'=>2,'attr'=>' maxlength="50"'])}
 	                {$widget->form('date', ['title' => 'Date of Birth', 'name' => 'birthday', 'value' => $case_list['birthday'],'r_md_num'=>3])}
                         
@@ -90,6 +91,17 @@
                         {$widget->form('text', ['title' => 'Alternative Telephone Number', 'name' => 'standby_phone', 'value' =>$case_list['standby_phone'],'r_md_num'=>3,'require'=>false])}
                         {$widget->form('text', ['title' => 'Email', 'name' => 'email', 'value' =>$case_list['email'],'r_md_num'=>3])}
                         {$widget->form('textarea', ['title' => 'Convenient Time to be Contacted', 'name' => 'preferred_time', 'value' => $case_list['preferred_time']])}
+                        {volist name="typemore" id="cm" key="j"}
+                        <div id="moreform{$j}" style="display:none;">
+                        {volist name="cm" id="vo"}
+                         {if condition="isset($vo['list'])"}
+                         {$widget->form($vo.type, ['title' => $vo['title'], 'name' => $vo['name'], 'value' => $vo['value'],'list'=>$vo['list'],'require'=>false])}
+                         {else/}
+                         {$widget->form($vo.type, ['title' =>$vo['title'], 'name' => $vo['name'], 'value' =>$vo['value'],'r_md_num'=>3,'require'=>false])}
+                          {/if}
+                        {/volist}
+                        </div>
+                        {/volist}
                         {$widget->form('textarea', ['title' => 'Description', 'name' => 'illness', 'value' => $case_list['illness'],'attr'=>' maxlength="300"'])}
                         {$widget->form('text', ['title' => 'Doctor`s name', 'name' => 'treatment_doctor', 'value' =>$case_list['treatment_doctor'],'r_md_num'=>2,'attr'=>' maxlength="20"','require'=>false])}
                         {$widget->form('text', ['title' => 'Hospital', 'name' => 'treatment_hospital', 'value' =>$case_list['treatment_hospital'],'r_md_num'=>3,'attr'=>' maxlength="40"','require'=>false])}
@@ -138,7 +150,19 @@
 
 <script type="text/javascript" src="{$lib_path}/jquery/2.0.0/jquery.min.js?_={$site_version}"></script>
 
-
+<script type="text/javascript">
+  $("input[name='prevtype']").val($("select[name='case_type']").val());
+  $("#moreform"+$("select[name='case_type']").val()).show();
+$("select[name='case_type']").change(function(){
+    var typeid=$(this).val();
+    $("#moreform"+typeid).show();
+      var prevtype= $("input[name='prevtype']").val();
+      $("#moreform"+prevtype).hide();
+      $("input[name='prevtype']").val($("select[name='case_type']").val());
+      });
+      
+ 
+</script>
 
 <script type="text/javascript">
     $(function(){

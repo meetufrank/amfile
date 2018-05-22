@@ -184,7 +184,7 @@ class ChatUserLogic extends Logic
        }
    
           } 
-          
+               
          
         $arr= [
            1=>[
@@ -247,9 +247,6 @@ class ChatUserLogic extends Logic
                           ."<br/>"
                           ."感谢,<br/>"
                           ."汇医（亚太地区）",
-//                          ."请扫描下方二维码关注公众号，当您的case受理后，您可以进入公众号点击汇医咨询与您的专属医生进行沟通<br/>"
-//                          .'<img src="http://demo.advance-medical.com.cn/static/laychat/common/images/ewm.jpg"  style="width:108px;height:108px;"/>'
-//                          ."<br/>",
                   'description'=>'修改用户密码需要发送的邮件内容',
                   'title'=>'重置汇医密码',
                   'short_title'=>'汇医服务'
@@ -481,9 +478,6 @@ class ChatUserLogic extends Logic
                           ."<br/>"
                           ."ขอขอบคุณ,<br/>"
                           ."แอดวานซ์ เมดิคอล (APAC)",
-//                          ."Please scan the QR code below to pay attention to the public number, and when your case is accepted, you can enter the public number. Click on the consultation and your doctor to communicate.<br/>"
-//                          .'<img src="http://demo.advance-medical.com.cn/static/laychat/common/images/ewm.jpg"  style="width:108px;height:108px;"/>'
-//                          ."<br/>",
                   'description'=>'修改用户密码需要发送的邮件内容',
                   'title'=>'รหัสผ่านของ แอดวานซ์ เมดิคอล รีเซ็ต เรียบร้อยแล้ว',
                   'short_title'=>'แอดวานซ์ เมดิคอล'

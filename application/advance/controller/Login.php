@@ -69,7 +69,8 @@ class Login extends Controller
             }
            $where=[
                'user_name'=>$userName,
-               'u_status'=>1
+               'u_status'=>1,
+               'delete_time'=>0
            ];
  
             $user = $chatuser->field('id,user_name,pwd,sign,avatar,is_manager')
@@ -87,10 +88,10 @@ class Login extends Controller
             $chatuser->where('id', $user['id'])->setField('status', 1);
 
             //设置session标识状态
-            cookie('phone_user_name', $user['user_name']);
-            cookie('phone_user_id', $user['id']);
-            cookie('phone_user_sign', $user['sign']);
-            cookie('phone_user_avatar', $user['avatar']);
+            cookie('phone_user_name', $user['user_name'],1800);
+            cookie('phone_user_id', $user['id'],1800);
+            cookie('phone_user_sign', $user['sign'],1800);
+            cookie('phone_user_avatar', $user['avatar'],1800);
             if(!empty(cookie('amback'))){
                 $url= cookie('amback');
             }else{

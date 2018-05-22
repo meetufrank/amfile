@@ -34,7 +34,8 @@ class Index extends Controller
      */
     public function _initialize()
     {
-
+          
+       
         parent::_initialize();
         
         //记录当前url

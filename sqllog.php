@@ -104,3 +104,33 @@ ADD COLUMN `abbreviation`  char(4) NOT NULL COMMENT '//简称' AFTER `sort`;
 
 ALTER TABLE `nd_cases_case_type`
 ADD COLUMN `typeename`  varchar(255) NOT NULL AFTER `pc_style`;
+
+
+//case表额外字段
+ALTER TABLE `nd_cases_case`
+ADD COLUMN `Hypertension`  tinyint(2) NOT NULL DEFAULT 0 COMMENT '//高血压' AFTER `e_province`,
+ADD COLUMN `highCholestero`  tinyint(2) NOT NULL DEFAULT 0 COMMENT '//高胆固醇' AFTER `Hypertension`,
+ADD COLUMN `heartDisease`  tinyint(2) NOT NULL DEFAULT 0 COMMENT '//心脏病' AFTER `highCholestero`,
+ADD COLUMN `kidneyDisease`  tinyint(2) NOT NULL DEFAULT 0 COMMENT '//肾脏疾病' AFTER `heartDisease`,
+ADD COLUMN `eyeDisease`  tinyint(2) NOT NULL DEFAULT 0 COMMENT '//眼病' AFTER `kidneyDisease`,
+ADD COLUMN `footLegProblems`  tinyint(2) NOT NULL DEFAULT 0 COMMENT '脚或腿问题' AFTER `eyeDisease`,
+ADD COLUMN `msIssues`  tinyint(2) NOT NULL DEFAULT 0 COMMENT '//精神压力问题' AFTER `footLegProblems`,
+ADD COLUMN `mfConcerns`  tinyint(2) NOT NULL DEFAULT 0 COMMENT '//男性或女性的担忧' AFTER `msIssues`,
+ADD COLUMN `smokingDate`  date NULL DEFAULT NULL COMMENT '//吸烟停止日期' AFTER `mfConcerns`,
+ADD COLUMN `alcoholDate`  date NULL DEFAULT NULL COMMENT '//酒精停止日期' AFTER `smokingDate`,
+ADD COLUMN `MRBPressure`  date NULL DEFAULT NULL COMMENT '//最近一次血压日期' AFTER `alcoholDate`,
+ADD COLUMN `HbA1c`  date NULL DEFAULT NULL COMMENT '最近一次HbA1C' AFTER `MRBPressure`,
+ADD COLUMN `isAccept`  tinyint(2) NOT NULL DEFAULT 1 COMMENT '//是否同意协议' AFTER `HbA1c`;
+
+
+
+
+ALTER TABLE `nd_cases_case`
+MODIFY COLUMN `Hypertension`  tinyint(2) NULL DEFAULT 0 COMMENT '//高血压' AFTER `e_province`,
+MODIFY COLUMN `highCholestero`  tinyint(2) NULL DEFAULT 0 COMMENT '//高胆固醇' AFTER `Hypertension`,
+MODIFY COLUMN `heartDisease`  tinyint(2) NULL DEFAULT 0 COMMENT '//心脏病' AFTER `highCholestero`,
+MODIFY COLUMN `kidneyDisease`  tinyint(2) NULL DEFAULT 0 COMMENT '//肾脏疾病' AFTER `heartDisease`,
+MODIFY COLUMN `eyeDisease`  tinyint(2) NULL DEFAULT 0 COMMENT '//眼病' AFTER `kidneyDisease`,
+MODIFY COLUMN `footLegProblems`  tinyint(2) NULL DEFAULT 0 COMMENT '脚或腿问题' AFTER `eyeDisease`,
+MODIFY COLUMN `msIssues`  tinyint(2) NULL DEFAULT 0 COMMENT '//精神压力问题' AFTER `footLegProblems`,
+MODIFY COLUMN `mfConcerns`  tinyint(2) NULL DEFAULT 0 COMMENT '//男性或女性的担忧' AFTER `msIssues`;

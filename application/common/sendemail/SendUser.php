@@ -17,7 +17,9 @@ class SendUser
 		//为1请求发送邮件
 		$to = $user['email'];
 		
-	
+            if(!isset($user['policy'])){
+                $user['policy']='xxxxxx';
+            }
     
               if($type==1){
                   
@@ -53,14 +55,64 @@ class SendUser
                       $url=$_SERVER['HTTP_HOST'];
                       $user['url']=$url;
                   }
-		$YouxiangContent=ChatUserLogic::getInstance()->getLanguage($user,2); //获取邮件内容
+                //查询添加用户邮件内容
+                //先查询该公司是否针对添加用户业务单独设置了邮件内容
+                  isset($user['language']) || $user['language']=1;
+                 $where=[
+                     'company'=>$user['company'],
+                     'type'=>1 ,  //1代表着添加用户业务
+                     'lang'=>$user['language']
+                 ];
+                $clist=db('cases_email_tcontent')->where($where)->find();
+                if(empty($clist)){   //若为设置，则用默认
+                    $where=[
+                     'company'=>0,
+                     'type'=>1,   //1代表着添加用户业务  
+                     'lang'=>$user['language']
+                    ];
+                  $clist=db('cases_email_tcontent')->where($where)->find();
+                }
+                $cmap=[
+                    'id'=>$clist['content']
+                ];
+               
+                $clist=db('cases_email_content')->where($cmap)->find();
+                
+                isset($user['policy']) || $user['policy']='';
+                eval('$YouxiangContent='.$clist['content'].';');
+//		$YouxiangContent=ChatUserLogic::getInstance()->getLanguage($user,2); //获取邮件内容
                 $email_data['to']=$to;
                 $email_data['title']=$YouxiangContent['title'];
                 $email_data['sendperson']=$YouxiangContent['short_title'];
                 $email_data['content']=$YouxiangContent['content'][$is];
                 //加入任务队列中
-               Queue::push('app\common\jobs\QueueClient@sendMAIL', $email_data, $queue ='jobs');
+                Queue::push('app\common\jobs\QueueClient@sendMAIL', $email_data, $queue ='jobs');
 		//$emailtrue = $emails->activeEmail($to,$YouxiangContent['title'],$YouxiangContent['content'][$is],$email_data['sendperson']);
+               
+               //查询是否需要给其他邮箱发送邮件内容
+               $omap=[
+                   'cce.c_id'=>$user['company'],
+                   'cce.type'=>1,//添加用户业务表示
+               ];
+               $list=db('cases_company_email')->alias('cce')
+                       ->join(config('database.prefix').'cases_email_content cec','cce.casecontent=cec.id','left')
+                       ->field('cce.email,cec.content')
+                       ->where($omap)->select();
+               $data=$user;
+               if(!empty($list)){
+                   foreach ($list as $key => $value) {
+                        $content=[];
+                        $email_data=[];
+                        eval('$content='.$value['content'].';');
+                        $email_data['to']=$value['email'];
+                        $email_data['title']=$content['title'];
+                        $email_data['sendperson']=$content['short_title'];
+                        $email_data['content']=$content['content'];
+                         //加入任务队列中
+                      Queue::push('app\common\jobs\QueueClient@sendMAIL', $email_data, $queue ='jobs');
+                       //$emailtrue = $emails->activeEmail($email_data['to'],$email_data['title'],$email_data['content'],$email_data['sendperson']);
+                   }
+               }
     }
         /*
      * AM应用的layim用户表修改密码
@@ -104,15 +156,45 @@ class SendUser
           $url=$_SERVER['HTTP_HOST'];
           $user['url']=$url;
       }
+      //先查询该公司是否针对重置密码业务单独设置了邮件内容
+                  isset($user['language']) || $user['language']=1;
+                 $where=[
+                     'company'=>$user['company'],
+                     'type'=>2 ,  //1代表着添加用户业务
+                     'lang'=>$user['language']
+                 ];
+                $clist=db('cases_email_tcontent')->where($where)->find();
+                if(empty($clist)){   //若为设置，则用默认
+                    $where=[
+                     'company'=>0,
+                     'type'=>2,   //1代表着重置密码业务  
+                     'lang'=>$user['language']
+                    ];
+                  $clist=db('cases_email_tcontent')->where($where)->find();
+                }
+                $cmap=[
+                    'id'=>$clist['content']
+                ];
+                $clist=db('cases_email_content')->where($cmap)->find();
+                isset($user['policy']) || $user['policy']='';
+                $data=$user;
+                eval('$YouxiangContent='.$clist['content'].';');
+//		$YouxiangContent=ChatUserLogic::getInstance()->getLanguage($user,2); //获取邮件内容
+                $email_data['to']=$to;
+                $email_data['title']=$YouxiangContent['title'];
+                $email_data['sendperson']=$YouxiangContent['short_title'];
+                $email_data['content']=$YouxiangContent['content'];
+                //加入任务队列中
+               Queue::push('app\common\jobs\QueueClient@sendMAIL', $email_data, $queue ='jobs');
 		//邮件主题
         
-	$YouxiangContent=ChatUserLogic::getInstance()->getLanguage($user,3); //获取邮件内容
-		$email_data['to']=$to;
-                $email_data['title']=$YouxiangContent['title'];
-                $email_data['content']=$YouxiangContent['content'];
-                $email_data['sendperson']=$YouxiangContent['short_title'];
-                //加入任务队列中
-              Queue::push('app\common\jobs\QueueClient@sendMAIL', $email_data, $queue ='jobs');
+//	$YouxiangContent=ChatUserLogic::getInstance()->getLanguage($user,3); //获取邮件内容
+//		$email_data['to']=$to;
+//                $email_data['title']=$YouxiangContent['title'];
+//                $email_data['content']=$YouxiangContent['content'];
+//                $email_data['sendperson']=$YouxiangContent['short_title'];
+//                //加入任务队列中
+//              Queue::push('app\common\jobs\QueueClient@sendMAIL', $email_data, $queue ='jobs');
              
 		//$emailtrue = $emails->activeEmail($to,$YouxiangContent['title'],$YouxiangContent['content'],$email_data['sendperson']);
     }
@@ -128,17 +210,28 @@ class SendUser
 		$to = $user['email'];
 	$url=$_SERVER['HTTP_HOST'];
         $user['url']=$url;
+        $data=$user;
 		//邮件主题
+        if(isset($data['field'])){
+            if($data['field']['country']==1){
+                $address=$data['field']['provincename'].'-'.$data['field']['cityname'].'-'.$data['field']['districtname'].'&nbsp;&nbsp;'.$data['field']['address'];
+               
+            }else{
+               $address=$data['field']['e_province'].'&nbsp;&nbsp;'.$data['field']['address']; 
+            }
+        }
         
-	$YouxiangContent=ChatUserLogic::getInstance()->getLanguage($user,7); //获取邮件内容
+         eval('$YouxiangContent='.$data['field']['content'].';');
+         
+	//$YouxiangContent=ChatUserLogic::getInstance()->getLanguage($user,7); //获取邮件内容
 		$email_data['to']=$to;
                 $email_data['title']=$YouxiangContent['title'];
                 $email_data['content']=$YouxiangContent['content'];
                 $email_data['sendperson']=$YouxiangContent['short_title'];
                 //加入任务队列中
-           Queue::push('app\common\jobs\QueueClient@sendMAIL', $email_data, $queue ='jobs');
+          Queue::push('app\common\jobs\QueueClient@sendMAIL', $email_data, $queue ='jobs');
                 
-		//$emailtrue = $emails->activeEmail($to,$YouxiangContent['title'],$YouxiangContent['content']);
+		//$emailtrue = $emails->activeEmail($to,$YouxiangContent['title'],$YouxiangContent['content'],$email_data['sendperson']);
     }
     /*
      * am应用layim的casemanger接受case

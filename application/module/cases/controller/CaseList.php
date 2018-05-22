@@ -491,7 +491,20 @@ class CaseList extends Base
                 'country'=>$request->param('country'),
                 'email'=>$request->param('email'),
                 'ks_type'=>$request->param('ks_type',1),
-                'e_province'=>$request->param('e_province')
+                'e_province'=>$request->param('e_province'),
+                'Hypertension'=>$request->param('Hypertension'),
+                'highCholestero'=>$request->param('highCholestero'),
+                'heartDisease'=>$request->param('heartDisease'),
+                'kidneyDisease'=>$request->param('kidneyDisease'),
+                'eyeDisease'=>$request->param('eyeDisease'),
+                'footLegProblems'=>$request->param('footLegProblems'),
+                'msIssues'=>$request->param('msIssues'),
+                'mfConcerns'=>$request->param('mfConcerns'),
+                'smokingDate'=>$request->param('smokingDate'),
+                'alcoholDate'=>$request->param('alcoholDate'),
+                'MRBPressure'=>$request->param('MRBPressure'),
+                'HbA1c'=>$request->param('HbA1c'),
+                'isAccept'=>$request->param('isAccept'),
           
             ];
            if(empty($data['province'])){
@@ -544,6 +557,10 @@ class CaseList extends Base
         $this->getUserList();
        //获取case科室列表
        $this->getKsList();
+       
+       //获取额外表单信息表
+       $this->assign('typemore', CaseLogic::getInstance()->getMoreContent());
+       
             return $this->fetch();
         }
     }
@@ -584,7 +601,20 @@ class CaseList extends Base
                  'country'=>$request->param('country'),
                 'email'=>$request->param('email'),
                 'ks_type'=>$request->param('ks_type'),
-                'e_province'=>$request->param('e_province')
+                'e_province'=>$request->param('e_province'),
+                'Hypertension'=>$request->param('Hypertension'),
+                'highCholestero'=>$request->param('highCholestero'),
+                'heartDisease'=>$request->param('heartDisease'),
+                'kidneyDisease'=>$request->param('kidneyDisease'),
+                'eyeDisease'=>$request->param('eyeDisease'),
+                'footLegProblems'=>$request->param('footLegProblems'),
+                'msIssues'=>$request->param('msIssues'),
+                'mfConcerns'=>$request->param('mfConcerns'),
+                'smokingDate'=>$request->param('smokingDate'),
+                'alcoholDate'=>$request->param('alcoholDate'),
+                'MRBPressure'=>$request->param('MRBPressure'),
+                'HbA1c'=>$request->param('HbA1c'),
+                'isAccept'=>$request->param('isAccept')
             ];
              if(empty($data['province'])){
                $data['province']=110000;
@@ -729,6 +759,9 @@ class CaseList extends Base
     
         //获取科室列表
         $this->getKsList();
+        //获取额外表单信息表
+        $this->assign('typemore', CaseLogic::getInstance()->getMoreContent($case_list));
+        
             return $this->fetch();
         
         }
