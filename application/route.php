@@ -14,7 +14,10 @@ return [
     ],
     
     // 主页
-    'download' => 'index/index/download',
+    
+    'mobilepage/:id' => 'index/mobile/index',
+    'mobilepage' => 'index/mobile/index',
+    
     
     // 博客
     'home' => 'blog/index/index',

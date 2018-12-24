@@ -1,0 +1,70 @@
+h1,h2,h3,h4,h5,h6,div,p{
+    margin: 0;
+}
+
+.all{
+    width: 100%;
+}
+/*title样式*/
+.title{
+    width: 100%;
+    height: 50px;
+    background: rgb(53,31,101);
+}
+.title h3{
+    color: #fff;
+    line-height: 50px;
+    margin-left: 20px;
+    font-size: 20px;
+}
+/*banner样式*/
+.banner{
+    width: 100%;
+}
+/*banner下文字介绍*/
+.text{
+    width: 100%;
+    padding: 20px;
+}
+.text p{
+    line-height: 30px;
+    font-size: 14px;
+    color: #626061;
+}
+.text p:last-child{
+    margin-top: 20px;
+}
+/*专家资料*/
+.block{
+    box-shadow: 0px 0 25px rgb(200,201,199);
+    padding: 20px;
+    width: 37rem;
+    margin: 0 auto;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+.img{
+    display: flex;
+}
+.img img{
+    width: 70px;
+    height: 70px;
+    border-radius:5px;
+}
+.img .name{
+    margin-left: 29px;
+    line-height: 25px;
+}
+.detail{
+    margin-top: 15px;
+}
+/*页脚备案*/
+.footer{
+    width: 100%;
+    margin-top: 20px;
+}
+.footer p{
+    color: #626061;
+    line-height: 30px;
+    text-align: center;
+}

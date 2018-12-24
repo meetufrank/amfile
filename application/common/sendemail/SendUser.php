@@ -265,7 +265,7 @@ class SendUser
                $email_data['to']=$to;
                 $email_data['title']=$title;
                 $email_data['content']=$content;
-                $email_data['sendperson']=$YouxiangContent['short_title'];
+                $email_data['sendperson']='';
                 //加入任务队列中
                 Queue::push('app\common\jobs\QueueClient@sendMAIL', $email_data, $queue ='jobs');
         //$emails->activeEmail($to,$subject,$body,$receivingparty);

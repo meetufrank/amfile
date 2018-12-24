@@ -3,7 +3,7 @@
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>CustomerOrderFinished.html</title>
+	<title>我的预约</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="CustomerCaseList" />
 	<meta name="keywords" content="CustomerCaseList" />
@@ -71,11 +71,11 @@
 								<li><i class="icon-eye2"></i>功能待定</li>
 								<li><a href="#">查看详情<i class="icon-arrow-right22"></i></a></li>
 							</ul> -->
-							{if condition="$vo.appointment_state eq 1"} <button class="orderlist-cancel-button col-lg-12" type="button" id="yuyueinfobto{$vo.id}" onClick="ordercancel({$vo.id});">拒绝</button>
+<!--							{if condition="$vo.appointment_state eq 1"} <button class="orderlist-cancel-button col-lg-12" type="button" id="yuyueinfobto{$vo.id}" onClick="ordercancel({$vo.id});">拒绝</button>
 							{elseif condition="$vo.appointment_state eq 2"/}<button class="orderlist-cancel-button col-lg-12" type="button" id="yuyueinfobto{$vo.id}" onClick="ordercancel({$vo.id});">拒绝</button>
 							{elseif condition="$vo.appointment_state eq 3"/}
 							{elseif condition="$vo.appointment_state eq 4"/}<button style="display:none;" class="orderlist-cancel-button col-lg-12" type="button" id="yuyueinfobtocancel{$vo.id}">已拒绝</button>
-							{/if}
+							{/if}-->
 							
 							
 							
@@ -104,7 +104,7 @@
 		</div>
 	</div><!-- END container-wrap -->
 	<br/>
-	<button type="button" class="visible-xs next-button">返回首页</button>
+        <button type="button" class="visible-xs next-button" onclick="cases();">返回首页</button>
 	</div>
 
 	<div class="gototop js-top">

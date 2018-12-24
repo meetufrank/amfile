@@ -111,7 +111,7 @@
 							<h4 class="table2h4">2.关联</h4>
 							<input type="radio" name="browser" id="st" value="Stress Management" onclick="displayResult(this.value)"><label id="stmain" class="orderlabel">Stress Management</label><br>
 							<input type="radio" name="browser" id="em" value="Expert Medical Report" onclick="displayResult(this.value)"><label id="emmain" class="orderlabel">Expert Medical Report</label><br>
-							<input type="radio" name="browser" id="no" value="NoThing" onclick="displayResult(this.value)"><label id="nomain" class="orderlabel">NoThing</label><br><br>
+							<input type="radio" name="browser" id="no" value="Health Advsisory" onclick="displayResult(this.value)"><label id="nomain" class="orderlabel">Health Advsisory</label><br><br>
 							已选择类型: <input type="mold" id="result"><br><br>
 							<button type="button" class="visible-xs next-button" onClick="nextform1();">上一步</button>
 							<br>
@@ -119,7 +119,7 @@
 						</div>
 						<div class="clearfix"></div>
 						<div class="hidden-xs table3">
-							<h4>3.时间(当前默认两日后可预约)</h4>
+							<h4>3.时间</h4>
 							请选择日期:<input type="Datepickers" id="submitdate" class="datepicker" onClick="datepickers();"><br><br>
 							请选择时间<br><br>
 							<div class="timeselect">
@@ -138,7 +138,7 @@
 				</div>
 			</div>
 			<br/>
-			<button type="button" class="visible-xs next-button">返回首页</button>
+			<button type="button" class="visible-xs next-button" onClick="cases();">返回首页</button>
 		</div>	
 	</div><!-- END container-wrap -->
 
@@ -195,8 +195,11 @@ function cases(){
 	 window.location.href="{:url('Phone/case_list')}";
 	
 }
+
+
 </script>
 	<script>
+            $(".fh5co-nav-white").style.display="none";
 		function displayResult(browser){
 			document.getElementById("result").value=browser
 		}
@@ -207,7 +210,8 @@ function cases(){
 				selectMonths: true,
 	  			disable: [	
 	    			{ from:[1900,1,1], to: true },
-	    			{ from: true, to:2 }
+	    			{ from: true, to:true,inverted: true},
+                                
 	  			]
 			})
 		}
@@ -237,7 +241,7 @@ function cases(){
 		}
 		// 预约提交
 		function subscribe(){
-			var contentmain = "您的预约申请，已提交成功。我们会在两个工作日之内安排，请在个人中心中查看预约信息。"; 
+			var contentmain = "您的预约申请，已提交成功。我们会安排一位执业医生为您服务。服务链接已发到您的邮箱！"; 
 			layer.open({
     			content: contentmain
     			,btn: '我知道了'
@@ -271,7 +275,7 @@ function cases(){
 				   data:{"phone":tel,"email":email,"advisory_details":advisory_details,"result":result,"time_quantumid":yuyuetimeid,"submitdate":submitdate},
 				   success:function(data){
 				      if(data){
-				    	    var contentmain = "您的预约申请，已提交成功。我们会在两个工作日之内安排，请在个人中心中查看预约信息。"; 
+				    	    var contentmain = "您的预约申请，已提交成功。我们会安排一位执业医生为您服务。服务链接已发到您的邮箱！"; 
 							layer.open({
 				    			content: contentmain
 				    			,btn: '我知道了'

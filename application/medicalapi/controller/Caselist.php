@@ -19,9 +19,7 @@ class Caselist extends Controller
     
    
     public function casedemo(){
-        $data=CaseLogic::getInstance()->casesById(30);
-    
-      return json($data);
-      exit;
+        
+        return $this->fetch('webex');
     }
 }

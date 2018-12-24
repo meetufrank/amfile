@@ -1,0 +1,118 @@
+/* 基础样式 通用 */
+body{
+    width: 100%;
+    font-family: "微软雅黑";
+}
+h1,h2,h3,h4,h5,h6,p,div{
+    margin: 0;
+    padding: 0;
+}
+
+/* 头部样式 */
+.header-top{
+    height: 70px;
+    width: 100%;
+}
+.header-top div:first-child{
+    background: #d7d2d2;
+}
+.header-top div:first-child span{
+    display: inline-block;
+    width: 100px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    color: #fff;
+    background: orange;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    margin-left: 100px;
+}
+.header-top div:last-child{
+    background: orange;
+    width: 100%;
+    display: block;
+    height: 20px;
+}
+
+/* 中间内容部分 */
+
+/* banner 部分 */
+.middle .banner img{
+    width: 100%;
+}
+/* 文字图片部分 */
+.row .people{
+    color: orange;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+.man{
+    margin-bottom: 50px;
+    margin-top: 40px;
+}
+@media (min-width:768px){
+    .row .b1{
+        padding-left: 300px;
+    }
+}
+
+.row .b1 img{
+    display: inline-block;
+    width:90px;
+}
+.row .b1 p{
+    display: inline-block;
+    position: relative;
+    top: 30px;
+    left: 20px;
+}
+.row .b1 p span:first-child{
+    font-weight: bold;
+}
+.row .b1 p span:last-child{
+    font-size: 12px;
+}
+
+.row .b2 img{
+    display: inline-block;
+    width:90px;
+}
+.row .b2 p{
+    display: inline-block;
+    position: relative;
+    top: 30px;
+    left: 20px;
+}
+.row .b2 p span:first-child{
+    font-weight: bold;
+}
+.row .b2 p span:last-child{
+    font-size: 12px;
+}
+/* 分割线黄色 */
+.hh{
+    width: 100%;
+    height: 3px;
+    background: orange;
+    border: 1px solid orange;
+    margin-top: 50px;
+}
+
+/* 压力管理 */
+.gl{
+    text-align: center;
+}
+.gl .people{
+    margin-bottom: 30px;
+}
+.gl p{
+    margin-top: 10px;
+}
+
+
+
+
+
+

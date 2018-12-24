@@ -121,7 +121,7 @@
             </div>
         </div>
         <div id="main3" class="main-hide">
-            <button class="drop_out" style="margin-top: 1rem;">我的预约</button>
+            <button class="drop_out" style="margin-top: 1rem;" onclick="useryuyue();">我的预约</button>
             <button class="drop_out"  onclick="logout()" style="margin-top: 1rem;">登出</button>
         </div>
         
@@ -153,6 +153,16 @@
 function yuyue(){
 	
 	 window.location.href="{:url('Yuyue/index')}";
+	
+}
+
+function useryuyue(){
+	{if condition="$is_jt eq 0 and $is_manager neq 0"}
+        window.location.href="{:url('yuyue/index')}";
+        {else/}
+        window.location.href="{:url('useryuyue/index')}";
+        {/if}
+	 
 	
 }
 </script>

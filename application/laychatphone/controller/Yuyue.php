@@ -58,7 +58,7 @@ class Yuyue extends Base
          
             $this -> assign("info",$info);
 
-            return $this->fetch('Doctoryuyue/index');
+            return $this->fetch('doctoryuyue/index');
         }
     }
     
@@ -124,11 +124,11 @@ class Yuyue extends Base
         //会议密码
         $meetingPassword = 123456;
         $CreateMeeting = <<<Eof
-<?xml version="1.0" encoding="UTF-8"?><serv:message xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><header><securityContext><siteName>advance-medical</siteName><webExID>zhaojing@advance-medical.com.cn</webExID><password>1314Maggie</password></securityContext></header><body><bodyContent xsi:type="java:com.webex.service.binding.meeting.CreateMeeting"><accessControl><meetingPassword>$meetingPassword</meetingPassword></accessControl><metaData><confName>Sample Meeting</confName><agenda>$Meeting_Topic</agenda></metaData><schedule><startDate>$times</startDate><duration>20</duration></schedule></bodyContent></body></serv:message>
+<?xml version="1.0" encoding="UTF-8"?><serv:message xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><header><securityContext><siteName>ktyb</siteName><webExID>quankai.zhang@ketianyun.com</webExID><password>Mmppjjbb1$</password></securityContext></header><body><bodyContent xsi:type="java:com.webex.service.binding.meeting.CreateMeeting"><accessControl><meetingPassword>$meetingPassword</meetingPassword></accessControl><metaData><confName>Sample Meeting</confName><agenda>$Meeting_Topic</agenda></metaData><schedule><startDate>$times</startDate><duration>20</duration></schedule></bodyContent></body></serv:message>
 Eof;
         
         $CreateMeeting_array = curlxml($CreateMeeting);
-        
+      
         $meetmeetingkey = $CreateMeeting_array['servbody']['servbodyContent']['meetmeetingkey'];
         
         $data['meetmeetingkey'] = $meetmeetingkey;
@@ -136,14 +136,14 @@ Eof;
     
         //获得主持人开会地址
         $GethosturlMeeting = <<<Eof
-<?xml version="1.0" encoding="UTF-8"?><serv:message xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><header><securityContext><siteName>advance-medical</siteName><webExID>zhaojing@advance-medical.com.cn</webExID><password>1314Maggie</password></securityContext></header><body><bodyContent xsi:type="java:com.webex.service.binding.meeting.GethosturlMeeting"><meetingKey>$meetmeetingkey</meetingKey></bodyContent></body></serv:message>
+<?xml version="1.0" encoding="UTF-8"?><serv:message xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><header><securityContext><siteName>ktyb</siteName><webExID>quankai.zhang@ketianyun.com</webExID><password>Mmppjjbb1$</password></securityContext></header><body><bodyContent xsi:type="java:com.webex.service.binding.meeting.GethosturlMeeting"><meetingKey>$meetmeetingkey</meetingKey></bodyContent></body></serv:message>
 Eof;
         
         $GethosturlMeeting_array = curlxml($GethosturlMeeting);
        
         $hostMeetingURL = $GethosturlMeeting_array['servbody']['servbodyContent']['meethostMeetingURL'];
         
-        $hostMeetingURLs = str_replace("https//advance-medical.webex.com.cn/","https://advance-medical.webex.com.cn/",$hostMeetingURL);
+        $hostMeetingURLs = str_replace("https//ktyb.webex.com.cn/","https://ktyb.webex.com.cn/",$hostMeetingURL);
         //echo $hostMeetingURLs;
         $data['hostmeetingurl'] = $hostMeetingURLs;
         
@@ -151,14 +151,14 @@ Eof;
         
         //获得加会地址
         $GetjoinurlMeeting = <<<Eof
-<?xml version="1.0" encoding="UTF-8"?><serv:message xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><header><securityContext><siteName>advance-medical</siteName><webExID>zhaojing@advance-medical.com.cn</webExID><password>1314Maggie</password></securityContext></header><body><bodyContent xsi:type="java:com.webex.service.binding.meeting.GetjoinurlMeeting"><meetingKey>$meetmeetingkey</meetingKey></bodyContent></body></serv:message>
+<?xml version="1.0" encoding="UTF-8"?><serv:message xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><header><securityContext><siteName>ktyb</siteName><webExID>quankai.zhang@ketianyun.com</webExID><password>Mmppjjbb1$</password></securityContext></header><body><bodyContent xsi:type="java:com.webex.service.binding.meeting.GetjoinurlMeeting"><meetingKey>$meetmeetingkey</meetingKey></bodyContent></body></serv:message>
 Eof;
         
         $GetjoinurlMeeting_array = curlxml($GetjoinurlMeeting);
         
         $joinMeetingURL = $GetjoinurlMeeting_array['servbody']['servbodyContent']['meetjoinMeetingURL'];
         
-        $joinMeetingURLs = str_replace("https//advance-medical.webex.com.cn/","https://advance-medical.webex.com.cn/",$joinMeetingURL);
+        $joinMeetingURLs = str_replace("https//ktyb.webex.com.cn/","https://ktyb.webex.com.cn/",$joinMeetingURL);
         //echo $joinMeetingURLs;
         $data['joinmeetingurl'] = $joinMeetingURLs;
 
@@ -175,8 +175,8 @@ Eof;
         //邮件
         $email = new SendUser();
         //开会人
-        $GetjoinurlMeeting_Theme = "advance-medical预约会议邀请:".$yuyueinfo[0]['user_name'];
-        $GetjoinurlMeeting_Body = "您好，<br/>advance-medical 邀请您加入以下预约会议。<br/><br/><strong>$Meeting_Topic</strong><br/>$submitdate<br/>$time_quantum | 中国时间（北京，GMT+08:00） | 2 小时<br/>会议密码： $meetingPassword<br/>".'<a href="'.$joinMeetingURLs.'">到时间后，请加入会议。</a>';
+        $GetjoinurlMeeting_Theme = "Advance Medical 已收到您的预约。";
+        $GetjoinurlMeeting_Body = "请与".$submitdate." ".$time_quantum."点击以下链接，开始您的健康咨询。<br/>".'<a href="'.$joinMeetingURLs.'">点击此链接加入会议。</a><br/><br/><strong>'.$Meeting_Topic."</strong><br/>$submitdate<br/>$time_quantum | 中国时间（北京，GMT+08:00） | 2 小时<br/>会议密码： $meetingPassword<br/>";
         
         $email -> yuyueemail($yuyueinfo[0]['email'],$GetjoinurlMeeting_Theme,$GetjoinurlMeeting_Body);
         
@@ -216,7 +216,7 @@ Eof;
         
         Db::table('nd_appointment_info')->where('id', '=',$id)->update(['appointment_state' => '4']);
         
-        echo 1;
+       exit;
         //print_r($id);exit;
         
     }

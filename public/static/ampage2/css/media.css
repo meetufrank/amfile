@@ -1,0 +1,45 @@
+@media screen and (min-width: 320px) and (max-width: 385px) {
+    .all{
+        width: 100% !important;
+    }
+    .changjing{
+        width: 32rem;
+    }
+    .question{
+        width: 32rem;
+    }
+    .result{
+        width: 32rem;
+    }
+    .doc{
+        width: 32rem;
+    }
+    .block{
+        width: 32rem;
+    }
+    .block1{
+        margin-left: 1rem;
+    }
+    .block1 .two{
+        width: 17rem;
+    }
+    .block1 .one{
+        width: 15rem;
+    }
+    
+    
+    .anliques{
+        width: 32rem;
+    }
+    .anlires{
+        width: 32rem;
+    }
+    
+    
+ 
+}
+
+
+
+
+

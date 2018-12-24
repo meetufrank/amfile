@@ -1,0 +1,40 @@
+a{
+    color: #333;
+}
+a:hover{
+    text-decoration: none;
+}
+
+/* 导航下横线 */
+.hx{
+    width: 100%;
+    border: 1px solid #017f4f;
+    background: #017f4f;
+}
+
+/* 手机端的导航栏 */    
+@media (max-width:768px){
+    .header-top div{
+        display: inline-block;
+        font-size: 18px;
+        color: #fff;
+        background: #017f4f;
+        text-align: center;
+        height: 42px;
+        line-height: 40px;
+        width: 100%;
+    }
+    .header-top div a{
+        color: #fff;
+    }
+
+}
+
+
+
+
+
+
+
+
+

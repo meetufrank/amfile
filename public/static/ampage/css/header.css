@@ -1,0 +1,32 @@
+a{
+    color: #333;
+}
+a:hover{
+    text-decoration: none;
+}
+/* 手机端的导航栏 */    
+@media (max-width:768px){
+    .header-top div{
+        display: inline-block;
+        text-align: center;
+        width: 24%;
+        height: 42px;
+        line-height: 42px;
+    }
+    .header-top div:first-child{
+        background: #f48830;
+    }
+    .header-top div:first-child a{
+        color: #fff;
+    }
+
+}
+
+
+
+
+
+
+
+
+

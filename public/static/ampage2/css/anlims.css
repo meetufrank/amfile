@@ -1,0 +1,57 @@
+  /*
+   案例描述
+   */ 
+   .anli{
+    width: 32rem;
+    padding: 0 20px 0;
+    margin: 40px auto;
+    line-height: 1px;
+   
+    border-left: 50px solid #ddd;
+    border-right: 50px solid #ddd;
+    text-align: center;
+    font-size: 19px;
+    font-weight: bold;
+   }
+   
+  
+   
+   .anliques{
+    box-shadow: 0px 0 25px rgb(200,201,199);
+    padding: 20px;
+    width: 37rem;
+    margin: 0 auto;
+    margin-top: 40px;
+    border-radius: 5px;
+   }
+  .anliques h3{
+    font-size: 18px;
+    color: rgb(0,181,226);
+  }
+  .anliques p{
+      margin-top: 20px;
+    line-height: 40px;
+    font-size: 14px;;
+  }
+
+  
+  .anlires{
+    width: 37rem;
+    border: 1px solid rgb(0,181,226);
+    margin: 0 auto;
+    padding: 20px;
+    background: rgb(0,181,226);
+    border-radius: 5px;
+    margin-top: 40px;
+}
+.anlires h3{
+    color: #fff;
+    font-size: 18px;
+}
+
+ .anlires p{
+    margin-top: 20px;
+    line-height: 40px;
+    font-size: 14px;
+    color: #fff;
+  }

@@ -1,0 +1,104 @@
+h1,h2,h3,h4,h5,h6,div,p{
+    margin: 0;
+}
+
+.all{
+    width: 100%;
+}
+/*title样式*/
+.title{
+    width: 100%;
+    height: 50px;
+    background: rgb(53,31,101);
+}
+.title h3{
+    color: #fff;
+    line-height: 50px;
+    margin-left: 20px;
+    font-size: 20px;
+}
+/*大小logo样式*/
+.logo{
+    margin-bottom: 20px;
+}
+.logo img:first-child{
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+.logo img:last-child{
+    width: 150px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+/*banner样式*/
+.banner{
+    width: 100%;
+}
+/*banner下文字介绍*/
+.text{
+    width: 100%;
+    padding: 20px;
+}
+.text p{
+    line-height: 30px;
+    font-size: 14px;
+    color: #626061;
+}
+/*六块内容部分*/
+.neirong{
+    width: 100%;
+}
+.block1{
+    display: flex;
+    margin-left: 2.5rem;
+    max-width: 100%;
+}
+.block1 .one{
+    box-shadow: 0px 0 25px rgb(200,201,199);
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    width: 170px;
+}
+/*蓝色字体部分*/
+.one p:first-child{
+    font-size: 34px;
+    color: rgb(0,181,226);
+    font-weight: 900;
+}
+.block1 .two{
+    box-shadow: 0px 0 25px rgb(200,201,199);
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    width: 170px;
+}
+.two p:first-child{
+    font-size: 34px;
+    color: rgb(0,181,226);
+    font-weight: 900;
+}
+/*页脚备案*/
+.footer{
+    width: 100%;
+    margin-top: 20px;
+}
+.footer p{
+    color: #626061;
+    line-height: 30px;
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+

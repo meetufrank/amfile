@@ -1,0 +1,115 @@
+h1,h2,h3,h4,h5,h6,div,p{
+    margin: 0;
+}
+.about{
+    width: 100%;
+}
+/*logo 样式*/
+.img{
+    width: 100%;
+    margin: 20px 0 20px 0;
+    padding-left: 140px;
+}
+.img img:first-child{
+    width: 300px;
+}
+.img img:last-child{
+    width: 200px;
+    padding-top: 75px;
+}
+/*title 样式*/
+.title{
+    width: 100%;
+    background: rgb(53,31,101);
+}
+.title h3{
+    color: #fff;
+    text-align: center;
+    line-height: 50px;
+}
+/*banner 样式*/
+.outer{
+    width: 100%;
+    background: rgb(200,201,199);
+}
+.inner{
+    width: 60%;
+    margin:0 auto;
+}
+.inner img{
+    width: 100%;
+}
+/*text 样式*/
+.text {
+    width: 80%;
+    margin: 0 auto;
+}
+.text p{
+    padding: 20px;
+    line-height: 30px;
+    color: #666;
+    margin-bottom: 10px;
+}
+/*block 样式*/
+.block{
+    width: 80%;
+    margin: 0 auto;
+}
+.one{
+    display: flex;
+}
+.one .piece{
+    width: 30%;
+    margin-left: 17px;
+}
+.two{
+    display: flex;
+}
+.two .piece{
+    width: 30%;
+    margin-left: 17px;
+}
+/*每一块 / 字体样式*/
+.piece{
+    box-shadow: 0px 0 25px rgb(200,201,199);
+    padding: 15px;
+    margin: 5px;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 10px;
+    transition:.5s linear;
+}
+.piece p{
+    transition:  .5s linear;     /* 字体加上过渡效果 */
+}
+.piece p:first-child{
+    font-size: 34px;
+    color: rgb(0,181,226);
+    font-weight: 900;
+    margin-bottom: 10px;
+}
+/*页脚*/
+/*页脚样式*/
+.footer{
+    width: 100%;
+    margin-top: 20px;
+    background: #dcdcdc;
+}
+.footer p{
+    color: #9d9d9d;
+    line-height: 30px;
+    text-align: center;
+}
+.footer p:first-child{
+    padding-top: 15px;
+}
+/*悬停变字体颜色*/
+.piece:hover p{
+    color: #fff;
+    transition:  .5s linear;    /* 字体加上过渡效果 */
+}
+.piece:hover{
+    background: rgb(0,181,226);
+    transition:  .5s linear;    /* 背景色加上过渡效果 */
+}
+

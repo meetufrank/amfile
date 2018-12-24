@@ -1,0 +1,116 @@
+h1,h2,h3,h4,h5,h6,div,p{
+    margin: 0;
+}
+
+.all{
+    width: 100%;
+}
+/*title样式*/
+.title{
+    width: 100%;
+    height: 50px;
+    background: rgb(53,31,101);
+}
+.title h3{
+    color: #fff;
+    line-height: 50px;
+    margin-left: 20px;
+    font-size: 20px;
+}
+/*banner样式*/
+.banner{
+    width: 100%;
+}
+/*banner下文字介绍*/
+.text{
+    width: 100%;
+    padding: 20px;
+}
+.text p{
+    line-height: 30px;
+    font-size: 14px;
+    color: #626061;
+}
+/*使用EMO场景样式*/
+.changjing{
+    box-shadow: 0px 0 25px rgb(200,201,199);
+    padding: 20px;
+    width: 37rem;
+    margin: 0 auto;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+.changjing h3{
+    font-size: 18px;
+    color: rgb(0,181,226);
+}
+.changjing ul{
+    margin-top: 20px;
+}
+.changjing ul li{
+    line-height: 40px;
+    font-size: 14px;
+}
+/*常见问题*/
+.question{
+    box-shadow: 0px 0 25px rgb(200,201,199);
+    padding: 20px;
+    width: 37rem;
+    margin: 0 auto;
+    margin-top: 40px;
+    border-radius: 5px;
+}
+.question h3{
+    font-size: 18px;
+    color: rgb(0,181,226);
+}
+.question ul{
+    margin-top: 20px;
+}
+.question ul li{
+    line-height: 40px;
+    font-size: 14px;
+}
+/*常见问题下的介绍*/
+.wenzi{
+    width: 100%;
+    padding: 20px;
+}
+.wenzi p{
+    line-height: 30px;
+    font-size: 14px;
+    color: #626061;
+}
+/*成效*/
+.result{
+    width: 37rem;
+    border: 1px solid rgb(0,181,226);
+    margin: 0 auto;
+    padding: 20px;
+    background: rgb(0,181,226);
+    border-radius: 5px;
+}
+.result h3{
+    color: #fff;
+    font-size: 18px;
+}
+.result ul{
+    margin-top: 20px;
+}
+.result ul li{
+    line-height: 40px;
+    font-size: 14px;
+    color: #fff;
+}
+/*页脚备案*/
+.footer{
+    width: 100%;
+    margin-top: 20px;
+}
+.footer p{
+    color: #626061;
+    line-height: 30px;
+    text-align: center;
+}
+
+

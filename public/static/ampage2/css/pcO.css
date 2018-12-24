@@ -1,0 +1,108 @@
+h1,h2,h3,h4,h5,h6,div,p{
+    margin: 0;
+}
+.page{
+    max-width: 100%;
+}
+/*头部logo样式*/
+.logo{
+    margin-top: 30px;
+    margin-bottom: 20px;
+    padding-left: 140px;
+}
+/*.logo .img{*/
+    /*margin: 0 auto;*/
+    /*text-align: center;*/
+    /*!*margin-left: 330px; 顶部logo不居中样式 *!*/
+/*}*/
+.logo .img img{
+    display: inline-block;
+}
+.logo .img img:first-child{
+    width: 300px;
+}
+.logo .img img:last-child{
+    width: 200px;
+    padding-top: 75px;
+}
+/*关于我们字体样式*/
+.about{
+    width: 100%;
+    height: 50px;
+    background: rgb(53,31,101);
+}
+.about h3{
+    color: #fff;
+    text-align: center;
+    line-height: 50px;
+}
+/*banner 图样式*/
+.banner{
+    width: 100%;
+    background: rgb(200,201,199);
+}
+.banner img{
+    width: 1120px;
+    height: auto;
+    text-align: center;
+    margin: 0 auto;
+}
+/*文字介绍部分*/
+.wz{
+    padding: 20px;
+    line-height: 30px;
+    color: #626061;
+    margin-bottom: 10px;
+}
+/*六块部分 第一排*/
+.one{
+    box-shadow: 0px 0 25px rgb(200,201,199);
+    padding: 15px;
+    margin: 5px;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 10px;
+    transition:  .5s linear;     /* 背景色加上过渡效果 */
+}
+.one p{
+    transition:  .5s linear;     /* 字体加上过渡效果 */
+}
+/*蓝色字体部分*/
+.one p:first-child{
+    font-size: 34px;
+    color: rgb(0,181,226);
+    font-weight: 900;
+    margin-bottom: 10px;
+}
+/*两排文字距离*/
+.bot{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.two{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+/*页脚样式*/
+.footer{
+    width: 100%;
+    margin-top: 20px;
+    background: #dcdcdc;
+}
+.footer p{
+    color: #9d9d9d;
+    line-height: 30px;
+    text-align: center;
+}
+.footer p:first-child{
+    padding-top: 15px;
+}
+/*悬停变字体颜色*/
+.one:hover p{
+    color: #fff;
+    transition:  .5s linear;    /* 字体加上过渡效果 */
+}
+.one:hover{
+    background: rgb(0,181,226);
+    transition:  .5s linear;    /* 背景色加上过渡效果 */
+}

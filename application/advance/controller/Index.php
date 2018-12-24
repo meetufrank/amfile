@@ -34,8 +34,7 @@ class Index extends Controller
      */
     public function _initialize()
     {
-          
-       
+    
         parent::_initialize();
         
         //记录当前url
@@ -89,8 +88,9 @@ class Index extends Controller
     public function savebackurl() {
         $request = Request::instance();
         $url=$request->url(true);
-        
-        cookie('amback', $url);
+        if(strtolower($request->action())!='addcase'){
+          cookie('amback', $url);  
+        }
     }
     /**
      * 首页
