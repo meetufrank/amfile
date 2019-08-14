@@ -55,26 +55,30 @@
        <div class="am-g myam-g">
        <div class="am-u-sm-3"><strong>Gender</strong></div>
        <div class="am-u-sm-3"><span>{if condition="$case_list.sex eq 1"}Male{else/}Female{/if}</span></div>
-       <div class="am-u-sm-3"><strong>If you are the patient</strong></div>
-       <div class="am-u-sm-3"><span>{if condition="$case_list.isme eq 1"}Yes{else/}No{/if}</span></div>
+       <div class="am-u-sm-3"><strong>EMO case number</strong></div>
+       <div class="am-u-sm-3"><span>{if condition="$case_list.case_type eq 4"}{$case_list.record_number}{else/}{/if}</span></div>
        </div>
        
        <div class="am-g myam-g">
+       <div class="am-u-sm-3"><strong>If you are the patient</strong></div>
+       <div class="am-u-sm-3"><span>{if condition="$case_list.isme eq 1"}Yes{else/}No{/if}</span></div>    
        <div class="am-u-sm-3"><strong>Applicant's name</strong></div>
        <div class="am-u-sm-3"><span>{$case_list.applicant_name}</span></div>
-       <div class="am-u-sm-3"><strong>Relationship with the patient</strong></div>
-       <div class="am-u-sm-3"><span>{if condition="$case_list.relationship eq ''"}本人{else/}{$case_list.relationship}{/if}</span></div>
+       
        </div>
        
        <div class="am-g myam-g">
+       <div class="am-u-sm-3"><strong>Relationship with the patient</strong></div>
+       <div class="am-u-sm-3"><span>{if condition="$case_list.relationship eq ''"}myself{else/}{$case_list.relationship}{/if}</span></div>
        <div class="am-u-sm-3"><strong>Country</strong></div>
        <div class="am-u-sm-3"><span>{$case_list.country_ename}</span></div>
-       <div class="am-u-sm-3"><strong>Province where the city</strong></div>
-       <div class="am-u-sm-3"><span>{if condition="$case_list.country eq 1"}{$case_list.province_name}-{$case_list.city_name}-{$case_list.district_name}{else/}{$case_list.e_province}{/if}</span></div>
+       
        </div>
        <div class="am-g myam-g">
+       <div class="am-u-sm-3"><strong>Province where the city</strong></div>
+       <div class="am-u-sm-3"><span>{if condition="$case_list.country eq 1"}{$case_list.province_name}-{$case_list.city_name}-{$case_list.district_name}{else/}{$case_list.e_province}{/if}</span></div>
        <div class="am-u-sm-3"><strong>Address</strong></div>
-       <div class="am-u-sm-9"><span>{$case_list.address}</span></div>
+       <div class="am-u-sm-3"><span>{$case_list.address}</span></div>
        
        </div>
        <div class="am-g myam-g">
@@ -91,12 +95,88 @@
        <div class="am-u-sm-3"><span>{if condition="$case_list.treatment_doctor eq ''"}N/N{else/}{$case_list.treatment_doctor}{/if}</span></div>
        </div>
        <div class="am-g myam-g">
+       <div class="am-u-sm-3"><strong>Common phone</strong></div>
+       <div class="am-u-sm-3"><span>{$case_list.preferred_phone}</span></div>
+       <div class="am-u-sm-3"><strong>Service language</strong></div>
+       <div class="am-u-sm-3"><span>{$case_list.service_lang_ename}</span></div>
+       </div>
+       <div class="am-g myam-g">
        <div class="am-u-sm-3"><strong>The current hospital for treatment</strong></div>
        <div class="am-u-sm-3"><span>{if condition="$case_list.treatment_hospital eq ''"}N/N{else/}{$case_list.treatment_hospital}{/if}</span></div>
        <div class="am-u-sm-3"><strong>Current treatment specialist</strong></div>
        <div class="am-u-sm-3"><span>{if condition="$case_list.specialty eq ''"}N/N{else/}{$case_list.specialty}{/if}</span></div>
        </div>
+       <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
        <div class="am-g myam-g">
+       <div class="am-u-sm-3"><strong>Year of diagnosis</strong></div>
+       <div class="am-u-sm-3"><span>{if condition="$case_list.diagnosisDate eq ''"}N/N{else/}{$case_list.diagnosisDate}{/if}</span></div>
+       <div class="am-u-sm-3"><strong>Current Weight</strong></div>
+       <div class="am-u-sm-3"><span>{if condition="$case_list.weight eq ''"}N/N{else/}{$case_list.weight}{/if}</span></div>
+       </div>
+       <div class="am-g myam-g">
+       <div class="am-u-sm-3"><strong>Height</strong></div>
+       <div class="am-u-sm-3"><span>{if condition="$case_list.height eq ''"}N/N{else/}{$case_list.height}{/if}</span></div>
+       <div class="am-u-sm-3"><strong>Medications for glucose</strong></div>
+       <div class="am-u-sm-3"><span>{if condition="$case_list.Me_glucose eq ''"}N/N{else/}{$case_list.Me_glucose}{/if}</span></div>
+       </div>
+       <div class="am-g myam-g">
+       <div class="am-u-sm-3"><strong>Medications for blood pressure</strong></div>
+       <div class="am-u-sm-3"><span>{if condition="$case_list.Me_bloodPressure eq ''"}N/N{else/}{$case_list.Me_bloodPressure}{/if}</span></div>
+       <div class="am-u-sm-3"><strong>Medications for cholesterol</strong></div>
+       <div class="am-u-sm-3"><span>{if condition="$case_list.Me_cholesterol eq ''"}N/N{else/}{$case_list.Me_cholesterol}{/if}</span></div>
+       </div>
+       <div class="am-g myam-g">
+       <div class="am-u-sm-3"><strong>Medications for kidney protection</strong></div>
+       <div class="am-u-sm-3"><span>{if condition="$case_list.Me_kidneyProtection eq ''"}N/N{else/}{$case_list.Me_kidneyProtection}{/if}</span></div>
+       <div class="am-u-sm-3"><strong>Medications for arterial protection</strong></div>
+       <div class="am-u-sm-3"><span>{if condition="$case_list.Me_arterialProtection eq ''"}N/N{else/}{$case_list.Me_arterialProtection}{/if}</span></div>
+       </div>
+       <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
+       <div class="am-g myam-g">
+       <div class="am-u-sm-3"><strong>Hypertension</strong></div>
+       <div class="am-u-sm-3"><span>{if condition="is_null($case_list.Hypertension)"}N/N{elseif condition="$case_list.Hypertension gt 0"}Yes{else/}No{/if}</span></div>
+       <div class="am-u-sm-3"><strong>High cholesterol</strong></div>
+       <div class="am-u-sm-3"><span>{if condition="is_null($case_list.highCholestero)"}N/N{elseif condition="$case_list.highCholestero gt 0"}Yes{else/}No{/if}</span></div>
+       </div>
+       
+       <div class="am-g myam-g">
+       <div class="am-u-sm-3"><strong>Heart disease</strong></div>
+       <div class="am-u-sm-3"><span>{if condition="is_null($case_list.heartDisease)"}N/N{elseif condition="$case_list.heartDisease gt 0"}Yes{else/}No{/if}</span></div>
+       <div class="am-u-sm-3"><strong>Kidney disease</strong></div>
+       <div class="am-u-sm-3"><span>{if condition="is_null($case_list.kidneyDisease)"}N/N{elseif condition="$case_list.kidneyDisease gt 0"}Yes{else/}No{/if}</span></div>
+       </div>
+       
+       <div class="am-g myam-g">
+       <div class="am-u-sm-3"><strong>Eye disease</strong></div>
+       <div class="am-u-sm-3"><span>{if condition="is_null($case_list.eyeDisease)"}N/N{elseif condition="$case_list.eyeDisease gt 0"}Yes{else/}No{/if}</span></div>
+       <div class="am-u-sm-3"><strong>Foot or leg problems</strong></div>
+       <div class="am-u-sm-3"><span>{if condition="is_null($case_list.footLegProblems)"}N/N{elseif condition="$case_list.footLegProblems gt 0"}Yes{else/}No{/if}</span></div>
+       </div>
+       
+       <div class="am-g myam-g">
+       <div class="am-u-sm-3"><strong>Mental stress issues</strong></div>
+       <div class="am-u-sm-3"><span>{if condition="is_null($case_list.msIssues)"}N/N{elseif condition="$case_list.msIssues gt 0"}Yes{else/}No{/if}</span></div>
+       <div class="am-u-sm-3"><strong>Male or female concerns</strong></div>
+       <div class="am-u-sm-3"><span>{if condition="is_null($case_list.mfConcerns)"}N/N{elseif condition="$case_list.mfConcerns gt 0"}Yes{else/}No{/if}</span></div>
+       </div>
+      
+       <div class="am-g myam-g">
+       <div class="am-u-sm-3"><strong>Smoking stop date</strong></div>
+       <div class="am-u-sm-3"><span>{if condition="is_null($case_list.smokingDate)"}N/N{else/}{$case_list.smokingDate}{/if}</span></div>
+       <div class="am-u-sm-3"><strong>Alcohol stop date</strong></div>
+       <div class="am-u-sm-3"><span>{if condition="is_null($case_list.alcoholDate)"}N/N{else/}{$case_list.alcoholDate}{/if}</span></div>
+       </div>
+       
+       <div class="am-g myam-g">
+       <div class="am-u-sm-3"><strong>Most recent blood pressure</strong></div>
+       <div class="am-u-sm-9"><span>{if condition="is_null($case_list.MRBPressure)"}N/N{else/}{$case_list.MRBPressure}{/if}</span></div>
+       </div>
+       <div class="am-g myam-g">
+       <div class="am-u-sm-3"><strong>Most recent HbA1c</strong></div>
+       <div class="am-u-sm-9"><span>{if condition="is_null($case_list.HbA1c)"}N/N{else/}{$case_list.HbA1c}{/if}</span></div>
+       </div>
+       <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
+        <div class="am-g myam-g">
        <div class="am-u-sm-3"><strong>Condition description</strong></div>
        <div class="am-u-sm-9"><span>{$case_list.illness}</span></div>
        </div>
@@ -104,7 +184,11 @@
        <div class="am-u-sm-3"><strong>Case note</strong></div>
        <div class="am-u-sm-9"><span>{$case_list.case_note}</span></div>
        </div>
-       
+       <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
+       <div class="am-g myam-g">
+       <div class="am-u-sm-3"><strong>Consent for medical records release</strong></div>
+       <div class="am-u-sm-9"><span>{if condition="$case_list.isAccept gt 0"}Yes{else/}No{/if}</span></div>
+       </div>
   </div>
 </section> 
 

@@ -47,6 +47,7 @@
 	                {$widget->form('date', ['title' => '出生日期', 'name' => 'birthday', 'value' => '','r_md_num'=>3])}
 			{$widget->form('radio', ['title' => '性别', 'name' => 'sex', 'value' => $sexlist[0]['value'],'list'=>$sexlist])}
                         {$widget->form('select', ['title' => '服务类型', 'name' => 'case_type', 'value' => '','list'=>$typelist])}
+                        {$widget->form('text', ['title' => 'EMO病案号', 'name' => 'record_number', 'value' => '', 'form_id'=>'id="record_number"','r_md_num'=>2])}
                        {$widget->form('select', ['title' => '科室', 'name' => 'ks_type', 'value' => '','list'=>$kslist])}
                          {$widget->form('select', ['title' => '提交case的用户', 'name' => 'userid', 'value' => '','list'=>$chatuser])}
                         {$widget->form('radio', ['title' => '是否本人', 'name' => 'isme', 'value' => $islist[1]['value'],'list'=>$islist])}
@@ -77,12 +78,14 @@
                         
                         {$widget->form('textarea', ['title' => '详细地址', 'name' => 'address', 'value' => '','attr'=>' maxlength="200"'])}
                         {$widget->form('text', ['title' => '首选电话', 'name' => 'preferred_phone', 'value' => '','r_md_num'=>3])}
+                        {$widget->form('select', ['title' => '服务语言', 'name' => 'service_lang', 'value' => '1','list'=>$ServiceLangList])}
                         {$widget->form('text', ['title' => '备用电话', 'name' => 'standby_phone', 'value' => '','r_md_num'=>3,'require'=>false])}
                         {$widget->form('text', ['title' => '邮箱', 'name' => 'email', 'value' => '','r_md_num'=>3])}
                         {$widget->form('textarea', ['title' => '方便接听电话时间', 'name' => 'preferred_time', 'value' => '','require'=>false])}
                         {volist name="typemore" id="cm" key="j"}
                         <div id="moreform{$j}" style="display:none;">
                         {volist name="cm" id="vo"}
+                        
                          {if condition="isset($vo['list'])"}
                          {$widget->form($vo.type, ['title' => $vo['title'], 'name' => $vo['name'], 'value' => $vo['value'],'list'=>$vo['list'],'require'=>false])}
                          {else/}
@@ -153,6 +156,16 @@ $("select[name='case_type']").change(function(){
                  }
         }
 
+        function isEmo(){
+                 var isEmo=$("select[name='case_type']").val();
+                 if(isEmo==4){
+                      $("#record_number").show();
+                    
+                 }else{
+                     $("#record_number").hide();
+                  
+                 }
+        }
         function isChina(){
              var country_val=$("select[name='country']").val();
              if(country_val!=1){
@@ -167,9 +180,14 @@ $("select[name='case_type']").change(function(){
             
         }
     ismedo();
+    isEmo();
     isChina();
       $("input[name='isme']").click(function(){
             ismedo();
+      });
+      $("select[name='case_type']").change(function(){
+          
+            isEmo();
       });
       $("select[name='country']").change(function(){
             isChina();

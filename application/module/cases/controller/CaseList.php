@@ -22,6 +22,7 @@ use core\manage\model\FileModel;
 use core\cases\model\CompanyModel;
 use core\cases\model\JtModel;
 use app\common\sendemail\SendUser;
+use app\common\addpdf\AddPdf;
 class CaseList extends Base
 {
 
@@ -34,6 +35,7 @@ class CaseList extends Base
     public function index(Request $request)
     {
 
+        
         $this->siteTitle = 'case列表';
         //获取case表的别名
         $case_alias=CaseModel::getInstance()->alias_name;
@@ -103,9 +105,319 @@ class CaseList extends Base
         foreach ($case_list->jtarr as $key => $value) {
             $jtarr[]=$value['user_name'];
         }
+        //print_r($case_list);exit;
         $this->assign('jtstr', implode(',', $jtarr));
         $this->assign('case_list',$case_list);
         return $this->fetch();
+    }
+    
+    /*
+     * 生成PDF
+     * 
+     */
+    public function create_pdf($id){
+        $this->siteTitle = '生成pdf';
+        
+        // case详情
+        $model = CaseModel::getInstance();
+        
+       //获取case详情
+        $case_list=CaseLogic::getInstance()->casesById($id);
+       //print_r($case_list);exit;
+        if(empty($case_list)){
+            $this->error('该case不存在或失效', self::JUMP_BACK);
+            exit;
+        }
+        if($case_list['case_manager']){
+            $map=[
+                'managerid'=>$case_list['case_manager']
+            ];
+            $users=ChatUserLogic::getInstance()->getUsersAll($map,1);
+             
+            
+        }else{
+            $users=[];
+        }
+        if(empty($users)){
+            $manager_name='';
+        }else{
+            $manager_name=$users['nickname'].'('.$users['user_name'].')';
+        }
+        //排除性别字段,与患者的关系字段,国家等
+        $keyarr=[
+            'isme',
+            'Hypertension',
+            'highCholestero',
+            'heartDisease',
+            'kidneyDisease',
+            'footLegProblems',
+            'eyeDisease',
+            'msIssues',
+            'mfConcerns',
+            'isAccept'
+        ];
+        $province_data='';
+        
+        $case_list=json_decode(json_encode($case_list),true);
+        
+        foreach ($case_list as $key => $value) {
+            
+            if(!in_array($key, $keyarr)){
+                if($key=='sex'){
+                   if($value==1){
+                      $case_list[$key]='男'; 
+                   }else{
+                       $case_list[$key]='女'; 
+                   }
+                }
+                if($key=='relationship'){
+                   if(empty($value)){
+                      $case_list[$key]='本人'; 
+                   }
+                }
+                if($key=='country'){
+                   if($value==1){
+                      $province_data=$case_list['province_name'].'-'.$case_list['city_name'].'-'.$case_list['district_name']; 
+                   }else{
+                      $province_data=$case_list['e_province'];
+                   }
+                }
+            }else{
+                  
+                    if($value>0){
+                        $case_list[$key]='是';
+                    }else{
+                       $case_list[$key]='否'; 
+                    }
+                    
+                
+            }
+          if(is_null($value)||$value===''){
+                    $case_list[$key]='';
+                 }  
+        }
+       //生成html
+        
+        $html=<<<EOD
+<style type="text/css">
+ table{
+     width:100% ;
+     height:100%;
+     text-align:center;
+     vertical-align:middle;    
+     margin: auto;  
+     word-wrap: break-word;
+     }
+ th{
+    width:30%;
+
+     }
+ td{
+     width:70%;           
+     }
+.te{
+   width:25%; 
+   display:table-cell; 
+   vertical-align:middle;
+   }
+.tc{
+   width:25%; 
+   }
+</style>
+ <!--<h4 style="text-align:center;font-weight:bolder;">case详情</h4>-->
+<table border="1" >
+                
+                
+             
+                
+
+                <tr>
+                  <th>CaseID</th>
+                  <td>{$case_list['case_code']}</td>
+                </tr>
+                  <tr>
+                  <th>SalesforceID</th>
+                  <td>N/N</td>
+                </tr>
+                  <tr>
+                  <th>服务类型</th>
+                  <td>{$case_list['typename']}</td>
+                </tr>
+                  <tr>
+                  <th>科室</th>
+                  <td>{$case_list['ks_name']}({$case_list['ks_ename']})</td>
+                </tr>
+                
+                <tr>
+                <th>专案医生</th>
+                <td>$manager_name</td>
+                </tr>
+                <tr>
+                <th>申请人</th>
+                <td>{$case_list['case_username']}</td>
+                </tr>
+                <tr>
+                <th>服务语言</th>
+                <td>{$case_list['service_lang_name']}</td>
+                </tr>
+                <tr>
+                  <th style="width:100%;height:20%;font-size:15px;">病例信息</th>
+             
+                </tr>
+                <tr>
+                  <th class="te">患者姓名</th>
+                  <td class="tc">{$case_list['username']}</td>
+                  <th class="te">出生日期</th>
+                  <td class="tc">{$case_list['birthday']}</td>
+                </tr>
+               <tr>
+                  <th class="te">性别</th>
+                  <td class="tc">{$case_list['sex']}</td>
+                  <th class="te">是否本人</th>
+                  <td class="tc">{$case_list['isme']}</td>
+                </tr>
+                 <tr>
+                  <th class="te">申请人姓名</th>
+                  <td class="tc">{$case_list['applicant_name']}</td>
+                  <th class="te">与患者的关系</th>
+                  <td class="tc">{$case_list['relationship']}</td>
+                </tr>
+                  <tr>
+                  <th class="te">国家</th>
+                  <td class="tc">{$case_list['country_name']}</td>
+                  <th class="te">所在省市区</th>
+                  <td class="tc">$province_data</td>
+                </tr>
+                 <tr>
+                  <th class="te">详细地址</th>
+                  <td class="tc">{$case_list['address']}</td>
+                  <th class="te">邮编</th>
+                  <td class="tc">{$case_list['zip_code']}</td>
+                </tr>
+                  <tr>
+                  <th class="te">邮箱</th>
+                  <td class="tc">{$case_list['email']}</td>
+                  <th class="te">首选电话</th>
+                  <td class="tc">{$case_list['preferred_phone']}</td>
+                </tr>
+                  <tr>
+                  <th class="te">方便接听电话时间</th>
+                  <td class="tc">{$case_list['preferred_time']}</td>
+                  <th class="te">当前治疗的医生姓名</th>
+                  <td class="tc">{$case_list['treatment_doctor']}</td>
+                  
+                 </tr>
+                  
+                  <tr>
+                  <th class="te">当前治疗的医院</th>
+                  <td class="tc">{$case_list['treatment_hospital']}</td>
+                  <th class="te">当前治疗的专科</th>
+                  <td class="tc">{$case_list['specialty']}</td>
+                 </tr>
+                  
+                 <tr>
+                  <th style="width:100%;height:20%;font-size:15px;">额外信息</th>
+             
+                </tr>
+                  <tr>
+                  <th class="te">诊断年份</th>
+                  <td class="tc">{$case_list['diagnosisDate']}</td>
+                  <th class="te">目前体重</th>
+                  <td class="tc">{$case_list['weight']}</td>
+                 </tr>
+                  <tr>
+                  <th class="te">身高</th>
+                  <td class="tc">{$case_list['height']}</td>
+                  <th class="te">葡萄糖药物</th>
+                  <td class="tc">{$case_list['Me_glucose']}</td>
+                 </tr>
+                  <tr>
+                  <th class="te">用于降压的药物</th>
+                  <td class="tc">{$case_list['Me_bloodPressure']}</td>
+                  <th class="te">胆固醇药物</th>
+                  <td class="tc">{$case_list['Me_cholesterol']}</td>
+                 </tr>
+                  <tr>
+                  <th class="te">肾脏保护药物</th>
+                  <td class="tc">{$case_list['Me_kidneyProtection']}</td>
+                  <th class="te">动脉保护药物</th>
+                  <td class="tc">{$case_list['Me_arterialProtection']}</td>
+                 </tr>
+                  <tr>
+                  <th class="te">高血压</th>
+                  <td class="tc">{$case_list['Hypertension']}</td>
+                  <th class="te">高胆固醇</th>
+                  <td class="tc">{$case_list['highCholestero']}</td>
+                 </tr>
+                  <tr>
+                  <th class="te">心脏病</th>
+                  <td class="tc">{$case_list['heartDisease']}</td>
+                  <th class="te">肾脏疾病</th>
+                  <td class="tc">{$case_list['kidneyDisease']}</td>
+                 </tr>
+                  <tr>
+                  <th class="te">眼病</th>
+                  <td class="tc">{$case_list['eyeDisease']}</td>
+                  <th class="te">脚部疾病</th>
+                  <td class="tc">{$case_list['footLegProblems']}</td>
+                 </tr>
+                  <tr>
+                  <th class="te">精神压力问题</th>
+                  <td class="tc">{$case_list['msIssues']}</td>
+                  <th class="te">男性或女性的担忧</th>
+                  <td class="tc">{$case_list['mfConcerns']}</td>
+                 </tr>
+                  <tr>
+                  <th class="te">戒烟日期</th>
+                  <td class="tc">{$case_list['smokingDate']}</td>
+                  <th class="te">戒酒日期</th>
+                  <td class="tc">{$case_list['alcoholDate']}</td>
+                 </tr>
+                  <tr>
+                  <th class="te">最近一次血压</th>
+                  <td class="tc">{$case_list['MRBPressure']}</td>
+                  <th class="te">最近一次HbA1c</th>
+                  <td class="tc">{$case_list['HbA1c']}</td>
+                 </tr>
+                 <tr>
+                  <th>同意发布医疗记录</th>
+                  <td>{$case_list['isAccept']}</td>
+                 </tr> 
+               <tr>
+                <th style="width:100%;">病情描述</th>
+                
+                </tr>
+                <tr style="width:100%;text-align:left;">
+                 <th  height="100px" style="width:100%;">&nbsp;&nbsp;&nbsp;&nbsp;{$case_list['illness']}</th>
+                </tr>
+                 <tr>
+                 <th style="width:100%;">case备注</th>
+                
+                </tr>
+                <tr style="width:100%;text-align:left;">
+                 <th  height="200px" style="width:100%;">&nbsp;&nbsp;&nbsp;&nbsp;{$case_list['case_note']}</th>
+                </tr>
+              
+               
+              
+               
+                
+              
+            
+                
+                
+                
+       
+  
+</table>        
+       
+      
+EOD;
+        $ceshi=new AddPdf();
+        $data=$ceshi->create($html,$case_list['case_code'].'_CN');
+        
+        exit;
+      
     }
 
 /**
@@ -298,6 +610,14 @@ class CaseList extends Base
          $this->assign('islist',$case_manager);
      }
      
+      //获取服务语言数组
+    protected function getServiceLangList(){
+         
+         $logic =CaseTypeLogic::getInstance();
+         $case_manager=$logic->getSelectServiceLang();
+         $this->assign('ServiceLangList',$case_manager);
+     }
+     
      //省市区联动
      protected function assignProvinceList(){
         
@@ -469,6 +789,7 @@ class CaseList extends Base
                 'username' => $request->param('username'),
                 'birthday' => $request->param('birthday'),
                 'sex' => $request->param('sex'),
+                'record_number' => $request->param('record_number'),
                 'isme' => $request->param('isme'),
                 'relationship' => $request->param('relationship'),
                 'applicant_name' => $request->param('applicant_name'),
@@ -478,6 +799,7 @@ class CaseList extends Base
                 'district' => $request->param('district', 110101),
                 'zip_code' => $request->param('zip_code'),
                 'preferred_phone' => $request->param('preferred_phone'),
+                'service_lang' => $request->param('service_lang'),
                 'standby_phone' => $request->param('standby_phone'),
                 'preferred_time' => $request->param('preferred_time'),
                 'illness' => $request->param('illness'),
@@ -500,13 +822,22 @@ class CaseList extends Base
                 'footLegProblems'=>$request->param('footLegProblems'),
                 'msIssues'=>$request->param('msIssues'),
                 'mfConcerns'=>$request->param('mfConcerns'),
-                'smokingDate'=>$request->param('smokingDate'),
-                'alcoholDate'=>$request->param('alcoholDate'),
+                'smokingDate'=>$request->param('smokingDate')?$request->param('smokingDate'):null,
+                'alcoholDate'=>$request->param('alcoholDate')?$request->param('alcoholDate'):null,
                 'MRBPressure'=>$request->param('MRBPressure'),
                 'HbA1c'=>$request->param('HbA1c'),
                 'isAccept'=>$request->param('isAccept'),
+                'diagnosisDate'=>$request->param('diagnosisDate')?$request->param('diagnosisDate'):null,
+                'weight'=>$request->param('weight'),
+                'height'=>$request->param('height'),
+                'Me_glucose'=>$request->param('Me_glucose'),
+                'Me_bloodPressure'=>$request->param('Me_bloodPressure'),
+                'Me_cholesterol'=>$request->param('Me_cholesterol'),
+                'Me_kidneyProtection'=>$request->param('Me_kidneyProtection'),
+                'Me_arterialProtection'=>$request->param('Me_arterialProtection'),
           
             ];
+            
            if(empty($data['province'])){
                $data['province']=110000;
            }
@@ -557,7 +888,8 @@ class CaseList extends Base
         $this->getUserList();
        //获取case科室列表
        $this->getKsList();
-       
+       //获取case服务语言列表
+       $this->getServiceLangList();
        //获取额外表单信息表
        $this->assign('typemore', CaseLogic::getInstance()->getMoreContent());
        
@@ -580,6 +912,7 @@ class CaseList extends Base
                 'username' => $request->param('username'),
                 'birthday' => $request->param('birthday'),
                 'sex' => $request->param('sex'),
+                'record_number' => $request->param('record_number'),
                 'isme' => $request->param('isme'),
                 'relationship' => $request->param('relationship'),
                 'applicant_name' => $request->param('applicant_name'),
@@ -589,6 +922,7 @@ class CaseList extends Base
                 'district' => $request->param('district', 110101),
                 'zip_code' => $request->param('zip_code'),
                 'preferred_phone' => $request->param('preferred_phone'),
+                'service_lang' => $request->param('service_lang'),
                 'standby_phone' => $request->param('standby_phone'),
                 'preferred_time' => $request->param('preferred_time'),
                 'illness' => $request->param('illness'),
@@ -610,11 +944,19 @@ class CaseList extends Base
                 'footLegProblems'=>$request->param('footLegProblems'),
                 'msIssues'=>$request->param('msIssues'),
                 'mfConcerns'=>$request->param('mfConcerns'),
-                'smokingDate'=>$request->param('smokingDate'),
-                'alcoholDate'=>$request->param('alcoholDate'),
+                'smokingDate'=>$request->param('smokingDate')?$request->param('smokingDate'):null,
+                'alcoholDate'=>$request->param('alcoholDate')?$request->param('alcoholDate'):null,
                 'MRBPressure'=>$request->param('MRBPressure'),
                 'HbA1c'=>$request->param('HbA1c'),
-                'isAccept'=>$request->param('isAccept')
+                'isAccept'=>$request->param('isAccept'),
+                'diagnosisDate'=>$request->param('diagnosisDate')?$request->param('diagnosisDate'):null,
+                'weight'=>$request->param('weight'),
+                'height'=>$request->param('height'),
+                'Me_glucose'=>$request->param('Me_glucose'),
+                'Me_bloodPressure'=>$request->param('Me_bloodPressure'),
+                'Me_cholesterol'=>$request->param('Me_cholesterol'),
+                'Me_kidneyProtection'=>$request->param('Me_kidneyProtection'),
+                'Me_arterialProtection'=>$request->param('Me_arterialProtection'),
             ];
              if(empty($data['province'])){
                $data['province']=110000;
@@ -759,6 +1101,8 @@ class CaseList extends Base
     
         //获取科室列表
         $this->getKsList();
+        //获取case服务语言列表
+       $this->getServiceLangList();
         //获取额外表单信息表
         $this->assign('typemore', CaseLogic::getInstance()->getMoreContent($case_list));
         

@@ -40,9 +40,45 @@ class QueueClient
      */
     private function send($data) 
     {
+         $fileurl='';//附件路径
+         try {
+             if(isset($data['more'])){
+                 
+                         //判断是否是带有附件的邮件发送
+                         $field=$data['more']['field'];
+                        if($field['is_email_file']>0){
+                            if(!empty($field['options'])){
+                                $url=$field['options'];
+                                $filename=$data['more']['case_code'].strrchr($url,".");  //case编号作为文件名称
+                                //echo $filename;
+                                $get_file=@file_get_contents($url);
+                                //创建保存目录
+                                $save_dir="public/uploads/email/";
+                                if(!file_exists($save_dir) && !mkdir($save_dir,0777,true)){
+                                    
+
+                                }else{
+                                    $fileurl=$save_dir.$filename;
+                                   if($get_file){
+                                    $fp=@fopen($fileurl,'w');
+                                    @fwrite($fp,$get_file);
+                                    @fclose($fp);
+                                   } 
+                                  
+                                }
+
+
+                            }
+                  }
+            }
+         } catch (Exception $e) {
+             
+         }
+                               
         $sendemail = new Cs();
-        $result    = $sendemail->activeEmail($data['to'],$data['title'],$data['content'],$data['sendperson']); 
+        $result    = $sendemail->activeEmail($data['to'],$data['title'],$data['content'],$data['sendperson'],$fileurl); 
         if ($result) {
+             @unlink($fileurl);
             return true;
         } else {
             return false;

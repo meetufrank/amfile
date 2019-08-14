@@ -31,7 +31,7 @@ class OrientationProcess extends Process
         }
         
         // 图片信息
-        $exif = exif_read_data($file->getPath());
+        $exif = @exif_read_data($file->getPath());
         if (empty($exif['Orientation'])) {
             return true;
         }

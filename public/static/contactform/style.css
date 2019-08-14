@@ -1,0 +1,57 @@
+body {
+  background-image:url(img/banner.jpg);
+  background-size: cover;
+}
+h1 {
+  text-align: center;
+  font-size: 50px;
+  color: #0E355E;
+  font-family: 'Noto Serif SC', serif;
+}
+h3 {
+  text-algin: center;
+  font-size: 20px;
+  font-family: 'Noto Serif SC', serif;
+  color: white;
+}
+form {
+  margin: 20px auto;
+  width: 320px;
+  color: steelblue;
+}
+input {
+  padding: 10px;
+  font-size: inherit;
+}
+input[type="text"] {
+  display: block;
+  margin-bottom: 25px;
+  width: 100%;
+  border: 2px solid #0E355E;
+  background: #FAF6D9;
+}
+input[type="tel"] {
+  display: block;
+  margin-bottom: 25px;
+  width: 100%;
+  border: 2px solid #0E355E;
+  background: #FAF6D9;
+}
+input[type="email"] {
+  display: block;
+  margin-bottom: 25px;
+  width: 100%;
+  border: 2px solid #0E355E;
+  background: #FAF6D9;
+}
+input[type="submit"]{
+  width: 344px;
+  height: 45px;
+  border: none;
+  background: steelblue;
+  color: white;
+  font-family: 'Noto Serif SC', serif;
+}
+input:focus {
+  background: white;
+}

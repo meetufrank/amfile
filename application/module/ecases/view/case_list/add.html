@@ -47,6 +47,7 @@
 	                {$widget->form('date', ['title' => 'Date of Birth', 'name' => 'birthday', 'value' => '','r_md_num'=>3])}
 			{$widget->form('radio', ['title' => 'Gender', 'name' => 'sex', 'value' => $sexlist[0]['value'],'list'=>$sexlist])}
                         {$widget->form('select', ['title' => 'Service Item', 'name' => 'case_type', 'value' => '','list'=>$typelist])}
+                        {$widget->form('text', ['title' => 'EMO case number', 'name' => 'record_number', 'value' => '', 'form_id'=>'id="record_number"','r_md_num'=>2])}
                        {$widget->form('select', ['title' => 'Department', 'name' => 'ks_type', 'value' => '','list'=>$kslist])}
                          {$widget->form('select', ['title' => 'Client submitting the case', 'name' => 'userid', 'value' => '','list'=>$chatuser])}
                         {$widget->form('radio', ['title' => 'If you are the patient', 'name' => 'isme', 'value' => $islist[1]['value'],'list'=>$islist])}
@@ -77,6 +78,7 @@
                         
                         {$widget->form('textarea', ['title' => 'Residence Address', 'name' => 'address', 'value' => '','attr'=>' maxlength="200"'])}
                         {$widget->form('text', ['title' => 'Preferred Telephone Number', 'name' => 'preferred_phone', 'value' => '','r_md_num'=>3])}
+                        {$widget->form('select', ['title' => 'Service Language', 'name' => 'service_lang', 'value' => '1','list'=>$ServiceLangList])}
                         {$widget->form('text', ['title' => 'Alternative Telephone Number', 'name' => 'standby_phone', 'value' => '','r_md_num'=>3,'require'=>false])}
                         {$widget->form('text', ['title' => 'Email', 'name' => 'email', 'value' => '','r_md_num'=>3])}
                         {$widget->form('textarea', ['title' => 'Convenient Time to be Contacted', 'name' => 'preferred_time', 'value' => '','require'=>false])}
@@ -153,6 +155,16 @@ $("select[name='case_type']").change(function(){
                  }
         }
 
+        function isEmo(){
+                 var isEmo=$("select[name='case_type']").val();
+                 if(isEmo==4){
+                      $("#record_number").show();
+                    
+                 }else{
+                     $("#record_number").hide();
+                  
+                 }
+        }
         function isChina(){
              var country_val=$("select[name='country']").val();
              if(country_val!=1){
@@ -167,9 +179,14 @@ $("select[name='case_type']").change(function(){
             
         }
     ismedo();
+    isEmo();
     isChina();
       $("input[name='isme']").click(function(){
             ismedo();
+      });
+      $("select[name='case_type']").change(function(){
+          
+            isEmo();
       });
       $("select[name='country']").change(function(){
             isChina();

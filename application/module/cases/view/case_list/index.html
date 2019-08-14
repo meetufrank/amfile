@@ -128,6 +128,7 @@
                     <td class="am-text-middle">
                         <div class="am-btn-toolbar">
                             <div class="am-btn-group am-btn-group-xs">
+                                {$widget->row('button', ['title' => 'PDF', 'class' => 'am-text-primary', 'icon' => 'am-icon-download', 'attr' => 'target="new"', 'url' => module_url('create_pdf', ['id' => $vo['id']])])}
                                 {if condition="$is_jt eq 1 and $jt_status eq 1 and in_array($userid, $vo['jtarr']) eq 1"}
                                 {$widget->row('button', ['title' => '协助', 'class' => 'am-text-primary', 'icon' => 'am-icon-eye', 'attr' => 'target="new"', 'url' => url('laychatphone/Phone/index', ['id' => $vo['id']])])}
                                 {/if}

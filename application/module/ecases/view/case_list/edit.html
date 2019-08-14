@@ -48,6 +48,7 @@
                         
 			{$widget->form('radio', ['title' => 'Gender', 'name' => 'sex', 'value' =>$case_list['sex'],'list'=>$sexlist])}
                         {$widget->form('select', ['title' => 'Service Item', 'name' => 'case_type', 'value' =>$case_list['case_type'],'list'=>$typelist])}
+                        {$widget->form('text', ['title' => 'EMO case number', 'name' => 'record_number', 'value' => $case_list['record_number'], 'form_id'=>'id="record_number"','r_md_num'=>2])}
                         {$widget->form('select', ['title' => 'Department', 'name' => 'ks_type', 'value' => $case_list['ks_type'],'list'=>$kslist])}
                         {if condition="($case_list['case_status'] eq 2) or ($case_list['case_status'] eq 5)"}
                         {$widget->form('select', ['title' => 'Monitor selection', 'name' => 'jtlist[]', 'value' => $case_list['case_jt'], 'list' => $jt_list, 'attr' => 'multiple','tip'=>'*可多选,重复点击可取消'])}
@@ -88,6 +89,7 @@
                         
                         {$widget->form('textarea', ['title' => 'Residence Address', 'name' => 'address', 'value' =>$case_list['address']])}
                         {$widget->form('text', ['title' => 'Preferred Telephone Number', 'name' => 'preferred_phone', 'value' =>$case_list['preferred_phone'],'r_md_num'=>3])}
+                        {$widget->form('select', ['title' => 'Service Language', 'name' => 'service_lang', 'value' => $case_list['service_lang'],'list'=>$ServiceLangList])}
                         {$widget->form('text', ['title' => 'Alternative Telephone Number', 'name' => 'standby_phone', 'value' =>$case_list['standby_phone'],'r_md_num'=>3,'require'=>false])}
                         {$widget->form('text', ['title' => 'Email', 'name' => 'email', 'value' =>$case_list['email'],'r_md_num'=>3])}
                         {$widget->form('textarea', ['title' => 'Convenient Time to be Contacted', 'name' => 'preferred_time', 'value' => $case_list['preferred_time']])}
@@ -179,6 +181,17 @@ $("select[name='case_type']").change(function(){
                      $("input[name='applicant_name']").attr("readonly","readonly");
                  }
         }
+        
+        function isEmo(){
+                 var isEmo=$("select[name='case_type']").val();
+                 if(isEmo==4){
+                      $("#record_number").show();
+                    
+                 }else{
+                     $("#record_number").hide();
+                  
+                 }
+        }
 
          function isChina(){
              var country_val=$("select[name='country']").val();
@@ -194,9 +207,14 @@ $("select[name='case_type']").change(function(){
             
         }
     ismedo();
+    isEmo();
     isChina();
       $("input[name='isme']").click(function(){
             ismedo();
+      });
+      $("select[name='case_type']").change(function(){
+          
+            isEmo();
       });
       $("select[name='country']").change(function(){
             isChina();

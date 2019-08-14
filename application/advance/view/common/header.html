@@ -18,8 +18,10 @@
        {/if}
       <ul class="menu-wrapper clearfix">
          {volist name="service_list" id="sl"}
+         {in name="$sl.id" value="1,2,3,4"}
          <li class="menubar menubar-{$sl.id}"><a href="{:url('/services/'.$sl.id)}"><span class="bar-background"></span><span class="bar-text">{$sl.typename}</span><span class="bottom-gradient"></span></a><span class="right-gradient"></span></li>
-        {/volist}
+         {/in}
+         {/volist}
 
       </ul>
     </div>

@@ -4,6 +4,7 @@ use email\Cs;
 use core\cases\logic\ChatUserLogic;
 use think\Queue;
 use core\cases\logic\CompanyLogic;
+error_reporting(E_ERROR | E_PARSE );
 class SendUser
 {
     
@@ -228,6 +229,7 @@ class SendUser
                 $email_data['title']=$YouxiangContent['title'];
                 $email_data['content']=$YouxiangContent['content'];
                 $email_data['sendperson']=$YouxiangContent['short_title'];
+                $email_data['more']=$data;
                 //加入任务队列中
           Queue::push('app\common\jobs\QueueClient@sendMAIL', $email_data, $queue ='jobs');
                 

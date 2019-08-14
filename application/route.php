@@ -43,5 +43,15 @@ return [
     
     //国内保险公司
     'allianzchina'=>'allianzchina/Index/index',
-    'edm/:date/:lang/:page'=>'edm/Index/index'
+    'edm/:date/:lang/:page'=>'edm/Index/index',
+    
+    
+    
+    //一个页面邮件 路由
+    
+    
+    'health'=>'ampage/index/yjpage'
+    
+    
+    
 ];
