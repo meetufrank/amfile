@@ -1,0 +1,58 @@
+body{
+    margin:0;
+    padding: 0;
+}
+.bigWhole{
+    max-width: 100%;
+}
+.banner{
+    overflow: hidden;
+}
+.banner img{
+    width: 100%;
+}
+.middleText{
+    margin: 0 20px;
+}
+.middleText h1{
+    font-size: 16px;
+    color: rgb(103,103,103);
+}
+.middleText p{
+    font-size: 14px;
+    color: rgb(103, 103, 103);
+    margin: 0;
+    text-indent:28px
+}
+.formSub{
+    margin: 0 20px;
+}
+.lineInput label{
+    display: block;
+    padding-bottom: 8px;
+    margin-top: 5px;
+}
+.lineInput input{
+    width: 90%;
+    padding: 10px 15px;
+    border-radius: 4px;
+    border: 1px solid #b5babd;
+}
+.subMit{
+    margin: 15px 0;
+}
+.subMit a{
+    display: block;
+    width: 94%;
+    border: none;
+    background: #1593ff;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+}
+.errorMessage{
+    text-align: center;
+    color: red;
+    font-size: 13px;
+}
