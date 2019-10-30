@@ -485,6 +485,8 @@ EOD;
         $this->getStatusList();
         
         $this->getCountryList();
+        
+        
  
     }
 //case分页
@@ -595,12 +597,47 @@ EOD;
         
          $this->assign('chatuser',$chatuser);
      }
+    //获取心理支持单选数组(问卷)
+    protected function getXinliList(){
+         
+         $logic =CaseLogic::getInstance();
+         $case_manager=$logic->getXinlihelp();
+         $this->assign('xinlilist',$case_manager);
+     }
+      //获取情绪问题多选选项数组(问卷)
+    protected function getQingxuList(){
+         
+         $logic =CaseLogic::getInstance();
+         $case_manager=$logic->getQingxuhelp();
+         $this->assign('qingxulist',$case_manager);
+     }
+      //是否有伤害自己的想法单选选项数组(问卷)
+    protected function getShanghaiList(){
+         
+         $logic =CaseLogic::getInstance();
+         $case_manager=$logic->getShanghaihelp();
+         $this->assign('shanghailist',$case_manager);
+     }
        //获取性别数组
     protected function getSexList(){
          
          $logic =CaseTypeLogic::getInstance();
          $case_manager=$logic->getSelectSex();
          $this->assign('sexlist',$case_manager);
+     }
+     //获取不是本人时性别数组
+    protected function getCaxbList(){
+         
+         $logic =CaseLogic::getInstance();
+         $case_manager=$logic->getCaxb();
+         $this->assign('caxblist',$case_manager);
+     }
+     //获取首选联系方式数组
+    protected function getSxlxList(){
+         
+         $logic =CaseLogic::getInstance();
+         $case_manager=$logic->getSxff();
+         $this->assign('sxlxlist',$case_manager);
      }
        //获取是否数组
     protected function getIsList(){
@@ -626,6 +663,7 @@ EOD;
     	$this->assign('area',$area);
 
      }
+     
      
 
      /**
@@ -673,7 +711,7 @@ EOD;
          $data=[
                     'case_status'=>2
                 ];
-         
+          
      $result=CaseModel::getInstance()->save($data,$map);
        if(!$result){
            $this->error('请将case状态调整至pending再进行修改');
@@ -682,17 +720,17 @@ EOD;
        $data=ChatUserModel::getInstance()->where('managerid',$value)->find();
       
      
-       if($data){
-         $username=$data['nickname'];
-           $msg=new \message\mess();
-           $url='http://'.$_SERVER['HTTP_HOST'].'/service';
-           $data['url']=$url;
-           
-           $mess_content=ChatUserLogic::getInstance()->getLanguage($data,1); //获取短信内容
-           
-            $msg->send($data['tel'], $mess_content['content']);
-            
-       }
+//       if($data){
+//         $username=$data['nickname'];
+//           $msg=new \message\mess();
+//           $url='http://'.$_SERVER['HTTP_HOST'].'/service';
+//           $data['url']=$url;
+//           
+//           $mess_content=ChatUserLogic::getInstance()->getLanguage($data,1); //获取短信内容
+//           
+//            $msg->send($data['tel'], $mess_content['content']);
+//            
+//       }
        
      }
   
@@ -783,21 +821,25 @@ EOD;
     public function add(Request $request)
     {
         
+ 
         if ($request->isPost()) {
             
             $data = [
                 'username' => $request->param('username'),
                 'birthday' => $request->param('birthday'),
                 'sex' => $request->param('sex'),
+                'idcard' => $request->param('idcard'),
                 'record_number' => $request->param('record_number'),
                 'isme' => $request->param('isme'),
                 'relationship' => $request->param('relationship'),
                 'applicant_name' => $request->param('applicant_name'),
+                'casexb' => $request->param('casexb'),
                 'address' => $request->param('address'),
                 'province' => $request->param('province', 110000),
                 'city' => $request->param('city', 110100),
                 'district' => $request->param('district', 110101),
                 'zip_code' => $request->param('zip_code'),
+                'sx_lxfs' => $request->param('sx_lxfs'),
                 'preferred_phone' => $request->param('preferred_phone'),
                 'service_lang' => $request->param('service_lang'),
                 'standby_phone' => $request->param('standby_phone'),
@@ -833,8 +875,13 @@ EOD;
                 'Me_glucose'=>$request->param('Me_glucose'),
                 'Me_bloodPressure'=>$request->param('Me_bloodPressure'),
                 'Me_cholesterol'=>$request->param('Me_cholesterol'),
-                'Me_kidneyProtection'=>$request->param('Me_kidneyProtection'),
-                'Me_arterialProtection'=>$request->param('Me_arterialProtection'),
+                'xinli_help'=>$request->param('xinli_help'), //问卷开始
+                'qingxu_help'=>implode(',', array_filter($request->param('qingxu_help/a',[]))),
+                'qingxu_other'=>$request->param('qingxu_other'),
+                'shanghai_help'=>$request->param('shanghai_help'),
+                'shenti_content'=>$request->param('shenti_content'),
+                'yaowu_help'=>$request->param('yaowu_help'),
+                'before_xinli'=>$request->param('before_xinli'),//问卷结束
           
             ];
             
@@ -886,12 +933,27 @@ EOD;
            
                     //获取用户列表
         $this->getUserList();
+        
+         //获取选择不是本人性别下拉列表
+        $this->getCaxbList();
+        //获取首选联系方式列表列表
+        $this->getSxlxList();
+        
        //获取case科室列表
        $this->getKsList();
        //获取case服务语言列表
        $this->getServiceLangList();
        //获取额外表单信息表
        $this->assign('typemore', CaseLogic::getInstance()->getMoreContent());
+       
+       
+       //问卷表单
+       //获取心理支持单选数组(问卷)
+       $this->getXinliList();
+       //获取情绪问题多选选项数组(问卷)
+       $this->getQingxuList();
+       //是否有伤害自己的想法单选选项数组(问卷)
+       $this->getShanghaiList();
        
             return $this->fetch();
         }
@@ -912,15 +974,18 @@ EOD;
                 'username' => $request->param('username'),
                 'birthday' => $request->param('birthday'),
                 'sex' => $request->param('sex'),
+                'idcard' => $request->param('idcard'),
                 'record_number' => $request->param('record_number'),
                 'isme' => $request->param('isme'),
                 'relationship' => $request->param('relationship'),
                 'applicant_name' => $request->param('applicant_name'),
+                'casexb' => $request->param('casexb'),
                 'address' => $request->param('address'),
                 'province' => $request->param('province', 110000),
                 'city' => $request->param('city', 110100),
                 'district' => $request->param('district', 110101),
                 'zip_code' => $request->param('zip_code'),
+                'sx_lxfs' => $request->param('sx_lxfs'),
                 'preferred_phone' => $request->param('preferred_phone'),
                 'service_lang' => $request->param('service_lang'),
                 'standby_phone' => $request->param('standby_phone'),
@@ -957,6 +1022,13 @@ EOD;
                 'Me_cholesterol'=>$request->param('Me_cholesterol'),
                 'Me_kidneyProtection'=>$request->param('Me_kidneyProtection'),
                 'Me_arterialProtection'=>$request->param('Me_arterialProtection'),
+                'xinli_help'=>$request->param('xinli_help'), //问卷开始
+                'qingxu_help'=>implode(',', array_filter($request->param('qingxu_help/a',[]))),
+                'qingxu_other'=>$request->param('qingxu_other'),
+                'shanghai_help'=>$request->param('shanghai_help'),
+                'shenti_content'=>$request->param('shenti_content'),
+                'yaowu_help'=>$request->param('yaowu_help'),
+                'before_xinli'=>$request->param('before_xinli'),//问卷结束
             ];
              if(empty($data['province'])){
                $data['province']=110000;
@@ -1078,6 +1150,8 @@ EOD;
         $filearr=FileModel::getInstance()->where(['id'=>$case_list['options']])->find();
         $case_list['options_data']=$filearr;
         $case_list['case_jt']=$jtarr;
+        //新加问卷的情绪问题
+        $case_list['qingxu_help']= explode(',', $case_list['qingxu_help']);
         $this->assign('case_list', $case_list);
             
            //性别
@@ -1093,7 +1167,10 @@ EOD;
           
       //获取监听列表
             $this->getJtList();
-        
+        //获取选择不是本人性别下拉列表
+        $this->getCaxbList();
+        //获取首选联系方式列表列表
+        $this->getSxlxList();
             //获取服务类型列表
         $this->getTypeList();
             //获取状态类型列表
@@ -1106,6 +1183,15 @@ EOD;
         //获取额外表单信息表
         $this->assign('typemore', CaseLogic::getInstance()->getMoreContent($case_list));
         
+        
+        //问卷表单
+       //获取心理支持单选数组(问卷)
+       $this->getXinliList();
+       //获取情绪问题多选选项数组(问卷)
+       $this->getQingxuList();
+       //是否有伤害自己的想法单选选项数组(问卷)
+       $this->getShanghaiList();
+       
             return $this->fetch();
         
         }

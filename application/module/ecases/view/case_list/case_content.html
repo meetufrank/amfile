@@ -53,18 +53,27 @@
        </div>
        
        <div class="am-g myam-g">
+        <div class="am-u-sm-3"><strong>ID number</strong></div>
+       <div class="am-u-sm-3"><span>{if condition="$case_list.idcard eq ''"}N/N{else/}{$case_list.idcard}{/if}</span></div>
        <div class="am-u-sm-3"><strong>Gender</strong></div>
        <div class="am-u-sm-3"><span>{if condition="$case_list.sex eq 1"}Male{else/}Female{/if}</span></div>
-       <div class="am-u-sm-3"><strong>EMO case number</strong></div>
-       <div class="am-u-sm-3"><span>{if condition="$case_list.case_type eq 4"}{$case_list.record_number}{else/}{/if}</span></div>
+      
        </div>
        
        <div class="am-g myam-g">
+       <div class="am-u-sm-3"><strong>EMO case number</strong></div>
+       <div class="am-u-sm-3"><span>{if condition="$case_list.case_type eq 4"}{$case_list.record_number}{else/}{/if}</span></div>
        <div class="am-u-sm-3"><strong>If you are the patient</strong></div>
        <div class="am-u-sm-3"><span>{if condition="$case_list.isme eq 1"}Yes{else/}No{/if}</span></div>    
+      
+       
+       </div>
+       
+       <div class="am-g myam-g">
        <div class="am-u-sm-3"><strong>Applicant's name</strong></div>
        <div class="am-u-sm-3"><span>{$case_list.applicant_name}</span></div>
-       
+       <div class="am-u-sm-3"><strong>Applicant gender</strong></div>
+       <div class="am-u-sm-3"><span>{if condition="$case_list.casexb eq 1"}Male{elseif condition="$case_list.casexb eq 2"}Female{elseif condition="$case_list.casexb eq 3"}Other{else/}Not selected{/if}</span></div>
        </div>
        
        <div class="am-g myam-g">
@@ -81,6 +90,15 @@
        <div class="am-u-sm-3"><span>{$case_list.address}</span></div>
        
        </div>
+       
+       <div class="am-g myam-g">
+       <div class="am-u-sm-3"><strong>Preferred Contact</strong></div>
+       <div class="am-u-sm-3"><span>{if condition="$case_list.sx_lxfs eq 1"}Phone{elseif condition="$case_list.sx_lxfs eq 2"}Email{else/}Not selected{/if}</span></div>
+       <div class="am-u-sm-3"></div>
+       <div class="am-u-sm-3"></div>
+       </div>
+       
+       
        <div class="am-g myam-g">
        <div class="am-u-sm-3"><strong>Zip code</strong></div>
        <div class="am-u-sm-3"><span>{if condition="$case_list.zip_code eq ''"}N/N{else/}{$case_list.zip_code}{/if}</span></div>

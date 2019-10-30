@@ -16,7 +16,7 @@ class SelectForm extends Form
     {
         $data = array_merge(self::$form, $data);
         
-        $html = '<div class="am-g am-margin-top-sm">';
+        $html = '<div class="am-g am-margin-top-sm" '.$data['form_id'].'>';
          if($data['require']){
             $require_str='<span style="color:red;">*</span>';
         }else{

@@ -66,7 +66,7 @@ class CaseTypeLogic extends Logic
   * 获取国家下拉列表
   */
     
-        public function getSelectCountry($sort_name='sort',$sort='asc',$type=1)
+        public function getSelectCountry($sort_name='sort',$sort='desc',$type=1)
     {
            $data= CountryModel::getInstance()->order($sort_name, $sort)->select();
            $list=[

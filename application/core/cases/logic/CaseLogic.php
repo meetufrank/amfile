@@ -116,7 +116,7 @@ class CaseLogic extends Logic
         
         //获取是否类型数组
         $idtype=$this->getIdType($type);
-       if($type==1){;
+       if($type==1){
            $Hypertension='高血压';
            $highCholestero='高胆固醇';
            $heartDisease='心脏病';
@@ -338,4 +338,270 @@ class CaseLogic extends Logic
            
     }
     
+                    /*
+  * 获取填写case性别下拉列表
+  */
+    
+        public function getCaxb($type=1)
+    {
+            if($type==1){
+                return [
+            [
+                'name' => '未选择',
+                'value' => 0
+            ],
+            [
+                'name' => '男',
+                'value' => 1
+            ],
+            [
+                'name' => '女',
+                'value' => 2
+            ] ,
+            [
+                'name' => '其他',
+                'value' => 3
+            ]
+        ];
+            }else{
+                 return [
+            [
+                'name' => 'Not selected',
+                'value' => 0
+            ],
+            [
+                'name' => 'Male',
+                'value' => 1
+            ],
+            [
+                'name' => 'Female',
+                'value' => 2
+            ] ,
+            [
+                'name' => 'Other',
+                'value' => 3
+            ]
+        ];
+            }
+       
+           
+    }
+    
+                      /*
+  * 获取首选联系方式下拉列表
+  */
+    
+        public function getSxff($type=1)
+    {
+            if($type==1){
+                return [
+            [
+                'name' => '未选择',
+                'value' => 0
+            ],
+            [
+                'name' => '电话',
+                'value' => 1
+            ],
+            [
+                'name' => '邮件',
+                'value' => 2
+            ] 
+        ];
+            }else{
+                 return [
+            [
+                'name' => 'Not selected',
+                'value' => 0
+            ],
+            [
+                'name' => 'Phone',
+                'value' => 1
+            ],
+            [
+                'name' => 'Email',
+                'value' => 2
+            ]
+        ];
+            }
+       
+           
+    }
+    
+    /*
+     * 获取心理支持列表
+     */
+        public function getXinlihelp($type=1)
+    {
+            if($type==1){
+                return [
+            [
+                'name' => '未选择',
+                'value' => 0
+            ],
+            [
+                'name' => '个人支持（自己）',
+                'value' => 1
+            ],
+            [
+                'name' => '伴侣支持（自己和伴侣）',
+                'value' => 2
+            ],
+            [
+                'name' => '职业支持（职业发展）',
+                'value' => 3
+            ] 
+        ];
+            }else{
+                 return [
+            [
+                'name' => 'Not selected',
+                'value' => 0
+            ],
+            [
+                'name' => 'Personal support (self)',
+                'value' => 1
+            ],
+            [
+                'name' => 'Partner support (self and partner)',
+                'value' => 2
+            ],
+            [
+                'name' => 'Career support (career development)',
+                'value' => 3
+            ]
+           ];
+                 
+                 
+            }
+       
+           
+    }
+    
+    
+    /*
+     * 获取情绪问题复选框列表
+     */
+         public function getQingxuhelp($type=1)
+    {
+            if($type==1){
+                return [
+           
+            [
+                'name' => '悲伤',
+                'value' => 1
+            ],
+            [
+                'name' => '抑郁',
+                'value' => 2
+            ],
+            [
+                'name' => '焦虑',
+                'value' => 3
+            ],
+            [
+                'name' => '愤怒',
+                'value' => 4
+            ],
+            [
+                'name' => '困惑',
+                'value' => 5
+            ],
+            [
+                'name' => '压力',
+                'value' => 6
+            ],
+            [
+                'name' => '其他',
+                'value' => 999
+            ] 
+        ];
+            }else{
+                 return [
+            
+            [
+                'name' => 'sad',
+                'value' => 1
+            ],
+            [
+                'name' => 'Depression',
+                'value' => 2
+            ],
+            [
+                'name' => 'anxiety',
+                'value' => 3
+            ],
+            [
+                'name' => 'anger',
+                'value' => 4
+            ],
+            [
+                'name' => 'confused',
+                'value' => 5
+            ],
+            [
+                'name' => 'pressure',
+                'value' => 6
+            ],
+            [
+                'name' => 'other',
+                'value' => 999
+            ] 
+        ];
+                 
+                 
+            }
+       
+           
+    }   
+    
+    /*
+     * 是否有伤害自己的想法
+     */
+         public function getShanghaihelp($type=1)
+    {
+            if($type==1){
+                return [
+            [
+                'name' => '未选择',
+                'value' => 0
+            ],
+            [
+                'name' => '从没有',
+                'value' => 1
+            ],
+            [
+                'name' => '有时',
+                'value' => 2
+            ],
+            [
+                'name' => '最近',
+                'value' => 3
+            ] 
+        ];
+            }else{
+                 return [
+            [
+                'name' => 'Not selected',
+                'value' => 0
+            ],
+            [
+                'name' => 'never',
+                'value' => 1
+            ],
+            [
+                'name' => 'sometimes',
+                'value' => 2
+            ],
+            [
+                'name' => 'recent',
+                'value' => 3
+            ]
+           ];
+                 
+                 
+            }
+       
+           
+    }   
 }

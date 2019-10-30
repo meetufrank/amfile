@@ -43,9 +43,10 @@
 	<div class="am-u-sm-12">
 		<form class="am-form ajax-form" method="post" action="{:module_url('add')}">
                     <input type="hidden" name="prevtype" />
-                    {$widget->form('text', ['title' => '患者姓名', 'name' => 'username', 'value' => '','r_md_num'=>2,'attr'=>' maxlength="50"'])}
+                        {$widget->form('text', ['title' => '患者姓名', 'name' => 'username', 'value' => '','r_md_num'=>2,'attr'=>' maxlength="50"'])}
 	                {$widget->form('date', ['title' => '出生日期', 'name' => 'birthday', 'value' => '','r_md_num'=>3])}
 			{$widget->form('radio', ['title' => '性别', 'name' => 'sex', 'value' => $sexlist[0]['value'],'list'=>$sexlist])}
+                        {$widget->form('text', ['title' => '身份证号', 'name' => 'idcard', 'value' => '','r_md_num'=>2,'require'=>false])}
                         {$widget->form('select', ['title' => '服务类型', 'name' => 'case_type', 'value' => '','list'=>$typelist])}
                         {$widget->form('text', ['title' => 'EMO病案号', 'name' => 'record_number', 'value' => '', 'form_id'=>'id="record_number"','r_md_num'=>2])}
                        {$widget->form('select', ['title' => '科室', 'name' => 'ks_type', 'value' => '','list'=>$kslist])}
@@ -53,6 +54,7 @@
                         {$widget->form('radio', ['title' => '是否本人', 'name' => 'isme', 'value' => $islist[1]['value'],'list'=>$islist])}
                         {$widget->form('text', ['title' => '与患者的关系', 'name' => 'relationship', 'value' => '', 'form_id'=>'id="relationbox"','r_md_num'=>2])}
                         {$widget->form('text', ['title' => '申请人姓名', 'name' => 'applicant_name', 'value' => '','r_md_num'=>2,'attr'=>' maxlength="50"'])}
+                        {$widget->form('select', ['title' => '申请人性别', 'name' => 'casexb', 'value' => $caxblist[0]['value'],'list'=>$caxblist, 'form_id'=>'id="casexb"','require'=>false])}
                         {$widget->form('select', ['title' => '国家', 'name' => 'country', 'value' => '1','list'=>$country_list])}
                         {$widget->form('text', ['title' => '省（州）', 'name' => 'e_province', 'value' => '','r_md_num'=>2,'attr'=>' maxlength="50" id="e_province"'])}
                         <div class="am-g am-margin-top-sm" id="address">
@@ -77,6 +79,7 @@
                         {$widget->form('text', ['title' => '邮编', 'name' => 'zip_code', 'value' => '','r_md_num'=>2, 'form_id'=>'id="codebox"','attr'=>' maxlength="20"','require'=>false])}
                         
                         {$widget->form('textarea', ['title' => '详细地址', 'name' => 'address', 'value' => '','attr'=>' maxlength="200"'])}
+                        {$widget->form('select', ['title' => '首选联系方式', 'name' => 'sx_lxfs', 'value' => $sxlxlist[0]['value'],'list'=>$sxlxlist,'require'=>false])}
                         {$widget->form('text', ['title' => '首选电话', 'name' => 'preferred_phone', 'value' => '','r_md_num'=>3])}
                         {$widget->form('select', ['title' => '服务语言', 'name' => 'service_lang', 'value' => '1','list'=>$ServiceLangList])}
                         {$widget->form('text', ['title' => '备用电话', 'name' => 'standby_phone', 'value' => '','r_md_num'=>3,'require'=>false])}
@@ -111,9 +114,30 @@
                                       <p>(*文件仅支持单个JPG,PDF,JPEG,PNG,DOC,ZIP格式,多个文件请压缩ZIP上传,最大上传大小为10M。)</p>
                             </div>
                         </div>
-                       
-                     
-
+                        <!--问卷-->
+                        <div class="am-g am-margin-top-sm">
+                             <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                 &nbsp;
+                             </div> 
+                            <div class="am-u-sm-8 am-u-md-5 am-u-end" style="text-align:center;">  
+                                <h2>问卷</h2>
+                            </div>
+                        </div>
+                        {$widget->form('radio', ['title' => '需要哪种心理支持', 'name' => 'xinli_help', 'value' => $xinlilist[0]['value'],'list'=>$xinlilist,'require'=>false])}
+                        {$widget->form('checkbox', ['title' => '是否有情绪问题(心情困扰)', 'name' => 'qingxu_help[]', 'value' => '','list'=>$qingxulist,'require'=>false])}
+                        <div class="am-g am-margin-top-sm" style="display:none;" id="qx_other_form">
+                             <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                 &nbsp;
+                             </div> 
+                            <div class="am-u-sm-8 am-u-md-5 am-u-end">  
+                             <input type="text" class="am-input-sm " name="qingxu_other" value="" placeholder="请填写其他情绪问题" style="" maxlength="100">
+                            </div>
+                        </div>
+                        
+                        {$widget->form('radio', ['title' => '是否有伤害自己的想法', 'name' => 'shanghai_help', 'value' => $shanghailist[0]['value'],'list'=>$shanghailist,'require'=>false])}
+                        {$widget->form('textarea', ['title' => '是否有长期的身体疼痛或其它症状', 'name' => 'shenti_content', 'value' => '','attr'=>' maxlength="300"','require'=>false,'holder'=>'如果没有请留空'])}
+                        {$widget->form('textarea', ['title' => '是否在吃药', 'name' => 'yaowu_help', 'value' => '','attr'=>' maxlength="300"','require'=>false,'holder'=>'如果没有请留空'])}
+                        {$widget->form('textarea', ['title' => '是否做过心理咨询', 'name' => 'before_xinli', 'value' => '','attr'=>' maxlength="300"','require'=>false,'holder'=>'如果没有请留空'])}
                         
                         {$widget->form('submit', ['title' => '用户操作'])}
 		</form>
@@ -136,7 +160,20 @@ $("select[name='case_type']").change(function(){
       $("input[name='prevtype']").val($("select[name='case_type']").val());
       });
       
- 
+//问卷的情绪问题js
+$("input[name='qingxu_help[]']").click(function(){
+    var value=$(this).val();
+    if($(this).prop("checked")){
+        if(value==999){
+            $("#qx_other_form").attr('style','display:block');
+        }
+    }else{
+        if(value==999){
+            $("#qx_other_form").attr('style','display:none');
+        }
+    }
+    
+});
 </script>
 
 
@@ -147,10 +184,12 @@ $("select[name='case_type']").change(function(){
                  var isme=$("input[name='isme']:checked").val();
                  if(isme==0){
                       $("#relationbox").show();
+                      $("#casexb").show();
                       $("input[name='applicant_name']").val('');
                       $("input[name='applicant_name']").removeAttr("readonly");;
                  }else{
                      $("#relationbox").hide();
+                     $("#casexb").hide();
                     $("input[name='applicant_name']").val($("input[name='username']").val()); 
                      $("input[name='applicant_name']").attr("readonly","readonly");
                  }

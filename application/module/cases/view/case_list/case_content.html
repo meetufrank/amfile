@@ -58,13 +58,17 @@
        <div class="am-u-sm-3"><strong>EMO病案号</strong></div>
        <div class="am-u-sm-3"><span>{if condition="$case_list.case_type eq 4"}{$case_list.record_number}{else/}{/if}</span></div>
        </div>
-       
        <div class="am-g myam-g">
+       <div class="am-u-sm-3"><strong>身份证号</strong></div>
+       <div class="am-u-sm-3"><span>{if condition="$case_list.idcard eq ''"}N/N{else/}{$case_list.idcard}{/if}</span></div>
        <div class="am-u-sm-3"><strong>是否本人</strong></div>
        <div class="am-u-sm-3"><span>{if condition="$case_list.isme eq 1"}是{else/}否{/if}</span></div>
+       </div>
+       <div class="am-g myam-g">
        <div class="am-u-sm-3"><strong>申请人姓名</strong></div>
        <div class="am-u-sm-3"><span>{$case_list.applicant_name}</span></div>
-       
+       <div class="am-u-sm-3"><strong>申请人性别</strong></div>
+       <div class="am-u-sm-3"><span>{if condition="$case_list.casexb eq 1"}男{elseif condition="$case_list.casexb eq 2"}女{elseif condition="$case_list.casexb eq 3"}其他{else/}未选择{/if}</span></div>
        </div>
        
        <div class="am-g myam-g">
@@ -86,6 +90,13 @@
        <div class="am-u-sm-3"><span>{if condition="$case_list.zip_code eq ''"}N/N{else/}{$case_list.zip_code}{/if}</span></div>
        <div class="am-u-sm-3"><strong>邮箱</strong></div>
        <div class="am-u-sm-3"><span>{$case_list.email}</span></div>
+       </div>
+       
+       <div class="am-g myam-g">
+       <div class="am-u-sm-3"><strong>首选联系方式</strong></div>
+       <div class="am-u-sm-3"><span>{if condition="$case_list.sx_lxfs eq 1"}电话{elseif condition="$case_list.sx_lxfs eq 2"}邮件{else/}未选择{/if}</span></div>
+       <div class="am-u-sm-3"></div>
+       <div class="am-u-sm-3"></div>
        </div>
        
        <div class="am-g myam-g">

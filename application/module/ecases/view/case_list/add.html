@@ -46,6 +46,7 @@
                     {$widget->form('text', ['title' => 'Patient Name', 'name' => 'username', 'value' => '','r_md_num'=>2,'attr'=>' maxlength="50"'])}
 	                {$widget->form('date', ['title' => 'Date of Birth', 'name' => 'birthday', 'value' => '','r_md_num'=>3])}
 			{$widget->form('radio', ['title' => 'Gender', 'name' => 'sex', 'value' => $sexlist[0]['value'],'list'=>$sexlist])}
+                        {$widget->form('text', ['title' => 'ID number', 'name' => 'idcard', 'value' => '','r_md_num'=>2,'require'=>false])}
                         {$widget->form('select', ['title' => 'Service Item', 'name' => 'case_type', 'value' => '','list'=>$typelist])}
                         {$widget->form('text', ['title' => 'EMO case number', 'name' => 'record_number', 'value' => '', 'form_id'=>'id="record_number"','r_md_num'=>2])}
                        {$widget->form('select', ['title' => 'Department', 'name' => 'ks_type', 'value' => '','list'=>$kslist])}
@@ -53,6 +54,7 @@
                         {$widget->form('radio', ['title' => 'If you are the patient', 'name' => 'isme', 'value' => $islist[1]['value'],'list'=>$islist])}
                         {$widget->form('text', ['title' => 'Relationship with the patient', 'name' => 'relationship', 'value' => '', 'form_id'=>'id="relationbox"','r_md_num'=>2])}
                         {$widget->form('text', ['title' => 'Name of applicant', 'name' => 'applicant_name', 'value' => '','r_md_num'=>2,'attr'=>' maxlength="50"'])}
+                        {$widget->form('select', ['title' => 'Applicant gender', 'name' => 'casexb', 'value' => $caxblist[0]['value'],'list'=>$caxblist, 'form_id'=>'id="casexb"','require'=>false])}
                         {$widget->form('select', ['title' => 'Country', 'name' => 'country', 'value' => '1','list'=>$country_list])}
                         {$widget->form('text', ['title' => 'Province', 'name' => 'e_province', 'value' => '','r_md_num'=>2,'attr'=>' maxlength="50" id="e_province"'])}
                         <div class="am-g am-margin-top-sm" id="address">
@@ -77,6 +79,7 @@
                         {$widget->form('text', ['title' => 'Zip code', 'name' => 'zip_code', 'value' => '','r_md_num'=>2, 'form_id'=>'id="codebox"','attr'=>' maxlength="20"','require'=>false])}
                         
                         {$widget->form('textarea', ['title' => 'Residence Address', 'name' => 'address', 'value' => '','attr'=>' maxlength="200"'])}
+                        {$widget->form('select', ['title' => 'Preferred contact', 'name' => 'sx_lxfs', 'value' => $sxlxlist[0]['value'],'list'=>$sxlxlist,'require'=>false])}
                         {$widget->form('text', ['title' => 'Preferred Telephone Number', 'name' => 'preferred_phone', 'value' => '','r_md_num'=>3])}
                         {$widget->form('select', ['title' => 'Service Language', 'name' => 'service_lang', 'value' => '1','list'=>$ServiceLangList])}
                         {$widget->form('text', ['title' => 'Alternative Telephone Number', 'name' => 'standby_phone', 'value' => '','r_md_num'=>3,'require'=>false])}
@@ -111,6 +114,30 @@
                             </div>
                         </div>
                      
+                        <!--问卷-->
+                        <div class="am-g am-margin-top-sm">
+                             <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                 &nbsp;
+                             </div> 
+                            <div class="am-u-sm-8 am-u-md-5 am-u-end" style="text-align:center;">  
+                                <h2>Questionnaire</h2>
+                            </div>
+                        </div>
+                        {$widget->form('radio', ['title' => 'What kind of psychological support is needed', 'name' => 'xinli_help', 'value' => $xinlilist[0]['value'],'list'=>$xinlilist,'require'=>false])}
+                        {$widget->form('checkbox', ['title' => 'Is there an emotional problem (mood trouble)', 'name' => 'qingxu_help[]', 'value' => '','list'=>$qingxulist,'require'=>false])}
+                        <div class="am-g am-margin-top-sm" style="display:none;" id="qx_other_form">
+                             <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                 &nbsp;
+                             </div> 
+                            <div class="am-u-sm-8 am-u-md-5 am-u-end">  
+                             <input type="text" class="am-input-sm " name="qingxu_other" value="" placeholder="Please fill in other emotional issues" style="" maxlength="100">
+                            </div>
+                        </div>
+                        
+                        {$widget->form('radio', ['title' => 'Is there any idea of hurting yourself', 'name' => 'shanghai_help', 'value' => $shanghailist[0]['value'],'list'=>$shanghailist,'require'=>false])}
+                        {$widget->form('textarea', ['title' => 'Are there any long-term physical pain or other symptoms', 'name' => 'shenti_content', 'value' => '','attr'=>' maxlength="300"','require'=>false,'holder'=>'If not, please leave blank'])}
+                        {$widget->form('textarea', ['title' => 'Are you taking medicine', 'name' => 'yaowu_help', 'value' => '','attr'=>' maxlength="300"','require'=>false,'holder'=>'If not, please leave blank'])}
+                        {$widget->form('textarea', ['title' => 'Have you ever had a psychological consultation', 'name' => 'before_xinli', 'value' => '','attr'=>' maxlength="300"','require'=>false,'holder'=>'If not, please leave blank'])}
                      
 
                         
@@ -136,7 +163,20 @@ $("select[name='case_type']").change(function(){
       $("input[name='prevtype']").val($("select[name='case_type']").val());
       });
       
- 
+ //问卷的情绪问题js
+$("input[name='qingxu_help[]']").click(function(){
+    var value=$(this).val();
+    if($(this).prop("checked")){
+        if(value==999){
+            $("#qx_other_form").attr('style','display:block');
+        }
+    }else{
+        if(value==999){
+            $("#qx_other_form").attr('style','display:none');
+        }
+    }
+    
+});
 </script>
 
 <script type="text/javascript">
@@ -146,10 +186,12 @@ $("select[name='case_type']").change(function(){
                  var isme=$("input[name='isme']:checked").val();
                  if(isme==0){
                       $("#relationbox").show();
+                      $("#casexb").show();
                       $("input[name='applicant_name']").val('');
                       $("input[name='applicant_name']").removeAttr("readonly");;
                  }else{
                      $("#relationbox").hide();
+                     $("#casexb").hide();
                     $("input[name='applicant_name']").val($("input[name='username']").val()); 
                      $("input[name='applicant_name']").attr("readonly","readonly");
                  }

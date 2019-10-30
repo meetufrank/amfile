@@ -380,6 +380,32 @@ class CaseModel extends Model
                  $field['relationship']='';
                
              }
+         //不是本人的时候可以选择申请人性别
+             if($field['casexb']==0){
+                 $field['casexbname']='未选择';
+                 $field['casexbename']='Not selected';
+             }elseif($field['casexb']==1){
+                 $field['casexbname']='男';
+                 $field['casexbename']='Male';
+             }elseif($field['casexb']==2){
+                 $field['casexbname']='女';
+                 $field['casexbename']='Female';
+             }else{
+                 $field['casexbname']='其他';
+                 $field['casexbename']='Other';
+             }   
+             //首选联系方式
+             if($field['sx_lxfs']==0){
+                 $field['sx_lxfsname']='未选择';
+                 $field['sx_lxfsename']='Not selected';
+             }elseif($field['sx_lxfs']==1){
+                 $field['sx_lxfsname']='电话';
+                 $field['sx_lxfsename']='Phone';
+             }else{
+                 $field['sx_lxfsname']='邮件';
+                 $field['sx_lxfsename']='Email';
+             }
+           
         //国家
          $country= db('cases_country')->where(['id'=>$field['country']])->find();
          $field['countryname']=$country['name'];
