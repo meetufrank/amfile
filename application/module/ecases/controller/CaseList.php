@@ -714,15 +714,15 @@ EOD;
        $data=ChatUserModel::where('managerid',$value)->find();
       
       
-       if($data){
-         $username=$data['nickname'];
-           $msg=new \message\mess();
-           $url='http://'.$_SERVER['HTTP_HOST'].'/service';
-           $data['url']=$url;
-           $mess_content=ChatUserLogic::getInstance()->getLanguage($data,1); //获取短信内容
-            $msg->send($data['tel'], $mess_content['content']);
-            
-       }
+//       if($data){
+//         $username=$data['nickname'];
+//           $msg=new \message\mess();
+//           $url='http://'.$_SERVER['HTTP_HOST'].'/service';
+//           $data['url']=$url;
+//           $mess_content=ChatUserLogic::getInstance()->getLanguage($data,1); //获取短信内容
+//            $msg->send($data['tel'], $mess_content['content']);
+//            
+//       }
        
      }
   
