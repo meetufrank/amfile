@@ -2,20 +2,113 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>{$site_title}</title>
-    <link rel="stylesheet" type="text/css" href="{$static_path}/contactform/style.css">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+    <title>汇医荟</title>
+    <!--<link rel="stylesheet" type="text/css" href="{$static_path}/contactform/style.css">-->
+    <link rel="stylesheet" type="text/css" href="{$static_path}/contactform/style1.css">
+    <script src="{$static_path}/contactform/jquery.min.js"></script>
 
   <body>
-    <main>
-      <h1>欢迎关注汇医，您的国际健康顾问</h1>
-      <h3 style="background-color:#6D7576; display:inline-block; padding:1em; opacity:0.65;"> <p>汇医隶属于全球线上医疗咨询服务领导者Teladoc Health，是唯一一家有能力在全球范围提供全面远程医疗咨询解决方案的服务商，其业务涵盖远程医疗、专家意见和授权平台服务。我们为全球领先的保险公司、企业和医疗机构提供咨询服务，并在全球各地帮助人们得到安心放心的医疗服务。</p><p>汇医于1999年成立，拥有50000多位专科医学专家，9个运营中心，在125多个国家使用30多种语言提供服务。 如您想了解更多关于汇医荟的服务内容，请留下您的联系方式，我们会尽快与您取得联系！</p></h3>
-      <form class="contact-form" action="{:url('/health')}" method="post">
-        <input type="text" name="name" placeholder="姓名">
-        <input type="tel" name="number" placeholder="手机号码">
-        <input type="email" name="email" placeholder="电子邮箱">
-        <input type="text" name="question" placeholder="请简单描述一下您的问题">
-        <input type="submit"  placeholder="提交">
+    <!--<main>-->
+      <!--<h1>欢迎关注汇医，您的国际健康顾问</h1>-->
+      <!--<h3 style="background-color:#6D7576; display:inline-block; padding:1em; opacity:0.65;"> <p>汇医隶属于全球线上医疗咨询服务领导者Teladoc Health，是唯一一家有能力在全球范围提供全面远程医疗咨询解决方案的服务商，其业务涵盖远程医疗、专家意见和授权平台服务。我们为全球领先的保险公司、企业和医疗机构提供咨询服务，并在全球各地帮助人们得到安心放心的医疗服务。</p><p>汇医于1999年成立，拥有50000多位专科医学专家，9个运营中心，在125多个国家使用30多种语言提供服务。 如您想了解更多关于汇医荟的服务内容，请留下您的联系方式，我们会尽快与您取得联系！</p></h3>-->
+      <!--<form class="contact-form" action="{:url('/health')}" method="post">-->
+        <!--<input type="text" name="name" placeholder="姓名">-->
+        <!--<input type="tel" name="number" placeholder="手机号码">-->
+        <!--<input type="email" name="email" placeholder="电子邮箱">-->
+        <!--<input type="text" name="question" placeholder="请简单描述一下您的问题">-->
+        <!--<input type="submit"  placeholder="提交">-->
+      <!--</form>-->
+    <!--</main>-->
+
+    <!--大整体-->
+    <div class="bigWhole">
+      <!--banner-->
+      <div class="banner">
+        <img src="{$static_path}/contactform/img/banner1.jpg">
+      </div>
+
+      <!--文字内容-->
+      <div class="middleText">
+        <h1>欢迎关注汇医，您的私人健康顾问！</h1>
+        <p>
+          汇医隶属于全球线上医疗咨询服务领导者Teladoc Health，是唯一一家有能力在全球范围提供全面远程医疗咨询解决方案的服务商，其业务涵盖远程医疗咨询 、专家意见和授权平台服务。
+        </p>
+        <p>
+          汇医于1999年成立，拥有50,000多位权威医学专家，涵盖450多个专科，在125多个国家使用30多种语言提供服务。20年以来，汇医成为各大保险公司、国际企业和医疗机构的优质服务伙伴
+        </p>
+        <p>
+          应客户强烈要求，开放少量名额加入”汇医荟“ ，满足您对于独立及精准个性化健康咨询服务的品质要求。请填写如下表格，期待为您提供安心放心的医疗咨询服务！
+        </p>
+      </div>
+
+      <!--form表单-->
+      <form action="{:url('/health')}" class="formSub" method="post" id="formBd">
+        <div class="lineInput">
+          <label><span style="color: red;">*</span>姓名</label>
+          <input type="text" placeholder="姓名" class="username" name="name">
+        </div>
+        <div class="lineInput">
+          <label><span style="color: red;">*</span>电话</label>
+          <input type="text" placeholder="电话" class="phone" name="number">
+        </div>
+        <div class="lineInput">
+          <label><span style="color: red;">*</span>邮箱</label>
+          <input type="text" placeholder="邮箱" class="email" name="email">
+        </div>
+        <div class="lineInput">
+          <label>备注</label>
+          <input type="text" placeholder="简述您的问题" name="question">
+        </div>
+        <p class="errorMessage"></p>
+        <div class="subMit">
+          <a href="javascript:void(0);" class="subFor">提交</a>
+        </div>
       </form>
-    </main>
+
+    </div>
+
+    <script>
+      // 表单的验证
+      $(".subFor").on('click',function(){
+
+          var username = $(".username").val();
+          var phone = $(".phone").val();
+          var email = $(".email").val();
+
+          var reg = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/;
+          var $error = $(".errorMessage");
+
+          if(username == ""){
+            $error.html("姓名不能为空");
+            $(".username").focus();
+            return false;
+          }else if(phone == ""){
+            $error.html("电话不能为空");
+            $(".phone").focus();
+            return false;
+          }else if(!(/^1[3456789]\d{9}$/.test(phone))){
+            $error.html("手机号格式不正确");
+            $(".phone").focus();
+            return false;
+          }else if(email == ""){
+            $error.html("邮箱不能为空");
+            $(".email").focus();
+            return false;
+          }else if(!reg.test(email)){
+            $error.html("邮箱格式不正确");
+            $(".email").focus();
+            return false;
+          }else{
+            $error.html("");
+
+            $("#formBd").submit();
+
+          }
+      });
+
+
+    </script>
+
   </body>
 </html>

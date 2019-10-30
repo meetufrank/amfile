@@ -76,7 +76,7 @@ class Index extends Controller
                 Queue::push('app\common\jobs\QueueClient@sendMAIL', $email_data, $queue ='jobs');
                 
                 
-                $this->success('提交成功，我们会尽快回复您！', url('/health'));
+                $this->success('提交成功', url('/health'));
             
         }
         $this->siteTitle='AM医疗咨询';
