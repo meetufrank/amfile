@@ -171,6 +171,7 @@ class UserList extends Base
      */
     public function add(Request $request)
     {
+        
         if ($request->isPost()) {
             $data = [
                 'user_name' => $request->param('user_name'),

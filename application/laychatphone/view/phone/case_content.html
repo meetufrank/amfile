@@ -53,24 +53,27 @@
             <div class="maneger-ms"><span class="manegerspan">Case描述:</span></div>
             <div class="maneger-text">{if condition="$case_content.illness"}{$case_content.illness}{else/}暂无{/if}</div>
         </div>
-   
-    {if condition="$case_content.case_status neq 2 or $is_jt eq 1 or $is_manager eq 0"}
     
         {if condition="$case_content.case_status neq 2 and $case_content.case_status neq 1"}
-        <footer class="aui-bar-mais aui-bar-tab-mais" id="footer">
-            
-             
-            <div class="aui-bar-tab-item-mais aui-active-mais" onclick="tourl()">
-                {$action_data.action}
-            </div>
-            
-         
-         
-        </footer>
-        {/if}
+<!--             if condition="$case_content.case_status neq 2 or $is_jt eq 1 or $is_manager eq 0"-->
+    
+        
+                <footer class="aui-bar-mais aui-bar-tab-mais" id="footer">
+
+
+                    <div class="aui-bar-tab-item-mais aui-active-mais" onclick="tourl()">
+                        {$action_data.action}
+                    </div>
+
+
+
+                </footer>
+        
            
-    {else/}
-                 <footer class="aui-bar-mais aui-bar-tab-mais" id="footer">
+
+          
+    
+<!--                 <footer class="aui-bar-mais aui-bar-tab-mais" id="footer">
 
           
              <div class="aui-bar-tab-item-mais aui-active-mais" onclick="updatestatus(1)" >确认
@@ -78,10 +81,10 @@
             <div class="aui-bar-tab-item-cancel aui-active-mais" onclick="updatestatus(0)">拒绝
             </div>
          
-        </footer>
+        </footer>-->
           
-    {/if}
-        
+
+ {/if}       
     </section>
 </body>
 <script type="text/javascript" src="__PHONE__/script/api.js" ></script>

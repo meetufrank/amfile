@@ -461,6 +461,7 @@ class Phone extends Base
                 'content'=>$content['content'],
                 'tel'=>$data['tel'],
                 'user_id'=>$data['mess_content']['id'],
+                'groupid'=>$data['groupid'],
                 'create_time'=>time()
             ];
             Db::name('cases_messlog')->insert($insert);

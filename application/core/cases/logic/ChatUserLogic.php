@@ -257,7 +257,7 @@ class ChatUserLogic extends Logic
                   'short_title'=>'汇医服务'
                  ],
                 5=>[
-                  'content'=>'测试自动回复（中文）',
+                  'content'=>'请耐心等待，我们将尽快回复您',
                   'description'=>'layim用户咨询，casemanger超过十分钟未回复的时候对用户的自动回复',
                   'short_title'=>'汇医服务'
                  ],
@@ -395,7 +395,7 @@ class ChatUserLogic extends Logic
                   'short_title'=>'Advance Medical'
                  ],
                 5=>[
-                  'content'=>'测试自动回复（英文）',
+                  'content'=>'Please be patient, we will get back to you as soon as possible',
                   'description'=>'layim用户咨询，casemanger超过十分钟未回复的时候对用户的自动回复',
                   'short_title'=>'Advance Medical'
                  ],
@@ -488,7 +488,7 @@ class ChatUserLogic extends Logic
                   'short_title'=>'Advance Medical'
                  ],
                 5=>[
-                  'content'=>'测试自动回复（英文）',
+                  'content'=>'Please be patient, we will get back to you as soon as possible',
                   'description'=>'layim用户咨询，casemanger超过十分钟未回复的时候对用户的自动回复',
                   'short_title'=>'Advance Medical'
                  ],
@@ -943,9 +943,9 @@ class ChatUserLogic extends Logic
             }
            
          if($data[$currentRow]['sex']){
-                $data[$currentRow]['avatar']='/static/laychat/common/images/moren.png';
+                $data[$currentRow]['avatar']='/static/laychat/phone/img/moren.png';
                 }else{
-                $data[$currentRow]['avatar']='/static/laychat/common/images/moren1.png';
+                $data[$currentRow]['avatar']='/static/laychat/phone/img/moren.png';
            }
          
            //验证
