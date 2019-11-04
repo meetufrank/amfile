@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="__PHONE__/css/aui.css?id=1">
     <link rel="stylesheet" type="text/css" href="__PHONE__/css/new.css">
     <link rel="stylesheet" type="text/css" href="__PHONE__/font-awesome-4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="__PHONE__/css/mui/mui.min.css">
     <link rel="stylesheet" href="__PHONE__/css/lCalendar.css">
     <style type="text/css">
     * {
@@ -24,6 +25,7 @@
         -webkit-text-size-adjust: 100%;
         -webkit-overflow-scrolling: touch;
         overflow-scrolling: touch;
+        background: #f8f8f8;
     }
     .input {
         width: 90%;
@@ -41,6 +43,17 @@
     <section class="my-content-padded" id="my-content-padded">
         <div id="demo" style="overflow:auto;"></div>
         <div id="main1" class="main-hide">
+            <div class="header">
+                <div class="header_left">
+                    <span class="mui-icon mui-icon-back" onclick="javascript:history.go(-1)"></span>
+                </div>
+                <div class="header_center">
+                    <p>CASE 列表</p>
+                </div>
+                <div class="header_right">
+                    <p>&nbsp;</p>
+                </div>
+            </div>
             <div class="content-main">
                
                 <div class="main-header">
@@ -54,13 +67,19 @@
                     <table class="maintable" >
                         <thead>
                             <tr>
-                                <th class="table-case">CASE</th>
+                                <th class="table-case">案例</th>
                                 <th class="table-time">时间</th>
                                 <th class="table-change">状态</th>
                             </tr>
                         </thead>
                             <tbody id="maintable">
                                <!-- {volist name="case_list" id="cl"}-->
+                               <tr>
+                                   <td class="case">身心健康</td>
+                                   <td class="time">2017.04.10</td>
+                                   <td class="ongoing">进行中</td>
+                               </tr>
+
                                 <tr onclick="javascript:window.location.href='{:url(\'Phone/case_content\',array(\'id\'=>$cl.id))}'">
                                     <td class="case">{$cl.typename}</td>
                                     <td class="time">{$cl.create_time|strtotime|date="Y-m-d",###}</td>
@@ -121,6 +140,17 @@
             </div>
         </div>
         <div id="main3" class="main-hide">
+            <div class="header">
+                <div class="header_left">
+                    <span class="mui-icon mui-icon-back" onclick="javascript:history.go(-1)"></span>
+                </div>
+                <div class="header_center">
+                    <p>我的</p>
+                </div>
+                <div class="header_right">
+                    <p>&nbsp;</p>
+                </div>
+            </div>
             <button class="drop_out" style="margin-top: 1rem;" onclick="useryuyue();">我的预约</button>
             <button class="drop_out"  onclick="logout()" style="margin-top: 1rem;">登出</button>
         </div>
@@ -129,16 +159,16 @@
         <footer class="aui-bar aui-bar-tab" id="footer">
             <div class="aui-bar-tab-item aui-active" tapmode>
                 <i class="aui-iconfont aui-icon-calendar"></i>
-                <div class="aui-bar-tab-label">Case</div>
+                <div class="aui-bar-tab-label">案例</div>
             </div>
 	       <div class="aui-bar-tab-item" tapmode>
 	                <i onclick="yuyue()" class="aui-iconfont aui-icon-comment"></i>
-	                <div class="aui-bar-tab-label" onclick="yuyue()">Appointment</div>
+	                <div class="aui-bar-tab-label" onclick="yuyue()">预约</div>
 	       </div>
          
             <div class="aui-bar-tab-item" tapmode>
                 <i class="aui-iconfont aui-icon-my"></i>
-                <div class="aui-bar-tab-label">Me</div>
+                <div class="aui-bar-tab-label">我的</div>
             </div>
         </footer>
     </section>

@@ -7,17 +7,36 @@
     <link rel="stylesheet" type="text/css" href="__PHONE__/css/aui.css">
     <link rel="stylesheet" type="text/css" href="__PHONE__/css/new.css?v=1.20">
     <link rel="stylesheet" type="text/css" href="__PHONE__/font-awesome-4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="__PHONE__/css/mui/mui.min.css">
+    <style>
+        body{
+            background: #f8f8f8;
+        }
+    </style>
 </head>
 <body>
+<div class="header">
+    <div class="header_left">
+        <span class="mui-icon mui-icon-back" onclick="javascript:history.go(-1)"></span>
+    </div>
+    <div class="header_center">
+        <p>案例详情</p>
+    </div>
+    <div class="header_right">
+        <p>&nbsp;</p>
+    </div>
+</div>
+
     <section class="aui-content-padded my-mais-content">
-      
+
 
     {if condition="$is_manager eq 0"}
         <!-- 单人头像 --> 
         <div class="mais-per-logo"><img src="{if condition='!empty($manager_content)'}{$manager_content.avatar}{else/}__PHONE__/img/moren.png{/if}" class="mais-img"></div>
         <div class="mais-per-mains">
-            <p class="maisa-name">&nbsp;</p>
-            <p class="maisa-names">{if condition='!empty($manager_content)'}{$manager_content.nickname}{else/}case manager{/if}</p>
+            <p class="maisa-name">专案医生</p>
+            <p class="maisa-names">马医生</p>
+            <p class="maisa-namess">XX科三甲医院副主任</p>
         </div>
    {/if}
    {if condition="$is_jt eq 1 and $is_manager neq 0"}
@@ -37,7 +56,7 @@
         {/if}
         {if condition="$is_jt eq 0 and $is_manager neq 0"}
       
-        <!-- 单人头像 --> 
+        <!-- 单人头像 -->
         <div class="mais-per-logo"><img src="{$action_data.mine.avatar}" class="mais-img"></div>
         <div class="mais-per-mains">
             <p class="maisa-name">{$action_data.mine.companyname}</p>
@@ -46,14 +65,19 @@
         {/if}
         <div class="mais-per-content">
             
-            <div class="manegermain"><span class="manegerspan">Case ID:{$case_content.case_code}</span></div>
-            <div class="manegermain"><span class="manegerspan">Type:</span>{$case_content.typename}</div>
-            <div class="manegermain"><span class="manegerspan">Case coordinator:</span>{$case_content.jt_str}</div>
-            <div class="manegermain"><span class="manegerspan">Time:</span>{$case_content.create_time}</div>
+            <div class="manegermain"><span class="manegerspan">病案&nbsp;ID:&nbsp;</span><span class="color3">2017090522</span></div>
+            <div class="manegermain"><span class="manegerspan">病案:&nbsp;</span><span class="color3">身心健康</span></div>
+            <div class="manegermain"><span class="manegerspan">病案协调:&nbsp;</span><span class="color3">Apple</span></div>
+            <div class="manegermain"><span class="manegerspan">时间:&nbsp;</span><span class="color3">2017.04.10</span></div>
             <div class="maneger-ms"><span class="manegerspan">Case描述:</span></div>
-            <div class="maneger-text">{if condition="$case_content.illness"}{$case_content.illness}{else/}暂无{/if}</div>
+            <div class="maneger-text">上述症状是因为什么好激动hi家访hiU盾是否能接电话佛挡杀佛就凉快圣诞节饭肯定是发窘多少分ID皇帝夫的说法品覆盖面就发货的快速回复可见的是否收到回复及时的环境一恢复ID舒服is电话覅USD发货单配课穆加贝应该会吧与工会举办</div>
         </div>
-    
+
+        <!--立即咨询-->
+        <div class="footer_btn">
+            <a href="">立即咨询</a>
+        </div>
+
         {if condition="$case_content.case_status neq 2 and $case_content.case_status neq 1"}
 <!--             if condition="$case_content.case_status neq 2 or $is_jt eq 1 or $is_manager eq 0"-->
     

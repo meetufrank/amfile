@@ -1,3 +1,6 @@
+*{
+	font-family: Microsoft Yahei, '微软雅黑';
+}
 /* 判断iphone5 */
 @media only screen and (min-width : 320px) and (max-width :374px){
 	.index-header{
@@ -23,14 +26,16 @@
 	}
 	.mheader-bottom-one{
 		font-size: 1rem;
-		font-weight: bolder;
+		/* font-weight: bolder; */
+		margin: 1rem auto 1rem auto;
+		color: #31465d;
 	}
 	.order-mheader-bottom-one{
 		font-size: 1rem;
 		font-weight: bolder;
 	}
 	.mais-per-content{
-		top:8rem;
+		top:10rem;
 	}
 }
 /* 判断iphone6 */
@@ -57,11 +62,13 @@
 		height: 120px;
 	}
 	.mheader-bottom-one{
-		font-size:1.3rem;
-		font-weight: bolder;
+		font-size: 1.3rem;
+		/* font-weight: bolder; */
+		margin: 1rem auto 1rem auto;
+		color: #31465d;
 	}
 	.mheader-bottom-two{
-		font-size: 1rem;
+		font-size: .8rem;
 		color: #c3c6d3;
 	}
 	.order-mheader-bottom-one{
@@ -69,7 +76,7 @@
 		font-weight: bolder;
 	}
 	.mais-per-content{
-		top:9rem;
+		top:10rem;
 	}
 }
 /* 判断iphone6plus */
@@ -96,18 +103,21 @@
 		height: 140px;
 	}
 	.mheader-bottom-one{
-		font-size:1.3rem;
-		font-weight: bolder;
+		font-size: 1.3rem;
+		/* font-weight: bolder; */
+		margin: 1rem auto 1rem auto;
+		color: #31465d;
 	}
 	.mheader-bottom-two{
-		font-size: 1rem;
+		font-size: .8rem;
+		color: #c3c6d3;
 	}
 	.order-mheader-bottom-one{
 		font-size:1.3rem;
 		font-weight: bolder;
 	}
 	.mais-per-content{
-		top:9.4rem;
+		top:10rem;
 	}
 }
 /* 判断ipad */
@@ -135,11 +145,14 @@
 		height: 150px;
 	}
 	.mheader-bottom-one{
-		font-size:1.5rem;
-		font-weight: bolder;
+		font-size: .8rem;
+		/* font-weight: bolder; */
+		margin: 1rem auto 1rem auto;
+		color: #31465d;
 	}
 	.mheader-bottom-two{
 		font-size: 1rem;
+		color: #c3c6d3;
 	}
 	.order-mheader-bottom-one{
 		font-size:1.5rem;
@@ -174,11 +187,14 @@
 		height: 150px;
 	}
 	.mheader-bottom-one{
-		font-size:1.5rem;
-		font-weight: bolder;
+		font-size: .8rem;
+		/* font-weight: bolder; */
+		margin: 1rem auto 1rem auto;
+		color: #31465d;
 	}
 	.mheader-bottom-two{
 		font-size: 1rem;
+		color: #c3c6d3;
 	}
 	.order-mheader-bottom-one{
 		font-size:1.5rem;
@@ -188,7 +204,7 @@
 		top:25rem;
 	}
 }
-}
+
 .main-show{
 	display: block;
 }
@@ -295,7 +311,7 @@ input[type="password"]{
 }
 /*index-main.html*/
 .my-content-padded{
-	margin: 0.5rem;
+	/*margin: 0.5rem;*/
     position: relative;
     word-break: break-all;
     -webkit-overflow-scrolling: touch;
@@ -312,16 +328,22 @@ input[type="password"]{
 .main-header{
 	background-color: white;
 	border: 2px solid white;
-	width: 100%;
+	width: 17.05rem;
 	padding: 15px 10px;
-    box-shadow:10px 10px 10px #E9E9E9;
-	-moz-box-shadow:10px 10px 10px #E9E9E9;/*firefox*/ 
-	-webkit-box-shadow:10px 10px 10px #E9E9E9;/*webkit*/ 
+    box-shadow:0px 10px 10px #E9E9E9;
+	-moz-box-shadow:0px 10px 10px #E9E9E9;/*firefox*/
+	-webkit-box-shadow: 0px 10px 10px #E9E9E9;/*webkit*/
 	text-align: center;
+	margin: 0 auto;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
 }
 .mheader-top{
-	margin:0 auto;
-	border: 1px solid white;
+	margin: 0 auto;
+	/* border: 1px solid white; */
+	box-shadow: 0 0px 10px 10px #f5f6f8;
+	border-radius: 50%;
 }
 .mheader-top img{
 	border-radius:50%;
@@ -329,9 +351,9 @@ input[type="password"]{
 }
 /*maintable*/
 table.maintable{
-	width: 100%;
+	width: 17.05rem;
     border-collapse: collapse;
-    margin-top: 1rem;
+    /*margin-top: 1rem;*/
     border: 1px solid white;
     border-radius:1px; /*圆角设置属性*/
 	overflow:hidden; 
@@ -339,6 +361,7 @@ table.maintable{
 	border-top-right-radius:0.5em;
 	border-bottom-right-radius:0.5em;
 	border-bottom-left-radius:0.5em;
+	margin:  1rem auto 0 auto;
 }
 table.maintable th{
 	border: 1px solid white;  
@@ -346,11 +369,13 @@ table.maintable th{
     text-align: center;
     background-color: #008FFF;
     color: white;
-    font-weight: bold;
+    /*font-weight: bold;*/
     height: 2.2rem;
+	font-weight: normal;
 } 
 table.maintable td{
-	border: 1px solid #D4D4D4;  
+	/*border: 1px solid #D4D4D4;  */
+	border-right: 1px solid #e4e8ef;
     padding: .5em 0.5em; 
     font-size: 0.6rem;
     text-align: center;
@@ -386,7 +411,7 @@ table.maintable td{
 	height:1.5rem;
 	text-align: center;
 	vertical-align: middle;
-	background-color:(0,0,0,0);
+	background-color:rgba(0,0,0,0);
 	margin:0 auto; 
 }
 .content-main-order{
@@ -466,7 +491,7 @@ table.order-maintable td{
 	-moz-border-radius:50%;
 	-webkit-border-radius:50%;
 	margin:0 auto;
-	box-shadow:0 0 15px gray; 
+	box-shadow: 0 0 15px #d4d4d4;
 }
 .mais-per-mains{
 	position: absolute;
@@ -485,11 +510,23 @@ table.order-maintable td{
 }
 .maisa-name{
 	color: #c3c6d3;
-	font-size:1rem;
+	font-size: .8rem;
+	margin-top: .5rem;
+	margin-bottom: .5rem;
 }
 .maisa-names{
-	color: black;
+	color: #31465d;
 	font-size:1.2rem;
+	margin-bottom: .6rem;
+}
+.maisa-namess{
+	text-align: center;
+	color: #8190a7;
+	font-size: .8rem;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	padding: 0 1rem;
 }
 .mais-per-content{
 	width: 100%;
@@ -502,6 +539,8 @@ table.order-maintable td{
 	padding-right:1.5rem;
 	padding-left:1.5rem;
 	margin-bottom:4rem;
+	margin-top: 1rem;
+	border-top: 2px solid #efefef;
 }
 .manegermain{
 	width: 100%;
@@ -523,6 +562,8 @@ table.order-maintable td{
 }
 .maneger-text{
 	color: #2a4056;
+	margin-top: .5rem;
+	line-height: 25px;
 }
 .aui-bar-mais{
 	position: relative;
@@ -618,4 +659,50 @@ table.order-maintable td{
 	color: #c3c6d3;
 	font-size:0.8rem;
 	margin-top: 0.5rem;
+}
+
+
+/*新增头部样式*/
+.header {
+	display: flex;
+	justify-content: space-between;
+	background: #fff;
+	height: 2rem;
+	box-shadow: 0 0 10px 2px rgba(96, 96, 96, .2);
+	line-height: 2rem;
+	margin-bottom: 1rem;
+}
+.header .header_left {
+	width: 20%;
+}
+.header .header_right {
+	width: 20%;
+}
+.header .header_left span {
+	margin-left: .8rem;
+	font-size: 1rem;
+}
+.header .header_center p {
+	font-size: .8rem;
+	font-family: Microsoft Yahei, '微软雅黑';
+	color: #464646;
+	font-weight: 500;
+	margin: 0;
+}
+.color3{
+	color: #31465d;
+}
+
+
+.footer_btn a{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	text-align: center;
+	background: #008fff;
+	height: 2.4rem;
+	line-height: 2.4rem;
+	z-index: 9;
+	color: #fff;
 }
