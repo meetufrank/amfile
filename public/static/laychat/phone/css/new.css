@@ -539,8 +539,8 @@ table.order-maintable td{
 	padding-right:1.5rem;
 	padding-left:1.5rem;
 	margin-bottom:4rem;
-	margin-top: 1rem;
-	border-top: 2px solid #efefef;
+	/*margin-top: 1rem;*/
+	/*border-top: 2px solid #efefef;*/
 }
 .manegermain{
 	width: 100%;
@@ -562,7 +562,7 @@ table.order-maintable td{
 }
 .maneger-text{
 	color: #2a4056;
-	margin-top: .5rem;
+	/*margin-top: .5rem;*/
 	line-height: 25px;
 }
 .aui-bar-mais{
@@ -693,7 +693,11 @@ table.order-maintable td{
 	color: #31465d;
 }
 
-
+.empty{
+	height: 2rem;
+	width: 100%;
+	margin-bottom: 32rem;
+}
 .footer_btn a{
 	position: fixed;
 	bottom: 0;
