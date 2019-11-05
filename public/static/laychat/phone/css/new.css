@@ -338,6 +338,7 @@ input[type="password"]{
 	-webkit-border-radius: 8px;
 	-moz-border-radius: 8px;
 	border-radius: 8px;
+	margin-top: 3rem;
 }
 .mheader-top{
 	margin: 0 auto;
@@ -476,6 +477,7 @@ table.order-maintable td{
 /*maia*/
 .my-mais-content{
 	position: relative;
+	margin-top: 3rem;
 }
 .mais-per-logo{
 	width: 100%;
@@ -547,8 +549,10 @@ table.order-maintable td{
 	height:1.5rem;
 	border-bottom:1px solid #efefef;
 	color: #2a4056;
-	padding-top: 1rem;
-    padding-bottom: 2rem;
+	/*padding-top: 1rem;*/
+	/*padding-bottom: 2rem;	*/
+	padding-top: .5rem;
+    padding-bottom: 1.5rem;
 }
 .manegerspan{
 	color: #8190a7;
@@ -671,6 +675,10 @@ table.order-maintable td{
 	box-shadow: 0 0 10px 2px rgba(96, 96, 96, .2);
 	line-height: 2rem;
 	margin-bottom: 1rem;
+	position: fixed;
+	width: 100%;
+	top: 0;
+	z-index: 9;
 }
 .header .header_left {
 	width: 20%;
@@ -696,7 +704,7 @@ table.order-maintable td{
 .empty{
 	height: 2rem;
 	width: 100%;
-	margin-bottom: 32rem;
+	margin-bottom: 28rem;
 }
 .footer_btn a{
 	position: fixed;
