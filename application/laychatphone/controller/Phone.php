@@ -508,7 +508,7 @@ class Phone extends Base
         
         
         
-        public function casetype() {
+        public function addcase() {
             
             
             

@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>国际医疗健康顾问</title>
+    <link rel="stylesheet" href="mui/mui.min.css">
+    <link rel="stylesheet" href="css/base.css">
+    <!--日期控件-->
+    <link rel="stylesheet" href="css/mobileSelect.css">
+    <script src="js/rem.js"></script>
+    <script src="js/auto-size.js"></script>
+    <link rel="stylesheet" href="css/health_two.css">
+</head>
+<body>
+    <!--title-->
+    <div class="header">
+        <div class="header_left">
+            <span class="mui-icon mui-icon-back" onclick="javascript:history.go(-1)"></span>
+        </div>
+        <div class="header_center">
+            <p>家庭医生随身行服务申请表</p>
+        </div>
+        <div class="header_right">
+            <p>&nbsp;</p>
+        </div>
+    </div>
+    <!--menu-->
+    <div class="menu">
+        <ul>
+            <!--<li>问卷调查</li>-->
+            <li class="active" style="width: 100%;">信息填写</li>
+        </ul>
+    </div>
+    <!--content-->
+    <div class="contentT">
+        <!--title-->
+        <div class="content_title">申请人信息</div>
+        <!--表单部分-->
+        <div class="tc">
+            <input type="text" placeholder="姓名" class="name">
+            <div class="pr">
+                <input type="text" readonly="readonly" id="trigger1" class="birth" placeholder="出生日期">
+                <img src="images/birth.png" alt="" class="bir">
+            </div>
+            
+            <!--患者性别-->
+            <div class="df">
+                <p>患者性别</p>
+                <div>
+                    <input type="radio" name="1" id="yes" checked><label for="yes">男</label>
+                    <input type="radio" name="1" id="no"><label for="no">女</label>
+                </div>
+            </div>
+            <input type="text" placeholder="电话" class="phone">
+            <input type="text" placeholder="E-mail" class="mail">
+            <div class="pr df">
+                <!--<input type="text" placeholder="所在省市区" readonly="readonly" id="expressArea">-->
+
+                <div class="choose_add">
+                    <!--省-->
+                    <select id="province" name="province">
+                        <option value="省">省</option>
+                    </select>
+                </div>
+
+                <div class="choose_add">
+                    <!--市-->
+                    <select id="city" name="city">
+                        <option value="市">市</option>
+                    </select>
+                </div>
+
+                <div class="choose_add">
+                    <!--区-->
+                    <select id="district" name="district">
+                        <option value="区">区</option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="pr">
+                <!--<input type="text" placeholder="请选择服务语言" readonly="readonly">-->
+                <select name="" id="sele">
+                    <option>请选择服务语言</option>
+                    <option value="广东话">广东话</option>
+                    <option value="普通话">普通话</option>
+                    <option value="粤语">粤语</option>
+                    <option value="英语">英语</option>
+                    <option value="俄语">俄语</option>
+                </select>
+                <img src="images/down.png" alt="" class="down" style="pointer-events: none;">
+
+            </div>
+
+            <!--偏好联络方式-->
+            <div class="df mb">
+                <p>偏好的联络方式</p>
+                <div>
+                    <input type="radio" name="2" id="phone" checked><label for="phone">电话</label>
+                    <input type="radio" name="2" id="mail"><label for="mail">邮箱</label>
+                </div>
+            </div>
+            <div class="content_title">咨询问题描述：</div>
+            <!--testarea-->
+            <div class="test mb">
+                <textarea class="info"></textarea>
+            </div>
+            <div class="content_title">方便通话的时间段：</div>
+            <div class="select_time">
+                <ul>
+                    <li class="active">9:00-12:00</li>
+                    <li>12:00-15:00</li>
+                    <li>15:00-18:00</li>
+                    <li>18:00-21:00</li>
+                    <div style="clear: both;"></div>
+                </ul>
+                <input type="text" placeholder="请输入指定的时间">
+            </div>
+            <!--上传文件-->
+            <div style="width: 5.56rem; margin: 0 auto; text-align: left;">
+                <input type="file" class="file_no" id="fileField">
+                <span class="file_cli">选择文件</span> <span class="file_name">文本文本文本</span>
+            </div>
+        </div>
+    </div>
+    <!--免责声明-->
+    <div class="terms">
+        <input type="checkbox" name="3"><label for="">我同意下述&nbsp;<a href="doctors_service.html">免责声明和服务条款</a></label>
+    </div>
+    <!--提交按钮-->
+    <div class="sub_btn">
+        <a href="">提交</a>
+    </div>
+
+
+
+    <script src="js/jquery.min.js"></script>
+    <!--日期控件-->
+    <script src="js/mobileSelect.js"></script>
+    <script src="layui/layui.all.js"></script>
+    <!--日期控件-->
+    <script>
+        // 日期选择
+        var years=[];
+        var month=[];
+        var day=[];
+        var myDate = new Date();
+        myDate.getFullYear();    //获取完整的年份(4位,1970-????)
+        myDate.getMonth();       //获取当前月份(0-11,0代表1月)
+        myDate.getDate();
+        var _data=[];
+        for(i=0; i<myDate.getFullYear()-1960; i++){
+            //年
+            var obj={};
+            var yer=1960+i+1;
+            obj.value=1960+i+1;
+            var _data2=[];
+            for(n=0; n<12; n++){
+                //月
+                var obj2={};
+                if(n<9){
+                    obj2.value='0'+(n+1);
+                }else{
+                    obj2.value=n+1;
+                }
+                var _data3=[];
+                if(n==1){
+                    var cond1 = yer % 4 == 0;  //条件1：年份必须要能被4整除
+                    var cond2 = yer % 100 != 0;  //条件2：年份不能是整百数
+                    var cond3 = yer % 400 ==0;
+                    var cond = cond1 && cond2 || cond3;
+                    //闰年
+                    if(cond){
+                        for(y=0; y<29; y++){
+                            //日
+                            var obj3={};
+                            if(y<9){
+                                obj3.value='0'+(y+1);
+                            }else{
+                                obj3.value=y+1;
+                            }
+                            _data3.push(obj3)
+                        }
+                    }else{
+                        for(y=0; y<28; y++){
+                            //日
+                            var obj3={};
+                            if(y<9){
+                                obj3.value='0'+(y+1);
+                            }else{
+                                obj3.value=y+1;
+                            }
+                            _data3.push(obj3)
+                        }
+                    }
+                }else if(n==0||n==2||n==4||n==6||n==7||n==9||n==11){
+                    for(y=0; y<31; y++){
+                        //日
+                        var obj3={};
+                        if(y<9){
+                            obj3.value='0'+(y+1);
+                        }else{
+                            obj3.value=y+1;
+                        }
+                        _data3.push(obj3)
+                    }
+                }else{
+                    for(y=0; y<30; y++){
+                        //日
+                        var obj3={};
+                        if(y<9){
+                            obj3.value='0'+(y+1);
+                        }else{
+                            obj3.value=y+1;
+                        }
+                        _data3.push(obj3)
+                    }
+                }
+                obj2.childs=_data3;
+                _data2.push(obj2);
+            }
+            obj.childs=_data2;
+            _data.push(obj)
+        }
+        var mobileSelect1 = new MobileSelect({
+            trigger: '#trigger1',
+            title: '日期选择',
+            wheels: [
+                {data:_data}
+            ],
+            transitionEnd:function(indexArr, data){
+                console.log(data);
+            },
+            callback:function(indexArr, data){
+                console.log(data);
+                // $("#trigger1").val(data[0].value+'-'+data[1].value+'-'+data[2].value);
+
+                $("#trigger1").val(data[2].value+' / '+data[1].value+' / '+data[0].value);
+            }
+        });
+    </script>
+    <script>
+
+        $(".file_cli").click(function(){
+            $(".file_no").click();
+            var lj = document.getElementById('fileField').files[0].name;
+            $(".file_name").html(lj);
+        });
+
+        $(".select_time").on('click','li',function(){
+            var $this = $(this);
+            if(!$this.hasClass("active")){
+                $this.addClass("active");
+            }else{
+                $this.removeClass("active");
+            }
+        });
+        $(".down").click(function () {
+            $("#sele").prev().click();
+        });
+        // 点击提交
+        $(".sub_btn a").click(function(){
+            var $name = $(".name").val();
+            var $birth = $(".birth").val();
+            var val=$('input:radio[name="1"]:checked').val();
+            var $phone = $(".phone").val();
+            var $mail = $(".mail").val();
+            var regEm = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
+            var $expressArea = $("#expressArea").val();
+            var val1=$('input:radio[name="2"]:checked').val();
+            var $info = $(".info").val();
+            var val3=$('input:checkbox[name="3"]:checked').val();
+
+            if($name == ""){
+                layer.msg("姓名不能为空");
+                return false;
+            }else if($birth == ""){
+                layer.msg("请选择出生日期");
+                return false;
+            }else if(val==null){
+                layer.msg("请选择你的性别");
+                return false;
+            }else if($phone == ""){
+                layer.msg("电话号不能为空");
+                return false;
+            }else  if(!(/^1[3456789]\d{9}$/.test($phone))){
+                layer.msg("请输入正确的手机号");
+                return false;
+            }else if($mail == ""){
+                layer.msg("邮箱不能为空");
+                return false;
+            }else if(!regEm.test($mail)){
+                layer.msg("请输入正确的邮箱");
+                return false;
+            }else if($expressArea == ""){
+                layer.msg("省市区不能为空");
+                return false;
+            }else  if(val1==null){
+                layer.msg("请选择偏好的联络方式");
+                return false;
+            }else if($info == ""){
+                layer.msg("病情需求不能为空");
+                return false;
+            }else if(val3==null){
+                layer.msg("请阅读并勾选免责声明");
+                return false;
+            }
+
+
+
+            // if($("#sele option:selected").text() == ""){
+            //     layer.msg("请选择服务语言");
+            //     return false;
+            // }
+
+        });
+
+
+    </script>
+
+</body>
+</html>
