@@ -25,6 +25,12 @@ use core\cases\model\JtModel;
 use core\cases\model\CompanyModel;
 use core\manage\model\UserModel;
 use app\common\sendemail\SendUser;
+
+use core\cases\validate\CaseValidate;
+use core\cases\logic\CaseTypeLogic;
+use core\cases\model\AreaModel;
+use core\manage\model\FileModel;
+
 class Phone extends Base
 {
     public function index()
@@ -508,13 +514,61 @@ class Phone extends Base
         
         
         
-        public function addcase() {
+        public function addcase($typeid=1) {
+            
+              //获取省列表
+            $this->assignProvinceList();
+            //获取国家列表
+            $this->getCountryList();
+            
+            if($typeid==1){
+                $title='国际医学专家意见服务申请表';
+            }elseif($typeid==5){
+                $title='家庭医生随身行服务申请表';
+            }elseif($typeid==2){
+                $title='心理健康支持服务申请表';
+            }else{
+                $title='海外医疗安排服务申请表';
+            }
             
             
+            $this->assign('title', $title);
+            $this->assign('typeid', intval($typeid));
             
             
+           
             return $this->fetch();
         }
 
 
+        //获取国家数组
+    protected function getCountryList(){
+         
+         $logic =CaseTypeLogic::getInstance();
+         $country_list=$logic->getSelectCountry();
+         $this->assign('country_list',$country_list);
+     }
+         //省市区联动
+     protected function assignProvinceList(){
+        
+    	//地区
+    	$area= AreaModel::all(['parent_id'=>0]);
+    	$this->assign('area',$area);
+
+     }
+     
+      public function ruleservice($id) {
+            
+            if($id==1){
+                $fetchname='one_service';
+            }elseif($id==5){
+                $fetchname='five_service';
+            }elseif($id==2){
+                $fetchname='two_service';
+            }else{
+                $fetchname='four_service';
+            }
+            
+            return $this->fetch();
+        }
 }
