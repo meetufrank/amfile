@@ -504,7 +504,17 @@ class Phone extends Base
         }
 
         
+     
         
+        
+        
+        public function casetype() {
+            
+            
+            
+            
+            return $this->fetch();
+        }
 
 
 }

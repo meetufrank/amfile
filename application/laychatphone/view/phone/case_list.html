@@ -94,7 +94,7 @@
                         <p class="lodemore" style="display: none;"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i>加载更多</p>
             </div>
         </div>
-        <div id="yy" class="main-hide">
+        <div id="main2" class="main-hide">
             <div class="content-main-order">
                 <div class="order-main-header">
                     <div class="order-mheader-top"><img src="__PHONE__/img/logo.png"></div>
@@ -151,7 +151,7 @@
                     <p>&nbsp;</p>
                 </div>
             </div>
-            <button class="drop_out" style="margin-top: 3rem;" onclick="useryuyue();">我的预约</button>
+<!--            <button class="drop_out" style="margin-top: 3rem;" onclick="useryuyue();">我的预约</button>-->
             <button class="drop_out"  onclick="logout()" style="margin-top: 1rem;">登出</button>
         </div>
         
@@ -162,8 +162,8 @@
                 <div class="aui-bar-tab-label">案例</div>
             </div>
 	       <div class="aui-bar-tab-item" tapmode>
-	                <i onclick="yuyue()" class="aui-iconfont aui-icon-comment"></i>
-	                <div class="aui-bar-tab-label" onclick="yuyue()">预约</div>
+	                <i  class="aui-iconfont aui-icon-comment"></i>
+	                <div class="aui-bar-tab-label" >预约</div>
 	       </div>
          
             <div class="aui-bar-tab-item" tapmode>
@@ -182,17 +182,19 @@
 <script>
 function yuyue(){
 	
-	 window.location.href="{:url('Yuyue/index')}";
+	 window.location.href="{:url('Phone/casetype')}";
 	
 }
 
 function useryuyue(){
-	{if condition="$is_jt eq 0 and $is_manager neq 0"}
-        window.location.href="{:url('yuyue/index')}";
-        {else/}
-        window.location.href="{:url('useryuyue/index')}";
-        {/if}
+//	{if condition="$is_jt eq 0 and $is_manager neq 0"}
+//        window.location.href="{:url('yuyue/index')}";
+//        {else/}
+//        window.location.href="{:url('useryuyue/index')}";
+//        {/if}
 	 
+         
+         
 	
 }
 </script>
