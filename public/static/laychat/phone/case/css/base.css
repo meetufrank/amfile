@@ -1,0 +1,19 @@
+ul{margin:0;padding:0;list-style: none;}
+input:focus::-webkit-input-placeholder{
+    opacity: 0;
+}
+
+
+body{
+    max-width: 7.5rem;
+    min-width: 3.2rem;
+    margin: 0 auto;
+    font-size:.24rem;
+    background:#fff;
+    line-height:1;
+}
+
+div,p,h1,h2,h3,h4,h5,h6{
+    margin: 0;
+}
+
