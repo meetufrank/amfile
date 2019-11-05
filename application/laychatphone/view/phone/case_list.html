@@ -63,6 +63,17 @@
                     <p class="mheader-bottom-two">{$userdata.companyname}</p>
                     <!--{/eq}-->
                 </div>
+
+                <div class="middle_content">
+                    <!--单独块-->
+                    <div class="content_block">
+                        <p class="join_btn">pending</p>
+                        <p class="case_name">家庭医生随身行</p>
+                        <p class="case_type">HKGXXX210AllianzCare</p>
+                        <p class="case_time">2019-11-5</p>
+                        <p class="case_btn">在线咨询</p>
+                    </div>
+                </div>
              
                     <table class="maintable" >
                         <thead>
@@ -91,53 +102,77 @@
 
                             </tbody>
                         </table>
+
                         <p class="lodemore" style="display: none;"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i>加载更多</p>
             </div>
         </div>
         <div id="main2" class="main-hide">
-            <div class="content-main-order">
-                <div class="order-main-header">
-                    <div class="order-mheader-top"><img src="__PHONE__/img/logo.png"></div>
-                    <p class="order-mheader-bottom-one">Callback Service</p>
-                    <div><input class="input demo_input"  type="text" readonly="" name="input_date" placeholder="请选择日期" data-lcalendar="2017-01-00,3000-01-00" /></div>
-                    <table class="order-maintable" >
-                            <tbody id="order-table">
-                                <tr>
-                                    <td class="order-time">9.30-9.45</td>
-                                    <td><button type="button" class="aui-btn aui-btn-info" onclick="openDialog('text')">预定</button></td>
-                                </tr>
-                                <tr>
-                                    <td class="order-time">10.00-10.15</td>
-                                    <td><button type="button" class="aui-btn aui-btn-info" onclick="coloseDialog('text')">已预定</button></td>
-                                </tr>
-                                <tr>
-                                    <td class="order-time">10.30-10.45</td>
-                                    <td><button type="button" class="aui-btn aui-btn-info">预定</button></td>
-                                </tr>
-                                <tr>
-                                    <td class="order-time">11.00-11.15</td>
-                                    <td><button type="button" class="aui-btn aui-btn-info">已预定</button></td>
-                                </tr>
-                                <tr>
-                                    <td class="order-time">10.30-10.45</td>
-                                    <td><button type="button" class="aui-btn aui-btn-info">预定</button></td>
-                                </tr>
-                                <tr>
-                                    <td class="order-time">11.00-11.15</td>
-                                    <td><button type="button" class="aui-btn aui-btn-info">已预定</button></td>
-                                </tr>
-                                <tr>
-                                    <td class="order-time">11.30-11.45</td>
-                                    <td><button type="button" class="aui-btn aui-btn-info">预定</button></td>
-                                </tr>
-                                <tr>
-                                    <td class="order-time">12.00-12.15</td>
-                                    <td><button type="button" class="aui-btn aui-btn-info">已预定</button></td>
-                                </tr>
-                            </tbody>
-                        </table>
+            <!--title-->
+            <div class="header">
+                <div class="header_left">
+                    <span class="mui-icon mui-icon-back"></span>
+                </div>
+                <div class="header_center">
+                    <p>选择类型</p>
+                </div>
+                <div class="header_right">
+                    <p>&nbsp;</p>
                 </div>
             </div>
+            <!--content-->
+            <div class="content">
+                <!--医学专家意见-->
+                <div class="content_blo"><a href="case_opinion.html">医学专家意见</a></div>
+                <!--家庭医生随身行-->
+                <div class="content_blo"><a href="case_doctors.html">家庭医生随身行</a></div>
+                <!--身心健康-->
+                <div class="content_blo"><a href="case_health.html">身心健康</a></div>
+                <!--海外医疗安排-->
+                <div class="content_blo"><a href="case_overseas.html">海外医疗安排</a></div>
+            </div>
+            <!--<div class="content-main-order">-->
+                <!--<div class="order-main-header">-->
+                    <!--<div class="order-mheader-top"><img src="__PHONE__/img/logo.png"></div>-->
+                    <!--<p class="order-mheader-bottom-one">Callback Service</p>-->
+                    <!--<div><input class="input demo_input"  type="text" readonly="" name="input_date" placeholder="请选择日期" data-lcalendar="2017-01-00,3000-01-00" /></div>-->
+                    <!--<table class="order-maintable" >-->
+                            <!--<tbody id="order-table">-->
+                                <!--<tr>-->
+                                    <!--<td class="order-time">9.30-9.45</td>-->
+                                    <!--<td><button type="button" class="aui-btn aui-btn-info" onclick="openDialog('text')">预定</button></td>-->
+                                <!--</tr>-->
+                                <!--<tr>-->
+                                    <!--<td class="order-time">10.00-10.15</td>-->
+                                    <!--<td><button type="button" class="aui-btn aui-btn-info" onclick="coloseDialog('text')">已预定</button></td>-->
+                                <!--</tr>-->
+                                <!--<tr>-->
+                                    <!--<td class="order-time">10.30-10.45</td>-->
+                                    <!--<td><button type="button" class="aui-btn aui-btn-info">预定</button></td>-->
+                                <!--</tr>-->
+                                <!--<tr>-->
+                                    <!--<td class="order-time">11.00-11.15</td>-->
+                                    <!--<td><button type="button" class="aui-btn aui-btn-info">已预定</button></td>-->
+                                <!--</tr>-->
+                                <!--<tr>-->
+                                    <!--<td class="order-time">10.30-10.45</td>-->
+                                    <!--<td><button type="button" class="aui-btn aui-btn-info">预定</button></td>-->
+                                <!--</tr>-->
+                                <!--<tr>-->
+                                    <!--<td class="order-time">11.00-11.15</td>-->
+                                    <!--<td><button type="button" class="aui-btn aui-btn-info">已预定</button></td>-->
+                                <!--</tr>-->
+                                <!--<tr>-->
+                                    <!--<td class="order-time">11.30-11.45</td>-->
+                                    <!--<td><button type="button" class="aui-btn aui-btn-info">预定</button></td>-->
+                                <!--</tr>-->
+                                <!--<tr>-->
+                                    <!--<td class="order-time">12.00-12.15</td>-->
+                                    <!--<td><button type="button" class="aui-btn aui-btn-info">已预定</button></td>-->
+                                <!--</tr>-->
+                            <!--</tbody>-->
+                        <!--</table>-->
+                <!--</div>-->
+            <!--</div>-->
         </div>
         <div id="main3" class="main-hide">
             <div class="header">
@@ -152,7 +187,7 @@
                 </div>
             </div>
 <!--            <button class="drop_out" style="margin-top: 3rem;" onclick="useryuyue();">我的预约</button>-->
-            <button class="drop_out"  onclick="logout()" style="margin-top: 1rem;">登出</button>
+            <button class="drop_out"  onclick="logout()" style="margin-top: 3rem;">登出</button>
         </div>
         
 
