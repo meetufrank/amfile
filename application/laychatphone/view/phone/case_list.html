@@ -64,18 +64,19 @@
                     <!--{/eq}-->
                 </div>
 
+                <!-- {volist name="case_list" id="cl"}-->
                 <div class="middle_content">
                     <!--单独块-->
                     <div class="content_block">
-                        <p class="join_btn">pending</p>
-                        <p class="case_name">家庭医生随身行</p>
-                        <p class="case_type">HKGXXX210AllianzCare</p>
-                        <p class="case_time">2019-11-5</p>
-                        <p class="case_btn">在线咨询</p>
+                        <p class="join_btn">{$cl.name}</p>
+                        <p class="case_name">{$cl.typename}</p>
+                        <p class="case_type">{$cl.case_code}</p>
+                        <p class="case_time">{$cl.create_time|strtotime|date="Y-m-d",###}</p>
+                        <p class="case_btn" onclick="javascript:window.location.href='{:url(\'Phone/case_content\',array(\'id\'=>$cl.id))}'">在线咨询</p>
                     </div>
                 </div>
-             
-                    <table class="maintable" >
+                  <!-- {/volist}-->
+<!--                    <table class="maintable" >
                         <thead>
                             <tr>
                                 <th class="table-case">案例</th>
@@ -84,12 +85,8 @@
                             </tr>
                         </thead>
                             <tbody id="maintable">
-                               <!-- {volist name="case_list" id="cl"}-->
-                               <tr>
-                                   <td class="case">身心健康</td>
-                                   <td class="time">2017.04.10</td>
-                                   <td class="ongoing">进行中</td>
-                               </tr>
+                                {volist name="case_list" id="cl"}
+                               
 
                                 <tr onclick="javascript:window.location.href='{:url(\'Phone/case_content\',array(\'id\'=>$cl.id))}'">
                                     <td class="case">{$cl.typename}</td>
@@ -98,10 +95,10 @@
                                         {$cl.name}</td>
                                 </tr>
                                 
-                               <!-- {/volist}-->
+                                {/volist}
 
                             </tbody>
-                        </table>
+                        </table>-->
 
                         <p class="lodemore" style="display: none;"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i>加载更多</p>
             </div>
@@ -122,13 +119,13 @@
             <!--content-->
             <div class="content">
                 <!--医学专家意见-->
-                <div class="content_blo"><a href="case_opinion.html">医学专家意见</a></div>
+                <div class="content_blo"><a href="{:url('Phone/addcase',['typeid'=>1])}">医学专家意见</a></div>
                 <!--家庭医生随身行-->
-                <div class="content_blo"><a href="case_doctors.html">家庭医生随身行</a></div>
+                <div class="content_blo"><a href="{:url('Phone/addcase',['typeid'=>5])}">家庭医生随身行</a></div>
                 <!--身心健康-->
-                <div class="content_blo"><a href="case_health.html">身心健康</a></div>
+                <div class="content_blo"><a href="{:url('Phone/addcase',['typeid'=>2])}">身心健康</a></div>
                 <!--海外医疗安排-->
-                <div class="content_blo"><a href="case_overseas.html">海外医疗安排</a></div>
+                <div class="content_blo"><a href="{:url('Phone/addcase',['typeid'=>4])}">海外医疗安排</a></div>
             </div>
             <!--<div class="content-main-order">-->
                 <!--<div class="order-main-header">-->

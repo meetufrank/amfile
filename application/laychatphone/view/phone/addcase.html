@@ -29,7 +29,7 @@
     <!--menu-->
     <div class="header">
         <div class="header_left">
-            <span class="mui-icon mui-icon-back"  ></span>
+            <span class="mui-icon mui-icon-back two_back"  ></span>
         </div>
         <div class="header_center">
             <p>{$title}</p>
@@ -121,7 +121,7 @@
    {else} 
     <div class="header">
         <div class="header_left" style="width: 18%;">
-            <span class="mui-icon mui-icon-back" onclick="javascript:history.go(-1)"></span>
+            <span class="mui-icon mui-icon-back" onclick="javascript:window.history.back(-1);"></span>
         </div>
         <div class="header_center">
             <p>{$title}</p>
@@ -309,7 +309,7 @@
 				
 				if(res.code == 1){
 					$('#upload_result').html(uploadFile.name);
-				       $('#upload_file').before('<input type="hidden" value="'+res.data.url+'" name="options"/>');
+				       $('#fileField').before('<input type="hidden" value="'+res.data.url+'" name="options"/>');
 				}else{
 					$('#upload_result').html('<span >['+res.msg+']</span>');
 				}
@@ -659,13 +659,13 @@
             });
         });
 
-        $(".mui-icon-back").click(function(){
+        $(".two_back").click(function(){
             if($(".content1").is(':hidden')){
                 $(".content1").show();
                 $(".content2").hide();
                 $(".menu li:last-child").removeClass("active").siblings().addClass("active");
             }else{
-                window.history.go(-1);
+                window.history.back(-1);
             }
             
         });

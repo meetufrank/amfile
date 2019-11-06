@@ -403,6 +403,7 @@ class Phone extends Base
             $case_list=$casemodel->getList($arr);  //获取case列表
         }
   
+        
         $this->assign('action',$data['action']);
         $this->assign('is_jt',$data['is_jt']);
         $this->assign('is_manager',$data['mine']['managerid']);
