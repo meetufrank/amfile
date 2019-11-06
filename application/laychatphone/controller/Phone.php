@@ -167,7 +167,14 @@ class Phone extends Base
             $case_content=$case_content[0];
              $manager_content=[];
             if($case_content['case_manager']){
-               $manager_content = $chatuser->where('managerid', $case_content['case_manager'])->find(); 
+               $manager_content=db('cases_chatuser')->alias('cc')
+                        ->join('cases_company co','co.id=cc.company','left')
+                        ->field('cc.*,co.name as companyname')
+                        ->where('cc.managerid',$case_content['case_manager'])
+//                        ->fetchSql()
+                        ->find();
+             
+              // $manager_content = $chatuser->where('managerid', $case_content['case_manager'])->find(); 
             }
             
             
@@ -180,6 +187,7 @@ class Phone extends Base
                   }
             $case_content['jt_str']= implode(',', $jt_arr);   
              $this->assign('user_content',$user_content);
+             
             $this->assign('manager_content',$manager_content);
             $this->assign('case_content',$case_content);
         }
@@ -195,6 +203,7 @@ class Phone extends Base
         $company= db('cases_company')->where('id',$mine['company'])->find();
         //print_r($mine['is_manager']);exit;
         $mine['companyname']=$company['name'];
+        
         $this->assign('is_manager',$mine['managerid']);
         return $mine;
     }

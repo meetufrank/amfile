@@ -59,9 +59,9 @@
                 <div class="main-header">
                     <div class="mheader-top"><img src="{$userdata.avatar|default='__PHONE__/img/moren.png'}"></div>
                     <p class="mheader-bottom-one">{$userdata.nickname|default='暂未设定'}</p>
-                    <!-- {eq name="userdata.managerid" value="0"}-->
+                     {neq name="userdata.managerid" value="0"}
                     <p class="mheader-bottom-two">{$userdata.companyname}</p>
-                    <!--{/eq}-->
+                    {/neq}
                 </div>
 
                 <!-- {volist name="case_list" id="cl"}-->

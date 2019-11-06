@@ -22,7 +22,7 @@ return [
                     'type' => '',
                     'auto_start' => true,
                     ],
-    'app_debug'=>false,
+    'app_debug'=>true,
    
     'wechat_appid'=>'wxa663c0d75761bec1',
     'wechat_appsecret'=>'b56ed90b63222ad6ac0e25bde0c80777'

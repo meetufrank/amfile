@@ -15,7 +15,8 @@
             <file>file:/E:/www/tpadmin/application/laychatphone/controller/Phone.php</file>
             <file>file:/E:/www/tpadmin/application/core/cases/logic/CaseLogic.php</file>
             <file>file:/E:/www/tpadmin/application/advance/controller/Index.php</file>
-            <file>file:/E:/www/tpadmin/public/static/laychat/phone/case/case_doctors.html</file>
+            <file>file:/E:/www/tpadmin/application/laychatphone/view/phone/case_content.html</file>
+            <file>file:/E:/www/tpadmin/application/config.php</file>
             <file>file:/E:/www/tpadmin/application/laychatphone/view/phone/case_list.html</file>
             <file>file:/E:/www/tpadmin/public/static/laychat/phone/case/case_opinion.html</file>
             <file>file:/E:/www/tpadmin/public/static/laychat/phone/case/case_health.html</file>
@@ -23,6 +24,8 @@
             <file>file:/E:/www/tpadmin/application/advance/view/index/mobile_form.html</file>
             <file>file:/E:/www/tpadmin/application/laychatphone/view/phone/addcase.html</file>
             <file>file:/E:/www/tpadmin/application/module/cases/controller/CaseList.php</file>
+            <file>file:/E:/www/tpadmin/public/static/laychat/phone/case/case_doctors.html</file>
+            <file>file:/E:/www/tpadmin/public/static/advance/js/forms.js</file>
         </group>
     </open-files>
 </project-private>
