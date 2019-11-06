@@ -545,6 +545,9 @@ table.order-maintable td{
 	/*margin-top: 1rem;*/
 	/*border-top: 2px solid #efefef;*/
 }
+.mais-per-content .manegermain:first-child{
+	height: 3rem;
+}
 .manegermain{
 	width: 100%;
 	height:1.5rem;
