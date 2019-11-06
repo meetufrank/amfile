@@ -215,6 +215,24 @@
 <script type="text/javascript" src="__PHONE__/script/aui-dialog.js"></script>
 
 <script>
+
+    $(".aui-bar-tab-item").on('click',function(){
+        var $this = $(this);
+        var $data = $this.attr("data-item-order");
+        if(!$this.hasClass("aui-active")){
+            $this.addClass("aui-active").siblings().removeClass("aui-active");
+        }
+
+        if($data==0){
+            document.getElementById("demo").innerHTML= document.getElementById("main1").innerHTML;
+        }else if($data==1){
+            document.getElementById("demo").innerHTML= document.getElementById("main2").innerHTML;
+        }else if($data==2){
+            document.getElementById("demo").innerHTML= document.getElementById("main3").innerHTML;
+        }
+    });
+
+
 //function yuyue(){
 //	
 //	 window.location.href="{:url('Phone/casetype')}";
