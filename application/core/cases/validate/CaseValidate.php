@@ -23,7 +23,7 @@ class CaseValidate extends Validate
         'province'=>'requireIf:country,1',
         'city'=>'requireIf:country,1',
         'district'=>'requireIf:country,1',
-        'address' => 'require|max:200',
+        'address' => 'max:200',
         'preferred_phone'=>['requireIf:email,'.''],
         'email'=>['requireIf:preferred_phone,'.'','regex'=>'^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$'],
         'illness'=>'require',

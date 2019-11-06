@@ -165,8 +165,18 @@ class Index extends Controller
                 'country'=>$request->param('country',1),
                 'email'=>str_replace(' ', '',$request->param('email')),
                 'e_province' => $request->param('e_province'),
+                'xinli_help'=>$request->param('xinli_help'), //问卷开始
+                'qingxu_help'=>implode(',', array_filter($request->param('qingxu_help/a',[]))),
+                'qingxu_other'=>$request->param('qingxu_other'),
+                'shanghai_help'=>$request->param('shanghai_help'),
+                'shenti_content'=>$request->param('shenti_content'),
+                'yaowu_help'=>$request->param('yaowu_help'),
+                'before_xinli'=>$request->param('before_xinli'),//问卷结束
+                'record_number' => $request->param('record_number'),  //病案号
                
             ];
+            
+           
              if(empty($data['province'])){
                $data['province']=110000;
            }

@@ -24,12 +24,12 @@
 <body>
     <!--title-->
     
-    
+    <form class="medical-form  form-horizontal" role="form" id="caseform">
     {if condition="$typeid eq 2"}
     <!--menu-->
     <div class="header">
         <div class="header_left">
-            <span class="mui-icon mui-icon-back" onclick="javascript:history.go(-1)"></span>
+            <span class="mui-icon mui-icon-back"  ></span>
         </div>
         <div class="header_center">
             <p>{$title}</p>
@@ -53,9 +53,9 @@
             <div class="content_only">
                 <p class="question_name">1.您需要下述哪种心理支持？</p>
                 <div class="question_option">
-                    <p><input type="radio" name="1" id="a"><label for="a">个人支持（自己）</label></p>
-                    <p><input type="radio" name="1" id="b"><label for="b">伴侣支持（自己和伴侣）</label></p>
-                    <p><input type="radio" name="1" id="c"><label for="c">个人支持（职业发展）</label></p>
+                    {volist name="xinlilist" id="cl"}
+                    <p><input type="radio" name="xinli_help" id="xl{$cl['value']}" value="{$cl['value']}" ><label for="xl{$cl['value']}">{$cl['name']}</label></p>
+                    {/volist}
                 </div>
             </div>
             <!--多选块-->
@@ -63,13 +63,17 @@
                 <p class="question_name">2.您是否有情绪问题（心情困扰）？</p>
                 <div class="question_option">
                     <ul>
-                        <li><input type="checkbox" name="box" value="悲伤"><label for="">悲伤</label></li>
-                        <li><input type="checkbox" name="box" value="抑郁"><label for="">抑郁</label></li>
-                        <li><input type="checkbox" name="box" value="焦虑"><label for="">焦虑</label></li>
-                        <li><input type="checkbox" name="box" value="愤怒"><label for="">愤怒</label></li>
-                        <li><input type="checkbox" name="box" value="困惑"><label for="">困惑</label></li>
-                        <li><input type="checkbox" name="box" value="压力"><label for="">压力</label></li>
-                        <li><input type="checkbox" name="box" value="其他" class="other"><label for="">其他</label><input type="text" class="other_input" readonly="readonly"> <span>请描述</span></li>
+                        {volist name="qingxulist" id="cl"}
+                          {if condition="$cl['value'] eq 999"}
+                              <li><input type="checkbox" name="qingxu_help[]" value="{$cl['value']}" class="other"><label for="{$cl['value']}">{$cl['name']}</label><input type="text" name="qingxu_other" class="other_input" value readonly="readonly"> <span>请描述</span></li>
+                              
+                          {else}
+                              <li><input type="checkbox" name="qingxu_help[]" value="{$cl['value']}"><label for="{$cl['value']}">{$cl['name']}</label></li>
+                          {/if}
+                        
+                        {/volist}
+                   
+                        
                     </ul>
                     <div style="clear: both;"></div>
                 </div>
@@ -79,33 +83,33 @@
             <div class="content_only">
                 <p class="question_name">3.您是否有伤害自己的想法？</p>
                 <div class="question_option">
-                    <p><input type="radio" name="2" id="nothing"><label for="nothing">从没有</label></p>
-                    <p><input type="radio" name="2" id="some"><label for="some">有时</label></p>
-                    <p><input type="radio" name="2" id="recent"><label for="recent">最近</label></p>
+                    {volist name="shanghailist" id="cl"}
+                     <p><input type="radio" name="shanghai_help" id="sh{$cl['value']}" value="{$cl['value']}" ><label for="sh{$cl['value']}" >{$cl['name']}</label></p>
+                    {/volist}
                 </div>
             </div>
             <!--单独的-->
             <div class="content_only">
                 <p class="question_name">4.您是否有长期的身体疼痛或者其他症状？</p>
                 <div class="question_option">
-                    <p><input type="radio" name="3" id="yes" value="是"><label for="yes">是</label><input type="text"class="describe" readonly="readonly" > <span>请描述</span> </p>
-                    <p><input type="radio" name="3" id="no" value="否"><label for="no">否</label></p>
+                    <p><input type="radio" name="3" id="yes" value="是" class="yes_button"><label for="yes">是</label><input type="text"class="describe" name="shenti_content" value  readonly="readonly" > <span>请描述</span> </p>
+                    <p><input type="radio" name="3" id="no" value="否" checked class="no_button"><label for="no">否</label></p>
                 </div>
             </div>
             <!--单独的-->
             <div class="content_only">
                 <p class="question_name">5.您是否有在吃药？</p>
                 <div class="question_option">
-                    <p><input type="radio" name="4" id="yes1"><label for="yes1">是</label><input type="text" class="describe" readonly="readonly"> <span>请描述</span> </p>
-                    <p><input type="radio" name="4" id="no1"><label for="no1">否</label></p>
-                </div>
+                    <p><input type="radio" name="4" id="yes1" class="yes_button"><label for="yes1">是</label><input type="text" class="describe" name="yaowu_help" value readonly="readonly"> <span>请描述</span> </p>
+                    <p><input type="radio" name="4" id="no1" checked class="no_button"><label for="no1">否</label></p>
+                </div> 
             </div>
             <!--单独的-->
             <div class="content_only">
                 <p class="question_name">6.您是之前做过心理咨询？</p>
                 <div class="question_option">
-                    <p><input type="radio" name="5" id="shi"><label for="shi">是</label><input type="text" class="describe" readonly="readonly"> <span>请描述</span> </p>
-                    <p><input type="radio" name="5" id="fou"><label for="fou">否</label></p>
+                    <p><input type="radio" name="5" id="shi" class="yes_button" ><label for="shi">是</label><input type="text" class="describe" name="before_xinli"  value readonly="readonly"> <span>请描述</span> </p>
+                    <p><input type="radio" name="5" id="fou" checked  class="no_button"><label for="fou">否</label></p>
                 </div>
             </div>
         </div>
@@ -145,10 +149,15 @@
     <div class="content2">
 
         <div class="contentT">
+            <input type="hidden"  name="case_type" value="{$typeid}">
+            <input type="hidden"  name="country" value="1">
+            <input type="hidden"  name="preferred_time" value="">
+            <input type="hidden"  name="isme" value="1">
+            <input type="hidden"  name="applicant_name" value="">
             {if condition="$typeid eq 4"}
             <div class="content_title">病案号</div>
             <div class="tc">
-                <input type="text" placeholder="医学专家意见服务病案号(见专家意见报告首页)" class="emo">
+                <input type="text" placeholder="医学专家意见服务病案号(见专家意见报告首页)" class="emo" name="record_number">
                 <div style="text-align: right;" class="findRight">
                     <a href="javascript:void(0);" class="howFind">如何找到病案号？</a>
                 </div>
@@ -159,9 +168,9 @@
             <div class="content_title">申请人信息</div>
             <!--表单部分-->
             <div class="tc">
-                <input type="text" placeholder="姓名" class="name">
+                <input type="text" placeholder="姓名" class="name" name="username">
                 <div class="pr">
-                    <input type="text" readonly="readonly" id="trigger1" class="birth" placeholder="出生日期">
+                    <input type="text" readonly="readonly" id="trigger1" class="birth" placeholder="出生日期" name="birthday">
                     <img src="__PHONE__/case/images/birth.png" alt="" class="bir">
                 </div>
 
@@ -169,12 +178,12 @@
                 <div class="df">
                     <p>患者性别</p>
                     <div>
-                        <input type="radio" name="11" id="yess"><label for="yess">男</label>
-                        <input type="radio" name="11" id="noo"><label for="noo">女</label>
+                        <input type="radio" name="sex" value="1" id="yess" checked><label for="yess">男</label>
+                        <input type="radio" name="sex" value="0" id="noo"><label for="noo">女</label>
                     </div>
                 </div>
-                <input type="text" placeholder="电话" class="phone">
-                <input type="text" placeholder="E-mail" class="mail">
+                <input type="text" placeholder="电话" class="phone" name="preferred_phone">
+                <input type="text" placeholder="E-mail" class="mail" name="email">
                 <div class="pr df">
                     <!--<input type="text" placeholder="所在省市区" readonly="readonly" id="expressArea">-->
 
@@ -182,6 +191,9 @@
                         <!--省-->
                         <select id="province" name="province">
                             <option value="省">省</option>
+                            {volist name="area" id="vo"}
+                             <option  value="{$vo['id']}" >{$vo['area_name']}</option>
+                             {/volist}
                         </select>
                     </div>
 
@@ -206,13 +218,11 @@
                 </div>
                 <div class="pr">
                     <!--<input type="text" placeholder="请选择服务语言" readonly="readonly">-->
-                    <select name="" id="sele">
-                        <option>请选择服务语言</option>
-                        <option value="广东话">广东话</option>
-                        <option value="普通话">普通话</option>
-                        <option value="粤语">粤语</option>
-                        <option value="英语">英语</option>
-                        <option value="俄语">俄语</option>
+                    <select name="service_lang" id="sele">
+                        <option value="0">请选择服务语言</option>
+                        {volist name="case_service_list" id="cl"}
+                        <option  value="{$cl['value']}" >{$cl['name']}</option>
+                        {/volist}
                     </select>
                     <img src="__PHONE__/case/images/down.png" alt="" class="down" style="pointer-events: none;">
 
@@ -222,44 +232,44 @@
                 <div class="df mb">
                     <p>偏好的联络方式</p>
                     <div>
-                        <input type="radio" name="22" id="phone"><label for="phone">电话</label>
-                        <input type="radio" name="22" id="mail"><label for="mail">邮箱</label>
+                        <input type="radio" name="sx_lxfs" id="phone" value="1" checked><label for="phone">电话</label>
+                        <input type="radio" name="sx_lxfs" id="mail" value="2"><label for="mail">邮箱</label>
                     </div>
                 </div>
                 <div class="content_title">请说明您（或患者）的病情和需求</div>
                 <!--testarea-->
                 <div class="test mb">
-                    <textarea class="info"></textarea>
+                    <textarea class="info" name="illness"></textarea>
                 </div>
                 <div class="content_title">方便联络的时间</div>
                 <div class="select_time">
                     <ul>
-                        <li class="active">9:00-12:00</li>
+                        <li>9:00-12:00</li>
                         <li>12:00-15:00</li>
                         <li>15:00-18:00</li>
                         <li>18:00-21:00</li>
                         <div style="clear: both;"></div>
                     </ul>
-                    <input type="text" placeholder="请输入指定的时间">
+                    <input type="text" placeholder="请输入指定的时间" name="other_time">
                 </div>
                 <!--上传文件-->
                 <div style="width: 5.56rem; margin: 0 auto; text-align: left;">
-                    <input type="file" class="file_no" id="fileField">
-                    <span class="file_cli">选择文件</span> <span class="file_name">文本文本文本</span>
+                    <input type="file" class="file_no" id="fileField" name="upload_file">
+                    <span class="file_cli">选择文件</span> <span class="file_name" id="upload_result"></span>
                 </div>
             </div>
         </div>
         <!--免责声明-->
         <div class="terms">
-            <input type="checkbox" name="33"><label for="">我同意下述&nbsp;<a href="two_service.html">免责声明和服务条款</a></label>
+            <input type="checkbox" name="33"><label for="">我同意下述&nbsp;<a href="{:url(\'Phone/ruleservice\',array(\'id\'=>$typeid))}">免责声明和服务条款</a></label>
         </div>
         <!--提交按钮-->
         <div class="sub_btn">
-            <a href="">提交</a>
+            <a href="javascript:;" id="casesubmit">提交</a>
         </div>
 
     </div>
-
+    </form>
 
     <script src="__PHONE__/case/js/jquery.min.js"></script>
     <script src="__PHONE__/case/layui/layui.all.js"></script>
@@ -267,6 +277,112 @@
     <script src="__PHONE__/case/js/mobileSelect.js"></script>
     <!--日期控件-->
     <script>
+       
+       
+       $("[name='username']").change(function(){
+		$("[name='applicant_name']").val($(this).val());
+               
+	})
+       
+       // 上传文件
+	$('#fileField').on('change', function(){
+		
+		var uploadFile = $(this).get(0).files[0];
+		
+                
+		if(typeof uploadFile == 'undefined'){
+			return false;
+		}
+		
+		var formData = new FormData();
+		
+		formData.append('upload_file', uploadFile);
+		var ajaxOption = {
+			url 	: '{:url("advance/Upload/upload")}',
+			type	: 'post',
+			data	: formData,
+			dataType: 'json',
+			timeout	: 0,
+			processData : false,
+			contentType : false,
+			success	: function(res){
+				
+				if(res.code == 1){
+					$('#upload_result').html(uploadFile.name);
+				       $('#upload_file').before('<input type="hidden" value="'+res.data.url+'" name="options"/>');
+				}else{
+					$('#upload_result').html('<span >['+res.msg+']</span>');
+				}
+			},
+			error : function(xhr){
+				
+				$('#upload_result').html('<span >[网络链接错误]</span>');
+			}
+		};
+		$.ajax(ajaxOption);
+	});
+       
+       
+       function getcity(id){
+          		var current_province_id=id;
+                  
+		
+		$.ajax({
+			url:"{:url('@module/cases/Interfaces/getCity')}",
+			data:{ParentId:current_province_id},
+			dataType:'json',
+			type:'post',
+                        async: false,
+			success:function(re){
+				var html='<option value="0">请选择</option>';
+                                $("[name='district']").html(html);
+				var item=re.data;
+				for(var i in item){
+					html +='<option value="'+item[i]['id']+'" >'+item[i]['area_name']+'</option>';
+				}
+				$("[name='city']").html(html);
+                                
+			}
+		})
+      }
+      
+      
+      function getdistrict(id){
+          		var current_city=id;
+		$.ajax({
+			url:"{:url('@module/cases/Interfaces/getDistrict')}",
+			data:{ParentId:current_city},
+			dataType:'json',
+			type:'post',
+			success:function(re){
+				var html='<option value="0">请选择</option>';
+				var item=re.data;
+				for(var i in item){
+					html +='<option value="'+item[i]['id']+'" >'+item[i]['area_name']+'</option>';
+				}
+				$("[name='district']").html(html);
+			}
+		})
+      }
+      	$("[name='province']").change(function(){
+		$("[name='city']").html('<option value="0">请选择</option>');
+                getcity($(this).val());
+                $("[name='district']").val();
+	})
+	$("[name='city']").change(function(){
+		$("[name='district']").html('<option value="0">请选择</option>');
+
+                getdistrict($(this).val());
+	})
+	var pro_id=$("[name='province']").val();
+        if(pro_id>0){
+            $("[name='city']").html('<option value="0">请选择</option>');
+            getcity($("[name='province']").val());
+            $("[name='district']").html('<option value="0">请选择</option>');
+            getdistrict($("[name='province']").val());
+        }
+
+
         // 日期选择
         var years=[];
         var month=[];
@@ -356,13 +472,13 @@
                 {data:_data}
             ],
             transitionEnd:function(indexArr, data){
-                console.log(data);
+               // console.log(data);
             },
             callback:function(indexArr, data){
-                console.log(data);
-                // $("#trigger1").val(data[0].value+'-'+data[1].value+'-'+data[2].value);
+                //console.log(data);
+                 $("#trigger1").val(data[0].value+'-'+data[1].value+'-'+data[2].value);
 
-                $("#trigger1").val(data[2].value+' / '+data[1].value+' / '+data[0].value);
+//                $("#trigger1").val(data[2].value+' / '+data[1].value+' / '+data[0].value);
             }
         });
     </script>
@@ -387,151 +503,171 @@
                     $(this).siblings("span").show();
                 }
 
-                var radio1= $('input:radio[name="1"]:checked').val();
-                var radio2= $('input:radio[name="2"]:checked').val();
-                var radio3= $('input:radio[name="3"]:checked').val();
-                var radio4= $('input:radio[name="4"]:checked').val();
-                var radio5= $('input:radio[name="5"]:checked').val();
-                var check = $('input:checkbox[name="box"]:checked').val();
-                if(radio1!=null && radio2!=null && radio3!=null && radio4!=null && radio5!=null && check!=null){
-                    $(".next_btn a").css("background","#008fff");
-                }
+//                var radio1= $('input:radio[name="1"]:checked').val();
+//                var radio2= $('input:radio[name="2"]:checked').val();
+//                var radio3= $('input:radio[name="3"]:checked').val();
+//                var radio4= $('input:radio[name="4"]:checked').val();
+//                var radio5= $('input:radio[name="5"]:checked').val();
+//               var check = $('input:checkbox[name="box"]:checked').val();
+//               if(radio1!=null && radio2!=null && radio3!=null && radio4!=null && radio5!=null && check!=null){
+//                  
+//                    $(".next_btn a").css("background","#008fff");
+//                }
+                $(".next_btn a").css("background","#008fff");
             });
 
+
+            $(".next_btn a").css("background","#008fff");  //无需验证
             // 单选框部分
-            $("#yes").click(function(){
+            $(".yes_button").click(function(){
                 var $this = $(this);
                 $this.siblings(".describe").removeAttr("readonly");
                 $this.siblings(".describe").css("background","transparent");
                 $this.siblings("span").hide();
 
-                var radio1= $('input:radio[name="1"]:checked').val();
-                var radio2= $('input:radio[name="2"]:checked').val();
-                var radio3= $('input:radio[name="3"]:checked').val();
-                var radio4= $('input:radio[name="4"]:checked').val();
-                var radio5= $('input:radio[name="5"]:checked').val();
-                var check = $('input:checkbox[name="box"]:checked').val();
-                if(radio1!=null && radio2!=null && radio3!=null && radio4!=null && radio5!=null && check!=null){
-                    $(".next_btn a").css("background","#008fff");
-                }
+//                var radio1= $('input:radio[name="1"]:checked').val();
+//                var radio2= $('input:radio[name="2"]:checked').val();
+//                var radio3= $('input:radio[name="3"]:checked').val();
+//                var radio4= $('input:radio[name="4"]:checked').val();
+//                var radio5= $('input:radio[name="5"]:checked').val();
+//                var check = $('input:checkbox[name="box"]:checked').val();
+//                if(radio1!=null && radio2!=null && radio3!=null && radio4!=null && radio5!=null && check!=null){
+//                    $(".next_btn a").css("background","#008fff");
+//                }
+               
             });
-            $("#no").click(function(){
+            $(".no_button").click(function(){
                 var $this = $(this);
                 $this.parent().siblings().find(".describe").attr("readonly","readonly");
                 $this.parent().siblings().find(".describe").css("background","#f2f3f6");
                 $this.parent().siblings().find("span").hide();
 
-                var radio1= $('input:radio[name="1"]:checked').val();
-                var radio2= $('input:radio[name="2"]:checked').val();
-                var radio3= $('input:radio[name="3"]:checked').val();
-                var radio4= $('input:radio[name="4"]:checked').val();
-                var radio5= $('input:radio[name="5"]:checked').val();
-                var check = $('input:checkbox[name="box"]:checked').val();
-                if(radio1!=null && radio2!=null && radio3!=null && radio4!=null && radio5!=null && check!=null){
-                    $(".next_btn a").css("background","#008fff");
-                }
+
+               
+//                var radio1= $('input:radio[name="1"]:checked').val();
+//                var radio2= $('input:radio[name="2"]:checked').val();
+//                var radio3= $('input:radio[name="3"]:checked').val();
+//                var radio4= $('input:radio[name="4"]:checked').val();
+//                var radio5= $('input:radio[name="5"]:checked').val();
+//                var check = $('input:checkbox[name="box"]:checked').val();
+//                if(radio1!=null && radio2!=null && radio3!=null && radio4!=null && radio5!=null && check!=null){
+//                    $(".next_btn a").css("background","#008fff");
+//                }
             });
 
-            $("#yes1").click(function(){
-                var $this = $(this);
-                $this.siblings(".describe").removeAttr("readonly");
-                $this.siblings(".describe").css("background","transparent");
-                $this.siblings("span").hide();
-
-                var radio1= $('input:radio[name="1"]:checked').val();
-                var radio2= $('input:radio[name="2"]:checked').val();
-                var radio3= $('input:radio[name="3"]:checked').val();
-                var radio4= $('input:radio[name="4"]:checked').val();
-                var radio5= $('input:radio[name="5"]:checked').val();
-                var check = $('input:checkbox[name="box"]:checked').val();
-                if(radio1!=null && radio2!=null && radio3!=null && radio4!=null && radio5!=null && check!=null){
-                    $(".next_btn a").css("background","#008fff");
-                }
-            });
-            $("#no1").click(function(){
-                var $this = $(this);
-                $this.parent().siblings().find(".describe").attr("readonly","readonly");
-                $this.parent().siblings().find(".describe").css("background","#f2f3f6");
-                $this.parent().siblings().find("span").hide();
-
-                var radio1= $('input:radio[name="1"]:checked').val();
-                var radio2= $('input:radio[name="2"]:checked').val();
-                var radio3= $('input:radio[name="3"]:checked').val();
-                var radio4= $('input:radio[name="4"]:checked').val();
-                var radio5= $('input:radio[name="5"]:checked').val();
-                var check = $('input:checkbox[name="box"]:checked').val();
-                if(radio1!=null && radio2!=null && radio3!=null && radio4!=null && radio5!=null && check!=null){
-                    $(".next_btn a").css("background","#008fff");
-                }
-            });
-
-            $("#shi").click(function(){
-                var $this = $(this);
-                $this.siblings(".describe").removeAttr("readonly");
-                $this.siblings(".describe").css("background","transparent");
-                $this.siblings("span").hide();
-
-                var radio1= $('input:radio[name="1"]:checked').val();
-                var radio2= $('input:radio[name="2"]:checked').val();
-                var radio3= $('input:radio[name="3"]:checked').val();
-                var radio4= $('input:radio[name="4"]:checked').val();
-                var radio5= $('input:radio[name="5"]:checked').val();
-                var check = $('input:checkbox[name="box"]:checked').val();
-                if(radio1!=null && radio2!=null && radio3!=null && radio4!=null && radio5!=null && check!=null){
-                    $(".next_btn a").css("background","#008fff");
-                }
-            });
-            $("#fou").click(function(){
-                var $this = $(this);
-                $this.parent().siblings().find(".describe").attr("readonly","readonly");
-                $this.parent().siblings().find(".describe").css("background","#f2f3f6");
-                $this.parent().siblings().find("span").hide();
-
-                var radio1= $('input:radio[name="1"]:checked').val();
-                var radio2= $('input:radio[name="2"]:checked').val();
-                var radio3= $('input:radio[name="3"]:checked').val();
-                var radio4= $('input:radio[name="4"]:checked').val();
-                var radio5= $('input:radio[name="5"]:checked').val();
-                var check = $('input:checkbox[name="box"]:checked').val();
-                if(radio1!=null && radio2!=null && radio3!=null && radio4!=null && radio5!=null && check!=null){
-                    $(".next_btn a").css("background","#008fff");
-                }
-            });
+//            $("#yes1").click(function(){
+//                var $this = $(this);
+//                $this.siblings(".describe").removeAttr("readonly");
+//                $this.siblings(".describe").css("background","transparent");
+//                $this.siblings("span").hide();
+//
+//                var radio1= $('input:radio[name="1"]:checked').val();
+//                var radio2= $('input:radio[name="2"]:checked').val();
+//                var radio3= $('input:radio[name="3"]:checked').val();
+//                var radio4= $('input:radio[name="4"]:checked').val();
+//                var radio5= $('input:radio[name="5"]:checked').val();
+//                var check = $('input:checkbox[name="box"]:checked').val();
+//                if(radio1!=null && radio2!=null && radio3!=null && radio4!=null && radio5!=null && check!=null){
+//                    $(".next_btn a").css("background","#008fff");
+//                }
+//            });
+//            $("#no1").click(function(){
+//                var $this = $(this);
+//                $this.parent().siblings().find(".describe").attr("readonly","readonly");
+//                $this.parent().siblings().find(".describe").css("background","#f2f3f6");
+//                $this.parent().siblings().find("span").hide();
+//
+//                var radio1= $('input:radio[name="1"]:checked').val();
+//                var radio2= $('input:radio[name="2"]:checked').val();
+//                var radio3= $('input:radio[name="3"]:checked').val();
+//                var radio4= $('input:radio[name="4"]:checked').val();
+//                var radio5= $('input:radio[name="5"]:checked').val();
+//                var check = $('input:checkbox[name="box"]:checked').val();
+//                if(radio1!=null && radio2!=null && radio3!=null && radio4!=null && radio5!=null && check!=null){
+//                    $(".next_btn a").css("background","#008fff");
+//                }
+//            });
+//
+//            $("#shi").click(function(){
+//                var $this = $(this);
+//                $this.siblings(".describe").removeAttr("readonly");
+//                $this.siblings(".describe").css("background","transparent");
+//                $this.siblings("span").hide();
+//
+//                var radio1= $('input:radio[name="1"]:checked').val();
+//                var radio2= $('input:radio[name="2"]:checked').val();
+//                var radio3= $('input:radio[name="3"]:checked').val();
+//                var radio4= $('input:radio[name="4"]:checked').val();
+//                var radio5= $('input:radio[name="5"]:checked').val();
+//                var check = $('input:checkbox[name="box"]:checked').val();
+//                if(radio1!=null && radio2!=null && radio3!=null && radio4!=null && radio5!=null && check!=null){
+//                    $(".next_btn a").css("background","#008fff");
+//                }
+//            });
+//            $("#fou").click(function(){
+//                var $this = $(this);
+//                $this.parent().siblings().find(".describe").attr("readonly","readonly");
+//                $this.parent().siblings().find(".describe").css("background","#f2f3f6");
+//                $this.parent().siblings().find("span").hide();
+//
+//                var radio1= $('input:radio[name="1"]:checked').val();
+//                var radio2= $('input:radio[name="2"]:checked').val();
+//                var radio3= $('input:radio[name="3"]:checked').val();
+//                var radio4= $('input:radio[name="4"]:checked').val();
+//                var radio5= $('input:radio[name="5"]:checked').val();
+//                var check = $('input:checkbox[name="box"]:checked').val();
+//                if(radio1!=null && radio2!=null && radio3!=null && radio4!=null && radio5!=null && check!=null){
+//                    $(".next_btn a").css("background","#008fff");
+//                }
+//            });
 
 
 
             $(".next_btn").on('click','a',function(){
                     // 获取 name=3 的input 并获取他的value值   (点击下一步时的验证)
-                    var radio1= $('input:radio[name="1"]:checked').val();
-                    var radio2= $('input:radio[name="2"]:checked').val();
-                    var radio3= $('input:radio[name="3"]:checked').val();
-                    var radio4= $('input:radio[name="4"]:checked').val();
-                    var radio5= $('input:radio[name="5"]:checked').val();
-
-                    var check = $('input:checkbox[name="box"]:checked').val();
-                    // alert(check);
-
-                    if(radio1==null || radio2==null || radio3==null || radio4==null || radio5==null || check==null){
-                        layer.msg("请填写完整内容");
-                        $(".next_btn a").css("background","#c6c6d3");
-                        return false;
-                    }else{
-
-                        $(".next_btn a").css("background","#008fff");
+//                    var radio1= $('input:radio[name="1"]:checked').val();
+//                    var radio2= $('input:radio[name="2"]:checked').val();
+//                    var radio3= $('input:radio[name="3"]:checked').val();
+//                    var radio4= $('input:radio[name="4"]:checked').val();
+//                    var radio5= $('input:radio[name="5"]:checked').val();
+//
+//                    var check = $('input:checkbox[name="box"]:checked').val();
+//                    // alert(check);
+//
+//                    if(radio1==null || radio2==null || radio3==null || radio4==null || radio5==null || check==null){
+//                        layer.msg("请填写完整内容");
+//                        $(".next_btn a").css("background","#c6c6d3");
+//                        return false;
+//                    }else{
+//
+//                        $(".next_btn a").css("background","#008fff");
+//
+//                        $(".content1").hide();
+//                        $(".content2").show();
+//
+//                        $(".menu li:last-child").addClass("active").siblings().removeClass("active");
+//
+//                    }
+                    
+                    
+                    $(".next_btn a").css("background","#008fff");
 
                         $(".content1").hide();
                         $(".content2").show();
 
                         $(".menu li:last-child").addClass("active").siblings().removeClass("active");
-
-                    }
             });
         });
 
         $(".mui-icon-back").click(function(){
-            $(".content1").show();
-            $(".content2").hide();
-            $(".menu li:last-child").removeClass("active").siblings().addClass("active");
+            if($(".content1").is(':hidden')){
+                $(".content1").show();
+                $(".content2").hide();
+                $(".menu li:last-child").removeClass("active").siblings().addClass("active");
+            }else{
+                window.history.go(-1);
+            }
+            
         });
 
         $(function(){   //  part2
@@ -542,6 +678,18 @@
                 }else{
                     $this.removeClass("active");
                 }
+                
+                //整合active的li的html
+                var timestr='';
+                $.each($(".select_time ul li"),function(i){
+                    if($(this).hasClass("active")){
+                        timestr+=$(this).text()+'  ';
+                    }
+                });
+                
+                
+                $("input[name='preferred_time']").val(timestr);
+                
             });
             $(".down").click(function () {
                 $("#sele").prev().click();
@@ -551,12 +699,12 @@
             $(".sub_btn a").click(function(){
                 var $name = $(".name").val();
                 var $birth = $(".birth").val();
-                var val=$('input:radio[name="11"]:checked').val();
+                var val=$('input:radio[name="sex"]:checked').val();
                 var $phone = $(".phone").val();
                 var $mail = $(".mail").val();
                 var regEm = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
                 var $expressArea = $("#expressArea").val();
-                var val1=$('input:radio[name="22"]:checked').val();
+                var val1=$('input:radio[name="sx_lxfs"]:checked').val();
                 var $info = $(".info").val();
                 var val3=$('input:checkbox[name="33"]:checked').val();
 
@@ -594,6 +742,44 @@
                     layer.msg("请阅读并勾选免责声明");
                     return false;
                 }
+                
+                
+                 var valarray= $("#caseform").serializeArray();
+                $.each(valarray,function(i){
+                    
+                    if(valarray[i].name=='preferred_time'){
+                        valarray[i].value+=$("input[name='other_time']").val();
+                    }
+                   
+                })
+                
+                    $.ajax({
+                    url: '{:url(\'advance/Index/addCase\')}',
+                    type: "POST",
+                    data: valarray,
+                    success: function(data) {
+
+                        if(data.code==1){
+                           
+                             
+                             layer.msg('提交成功', {
+                                  icon: 1,
+                                  time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                                }, function(){
+                                  window.location.href='{:url(\'Phone/case_list\')}';
+                                })
+                        }else{
+                            if(data.msg.error==2){
+                                window.location.href='{:url(\'/service\')}';
+                            }else{
+                                layer.msg(data.msg.msg);
+                            }
+
+
+                        }
+
+                    }
+                })
             });
         });
 

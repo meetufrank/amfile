@@ -521,6 +521,18 @@ class Phone extends Base
             //获取国家列表
             $this->getCountryList();
             
+             //获取语言服务列表
+            $this->getCaseServiceList();
+            
+           
+             //问卷表单
+           //获取心理支持单选数组(问卷)
+           $this->getXinliList();
+           //获取情绪问题多选选项数组(问卷)
+           $this->getQingxuList();
+           //是否有伤害自己的想法单选选项数组(问卷)
+           $this->getShanghaiList();
+            
             if($typeid==1){
                 $title='国际医学专家意见服务申请表';
             }elseif($typeid==5){
@@ -541,6 +553,13 @@ class Phone extends Base
         }
 
 
+        //获取语言服务列表
+    protected function getCaseServiceList(){
+         
+         $logic =CaseTypeLogic::getInstance();
+         $case_service_list=$logic->getSelectServiceLang(['sl_status'=>1]);
+         $this->assign('case_service_list',$case_service_list);
+     }
         //获取国家数组
     protected function getCountryList(){
          
@@ -557,6 +576,33 @@ class Phone extends Base
 
      }
      
+      //获取心理支持单选数组(问卷)
+    protected function getXinliList(){
+         
+         $logic =CaseLogic::getInstance();
+         $case_manager=$logic->getXinlihelp();
+         unset($case_manager[0]);
+         $this->assign('xinlilist',$case_manager);
+     }
+      //获取情绪问题多选选项数组(问卷)
+    protected function getQingxuList(){
+         
+         
+         $logic =CaseLogic::getInstance();
+         $case_manager=$logic->getQingxuhelp();
+         $this->assign('qingxulist',$case_manager);
+     }
+      //是否有伤害自己的想法单选选项数组(问卷)
+    protected function getShanghaiList(){
+         
+        
+        
+         $logic =CaseLogic::getInstance();
+         $case_manager=$logic->getShanghaihelp();
+         unset($case_manager[0]);
+         $this->assign('shanghailist',$case_manager);
+     }
+     
       public function ruleservice($id) {
             
             if($id==1){
@@ -569,6 +615,6 @@ class Phone extends Base
                 $fetchname='four_service';
             }
             
-            return $this->fetch();
+            return $this->fetch($fetchname);
         }
 }

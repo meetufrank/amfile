@@ -1,6 +1,8 @@
 <?php
 namespace core\cases\model;
 
+error_reporting(E_ERROR | E_WARNING | E_PARSE);  //修改错误级别，防止报错
+
 use core\Model;
 use think\Request;
 use core\cases\logic\CountryLogic;
