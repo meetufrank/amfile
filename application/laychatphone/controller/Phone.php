@@ -386,9 +386,16 @@ class Phone extends Base
     public function case_list(){
         
         
-       $data= $this->getIdentity();
+        $data= $this->getIdentity();
  
+        $request=request();
+        $page= $request->param('page') ? $request->param('page') :1;
+        $num=5;
+
+      
      //print_r($data);exit;
+        
+       
         $casemodel=new Cases;
   
         if($data['mine']['managerid']){
@@ -402,19 +409,39 @@ class Phone extends Base
                 $arr=[];
             }
            
-            $case_list=$casemodel->getList($arr);  //获取case列表
+           
         }else{
             $arr=[
                 'userid'=>$data['mine']['id'],
                 'delete_time'=>0
                     ];
              
-            $case_list=$casemodel->getList($arr);  //获取case列表
         }
-  
+          $case_list=$casemodel->getList($arr,$page,$num);  //获取case列表
+            //查看下一页是否还有数据
+          $case_list2=$casemodel->getList($arr,$page+1,$num);  //获取case列表
+          $ismore=empty($case_list2)?0:1;
+        if($request->isPost()) {
+           
+           
+            $result['code']=1;
+            $result['ismore']= $ismore;
+            
+            foreach ($case_list as $key => $value) {
+                
+                 $case_list[$key]['new_create_time']= date('Y-m-d', strtotime($value['create_time']));
+                 $case_list[$key]['jumpurl']= url('Phone/case_content',['id'=>$value['id']]);
+            }
+            
+            $result['data']=$case_list;
+            
+            echo json_encode($result);
+            die;
+          } 
         
         $this->assign('action',$data['action']);
         $this->assign('is_jt',$data['is_jt']);
+        $this->assign('ismore',$ismore);
         $this->assign('is_manager',$data['mine']['managerid']);
         $this->assign('case_list',$case_list);
         $this->assign('userdata',$data['mine']);
