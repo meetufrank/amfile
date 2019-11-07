@@ -225,7 +225,7 @@ class UserList extends Base
 
            ];
            $this->UserOnly($where);
-           ;
+           
            //发送邮箱
             $email=new SendUser();
             $email->addSend($data);

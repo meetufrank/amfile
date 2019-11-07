@@ -13,6 +13,7 @@
 			
 			{$widget->form('text', ['title' => 'Confirm Password', 'type' => 'password', 'name' => 'pwd_again', 'value' => '','r_md_num'=>3])}
                         {if condition="$isCm eq 1"}
+                        {$widget->form('text', ['title' => 'Hospital', 'name' => 'hospital', 'value' => '','r_md_num'=>3])}
 			{$widget->form('select', ['title' => 'Specialty', 'name' => 'kslist[]', 'value' => '', 'list' => $kslist, 'attr' => 'multiple','select_default'=>'Please choose','tip'=>'*Can be multiple choice, click repeatedly to cancel.'])}
                         {$widget->form('select', ['title' => 'Good at language', 'name' => 'langlist[]', 'value' => '', 'list' => $bestlang, 'attr' => 'multiple','select_default'=>'Please choose','tip'=>'*Can be multiple choice, click repeatedly to cancel.'])}
                         {/if}

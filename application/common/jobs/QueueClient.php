@@ -78,6 +78,7 @@ class QueueClient
         $sendemail = new Cs();
         $result    = $sendemail->activeEmail($data['to'],$data['title'],$data['content'],$data['sendperson'],$fileurl); 
         if ($result) {
+            
              @unlink($fileurl);
             return true;
         } else {

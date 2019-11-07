@@ -14,6 +14,7 @@ class SendUser
     public function addSend($user=[],$type=1){
         //调用email接口方法
 	    $emails = new Cs();
+         
 		
 		//为1请求发送邮件
 		$to = $user['email'];
@@ -90,6 +91,13 @@ class SendUser
                 Queue::push('app\common\jobs\QueueClient@sendMAIL', $email_data, $queue ='jobs');
 		//$emailtrue = $emails->activeEmail($to,$YouxiangContent['title'],$YouxiangContent['content'][$is],$email_data['sendperson']);
                
+                
+                
+                //发送短信
+                $msg=new \message\mess();
+                $content='【汇医服务】亲爱的'.$user['nickname'].'先生/女士，您好！感谢您使用汇医全球医疗咨询服务。登录帐号：'.$user['user_name'].'，登录密码：'.$user['pwd'].'。登录后，请根据提示在线提交申请。我们的专案医生将竭诚为您服务。';
+                $msg->send($user['tel'], $content);  
+                
                //查询是否需要给其他邮箱发送邮件内容
                $omap=[
                    'cce.c_id'=>$user['company'],

@@ -86,7 +86,8 @@ class SUserList extends Base
                 'u_status' => $request->param('u_status'),
                 'is_manager'=>1,
                  'language'=>$request->param('language'),
-                'area'=>$request->param('area')
+                'area'=>$request->param('area'),
+                'hospital'=>$request->param('hospital')
             ];
             if($data['avatar']==''){
                 if($data['sex']){
@@ -243,7 +244,8 @@ class SUserList extends Base
                 'sort' => $request->param('sort'),
                 'u_status' => $request->param('u_status'),
                 'language'=>$request->param('language'),
-                'area'=>$request->param('area')
+                'area'=>$request->param('area'),
+                'hospital'=>$request->param('hospital')
             ];
             if(!$data['language']){
                $data['language']=ChatUserModel::getInstance()->where(['id'=>$userid])->value('language');
