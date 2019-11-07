@@ -36,7 +36,7 @@
         <div class="mais-per-mains">
             <p class="maisa-name">{if condition='!empty($manager_content)'}{$manager_content.companyname}{else/}{/if}</p>
             <p class="maisa-names">{if condition='!empty($manager_content)'}{$manager_content.nickname}{else/}{$action_data.mine.nickname}{/if}</p >
-            <p class="maisa-namess"></p>
+            <p class="maisa-namess">{if condition='!empty($manager_content)'}{$manager_content.hospital}{else/}{/if}</p>
         </div>
    {/if}
    {if condition="$is_jt eq 1 and $is_manager neq 0"}
