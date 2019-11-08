@@ -752,6 +752,7 @@
                     }
                    
                 })
+                layer.load();
                 
                     $.ajax({
                     url: '{:url(\'advance/Index/addCase\')}',
@@ -759,6 +760,7 @@
                     data: valarray,
                     success: function(data) {
 
+                        layer.close();
                         if(data.code==1){
                            
                              
