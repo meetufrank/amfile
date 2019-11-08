@@ -66,7 +66,7 @@
         {/if}
         <div class="mais-per-content">
             
-            <div class="manegermain"><span class="manegerspan">病案&nbsp;ID:&nbsp;</span><span class="color3">{$case_content.case_code}</span></div>
+            <div class="manegermain"><span class="manegerspan">病案&nbsp;ID:&nbsp;</span><span class="color3">{$case_content.case_code}</span></div>  <!--  style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;display: inline-block; width: 76%;position: relative;top: 4px;" -->
             <div class="manegermain"><span class="manegerspan">病案:&nbsp;</span><span class="color3">{$case_content.typename}</span></div>
             <div class="manegermain"><span class="manegerspan">病案协调:&nbsp;</span><span class="color3">{if condition="$case_content.jt_str"}{$case_content.jt_str}{else/}暂无{/if}</span></div>
             <div class="manegermain"><span class="manegerspan">时间:&nbsp;</span><span class="color3">{$case_content.create_time}</span></div>
