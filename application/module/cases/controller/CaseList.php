@@ -160,6 +160,20 @@ class CaseList extends Base
         
         $case_list=json_decode(json_encode($case_list),true);
         
+        
+        $logic =CaseLogic::getInstance();
+         //问卷表单
+       //获取心理支持单选数组(问卷)
+        $xl_list=$logic->getXinlihelp();
+       //获取情绪问题多选选项数组(问卷)
+        $qx_list=$logic->getQingxuhelp();
+    
+       //是否有伤害自己的想法单选选项数组(问卷)
+        $sh_list=$logic->getShanghaihelp();
+       
+       
+         
+        
         foreach ($case_list as $key => $value) {
             
             if(!in_array($key, $keyarr)){
@@ -182,7 +196,54 @@ class CaseList extends Base
                       $province_data=$case_list['e_province'];
                    }
                 }
+                
+                
+                if($key=='xinli_help'){  //心里问卷单选
+                
+                    foreach ($xl_list as $k => $v) {
+                        if($v['value']==$value && !empty($value)){
+                            $case_list['xinli_help_name']=$v['name'];
+                            $case_list['xinli_help_ename']=$v['ename'];
+                        }
+                    }
+                    
+                    isset($case_list['xinli_help_name']) || $case_list['xinli_help_name']='';
+                  
+                }
+                
+                
+                if($key=='qingxu_help'){  //获取情绪问题多选选项数组(问卷)
+                
+                    $qingxuarr= @explode(',', $value);
+                    $newarr=[];
+                    foreach ($qx_list as $k => $v) {
+                        if(in_array($v['value'], $qingxuarr) && !empty($value)){
+                           
+                            $newarr[]=$v['name'];
+                        }
+                    }
+                    $case_list['qingxu_help_name']= @implode(',', $newarr);
+
+                    if(in_array('999', $qingxuarr)){
+                       $case_list['qingxu_help_name']=$case_list['qingxu_help_name'].' '.$case_list['qingxu_other'];
+                    }
+                  
+                }
+                
+                if($key=='shanghai_help'){  //是否有伤害自己的想法单选选项数组
+                
+                    foreach ($sh_list as $k => $v) {
+                        if($v['value']==$value && !empty($value)){
+                            $case_list['shanghai_help_name']=$v['name'];
+                        }
+                    }
+                    
+                    isset($case_list['shanghai_help_name']) || $case_list['shanghai_help_name']='';
+                  
+                }
             }else{
+                
+                
                   
                     if($value>0){
                         $case_list[$key]='是';
@@ -192,12 +253,14 @@ class CaseList extends Base
                     
                 
             }
+            
+            
           if(is_null($value)||$value===''){
                     $case_list[$key]='';
                  }  
         }
        //生成html
-        
+      
         $html=<<<EOD
 <style type="text/css">
  table{
@@ -236,8 +299,8 @@ class CaseList extends Base
                   <td>{$case_list['case_code']}</td>
                 </tr>
                   <tr>
-                  <th>SalesforceID</th>
-                  <td>N/N</td>
+                  <th>病案号</th>
+                  <td>{$case_list['record_number']}</td>
                 </tr>
                   <tr>
                   <th>服务类型</th>
@@ -315,6 +378,32 @@ class CaseList extends Base
                   <td class="tc">{$case_list['specialty']}</td>
                  </tr>
                   
+                  <tr>
+                   <th>需要哪种心理支持</th>
+                   <td>{$case_list['xinli_help_name']}</td>
+                  </tr>
+                   <tr>
+                   <th>是否有伤害自己的想法</th>
+                   <td>{$case_list['shanghai_help_name']}</td>
+                  </tr>
+                  <tr>
+                   <th>是否有情绪问题</th>
+                   <td>{$case_list['qingxu_help_name']}</td>
+                  </tr>
+                   <tr>
+                   <th>其他症状</th>
+                   <td>{$case_list['shenti_content']}</td>
+                  </tr>
+                   <tr>
+                   <th>是否在吃药</th>
+                   <td>{$case_list['yaowu_help']}</td>
+                  </tr>
+                   <tr>
+                   <th>是否做过心里咨询</th>
+                   <td>{$case_list['before_xinli']}</td>
+                  </tr>
+                   
+                   
                  <tr>
                   <th style="width:100%;height:20%;font-size:15px;">额外信息</th>
              
@@ -388,14 +477,14 @@ class CaseList extends Base
                 
                 </tr>
                 <tr style="width:100%;text-align:left;">
-                 <th  height="100px" style="width:100%;">&nbsp;&nbsp;&nbsp;&nbsp;{$case_list['illness']}</th>
+                 <th  height="50px" style="width:100%;">&nbsp;&nbsp;&nbsp;&nbsp;{$case_list['illness']}</th>
                 </tr>
                  <tr>
                  <th style="width:100%;">case备注</th>
                 
                 </tr>
                 <tr style="width:100%;text-align:left;">
-                 <th  height="200px" style="width:100%;">&nbsp;&nbsp;&nbsp;&nbsp;{$case_list['case_note']}</th>
+                 <th  height="120px" style="width:100%;">&nbsp;&nbsp;&nbsp;&nbsp;{$case_list['case_note']}</th>
                 </tr>
               
                
@@ -599,6 +688,7 @@ EOD;
      }
     //获取心理支持单选数组(问卷)
     protected function getXinliList(){
+       
          
          $logic =CaseLogic::getInstance();
          $case_manager=$logic->getXinlihelp();
