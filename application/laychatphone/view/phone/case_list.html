@@ -67,13 +67,34 @@
                 <!-- {volist name="case_list" id="cl"}-->
                 <div class="middle_content">
                     <!--单独块-->
-                    <div class="content_block">
-                        <p class="join_btn">{$cl.name}</p>
-                        <p class="case_name">{$cl.typename}</p>
-                        <p class="case_type">{$cl.case_code}</p>
-                        <p class="case_time">{$cl.create_time|strtotime|date="Y-m-d",###}</p>
-                        <p class="case_btn" onclick="javascript:window.location.href='{:url(\'Phone/case_content\',array(\'id\'=>$cl.id))}'">在线咨询</p>
+                    <!--<div class="content_block">-->
+                        <!--<p class="join_btn">{$cl.name}</p>-->
+                        <!--<p class="case_name">{$cl.typename}</p>-->
+                        <!--<p class="case_type">{$cl.case_code}</p>-->
+                        <!--<p class="case_time">{$cl.create_time|strtotime|date="Y-m-d",###}</p>-->
+                        <!--<p class="case_btn" onclick="javascript:window.location.href='{:url(\'Phone/case_content\',array(\'id\'=>$cl.id))}'">在线咨询</p>-->
+                    <!--</div>-->
+
+
+                    <div class="new_block">
+                        <!--title-->
+                        <div class="block_title">
+                            <p>{$cl.typename}1</p>
+                        </div>
+                        <!--content-->
+                        <div class="block_con">
+                            <!--<p class="join_btn">{$cl.name}</p>-->
+                            <p class="case_type">{$cl.case_code}1</p>
+                            <p class="case_time">{$cl.create_time|strtotime|date="Y-m-d",###}1</p>
+                            <p class="case_btnRed" onclick="javascript:window.location.href='{:url(\'Phone/case_content\',array(\'id\'=>$cl.id))}'">{$cl.name}</p>
+                        </div>
                     </div>
+
+
+
+
+
+
                 </div>
                   <!-- {/volist}-->
 <!--                    <table class="maintable" >
@@ -121,13 +142,13 @@
             <!--content-->
             <div class="content">
                 <!--医学专家意见-->
-                <div class="content_blo"><a href="{:url('Phone/addcase',['typeid'=>1])}">医学专家意见</a></div>
+                <div class="content_blo"><a href="{:url('Phone/addcase',['typeid'=>1])}"  class="color017">医学专家意见</a></div>
                 <!--家庭医生随身行-->
-                <div class="content_blo"><a href="{:url('Phone/addcase',['typeid'=>5])}">家庭医生随身行</a></div>
+                <div class="content_blo"><a href="{:url('Phone/addcase',['typeid'=>5])}"  class="color9d3">家庭医生随身行</a></div>
                 <!--身心健康-->
-                <div class="content_blo"><a href="{:url('Phone/addcase',['typeid'=>2])}">身心健康</a></div>
+                <div class="content_blo"><a href="{:url('Phone/addcase',['typeid'=>2])}"  class="color077">身心健康</a></div>
                 <!--海外医疗安排-->
-                <div class="content_blo"><a href="{:url('Phone/addcase',['typeid'=>4])}">海外医疗安排</a></div>
+                <div class="content_blo"><a href="{:url('Phone/addcase',['typeid'=>4])}" class="color563">海外医疗安排</a></div>
             </div>
             <!--<div class="content-main-order">-->
                 <!--<div class="order-main-header">-->
