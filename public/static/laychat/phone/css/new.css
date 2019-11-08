@@ -766,19 +766,18 @@ table.order-maintable td{
 .join_btn{
 	text-align: right;
 	margin-right: .8rem !important;
-	color: red;
 	font-weight: bold;
 	font-size: 0.5rem;
 	margin-bottom: 0;
 }
-.join_btn088{
+/*.join_btn088{
 	text-align: right;
 	margin-right: .8rem !important;
 	color: #008fff;
 	font-weight: bold;
 	font-size: 0.65rem;
 	margin-bottom: 0;
-}
+}*/
 .case_name{
 	font-size: 1rem;
 	color: #2a4056;

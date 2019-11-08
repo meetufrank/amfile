@@ -37,6 +37,22 @@
         padding: 5px;
         text-align: center;
     }
+    .pending{
+        color:red;
+    }
+    .assigned{
+        color:#FFA500;
+    }
+    .followed{
+        color:#63B8FF;
+    }
+    .completed{
+        color:#7FFF00;
+    }
+    .canceled{
+        color:#838B83;
+    }
+    
     </style>
 </head>
 <body id="body">
@@ -67,8 +83,8 @@
                 <!-- {volist name="case_list" id="cl"}-->
                 <div class="middle_content">
                     <!--单独块-->
-                    <div class="content_block">
-                        <p class="join_btn">{$cl.name}</p>
+                    <div class="content_block" onclick="javascript:window.location.href='{:url(\'Phone/case_content\',array(\'id\'=>$cl.id))}'">
+                        <p class="join_btn {$cl.name}">{$cl.name}</p>
                         <p class="case_name">{$cl.typename}</p>
                         <p class="case_type">{$cl.case_code}</p>
                         <p class="case_time">{$cl.create_time|strtotime|date="Y-m-d",###}</p>
@@ -218,7 +234,7 @@
             </div>
 	       <div class="aui-bar-tab-item" tapmode {neq name="userdata.managerid" value="0"}style="display:none;"{/neq}>
 	                <i  class="aui-iconfont aui-icon-comment"></i>
-	                <div class="aui-bar-tab-label" >预约</div>
+	                <div class="aui-bar-tab-label" >Case</div>
 	       </div>
          
             <div class="aui-bar-tab-item" tapmode>
@@ -255,7 +271,7 @@
                              $.each(data.data,function(i){
                                  html+='<div class="middle_content">';
                                    html+='<div class="content_block">';
-                                         html+='<p class="join_btn">'+result[i].name+'</p>';
+                                         html+='<p class="join_btn '+result[i].name+'">'+result[i].name+'</p>';
                                          html+='<p class="case_name">'+result[i].typename+'</p>';
                                          html+='<p class="case_type">'+result[i].case_code+'</p>';
                                          html+='<p class="case_time">'+result[i].new_create_time+'</p>';
