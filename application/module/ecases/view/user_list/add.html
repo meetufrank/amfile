@@ -33,7 +33,14 @@
                         
 		       {$widget->form('select', ['title' => 'Notification language', 'name' => 'language', 'value' =>3,'list'=>$languagelist])}
 			{$widget->form('image', ['title' => 'Avatar', 'name' => 'avatar', 'value' => '', 'width' => 600,'require'=>false])}
-			
+			<div class="am-g am-margin-top-sm">
+                             <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                 &nbsp;
+                             </div> 
+                            <div class="am-u-sm-8 am-u-md-5 am-u-end" style="text-align:center;">  
+                                <span>(Avatar size ratio suggestion : 200*200)</span>
+                            </div>
+                        </div>
                             {$widget->form('radio', ['title' => 'User Status', 'name' => 'u_status', 'value' => 1, 'list' => $userstatus])}
 	               
 		

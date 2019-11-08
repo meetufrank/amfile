@@ -33,7 +33,14 @@
                         
 		       {$widget->form('select', ['title' => '通知语言', 'name' => 'language', 'value' =>'','list'=>$languagelist])}
 			{$widget->form('image', ['title' => '头像', 'name' => 'avatar', 'value' => '', 'width' => 600,'require'=>false])}
-			
+			<div class="am-g am-margin-top-sm">
+                             <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                 &nbsp;
+                             </div> 
+                            <div class="am-u-sm-8 am-u-md-5 am-u-end" style="text-align:center;">  
+                                <span>(头像尺寸比例建议200*200)</span>
+                            </div>
+                        </div>
 			{$widget->form('radio', ['title' => '用户状态', 'name' => 'u_status', 'value' => 1, 'list' => $userstatus])}
 	               
 		

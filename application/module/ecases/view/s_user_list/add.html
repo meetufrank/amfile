@@ -14,11 +14,11 @@
 			{$widget->form('text', ['title' => 'Confirm Password', 'type' => 'password', 'name' => 'pwd_again', 'value' => '','r_md_num'=>3])}
                         {if condition="$isCm eq 1"}
                         {$widget->form('text', ['title' => 'Hospital', 'name' => 'hospital', 'value' => '','r_md_num'=>3])}
-			{$widget->form('select', ['title' => 'Specialty', 'name' => 'kslist[]', 'value' => '', 'list' => $kslist, 'attr' => 'multiple','select_default'=>'Please choose','tip'=>'*Can be multiple choice, click repeatedly to cancel.'])}
-                        {$widget->form('select', ['title' => 'Good at language', 'name' => 'langlist[]', 'value' => '', 'list' => $bestlang, 'attr' => 'multiple','select_default'=>'Please choose','tip'=>'*Can be multiple choice, click repeatedly to cancel.'])}
+			{$widget->form('select', ['title' => 'Specialty', 'name' => 'kslist[]', 'value' => '', 'list' => $kslist, 'attr' => 'multiple','select_default'=>'Please choose','tip'=>'*Can be multiple choice, click repeatedly to cancel.','require'=>false])}
+                        {$widget->form('select', ['title' => 'Good at language', 'name' => 'langlist[]', 'value' => '', 'list' => $bestlang, 'attr' => 'multiple','select_default'=>'Please choose','tip'=>'*Can be multiple choice, click repeatedly to cancel.','require'=>false])}
                         {/if}
                         {$widget->form('radio', ['title' => 'Gender', 'name' => 'sex', 'value' => 1,'list'=>$sexlist])}
-			     {$widget->form('text', ['title' => 'Residence Address', 'name' => 'area', 'value' => '','r_md_num'=>3])}
+			     {$widget->form('text', ['title' => 'Residence Address', 'name' => 'area', 'value' => '','r_md_num'=>3,'require'=>false])}
 			{$widget->form('text', ['title' => 'Email', 'name' => 'email', 'value' => '','r_md_num'=>3])}
 			
                         {$widget->form('text', ['title' => 'Mobile Number', 'name' => 'tel', 'value' => '','r_md_num'=>3])}
@@ -26,7 +26,14 @@
 
 		
 			{$widget->form('image', ['title' => 'Avatar', 'name' => 'avatar', 'value' => '', 'width' => 600,'require'=>false])}
-			
+			<div class="am-g am-margin-top-sm">
+                             <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                 &nbsp;
+                             </div> 
+                            <div class="am-u-sm-8 am-u-md-5 am-u-end" style="text-align:center;">  
+                                <span>(Avatar size ratio suggestion : 200*200)</span>
+                            </div>
+                        </div>
 			{$widget->form('radio', ['title' => 'User Status', 'name' => 'u_status', 'value' => 1, 'list' => $userstatus])}
 	               
 		
