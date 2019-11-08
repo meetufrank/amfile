@@ -363,6 +363,7 @@ input[type="checkbox"]:checked::before{
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    padding: .01rem 0;
 }
 
 

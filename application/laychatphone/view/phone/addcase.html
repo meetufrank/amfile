@@ -256,6 +256,7 @@
                 <div style="width: 5.56rem; margin: 0 auto; text-align: left;">
                     <input type="file" class="file_no" id="fileField" name="upload_file">
                     <span class="file_cli">选择文件</span> <span class="file_name" id="upload_result"></span>
+                    <span style="font-size: .24rem;font-family: Microsoft Yahei, '微软雅黑';color: #31465d;display: inline-block;margin-top: .1rem;">文件仅支持单个JPG,PDF,JPEG,PNG,DOC,ZIP格式,多个文件请压缩ZIP上传,最大上传大小为10M</span>
                 </div>
             </div>
         </div>
@@ -288,8 +289,8 @@
 	$('#fileField').on('change', function(){
 		
 		var uploadFile = $(this).get(0).files[0];
-		
-                
+
+        var layerload = layer.load();
 		if(typeof uploadFile == 'undefined'){
 			return false;
 		}
@@ -306,17 +307,19 @@
 			processData : false,
 			contentType : false,
 			success	: function(res){
-				
+                layer.close(layerload);
 				if(res.code == 1){
 					$('#upload_result').html(uploadFile.name);
 				       $('#fileField').before('<input type="hidden" value="'+res.data.url+'" name="options"/>');
 				}else{
 					$('#upload_result').html('<span >['+res.msg+']</span>');
 				}
+
 			},
 			error : function(xhr){
-				
+                layer.close(layerload);
 				$('#upload_result').html('<span >[网络链接错误]</span>');
+
 			}
 		};
 		$.ajax(ajaxOption);
@@ -752,7 +755,7 @@
                     }
                    
                 })
-                layer.load();
+                var layerload = layer.load();
                 
                     $.ajax({
                     url: '{:url(\'advance/Index/addCase\')}',
@@ -760,7 +763,7 @@
                     data: valarray,
                     success: function(data) {
 
-                        layer.close();
+                        layer.close(layerload);
                         if(data.code==1){
                            
                              
