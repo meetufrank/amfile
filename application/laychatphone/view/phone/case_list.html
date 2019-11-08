@@ -100,7 +100,9 @@
                             </tbody>
                         </table>-->
 
+                       {if condition="$ismore eq 1"}
                         <p class="lodemore" id="morecase"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i></p>
+                       {/if}
             </div>
         </div>
         <div id="main2" class="main-hide">
@@ -214,7 +216,7 @@
 <script>
 
 
-   window.__page=1;
+   window.__page=2;
    $(document).on('click','#morecase',function(){
       
       $.ajax({

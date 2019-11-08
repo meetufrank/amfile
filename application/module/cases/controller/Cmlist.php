@@ -58,6 +58,8 @@ class Cmlist extends Base
     protected function getManagerList($map=null){
          
          $usedata=ChatUserLogic::getInstance()->getCasemanager($map);
+         
+         
          $this->_page($usedata);
        
         
@@ -163,9 +165,9 @@ class Cmlist extends Base
         }
         $listdata=json_decode(json_encode($list),true); //转换数组
         $userlist=$listdata['data'];
-        array_multisort($ar0,$userlist);
-        array_multisort($ar1, $ar2,$userlist);
-        array_multisort($ar3,SORT_DESC,$ar4,SORT_DESC,$userlist);
+        @array_multisort($ar0,$userlist);
+        @array_multisort($ar1, $ar2,$userlist);
+        @array_multisort($ar3,SORT_DESC,$ar4,SORT_DESC,$userlist);
         
         
         $this->assign('userlist', $userlist);
