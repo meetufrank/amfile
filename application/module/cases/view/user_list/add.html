@@ -31,7 +31,7 @@
                         {$widget->form('text', ['title' => '手机号码', 'name' => 'tel', 'value' => '','r_md_num'=>3])}
                         
                         
-		       {$widget->form('select', ['title' => '通知语言', 'name' => 'language', 'value' =>3,'list'=>$languagelist])}
+		       {$widget->form('select', ['title' => '通知语言', 'name' => 'language', 'value' =>'','list'=>$languagelist])}
 			{$widget->form('image', ['title' => '头像', 'name' => 'avatar', 'value' => '', 'width' => 600,'require'=>false])}
 			
 			{$widget->form('radio', ['title' => '用户状态', 'name' => 'u_status', 'value' => 1, 'list' => $userstatus])}
