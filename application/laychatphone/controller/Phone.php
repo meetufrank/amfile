@@ -483,7 +483,7 @@ class Phone extends Base
         public function logout(){
             
             
-            cookie('phone_user_name', null);
+//            cookie('phone_user_name', null);
             cookie('phone_user_id', null);
             cookie('phone_user_sign', null);
             cookie('phone_user_avatar', null);

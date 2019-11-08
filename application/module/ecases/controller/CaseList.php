@@ -159,6 +159,16 @@ class CaseList extends Base
         
         $case_list=json_decode(json_encode($case_list),true);
         
+        $logic =CaseLogic::getInstance();
+         //问卷表单
+       //获取心理支持单选数组(问卷)
+        $xl_list=$logic->getXinlihelp(2);
+       //获取情绪问题多选选项数组(问卷)
+        $qx_list=$logic->getQingxuhelp(2);
+    
+       //是否有伤害自己的想法单选选项数组(问卷)
+        $sh_list=$logic->getShanghaihelp(2);
+        
         foreach ($case_list as $key => $value) {
             
             if(!in_array($key, $keyarr)){
@@ -180,6 +190,50 @@ class CaseList extends Base
                    }else{
                       $province_data=$case_list['e_province'];
                    }
+                }
+                
+                 if($key=='xinli_help'){  //心里问卷单选
+                
+                    foreach ($xl_list as $k => $v) {
+                        if($v['value']==$value && !empty($value)){
+                            $case_list['xinli_help_name']=$v['name'];
+                            $case_list['xinli_help_ename']=$v['ename'];
+                        }
+                    }
+                    
+                    isset($case_list['xinli_help_name']) || $case_list['xinli_help_name']='';
+                  
+                }
+                
+                
+                if($key=='qingxu_help'){  //获取情绪问题多选选项数组(问卷)
+                
+                    $qingxuarr= @explode(',', $value);
+                    $newarr=[];
+                    foreach ($qx_list as $k => $v) {
+                        if(in_array($v['value'], $qingxuarr) && !empty($value)){
+                            
+                            $newarr[]=$v['name'];
+                        }
+                    }
+                    $case_list['qingxu_help_name']= @implode(',', $newarr);
+
+                    if(in_array('999', $qingxuarr)){
+                       $case_list['qingxu_help_name']=$case_list['qingxu_help_name'].' '.$case_list['qingxu_other'];
+                    }
+                  
+                }
+                
+                if($key=='shanghai_help'){  //是否有伤害自己的想法单选选项数组
+                
+                    foreach ($sh_list as $k => $v) {
+                        if($v['value']==$value && !empty($value)){
+                            $case_list['shanghai_help_name']=$v['name'];
+                        }
+                    }
+                    
+                    isset($case_list['shanghai_help_name']) || $case_list['shanghai_help_name']='';
+                  
                 }
             }else{
                   
@@ -236,9 +290,9 @@ class CaseList extends Base
                   <td>{$case_list['case_code']}</td>
                 </tr>
                   <tr>
-                  <th>SalesforceID</th>
-                  <td>N/N</td>
-                </tr>
+                  <th>Medical record number</th>
+                  <td>{$case_list['record_number']}</td>
+                  </tr>
                   <tr>
                   <th>Service Item</th>
                   <td>{$case_list['typeename']}</td>
@@ -314,6 +368,32 @@ class CaseList extends Base
                   <td class="tc">{$case_list['specialty']}</td>
                  </tr>
                   
+                  <tr>
+                   <th>What kind of psychological support is needed?</th>
+                   <td>{$case_list['xinli_help_name']}</td>
+                  </tr>
+                   <tr>
+                   <th>Is there any idea of hurting yourself?</th>
+                   <td>{$case_list['shanghai_help_name']}</td>
+                  </tr>
+                  <tr>
+                   <th>Is there an emotional problem?</th>
+                   <td>{$case_list['qingxu_help_name']}</td>
+                  </tr>
+                   <tr>
+                   <th>Other symptoms</th>
+                   <td>{$case_list['shenti_content']}</td>
+                  </tr>
+                   <tr>
+                   <th>Are you taking medicine?</th>
+                   <td>{$case_list['yaowu_help']}</td>
+                  </tr>
+                   <tr>
+                   <th>Have you ever had a psychological consultation?</th>
+                   <td>{$case_list['before_xinli']}</td>
+                  </tr>
+                   
+                   
                  <tr>
                   <th style="width:100%;height:20%;font-size:15px;">Extra information</th>
              

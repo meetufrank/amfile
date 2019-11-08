@@ -17,7 +17,8 @@ class Login extends Controller
 
  
          
-        
+        $this->assign('username', cookie('phone_user_name'));
+        $this->assign('password', cookie('phone_pwd'));
         return $this->fetch();
     }
 
@@ -57,7 +58,9 @@ class Login extends Controller
             //设置用户登录
             $chatuser->where('id', $user['id'])->setField('status', 1);
 
+            
             //设置session标识状态
+            cookie('phone_pwd',$pwd);
             cookie('phone_user_name', $user['user_name']);
             cookie('phone_user_id', $user['id']);
             cookie('phone_user_sign', $user['sign']);
