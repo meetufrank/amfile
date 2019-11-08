@@ -438,7 +438,7 @@ class Phone extends Base
             echo json_encode($result);
             die;
           } 
-        
+   
         $this->assign('action',$data['action']);
         $this->assign('is_jt',$data['is_jt']);
         $this->assign('ismore',$ismore);
@@ -447,8 +447,8 @@ class Phone extends Base
         $this->assign('userdata',$data['mine']);
         return $this->fetch();
     }
-    
-    
+  
+                 
         //获取当前用户有多少个未读通知
     public function getNoRead()
     {
