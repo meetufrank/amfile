@@ -30,7 +30,7 @@
                             </div>
                             <button type="button" class="am-btn am-btn-sm am-btn-primary " onClick="resetpwd({$_id});">重置密码</button>
                         </div>
-			{$widget->form('text', ['title' => '重复密码', 'type' => 'password', 'name' => 'pwd_again', 'value' => '','r_md_num'=>3,'require'=>false])}
+			{$widget->form('text', ['title' => '重复密码', 'type' => 'password', 'name' => 'pwd_again', 'value' => '','r_md_num'=>3,'require'=>false,'require'=>false])}
 			
                         {$widget->form('radio', ['title' => '性别', 'name' => 'sex', 'value' => $user_list['sex'],'list'=>$sexlist])}
 			     {$widget->form('text', ['title' => '联系地址', 'name' => 'area', 'value' => $user_list['area'],'r_md_num'=>3,'require'=>false])}
@@ -41,7 +41,14 @@
                         {$widget->form('select', ['title' => '通知语言', 'name' => 'language', 'value' =>$user_list['language'],'list'=>$languagelist])}
 		
 			{$widget->form('image', ['title' => '头像', 'name' => 'avatar', 'value' => $user_list['avatar'], 'width' => 600,'require'=>false])}
-			
+			<div class="am-g am-margin-top-sm">
+                             <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                 &nbsp;
+                             </div> 
+                            <div class="am-u-sm-8 am-u-md-5 am-u-end" style="text-align:center;">  
+                                <span>(头像尺寸比例建议200*200)</span>
+                            </div>
+                        </div>
 			{$widget->form('radio', ['title' => '用户状态', 'name' => 'u_status', 'value' => 1, 'list' => $userstatus])}
 	               
 		
