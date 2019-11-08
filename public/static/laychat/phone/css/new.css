@@ -784,27 +784,30 @@ table.order-maintable td{
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
-	padding: 0 1rem;
+	margin: 0;
+	/*padding: 0 1rem;*/
 }
 .case_type{
 	color: #2a4056;
 	font-size: 0.7rem;
 }
 .case_time{
-	color: #8190a7;
+	color: #2a4056;
 	font-size: 0.7rem;
 }
 .case_btn{
 	font-size: .7rem;
 	border: 1px solid #088fff;
 	display: inline-block;
-	/*padding: 1px 10px;*/
-	border-radius: 5px;
-	background: #088fff;
-	color: #fff;
+	/* padding: 1px 10px; */
+	border-radius: 2px;
+	color: #008fff;
 	width: 80px;
 	height: 30px;
 	line-height: 30px;
+	text-align: center;
+	position: relative;
+	top: 1.1rem;
 }
 
 /*慢病管理 - 身心健康*/
@@ -884,35 +887,28 @@ table.order-maintable td{
 }
 /*case列表的新样式*/
 .new_block{
-	width: 16rem;
-	text-align: center;
+	width: 17.05rem;
+	border: 1px solid #e4e8ef;
+	background: #fff;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
 	margin: 0 auto;
+	box-shadow: 0 0 10px 2px rgba(96, 96, 96, .2);
+	position: relative;
+	padding: 1rem .6rem;
 	margin-bottom: .5rem;
-	padding-bottom: .3rem;
 }
 .block_title{
-	background: #008fff;
-	height: 30px;
-	line-height: 30px;
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	border-radius: 4px;
-}
-.block_title p{
-	color: #fff;
-	font-size: .8rem;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	padding: 0 1rem;
+	display: flex;
+	justify-content: space-between;
+	border-bottom: 1px solid #e8e8e8;
+	height: 2rem;
+	line-height: 1.8rem;
+	margin-bottom: 1rem;
 }
 .block_con{
-	width: 15rem;
-	border: 1px solid #e8e8e8;
-	margin: 0 auto;
-	border-top: none;
-	background: #fff;
-	box-shadow: 0 0 10px 2px rgba(96, 96, 96, .2);
+	display: flex;
+	justify-content: space-between;
 }
-
 
