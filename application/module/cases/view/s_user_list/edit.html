@@ -17,7 +17,7 @@
                             </div>
                             <button type="button" class="am-btn am-btn-sm am-btn-primary " onClick="resetpwd({$user_list['id']});">重置密码</button>
                         </div>
-			{$widget->form('text', ['title' => '重复密码', 'type' => 'password', 'name' => 'pwd_again', 'value' => '','r_md_num'=>3])}
+			{$widget->form('text', ['title' => '重复密码', 'type' => 'password', 'name' => 'pwd_again', 'value' => '','r_md_num'=>3,'require'=>false])}
 			{if condition="$isCm eq 1"}
                         {$widget->form('text', ['title' => '医院', 'name' => 'hospital', 'value' => $user_list['hospital'],'r_md_num'=>3])}
 			{$widget->form('select', ['title' => '擅长科室', 'name' => 'kslist[]', 'value' => $user_list['ks_list'], 'list' => $kslist, 'attr' => 'multiple','tip'=>'*可多选,重复点击可取消','require'=>false])}
