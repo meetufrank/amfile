@@ -22,6 +22,7 @@ class Cases extends Model
                 ->join('cases_case_type st','c.case_type=st.id')
                 ->join('cases_case_status cs','c.case_status=cs.id')
                 ->limit($l_start,$num)
-                ->where($arr)->select();
+                ->where($arr)
+                ->order('create_time desc')->select();
     }
 }
