@@ -67,28 +67,28 @@
                 <!-- {volist name="case_list" id="cl"}-->
                 <div class="middle_content">
                     <!--单独块-->
-                    <!--<div class="content_block">-->
-                        <!--<p class="join_btn">{$cl.name}</p>-->
-                        <!--<p class="case_name">{$cl.typename}</p>-->
-                        <!--<p class="case_type">{$cl.case_code}</p>-->
-                        <!--<p class="case_time">{$cl.create_time|strtotime|date="Y-m-d",###}</p>-->
-                        <!--<p class="case_btn" onclick="javascript:window.location.href='{:url(\'Phone/case_content\',array(\'id\'=>$cl.id))}'">在线咨询</p>-->
-                    <!--</div>-->
-
-
-                    <div class="new_block">
-                        <!--title-->
-                        <div class="block_title">
-                            <p>{$cl.typename}1</p>
-                        </div>
-                        <!--content-->
-                        <div class="block_con">
-                            <!--<p class="join_btn">{$cl.name}</p>-->
-                            <p class="case_type">{$cl.case_code}1</p>
-                            <p class="case_time">{$cl.create_time|strtotime|date="Y-m-d",###}1</p>
-                            <p class="case_btnRed" onclick="javascript:window.location.href='{:url(\'Phone/case_content\',array(\'id\'=>$cl.id))}'">{$cl.name}</p>
-                        </div>
+                    <div class="content_block">
+                        <p class="join_btn">{$cl.name}</p>
+                        <p class="case_name">{$cl.typename}</p>
+                        <p class="case_type">{$cl.case_code}</p>
+                        <p class="case_time">{$cl.create_time|strtotime|date="Y-m-d",###}</p>
+                        <p class="case_btn" onclick="javascript:window.location.href='{:url(\'Phone/case_content\',array(\'id\'=>$cl.id))}'">在线咨询</p>
                     </div>
+
+
+                    <!--<div class="new_block">-->
+                        <!--&lt;!&ndash;title&ndash;&gt;-->
+                        <!--<div class="block_title">-->
+                            <!--<p>{$cl.typename}1</p>-->
+                        <!--</div>-->
+                        <!--&lt;!&ndash;content&ndash;&gt;-->
+                        <!--<div class="block_con">-->
+                            <!--<p class="join_btn">{$cl.name}</p>-->
+                            <!--<p class="case_type">{$cl.case_code}1</p>-->
+                            <!--<p class="case_time">{$cl.create_time|strtotime|date="Y-m-d",###}1</p>-->
+                            <!--&lt;!&ndash;<p class="case_btnRed" onclick="javascript:window.location.href='{:url(\'Phone/case_content\',array(\'id\'=>$cl.id))}'">{$cl.name}</p>&ndash;&gt;-->
+                        <!--</div>-->
+                    <!--</div>-->
 
 
 
