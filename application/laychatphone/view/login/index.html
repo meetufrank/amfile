@@ -17,8 +17,8 @@
             <p class="index-p">汇医国际用户登陆</p>
         </div>
         <form name="index-form" method="post" class="index-form" id="login_form" role="form" action="{:url('login/dologin')}">
-            <div class="index-name"><span class="index-name-icon"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;账号:</span><input type="text" class="index-btn-number" placeholder="用户名" name="user_name"></div>
-            <div class="index-name"><span class="index-name-icon"><i class="fa fa-unlock-alt" aria-hidden="true"></i>&nbsp;密码:</span><input type="password" class="index-btn-number" placeholder="密码" name="pwd"></div>
+            <div class="index-name"><span class="index-name-icon"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;账号:</span><input type="text" class="index-btn-number" placeholder="用户名" name="user_name" value="{$username}"></div>
+            <div class="index-name"><span class="index-name-icon"><i class="fa fa-unlock-alt" aria-hidden="true"></i>&nbsp;密码:</span><input type="password" class="index-btn-number" placeholder="密码" name="pwd" value="{$password}"></div>
             <button type="submit" name="login"  class="index-login">登录</button>
         </form>
     </section>
