@@ -38,8 +38,14 @@ class Login extends Controller
                 return json(['code' => -4, 'data' => '', 'msg' => '密码不能为空']);
             }
 
+            $map=[
+                'user_name'=>$userName,
+                'delete_time'=>0,
+                'u_status'=>1
+            ];
             $user = $chatuser->field('id,user_name,pwd,sign,avatar,is_manager')
-                ->where('user_name = "' . $userName . '" and delete_time=0 and u_status=1 ')->find();
+                ->where($map)->find();
+            
             if(empty($user)){
                 return json(['code' => -1, 'data' => '', 'msg' => '用户不存在']);
             }
