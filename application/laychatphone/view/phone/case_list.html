@@ -92,7 +92,7 @@
                     <!--</div>-->
 
 
-                    <div class="new_block">
+                    <div class="new_block" onclick="javascript:window.location.href='{:url(\'Phone/case_content\',array(\'id\'=>$cl.id))}'">
                         <!--title-->
                         <div class="block_title">
                             <p class="case_name">{$cl.typename}</p>
@@ -270,17 +270,34 @@
                              window.__page+=1;
                              var html='';
                              var result=data.data;
-                              
+                             
+                    
+                             
                              $.each(data.data,function(i){
-                                 html+='<div class="middle_content">';
-                                   html+='<div class="content_block">';
-                                         html+='<p class="join_btn '+result[i].name+'">'+result[i].name+'</p>';
-                                         html+='<p class="case_name">'+result[i].typename+'</p>';
-                                         html+='<p class="case_type">'+result[i].case_code+'</p>';
-                                         html+='<p class="case_time">'+result[i].new_create_time+'</p>';
-                                         html+='<p class="case_btn" onclick="javascript:window.location.href=\''+result[i].jumpurl+'\';">在线咨询</p>';
+//                                 html+='<div class="middle_content">';
+//                                   html+='<div class="content_block">';
+//                                         html+='<p class="join_btn '+result[i].name+'">'+result[i].name+'</p>';
+//                                         html+='<p class="case_name">'+result[i].typename+'</p>';
+//                                         html+='<p class="case_type">'+result[i].case_code+'</p>';
+//                                         html+='<p class="case_time">'+result[i].new_create_time+'</p>';
+//                                         html+='<p class="case_btn" onclick="javascript:window.location.href=\''+result[i].jumpurl+'\';">在线咨询</p>';
+//                                   html+='</div>';
+//                                 html+='</div>';
+                               html+='<div class="middle_content">';
+                                 html+='<div class="new_block" onclick="javascript:window.location.href=\''+result[i].jumpurl+'\';">';
+                                   html+='<div class="block_title">';
+                                     html+='<p class="case_name">'+result[i].typename+'</p>';
+                                     html+='<p class="join_btn '+result[i].name+'">'+result[i].name+'</p>';
+                                   html+='</div>';
+                                   html+='<div class="block_con">';
+                                     html+='<div>';
+                                       html+='<p class="case_type"><span style="color: #8190a7">病案&nbsp;ID:</span>&nbsp;'+result[i].case_code+'</p>';
+                                       html+='<p class="case_time"><span style="color: #8190a7">时间:</span>&nbsp;'+result[i].new_create_time+'</p>';
+                                     html+='</div>';
+                                     html+='<p class="case_btn" onclick="javascript:window.location.href=\''+result[i].jumpurl+'\';">在线咨询</p>';
                                    html+='</div>';
                                  html+='</div>';
+                               html+='</div>';
                              });
                             $("#morecase").before(html);
                         
