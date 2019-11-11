@@ -9,10 +9,17 @@
 </head>
 <body>
 
-<script src="__COMMON__/layui/layui.js"></script>
+<script src="__COMMON__/layui/layui.js?v=1.0"></script>
 <script src="__COMMON__/js/jquery.min.js"></script>
 
 <script>
+
+    $(document).on("focus",".layim-chat-send input" ,function() {
+        setTimeout(function(){
+            document.body.scrollTop = document.body.scrollHeight;
+        },300);
+    });
+
     var userlist = {$userlist};
     var uid = "{$uinfo.id}";
     var uname = "{$uinfo.username}";
