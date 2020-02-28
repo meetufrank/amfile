@@ -186,7 +186,7 @@
 			var tempHTML='';
 			for(var i=0; i<wheelsData.length; i++){ 
 			//列
-				tempHTML += '<div class="wheel"><ul class="selectContainer">';
+				tempHTML += '<div class="wheel"><ul class="selectContainer selectContainer1">';
 				if(_this.jsonType){
 					for(var j=0; j<wheelsData[i].data.length; j++){ 
 					//行

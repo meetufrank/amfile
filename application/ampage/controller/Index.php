@@ -9,6 +9,8 @@ use app\common\App;
 use think\Request;
 use think\Queue;
 use app\ampage\validate\YjpageValidate;
+
+use org\wechat\Jssdk;
 class Index extends Controller
 {
     /**
@@ -108,6 +110,23 @@ class Index extends Controller
         $this->siteTitle='身心健康';
         
         return $this->fetch('header');
+    }
+     public function healthy() {
+        
+            $jssdk = new Jssdk(config('wechat_appid'), config('wechat_appsecret'));
+            $signPackage = $jssdk->GetSignPackage();
+            //print_r($signPackage);exit;
+            $this->assign('signPackage', $signPackage);
+            $this->assign('fx_title', '家庭医生随身行');
+            $this->assign('desc', '医疗咨询，一触可及');
+            
+            $url= request()->url(true);
+            $domain= request()->domain();
+            $this->assign('drumpurl',  $url); //当前链接
+            $this->assign('imgurl', $domain.'/static/ampage/20191211/images/fenxiang.jpg'); 
+            
+            
+        return $this->fetch('healthy');
     }
   
        /**

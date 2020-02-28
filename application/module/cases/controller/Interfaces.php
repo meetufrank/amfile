@@ -7,7 +7,7 @@
  */
 
 namespace module\cases\controller;
-
+error_reporting(0);
 use think\Controller;
 use think\Request;
 use cms\Response;

@@ -24,9 +24,7 @@ return [
     'cate/:name' => 'blog/index/cate',
     'article/:key' => 'blog/index/show',
     
-    // 后台
-    'module/:_module_/:_controller_/:_action_' => 'manage/loader/run',
-    'casecommander'=>'manage/start/login',
+   
     //AM聊天
     'service'=>'laychatphone/Login/index',
     
@@ -50,8 +48,30 @@ return [
     //一个页面邮件 路由
     
     
-    'health'=>'ampage/index/yjpage'
+    'health'=>'ampage/index/yjpage',
+    
+  
+    //am购买服务卡
+    'serviceIndex'=>'amservice/index/index',
+    'selectservice'=>'amservice/index/selectservice',
+    'payorder'=>'amservice/index/payorder',
+    'userService'=>'amservice/index/userservice',
+    'oprateService'=>'amservice/index/oprateservice',
+    'servicecase'=>'amservice/index/addcase',
+    
+    
+    //amos服务
+    'amosindex'=>'amos/index/index',
+    'amosfamily'=>'amos/index/familylist',
+    
+    //am聊天demo服务
+    'ltindex'=>'ltpage/login/index',
+    'lthtml'=>'ltpage/index/index',
     
     
     
+    
+     // 后台
+    'module/:_module_/:_controller_/:_action_' => 'manage/loader/run',
+    'casecommander'=>'manage/start/login',
 ];

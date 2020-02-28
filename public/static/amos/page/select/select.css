@@ -1,0 +1,207 @@
+body{
+    background: #f7f7f7;
+}
+
+div,p,h1,h2,h3,h4,h5,h6,ul,li{
+    margin: 0;
+    padding: 0;
+}
+
+
+.header{
+    position: relative;
+    background: linear-gradient(132deg, #4799F5 0%, #01B5E2 100%);
+    width: 100%;
+    height: 1rem;
+}
+
+.header h3{
+    font-family: "Microsoft YaHei";
+    font-size: .33rem;
+    color: #fff;
+    text-align: center;
+    line-height: 1rem;
+}
+.header .leftBtn{
+    position: absolute;
+    width: .4rem;
+    top: 50%;
+    left: .24rem;
+    transform: translate(0, -50%);
+}
+.header .tabBtn{
+    width: 2.02rem;
+    height: .54rem;
+    background: #E1E4E9;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    border-radius: 100px;
+    display: flex;
+    text-align: center;
+    line-height: .54rem;
+    position: absolute;
+    top: 50%;
+    right: .24rem;
+    transform: translate(0, -50%);
+}
+.header .tabBtn a{
+    font-family: "Microsoft YaHei";
+    font-size: .25rem;
+    color: #00b5e2;
+    width: 50%;
+    text-decoration: none;
+}
+.header .tabBtn a.active{
+    background: #fff;
+    border-radius: 100px;
+}
+
+.tab{
+    width: 100%;
+    display: flex;
+    height: 1.02rem;
+    line-height: 1.02rem;
+    background: #E1E4E9;
+    margin-bottom: .3rem;
+}
+.tab p{
+    font-family: "Microsoft YaHei";
+    font-size: .33rem;
+    color: #3a404e;
+    width: 50%;
+    text-align: center;
+}
+.tab p.active{
+    background: #fff;
+    box-shadow: 0 0px 10px 4px #D3D3D3;
+
+}
+
+.blo{
+    width: 6.96rem;
+    height: 2rem;
+    background: #fff;
+    display: flex;
+    -webkit-border-radius: .14rem;
+    -moz-border-radius: .14rem;
+    border-radius: .14rem;
+    box-shadow: 0 7px 7px 1px #eaeaea;
+    padding: .24rem;
+    margin: 0 auto .32rem;
+    padding-left: .3rem;
+}
+.blo .leftImg img{
+    width: .8rem;
+}
+.blo .leftImg{
+    border-right: 1px solid #dcdcdc;
+    padding-right: .3rem;
+    margin-right: .3rem;
+    line-height: 1.4rem;
+}
+.blo .middleText p{
+    font-family: "Microsoft YaHei";
+    font-size: .25rem;
+    color: #3a404e;
+    margin-bottom: .05rem;
+}
+.blo .middleText p:first-child{
+    color: #8a8a8c;
+}
+.blo .middleText p.name{
+    font-size: .33rem;
+}
+.blo .middleText{
+    width: 50%;
+    padding: 0.1rem 0;
+}
+.blo .rightBtn{
+    text-align: right;
+    width: 28%;
+}
+.blo .rightBtn p .lookDetail{
+    display: inline-block;
+    width: 1.51rem;
+    height: .63rem;
+    text-align: center;
+    line-height: .63rem;
+    background: #FF9800;
+    font-family: "Microsoft YaHei";
+    font-size: .25rem;
+    color: #fff;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    border-radius: 100px;
+    margin-bottom: .25rem;
+    text-decoration: none;
+}
+.blo .rightBtn p .startMet{
+    display: inline-block;
+    width: 1.51rem;
+    height: .63rem;
+    text-align: center;
+    line-height: .63rem;
+    background: #00B5E2;
+    font-family: "Microsoft YaHei";
+    font-size: .25rem;
+    color: #fff;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    border-radius: 100px;
+}
+
+.aloneP{
+    line-height: 1.4rem;
+}
+.color9{
+    background: #FFF9E9 !important;
+}
+.color666{
+    background: #C0BFBE !important;
+}
+
+.container{
+    margin-bottom: 4rem;
+}
+.twoBtn{
+    padding: .7rem 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 99;
+    background: #f7f7f7;
+}
+.twoBtn a.phoneBack{
+    display: block;
+    width: 4.53rem;
+    height: .82rem;
+    border-radius: 100px;
+    background: #00B5E2;
+    color: #fff;
+    font-family: "Microsoft YaHei";
+    font-size: .25rem;
+    text-align: center;
+    line-height: .82rem;
+    box-shadow: 0 4px 10px 1px #84DBF1;
+    margin: 0 auto .5rem;
+    text-decoration: none;
+}
+.twoBtn a.liveBack{
+    display: block;
+    width: 4.53rem;
+    height: .82rem;
+    border-radius: 100px;
+    font-family: "Microsoft YaHei";
+    font-size: .25rem;
+    text-align: center;
+    line-height: .82rem;
+    color: #00B5E2;
+    box-shadow: 0 4px 10px 1px #84DBF1;
+    margin: 0 auto;
+    text-decoration: none;
+}
+
+.container2{
+    display: none;
+}
+

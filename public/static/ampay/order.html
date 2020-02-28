@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>订单</title>
+    <link rel="stylesheet" href="mui/mui.min.css">
+    <script src="mui/mui.min.js"></script>
+    <script src="js/rem.js"></script>
+    <link rel="stylesheet" href="swiper/swiper.min.css">
+    <link rel="stylesheet" href="css/order.css">
+</head>
+<body>
+
+<header class="header">
+    <div class="header_left">
+        <span class="mui-icon mui-icon-arrowleft"></span>
+    </div>
+    <div class="header_center">
+        <img src="images/logo.png" alt="">
+    </div>
+</header>
+
+<div class="title">
+    <h4>家庭医生随身行</h4>
+</div>
+
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide" data-id="1">
+            <div class="tab">
+                <p>次卡</p>
+                <p>188元/次</p>
+                <p>(自激活起1个月)</p>
+            </div>
+        </div>
+
+        <div class="swiper-slide" data-id="2">
+            <div class="tab active">
+                <p>月卡</p>
+                <p>358元/3次</p>
+                <p>(自激活起3个月)</p>
+            </div>
+        </div>
+
+        <div class="swiper-slide" data-id="3">
+            <div class="tab">
+                <p>年卡</p>
+                <p>1080元/无限次</p>
+                <p>(自激活起1年)</p>
+            </div>
+        </div>
+    </div>
+    <!-- Add Pagination -->
+    <div class="swiper-pagination"></div>
+</div>
+
+<!--横线-->
+<div class="hr">
+    <p></p>
+</div>
+
+<!--服务条款-->
+<div class="terms">
+    <input type="checkbox" id="cbox">
+    <span>我已阅读并同意<b>《</b><a href="">购买服务条款</a><b>》</b></span>
+</div>
+
+
+<!--提交订单-->
+<div class="sub_btn">
+    <a href="javascript:void(0);">提交订单</a>
+</div>
+
+<script src="js/jquery.min.js"></script>
+<script src="layui/layui.all.js"></script>
+<script src="swiper/swiper.min.js"></script>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        freeMode : true,
+        slidesPerView: "auto",
+        spaceBetween : 20,
+        centeredSlides: true,
+        initialSlide :1,
+        // loop: true
+    });
+
+
+    $(".swiper-slide").on('click','.tab',function(){
+       var $tab = $(this);
+       if(!$tab.hasClass("active")){
+           $tab.addClass("active").parent().siblings().find(".tab").removeClass("active");
+       }
+    });
+
+    $(".sub_btn").click(function(){
+        if(!$("#cbox").is(":checked")){
+            layer.msg("请勾选复选框");
+            return false;
+        }else{
+            layer.msg("勾选了");
+        }
+    });
+
+    // $(".swiper-slide").on('click',function(){
+    //     var $this = $(this);
+    //     var $data = $this.attr("data-id");
+    //     if($data == 1){
+    //         $(".swiper-wrapper").css("transform","translate3d(128.07px, 0px, 0px)");
+    //     }else if($data == 2){
+    //         $(".swiper-wrapper").css("transform","translate3d(-49.7885px, 0px, 0px)");
+    //     }else if($data == 3){
+    //         $(".swiper-wrapper").css("transform","translate3d(-227.648px, 0px, 0px)");
+    //     }
+    // });
+
+
+
+</script>
+
+</body>
+</html>

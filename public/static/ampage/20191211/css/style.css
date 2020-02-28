@@ -1,0 +1,322 @@
+*{
+	padding: 0px;
+	margin: 0px auto;
+	list-style: none;
+	font-family: "微软雅黑";
+}
+.main{
+	background: #75dcdb;
+}
+.box{
+	width: 100%;
+	background-size: contain;
+	background-repeat: no-repeat;
+	box-sizing: border-box;
+}
+img{
+	width: 100%;
+}
+.info1{
+	height:97.6vw ;
+}
+.info2{
+	height:85.333334vw ;
+	background-image: url(../images/2.png);
+	padding-top: 14vw;
+	margin-top: 1vw;
+}
+.info3{
+	height:101.066667vw ;
+	background-image: url(../images/3.png);
+	padding-top: 22vw;
+}
+.info4{
+	height:114.133334vw ;
+	background-image: url(../images/4.png);
+	padding-top: 36vw;
+	margin-top: 8vw;
+}
+.info5{
+	height:106.666667vw ;
+	background-image: url(../images/5.png);
+	padding-top: 24vw;
+	margin-top: 8vw;
+	margin-bottom: 6vw;
+}
+.info6{
+	height:103.954802vw ;
+	background-image: url(../images/6.png);
+}
+.info7{
+	height:92.533334vw ;
+	padding-top: 25vw;
+	background-image: url(../images/7.png);
+}
+.font_title_left{
+	margin-left:3.2vw;
+	padding-bottom:3.2vw;
+	font-size:36px;
+	font-weight: bold;
+	color: #269c9c;
+	position: relative;
+}
+.font_line_left{
+	width: 20vw;
+	height: 0.8vw;
+	background: #ffc85a;
+	box-sizing: border-box;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+.font_text{
+	width: 56vw;
+	padding:3.2vw;
+	font-size: 26px;
+	color: #666666;
+	text-align: justify;
+	float: left;
+	line-height: 5.2vw;
+}
+.font_text p{
+	padding-top:1vw;
+}
+.font_text font{
+	color: #269c9c;
+}
+.font_title_right{
+	float: right;
+	margin-right:3.2vw;
+	padding-bottom:3.2vw;
+	font-size:36px;
+	font-weight: bold;
+	color: #269c9c;
+	position: relative;
+	text-align: right;
+	line-height: 6vw;
+}
+.font_line_right{
+	width: 20vw;
+	height: 0.8vw;
+	background: #ffc85a;
+	box-sizing: border-box;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+.text_right{
+	float: right;
+}
+
+.font_title_promise{
+	margin-left:3.2vw;
+	padding-bottom:2vw;
+	font-size:36px;
+	font-weight: bold;
+	color: #ffb039;
+	position: relative;
+	float: left;
+	width: 80vw;
+}
+.font_text_promise{
+	width: 58vw;
+	padding:0 3.2vw;
+	font-size: 26px;
+	color: #269c9c;
+	text-align: justify;
+	float: left;
+	line-height: 5.2vw;
+}
+.font_text p font span{
+	width: 3.6vw;
+    height: 3.6vw;
+    line-height: 3.0vw;
+    border-radius: 50%;
+    text-align: center;
+    color: #FFF;
+    background: #269C9C;
+    display: inline-block;
+    margin-right: 0.5vw;
+    font-size: 18px;
+    box-sizing: border-box;
+    padding-top: 0.6vw;
+}
+.info2 .font-text p font{
+	font-size: 20px;
+}
+.info4 .font_text{
+	width: 58vw;
+}
+.info4 p{
+	display: table;
+	margin: 0;
+}
+.info4 p font{
+	display: table-cell;
+}
+.font_sub_title_right{
+	float: right;
+	margin-right:3.2vw;
+	padding-bottom:2.2vw;
+	padding-top:2.8vw;
+	font-size:32px;
+	font-weight: 500;
+	color: #333333;
+	position: relative;
+	text-align: right;
+	font-family: "serif";
+}
+.info5 .font_text{
+	width: 70vw;
+	padding:0 3.2vw 3.2vw;
+}
+.sub_row{
+	width: 35vw;
+	display: table;
+	float: left;
+	padding-bottom: 1vw;
+}
+.row_left{
+	display: table-cell;
+	width: 5vw;
+	float: left;
+	padding-right: 3vw;
+	padding-top: 2vw;
+}
+.row_right{
+	display: table-cell;
+	float: left;
+	width: 25vw;
+}
+.row_right span{
+	display: block;
+}
+.row_right span:first-child{
+	font-size: 28px;
+	color: #42baba;
+	font-weight: bold;
+	font-family: serif;
+}
+.row_right span:last-child{
+	font-size: 22px;
+	color: #666666;
+	line-height: 4.2vw;
+}
+.sub_row:nth-child(2n){
+	width: 35vw;
+}
+.info6{
+	padding-top: 6vw;
+}
+.sevices{
+	text-align: center;
+    margin: auto;
+    color: #fff;
+    float: left;
+    font-size: 32px;
+    width: 96vw;
+    height: 7vw;
+}
+.sevices_info{
+	width: 80vw;
+    padding-left: 8vw;
+    display: block;
+    padding-top: 11.6vw;
+    color: #FFFFFF;
+    float: left;
+}
+.sevices_info span{
+	margin-left: 6vw;
+	padding-right: 2vw;
+	font-size: 36px;	
+	display: block;
+	width: 5vw;
+	padding-top: 0.1vw;
+	float: left;
+}
+.sevices_info p{
+	margin-left: 15vw;
+    font-size: 26px;
+    display: block;
+    text-align: left;
+    width: 58vw;
+    line-height: 5vw;
+}
+.img07{
+	width: 6vw;
+	margin: auto;
+}
+.sevices_info:last-child p{
+	position: absolute;
+    margin: -1vw 15vw;
+}
+.info8{
+	height: 64vw;
+}
+.info8 .font_text{
+	width: 93vw;
+	text-indent: 8vw;
+	color: #0c5252;
+	font-size:32px;
+	line-height: 7vw;
+	font-weight: bold;
+}
+.info8 .font_text p font{	
+	color: #269C9C;
+	font-weight: normal;
+}
+.tyb_price{
+	width: 93vw;
+	line-height: 6vw;
+	padding: 2vw;
+}
+.tyb_price:nth-child(4){
+	margin-bottom: 5vw;
+}
+.type_name{
+	width: 18vw;
+	font-size: 26px;
+	color: #FFFFFF;
+	background: #269C9C;
+	border-radius: 2vw 0 2vw 0 ;
+	display: inline-block;
+	text-align: center;
+}
+.price{
+	color: #fd5053;
+	font-size: 36px;
+	padding-left:3vw;
+}
+.notice{
+	color: #269C9C;;
+	font-size: 26px;
+}
+.notice font{
+	color: #FD5053;
+}
+.wechat_code{
+	width: 64vw;
+	height: 36vw;
+	border-radius: 2vw;
+	margin-top: 7vw;
+	overflow: hidden;
+        text-align: center;
+        line-height: 36vw;
+}
+.wechat_code img{
+	height: auto;
+	width: 45%;
+	/*float: left;*/
+}
+.wechat_code img:last-child{
+	/*float: right;*/
+}
+.info7 .font_text7{
+	padding:6vw 3.2vw;
+	text-align: justify;
+	float: left;
+	line-height: 5.2vw;
+	width: 93vw;
+	font-size: 22px;
+	color: #0c5252;
+}

@@ -110,9 +110,20 @@ window.ajaxSuccess = function(data) {
 };
 
 // Ajax错误
-window.ajaxError = function() {
+window.ajaxError = function(data) {
 	ajaxDone();
-	commonAlert('网络链接错误(Network link error)');
+        
+        
+        if(data.responseJSON.url) {
+                data=data.responseJSON;
+               
+                
+		jumpAlert(data.msg, data.code, data.url, data.wait);
+	} else {
+          
+		commonAlert('网络链接错误(Network link error)');
+	}
+	
 };
 
 // Ajax完成

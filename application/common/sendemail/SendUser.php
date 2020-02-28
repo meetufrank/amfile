@@ -239,9 +239,10 @@ class SendUser
                 $email_data['sendperson']=$YouxiangContent['short_title'];
                 $email_data['more']=$data;
                 //加入任务队列中
-          Queue::push('app\common\jobs\QueueClient@sendMAIL', $email_data, $queue ='jobs');
+        Queue::push('app\common\jobs\QueueClient@sendMAIL', $email_data, $queue ='jobs');
                 
 		//$emailtrue = $emails->activeEmail($to,$YouxiangContent['title'],$YouxiangContent['content'],$email_data['sendperson']);
+              
     }
     /*
      * am应用layim的casemanger接受case

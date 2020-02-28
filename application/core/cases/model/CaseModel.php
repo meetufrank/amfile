@@ -134,7 +134,7 @@ class CaseModel extends Model
     public function joinServiceLang($query)
     {
         $casestatus= CaseServiceLangModel::getInstance();
-        return $query->join($casestatus->getTableShortName() . ' '.$casestatus->alias_name, $this->alias_name.'.service_lang = '.$casestatus->alias_name.'.sl_id');
+        return $query->join($casestatus->getTableShortName() . ' '.$casestatus->alias_name, $this->alias_name.'.service_lang = '.$casestatus->alias_name.'.sl_id','left');
     }
     /**
      * 连接状态
@@ -144,7 +144,7 @@ class CaseModel extends Model
     public function joinStatus($query)
     {
         $casestatus= CaseStatusModel::getInstance();
-        return $query->join($casestatus->getTableShortName() . ' '.$casestatus->alias_name, $this->alias_name.'.case_status = '.$casestatus->alias_name.'.id');
+        return $query->join($casestatus->getTableShortName() . ' '.$casestatus->alias_name, $this->alias_name.'.case_status = '.$casestatus->alias_name.'.id','left');
     }
     /**
      * 连接提交case用户
@@ -154,7 +154,7 @@ class CaseModel extends Model
      public function withUser($query)
     {
        $user=ChatUserModel::getInstance();
-       return $query->join($user->getTableShortName() . ' '.$user->alias_name, $this->alias_name.'.userid = '.$user->alias_name.'.id');
+       return $query->join($user->getTableShortName() . ' '.$user->alias_name, $this->alias_name.'.userid = '.$user->alias_name.'.id','left');
     }
     /**
      * 连接分类
@@ -164,7 +164,7 @@ class CaseModel extends Model
     public function joinCates($query)
     {
         $casetype=CaseTypeModel::getInstance();
-        return $query->join($casetype->getTableShortName() . ' '.$casetype->alias_name, $this->alias_name.'.case_type = '.$casetype->alias_name.'.id');
+        return $query->join($casetype->getTableShortName() . ' '.$casetype->alias_name, $this->alias_name.'.case_type = '.$casetype->alias_name.'.id','left');
     }
 
     /**
@@ -175,7 +175,7 @@ class CaseModel extends Model
     public function joinCountry($query)
     {
         $casetype=CountryModel::getInstance();
-        return $query->join($casetype->getTableShortName() . ' '.$casetype->alias_name, $this->alias_name.'.country = '.$casetype->alias_name.'.id');
+        return $query->join($casetype->getTableShortName() . ' '.$casetype->alias_name, $this->alias_name.'.country = '.$casetype->alias_name.'.id','left');
     }
     
        /**
@@ -186,9 +186,9 @@ class CaseModel extends Model
     public function joinAddress($query)
     {
         $casetype=AreaModel::getInstance();
-        return $query->join($casetype->getTableShortName() . ' '.$casetype->alias_name[0], $this->alias_name.'.province = '.$casetype->alias_name[0].'.id')
-                     ->join($casetype->getTableShortName() . ' '.$casetype->alias_name[1], $this->alias_name.'.city = '.$casetype->alias_name[1].'.id')
-                     ->join($casetype->getTableShortName() . ' '.$casetype->alias_name[2], $this->alias_name.'.district = '.$casetype->alias_name[2].'.id');
+        return $query->join($casetype->getTableShortName() . ' '.$casetype->alias_name[0], $this->alias_name.'.province = '.$casetype->alias_name[0].'.id','left')
+                     ->join($casetype->getTableShortName() . ' '.$casetype->alias_name[1], $this->alias_name.'.city = '.$casetype->alias_name[1].'.id','left')
+                     ->join($casetype->getTableShortName() . ' '.$casetype->alias_name[2], $this->alias_name.'.district = '.$casetype->alias_name[2].'.id','left');
     }
     
     

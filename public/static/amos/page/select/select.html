@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>汇医国际健康顾问</title>
+    <link rel="stylesheet" href="../../public/bootstrap/css/bootstrap.min.css">
+    <script src="../../public/js/rem.js"></script>
+    <link rel="stylesheet" href="select.css">
+</head>
+<body>
+
+    <!--title-->
+    <div class="header">
+        <h3>选择服务</h3>
+        <a href="javascript:history.go(-1)"><img src="../../public/images/back.png" alt="" class="leftBtn"></a>
+        <!--中英文切换-->
+        <div class="tabBtn">
+            <a href="javascript:void(0);" class="active">中文</a>
+            <a href="javascript:void(0);">EN</a>
+        </div>
+    </div>
+
+    <!--选项卡部分-->
+    <div class="tab">
+        <p class="active">已预约</p>
+        <p>已结束</p>
+    </div>
+
+    <!--内容部分-->
+    <div class="container container1">
+        <!--每一块-->
+        <div class="blo">
+            <div class="leftImg">
+                <img src="../../public/images/phone.png" alt="">
+            </div>
+            <div class="middleText">
+                <p>2020/02/12</p>
+                <p class="name">电话回呼服务</p>
+                <p>眼科</p>
+            </div>
+            <div class="rightBtn">
+                <p class="aloneP">
+                    <a href="../detail/detail.html" class="lookDetail">查看详情</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="blo color9">
+            <div class="leftImg">
+                <img src="../../public/images/video.png" alt="">
+            </div>
+            <div class="middleText">
+                <p>2020/02/12</p>
+                <p class="name">电话回呼服务</p>
+                <p>眼科</p>
+            </div>
+            <div class="rightBtn">
+                <p class="aloneP">
+                    <a href="../detail/detail.html" class="lookDetail">查看详情</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="blo color9">
+            <div class="leftImg">
+                <img src="../../public/images/video.png" alt="">
+            </div>
+            <div class="middleText">
+                <p>2020/02/12</p>
+                <p class="name">电话回呼服务</p>
+                <p>皮肤科</p>
+            </div>
+            <div class="rightBtn">
+                <p class="aloneP">
+                    <a href="../detail/detail.html" class="lookDetail">查看详情</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container container2">
+        <!--每一块-->
+        <div class="blo">
+            <div class="leftImg">
+                <img src="../../public/images/phone.png" alt="">
+            </div>
+            <div class="middleText">
+                <p>2020/02/12</p>
+                <p class="name">电话回呼服务</p>
+                <p>眼科</p>
+            </div>
+            <div class="rightBtn">
+                <p class="aloneP">
+                    <a href="../detail/detail.html" class="lookDetail">查看详情</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="blo color9">
+            <div class="leftImg">
+                <img src="../../public/images/video.png" alt="">
+            </div>
+            <div class="middleText">
+                <p>2020/02/12</p>
+                <p class="name">电话回呼服务</p>
+                <p>眼科</p>
+            </div>
+            <div class="rightBtn">
+                <p class="aloneP">
+                    <a href="../detail/detail.html" class="lookDetail">查看详情</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="blo color9">
+            <div class="leftImg">
+                <img src="../../public/images/video.png" alt="">
+            </div>
+            <div class="middleText">
+                <p>2020/02/12</p>
+                <p class="name">电话回呼服务</p>
+                <p>皮肤科</p>
+            </div>
+            <div class="rightBtn">
+                <p class="aloneP">
+                    <a href="../detail/detail.html" class="lookDetail">查看详情</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!--两个btn-->
+    <div class="twoBtn">
+        <a href="../phone/phone.html" class="phoneBack">预约电话回呼服务</a>
+        <a href="../mentServe/ment.html" class="liveBack">预约视频服务</a>
+    </div>
+
+
+    <script src="../../public/js/jquery.min.js"></script>
+    <script>
+        // 中英文切换
+        $(".tabBtn").on('click','a',function(){
+            var $this = $(this);
+            if(!$this.hasClass("active")){
+                $this.addClass("active").siblings().removeClass("active");
+            }
+
+        });
+        // 预约切换
+        $(".tab p:first-child").click(function(){
+           var $this = $(this);
+           $this.addClass("active").siblings().removeClass("active");
+           $(".container1").show();
+           $(".container2").hide();
+        });
+        $(".tab p:last-child").click(function(){
+            var $this = $(this);
+            $this.addClass("active").siblings().removeClass("active");
+            $(".container2").show();
+            $(".container1").hide();
+        });
+    </script>
+
+</body>
+</html>

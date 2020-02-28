@@ -25,6 +25,7 @@ return [
     'app_debug'=>true,
    
     'wechat_appid'=>'wxa663c0d75761bec1',
-    'wechat_appsecret'=>'b56ed90b63222ad6ac0e25bde0c80777'
+    'wechat_appsecret'=>'b56ed90b63222ad6ac0e25bde0c80777',
+    'jh_times'=>2592000,  //30天
   
 ];

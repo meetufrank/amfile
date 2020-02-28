@@ -1,0 +1,141 @@
+body{
+    background: #f7f7f7;
+}
+
+div,p,h1,h2,h3,h4,h5,h6,ul,li{
+    margin: 0;
+    padding: 0;
+}
+
+
+.header{
+    position: relative;
+    background: linear-gradient(132deg, #4799F5 0%, #01B5E2 100%);
+    width: 100%;
+    border-bottom-left-radius: 23%;
+    border-bottom-right-radius: 23%;
+    height: 1.5rem;
+    z-index: 1;
+}
+
+.header h3{
+    font-family: "Microsoft YaHei";
+    font-size: .33rem;
+    color: #fff;
+    text-align: center;
+    line-height: 1rem;
+}
+.header .leftBtn{
+    position: absolute;
+    width: .4rem;
+    top: 33%;
+    left: .24rem;
+    transform: translate(0, -50%);
+}
+.header .outBtn{
+    display: inline-block;
+    width: 1.21rem;
+    height: .6rem;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    border-radius: 100px;
+    border: 1px solid #fff;
+    font-family: "Microsoft YaHei";
+    font-size: .3rem;
+    color: #fff;
+    text-align: center;
+    line-height: .6rem;
+    text-decoration: none;
+    position: absolute;
+    top: 33%;
+    right: .24rem;
+    transform: translate(0, -50%);
+}
+
+
+.container{
+    background: transparent;
+    position: relative;
+    top: -.5rem;
+    z-index: 10;
+}
+
+.listBlock:after{
+    content: '';
+    clear: both;
+}
+.listBlock{
+    width: 6.96rem;
+    /*height: 1.33rem;*/
+    background: #fff;
+    -webkit-border-radius: .14rem;
+    -moz-border-radius: .14rem;
+    border-radius: .14rem;
+    box-shadow: 0 7px 7px 1px #eaeaea;
+    padding: .24rem;
+    margin: 0 auto .32rem;
+    display: flex;
+    position: relative;
+    padding-right: .1rem;
+}
+.listBlock .leftText{
+    width: 60%;
+}
+.listBlock .leftText p:first-child{
+    font-size: .33rem;
+    font-family: "Microsoft YaHei";
+    color: #3a404e;
+    margin-bottom: .1rem;
+}
+.listBlock .leftText p span{
+    font-size: .25rem;
+    font-family: "Microsoft YaHei";
+    color: #8a8a8c;
+}
+
+.rightIcon{
+    position: relative;
+    left: .5rem;
+}
+
+.rightIcon ul li{
+    list-style: none;
+    float: left;
+    background: #C0BFBE;
+    position: relative;
+    width: .9rem;
+    height: .9rem;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+.rightIcon ul li img{
+    width: .5rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.rightIcon ul li:last-child{
+    background: #FF9800;
+    margin-left: .3rem;
+}
+
+.listBlock.active{
+    box-shadow: 0 0px 10px 1px #84DBF1;
+}
+.listBlock.active .rightIcon ul li:first-child{
+    background: #00B5E2;
+}
+.listBlock.active .leftBg{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: .15rem;
+    height: 100%;
+    background: #00B5E2;
+    border-top-left-radius: .14rem;
+    border-bottom-left-radius: .14rem;
+}
+
+

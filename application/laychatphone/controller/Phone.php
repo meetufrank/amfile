@@ -39,13 +39,7 @@ class Phone extends Base
         $request=Request::instance();
         $caseid=$request->param('id');
         $caseid || $caseid=1;
-        //聊天用户
-        $userInfo = [
-            'id' => cookie('phone_user_id'),
-            'username' => cookie('phone_user_name'),
-            'avatar' => cookie('phone_user_avatar'),
-            'sign' => cookie('phone_user_sign'),
-        ];
+      
       $chatuser=new ChatUser;
       $friendsModle=new Friends;
       $groupdetailModle=new GroupDetail;
@@ -144,7 +138,14 @@ class Phone extends Base
         ];
 
         //echo json_encode($return);die;
-
+ 
+          //聊天用户
+        $userInfo = [
+            'id' => $mine['id'],
+            'username' => $mine['nickname'],
+            'avatar' => $mine['avatar'],
+            'sign' => $mine['sign'],
+        ];
         $this->assign([
             'userlist' => json_encode($return),
             'uinfo' => $userInfo

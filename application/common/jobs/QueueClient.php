@@ -71,7 +71,7 @@ class QueueClient
                             }
                   }
             }
-         } catch (Exception $e) {
+         } catch (\Exception $e) {
              
          }
                                

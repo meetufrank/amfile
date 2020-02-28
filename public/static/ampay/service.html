@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>我的服务卡</title>
+    <link rel="stylesheet" href="mui/mui.min.css">
+    <script src="mui/mui.min.js"></script>
+    <script src="js/rem.js"></script>
+    <link rel="stylesheet" href="css/service.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header_left">
+            <img src="images/list.png" alt="">
+        </div>
+        <div class="header_center">
+            <img src="images/logo.png" alt="">
+        </div>
+        <div class="header_right">
+            <img src="images/home.png" alt="">
+        </div>
+    </header>
+
+<div class="service_content">
+
+    <!--先弄成两个按钮左右排版-->
+    <div class="service_blo bg242">
+        <p class="service_type">家庭医生随身行</p>
+
+        <div class="flex">
+            <div>
+                <p>服务时间：3个月</p>
+                <p>使用次数：3次</p>
+            </div>
+            <div>
+                <ul>
+                    <li class="jh">激活</li>
+                    <li class="zz">转赠</li>
+                </ul>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!--已转赠-->
+    <div class="service_blo bg155">
+        <p class="service_type">家庭医生随身行</p>
+        <div class="flex">
+            <div>
+                <p>服务时间：3个月</p>
+                <p>使用次数：3次</p>
+            </div>
+            <div>
+                <ul>
+                    <li class="qszz">取消转赠</li>
+                </ul>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!--已激活-->
+    <div class="service_blo bg242">
+        <p class="service_type">家庭医生随身行</p>
+        <div class="flex">
+            <div>
+                <p>服务时间：3个月</p>
+                <p>使用次数：3次</p>
+            </div>
+            <div>
+                <ul>
+                    <li class="yjh">已激活</li>
+                </ul>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!--已使用-->
+    <div class="service_blo bg242">
+        <p class="service_type">家庭医生随身行</p>
+        <div class="flex">
+            <div>
+                <p>服务时间：3个月</p>
+                <p>使用次数：3次</p>
+            </div>
+            <div>
+                <ul>
+                    <li class="syz">使用中</li>
+                </ul>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!--已过期-->
+    <div class="service_blo bg155">
+        <p class="service_type">家庭医生随身行</p>
+        <div class="flex">
+            <div>
+                <p>服务时间：3个月</p>
+                <p>使用次数：3次</p>
+            </div>
+            <div>
+                <ul>
+                    <li class="ygq">已过期</li>
+                </ul>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!--未领取-->
+    <div class="service_blo bg242">
+        <p class="service_type flex"><span>家庭医生随身行</span><span>礼品卡</span></p>
+        <div class="flex">
+            <div>
+                <p>服务时间：3个月</p>
+                <p>使用次数：3次</p>
+            </div>
+            <div>
+                <ul>
+                    <li class="lq">领取</li>
+                </ul>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!--转赠弹框-->
+    <div class="zz_mark">
+        <p>转赠</p>
+        <input type="text" placeholder="请输入手机号" class="phone">
+        <a href="javascript:void(0);" class="mark_btn">确定</a>
+    </div>
+    <div class="bgColor"><!-- 遮罩 --></div>
+
+    <!--取消弹框-->
+    <div class="mui-popup mui-popup-in" style="display: none;">
+        <div class="mui-popup-inner">
+            <div class="mui-popup-title">确认要取消转赠吗？</div>
+            <div class="mui-popup-text"></div>
+        </div>
+        <div class="mui-popup-buttons">
+            <span class="mui-popup-button yes">确认</span>
+            <span class="mui-popup-button mui-popup-button-bold no">取消</span>
+        </div>
+    </div>
+
+    <!--多按钮时候的样式-->
+    <!--<div class="service_blo bg161">-->
+        <!--<p class="service_type">家庭医生随身行</p>-->
+        <!--<p class="service_time"><span>服务时间：3个月</span> <span>使用次数：3次</span></p>-->
+        <!--<div class="btn_list">-->
+            <!--<ul>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+            <!--</ul>-->
+            <!--<div style="clear: both;"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="service_blo bg107">-->
+        <!--<p class="service_type">家庭医生随身行</p>-->
+        <!--<p class="service_time"><span>服务时间：3个月</span> <span>使用次数：3次</span></p>-->
+        <!--<div class="btn_list">-->
+            <!--<ul>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+            <!--</ul>-->
+            <!--<div style="clear: both;"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="service_blo bg183">-->
+        <!--<p class="service_type">家庭医生随身行</p>-->
+        <!--<p class="service_time"><span>服务时间：3个月</span> <span>使用次数：3次</span></p>-->
+        <!--<div class="btn_list">-->
+            <!--<ul>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+            <!--</ul>-->
+            <!--<div style="clear: both;"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="service_blo bg224">-->
+        <!--<p class="service_type">家庭医生随身行</p>-->
+        <!--<p class="service_time"><span>服务时间：3个月</span> <span>使用次数：3次</span></p>-->
+        <!--<div class="btn_list">-->
+            <!--<ul>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+            <!--</ul>-->
+            <!--<div style="clear: both;"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="service_blo bg102">-->
+        <!--<p class="service_type">家庭医生随身行</p>-->
+        <!--<p class="service_time"><span>服务时间：3个月</span> <span>使用次数：3次</span></p>-->
+        <!--<div class="btn_list">-->
+            <!--<ul>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+            <!--</ul>-->
+            <!--<div style="clear: both;"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="service_blo bg144">-->
+        <!--<p class="service_type">家庭医生随身行</p>-->
+        <!--<p class="service_time"><span>服务时间：3个月</span> <span>使用次数：3次</span></p>-->
+        <!--<div class="btn_list">-->
+            <!--<ul>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+            <!--</ul>-->
+            <!--<div style="clear: both;"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="service_blo bg174">-->
+        <!--<p class="service_type">家庭医生随身行</p>-->
+        <!--<p class="service_time"><span>服务时间：3个月</span> <span>使用次数：3次</span></p>-->
+        <!--<div class="btn_list">-->
+            <!--<ul>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+            <!--</ul>-->
+            <!--<div style="clear: both;"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+</div>
+<!--底部切换-->
+<div class="foot_tab">
+    <ul>
+        <li><img src="images/fw.png" alt=""><p>服务</p></li>
+        <li class="active"><img src="images/my1.png" alt=""><p>我的服务卡</p></li>
+    </ul>
+    <div style="clear: both;"></div>
+</div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="layui/layui.all.js"></script>
+    <script>
+        $(".zz").click(function(){
+           $(".zz_mark").fadeIn();
+           $(".bgColor").fadeIn();
+        });
+
+        $(".mark_btn").click(function(){
+            var $phone = $(".phone").val();
+            var regPhone = /^1[3456789]\d{9}$/;
+            if($phone == ""){
+                layer.msg("请输入你要转赠的手机号");
+                return false;
+            }else if(!regPhone.test($phone)){
+                layer.msg("手机号格式不正确，请你重新输入");
+                return false;
+            }else{
+                $(".zz_mark").fadeOut();
+                $(".bgColor").fadeOut();
+            }
+        });
+
+        $(".bgColor").click(function(){
+            $(".zz_mark").hide();
+            $(".bgColor").hide();
+            $(".mui-popup").hide();
+        });
+
+
+        // 点击领取
+        $(".lq").click(function(){
+            var $line = `<div class="mui-popup mui-popup-in">
+                              <div class="mui-popup-inner">
+                                    <div class="mui-popup-title">确认要领取吗？</div>
+                                    <div class="mui-popup-text"></div>
+                              </div>
+                              <div class="mui-popup-buttons">
+                                    <span class="mui-popup-button yes">确认</span>
+                                    <span class="mui-popup-button mui-popup-button-bold no">取消</span>
+                              </div>
+                         </div>`;
+            $(".service_content").append($line);
+            $(".bgColor").show();
+        });
+
+    // 点击激活
+        $(".jh").click(function(){
+            var $line = `<div class="mui-popup mui-popup-in">
+                              <div class="mui-popup-inner">
+                                    <div class="mui-popup-title">确认要激活吗？</div>
+                                    <div class="mui-popup-text"></div>
+                              </div>
+                              <div class="mui-popup-buttons">
+                                    <span class="mui-popup-button yes">确认</span>
+                                    <span class="mui-popup-button mui-popup-button-bold no">取消</span>
+                              </div>
+                         </div>`;
+            $(".service_content").append($line);
+            $(".bgColor").show();
+        });
+
+        // 取消转增点击
+        $(".qszz").click(function(){
+            var $line = `<div class="mui-popup mui-popup-in">
+                              <div class="mui-popup-inner">
+                                    <div class="mui-popup-title">确认要取消转赠吗？</div>
+                                    <div class="mui-popup-text"></div>
+                              </div>
+                              <div class="mui-popup-buttons">
+                                    <span class="mui-popup-button yes">确认</span>
+                                    <span class="mui-popup-button mui-popup-button-bold no">取消</span>
+                              </div>
+                         </div>`;
+            $(".service_content").append($line);
+            $(".bgColor").show();
+        });
+
+
+
+
+
+
+        $(document).on('click','.yes',function(){
+            $(".mui-popup").hide();
+            $(".bgColor").hide();
+        });
+        $(document).on('click','.no',function(){
+            $(".mui-popup").hide();
+            $(".bgColor").hide();
+        });
+
+    </script>
+</body>
+</html>

@@ -45,6 +45,7 @@ class Start extends Base
             $name = $request->param('user_name');
             $passwd = $request->param('user_passwd');
             list ($success, $msg, $url) = $login->doLogin($name, $passwd);
+            
             if ($success) {
                 $this->success($msg, $url);
             } else {

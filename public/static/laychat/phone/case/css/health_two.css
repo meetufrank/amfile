@@ -366,7 +366,10 @@ input[type="checkbox"]:checked::before{
     padding: .01rem 0;
 }
 
-
+.disabledColor{
+    color: #ababab !important;
+    border: none !important;
+}
 
 
 

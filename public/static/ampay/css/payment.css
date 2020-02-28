@@ -1,0 +1,165 @@
+body{
+    background: #fff;
+}
+.header{
+    display: flex;
+    padding: .24rem .1rem .1rem .1rem;
+    border-bottom: 1px solid #bcbcbc;
+    position: fixed;
+    width: 100%;
+    background: #fff;
+    z-index: 9;
+    top: 0;
+    left: 0;
+}
+.header .header_left{
+    width: 20%;
+}
+.header .header_left .mui-icon-arrowleft{
+    font-size: .5rem;
+    position: relative;
+    top: 2px;
+}
+.header .header_center{
+    width: 60%;
+    text-align: center;
+}
+.header .header_center img{
+    width: 1.78rem;
+    height: .58rem;
+}
+
+.banner{
+    text-align: center;
+    padding: 1.5rem 0 .89rem 0;
+}
+.banner .pay_logo{
+    width: 1.08rem;
+    height: 1.08rem;
+    margin-bottom: .56rem;
+}
+.banner .pay_text{
+    font-family: PingFangSC;
+    font-size: .42rem;
+    color: rgb(34,34,34);
+}
+
+.pay_content{
+    width: 7.02rem;
+    margin: 0 auto;
+    box-shadow: 0 0 10px 6px #f4f4f4;
+    border-radius: 8px;
+    padding: 0 .45rem 0 .45rem;
+    margin-bottom: .5rem;
+}
+.pay_content p{
+    border-bottom: 1px solid rgb(220,220,220);
+    margin: 0;
+    height: .9rem;
+    line-height: .9rem;
+    display: flex;
+    justify-content: space-between;
+}
+.pay_content p:last-child{
+    border: 0;
+}
+.pay_content p .left_text{
+    font-family: PingFangSC;
+    font-size: .28rem;
+    color: rgb(34,34,34);
+}
+.pay_content p .right_text{
+    font-family: PingFangSC;
+    font-size: .28rem;
+    color: rgb(153,153,153);
+}
+.pay_content p .price_text{
+    font-family: PingFangSC;
+    font-size: .28rem;
+    color: rgb(34,34,34);
+}
+.pay_method{
+    width: 7.02rem;
+    margin: 0 auto;
+    box-shadow: 0 0 10px 6px #f4f4f4;
+    border-radius: 8px;
+    padding: 0 .45rem 0 .45rem;
+    margin-bottom: 1.5rem;
+}
+.pay_method .method_title{
+    font-family: PingFangSC;
+    font-size: .29rem;
+    color: rgb(102,102,102);
+    border-bottom: 1px solid rgb(220,220,220);
+    padding: .46rem 0 .3rem 0;
+}
+.pay_method .method_content{
+    display: flex;
+    justify-content: space-between;
+    height: 1.2rem;
+    line-height: 1.2rem;
+}
+.pay_method .method_content div:first-child img{
+    width: .44rem;
+    height: .39rem;
+    margin-right: .2rem;
+    vertical-align: middle;
+}
+.pay_method .method_content div:first-child span{
+    font-family: PingFangSC;
+    font-size: .28rem;
+    color: rgb(34,34,34);
+}
+.pay_method .method_content div:last-child img{
+    width: .52rem;
+    height: .38rem;
+    vertical-align: middle;
+}
+
+.foot{
+    height: .9rem;
+    line-height: .9rem;
+    display: flex;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    background: #fff;
+    z-index: 9;
+}
+.foot div:first-child{
+    width: 50%;
+    padding-left: .24rem;
+    border-top: 1px solid #e5e5e5;
+}
+.foot div:last-child{
+    width: 50%;
+    text-align: center;
+    background: linear-gradient(132deg, #7aa5fb 0%, #60c6fd 100%);
+    border-top: 1px solid #7aa5fb;
+}
+.foot div:first-child span:first-child{
+    font-family: PingFangSC;
+    font-size: .28rem;
+    color: rgb(153,153,153);
+}
+.foot div:first-child span:last-child{
+    font-family: PingFangSC;
+    font-size: .28rem;
+    color: rgb(34,34,34);
+    font-weight: 600;
+}
+.foot .pay_im{
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    font-family: PingFangSC;
+    font-size: .3rem;
+    color: rgb(255,255,255);
+    background: linear-gradient(132deg, #7aa5fb 0%, #60c6fd 100%);
+    line-height: .9rem;
+}
+
+
+
+
+

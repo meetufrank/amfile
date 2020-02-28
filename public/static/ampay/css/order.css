@@ -1,0 +1,165 @@
+body{
+    background: #fff;
+}
+.header{
+    display: flex;
+    padding: .24rem .1rem .1rem .1rem;
+    border-bottom: 1px solid #bcbcbc;
+    position: fixed;
+    width: 100%;
+    background: #fff;
+    z-index: 9;
+    top: 0;
+    left: 0;
+}
+.header .header_left{
+    width: 20%;
+}
+.header .header_left .mui-icon-arrowleft{
+    font-size: .5rem;
+    position: relative;
+    top: 2px;
+}
+.header .header_center{
+    width: 60%;
+    text-align: center;
+}
+.header .header_center img{
+    width: 1.78rem;
+    height: .58rem;
+}
+
+.title{
+
+    padding: 1.5rem .24rem .5rem .24rem;
+    text-align: center;
+}
+.title h4{
+    font-weight: bold;
+    margin: 0;
+    font-family: PingFangSC;
+    font-size: .42rem;
+    color: rgb(34,34,34);
+    border-bottom: 1px solid #e5e5e5;
+    padding-bottom: .5rem;
+}
+
+.swiper-slide{
+    width: 2.86rem;
+}
+.swiper-slide .tab{
+    background: #e6e6e6;
+    text-align: center;
+    padding: .34rem 0 .24rem;
+    border-radius: 20px;
+}
+.swiper-slide .tab p{
+    margin: 0;
+}
+.swiper-slide .tab p:first-child{
+    font-family: PingFangSC;
+    font-size: .36rem;
+    color: rgb(34,34,34);
+    margin-bottom: .3rem;
+}
+.swiper-slide .tab p:nth-child(2){
+    font-family: PingFangSC;
+    font-size: .24rem;
+    color: rgb(102,102,102);
+    margin-bottom: .14rem;
+}
+.swiper-slide .tab p:last-child{
+    font-family: PingFangSC;
+    font-size: .22rem;
+    color: rgb(102,102,102);
+}
+.swiper-slide .active{
+    background: linear-gradient(132deg, #7aa5fb 0%, #60c6fd 100%);
+}
+.swiper-slide .active p:first-child{
+    font-family: PingFangSC;
+    font-size: .36rem;
+    color: rgb(255,255,255);
+    margin-bottom: .3rem;
+}
+.swiper-slide .active p:nth-child(2){
+    font-family: PingFangSC;
+    font-size: .24rem;
+    color: rgb(255,255,255);
+    margin-bottom: .14rem;
+}
+.swiper-slide .active p:last-child{
+    font-family: PingFangSC;
+    font-size: .22rem;
+    color: rgb(255,255,255);
+}
+
+.hr{
+    padding: 0 .24rem;
+}
+.hr p{
+    height: 1px;
+    width: 100%;
+    background: #e5e5e5;
+    margin: .6rem 0 .4rem;
+}
+
+input[type='checkbox'] {
+    width: .25rem;
+    height: .25rem;
+    background-color: #fff;
+    -webkit-appearance: none;
+    border: 1px solid #c9c9c9;
+    border-radius: 0;
+    outline: none !important;
+    margin-right: .1rem;
+}
+input[type='checkbox']:checked {
+    background: url("/static/ampay/images/checked.png") no-repeat;
+    background-size: 100% 80%;
+    background-position: 0px .02rem;
+ }
+
+
+.terms{
+    padding: 0 .24rem;
+    line-height: 1;
+    position: relative;
+}
+.terms span{
+    font-family: PingFangSC;
+    font-size: .24rem;
+    color: rgb(102,102,102);
+    position: absolute;
+    top: 3.5px;
+}
+.terms span b{
+    font-family: PingFangSC;
+    font-size: .24rem;
+    color: rgb(60,150,242);
+    font-weight: normal;
+}
+.terms span a{
+    font-family: PingFangSC;
+    font-size: .24rem;
+    color: rgb(60,150,242);
+    text-decoration: underline;
+}
+
+.sub_btn{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 1rem;
+    line-height: 1rem;
+    background: linear-gradient(132deg, #7aa5fb 0%, #60c6fd 100%);
+    text-align: center;
+}
+.sub_btn a{
+    font-family: PingFangSC;
+    font-size: .34rem;
+    color: rgb(255,255,255);
+}
+
+
+

@@ -68,7 +68,7 @@
                     </td>
                     <td class="am-text-middle">{$vo.user_name}</td>
                     <td class="am-text-middle">{$vo.nickname}</td>
-                    <td class="am-text-middle">{if condition="$vo.sex eq 1"}Male{else/}Female{/if}</td>
+                    <td class="am-text-middle">{if condition="$vo.sex eq 1"}Male{elseif condition="$vo.sex eq 0"}Female{else/}unknown{/if}</td>
                     <td class="am-text-middle">
                         {$vo.email}
                     </td>

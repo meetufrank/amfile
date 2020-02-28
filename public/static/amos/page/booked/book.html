@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>汇医国际健康顾问</title>
+    <link rel="stylesheet" href="../../public/bootstrap/css/bootstrap.min.css">
+    <script src="../../public/js/rem.js"></script>
+    <link rel="stylesheet" href="book.css?v=1.0">
+</head>
+<body>
+
+    <!--title-->
+    <div class="header">
+        <h3>家庭成员列表</h3>
+        <a href="javascript:history.go(-1)"><img src="../../public/images/back.png" alt="" class="leftBtn"></a>
+        <a href="../family/family.html" class="outBtn">新增</a>
+    </div>
+
+    <div class="container">
+        <!--每一块-->
+        <div class="listBlock">
+            <div class="leftText">
+                <p>Frank</p>
+                <p><span>男</span>&nbsp;&nbsp;<span>2020/02/13</span>&nbsp;&nbsp;<span>18616696490</span></p>
+            </div>
+            <div class="rightIcon">
+                <ul>
+                    <li onclick="javascript:window.location.href='../family/family.html'"><img src="../../public/images/edit.png" alt=""></li>
+                    <li><img src="../../public/images/fill.png" alt="" class="del"></li>
+                </ul>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="leftBg"></div>
+        </div>
+
+        <div class="listBlock active">
+            <div class="leftText">
+                <p>John</p>
+                <p><span>男</span>&nbsp;&nbsp;<span>2020/02/13</span>&nbsp;&nbsp;<span>18616696490</span></p>
+            </div>
+            <div class="rightIcon">
+                <ul>
+                    <li onclick="javascript:window.location.href='../family/family.html'"><img src="../../public/images/edit.png" alt=""></li>
+                    <li><img src="../../public/images/fill.png" alt="" class="del"></li>
+                </ul>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="leftBg"></div>
+        </div>
+
+        <div class="listBlock">
+            <div class="leftText">
+                <p>Frank1</p>
+                <p><span>男</span>&nbsp;&nbsp;<span>2020/02/13</span>&nbsp;&nbsp;<span>18616696490</span></p>
+            </div>
+            <div class="rightIcon">
+                <ul>
+                    <li onclick="javascript:window.location.href='../family/family.html'"><img src="../../public/images/edit.png" alt=""></li>
+                    <li><img src="../../public/images/fill.png" alt="" class="del"></li>
+                </ul>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="leftBg"></div>
+        </div>
+
+        <div class="listBlock">
+            <div class="leftText">
+                <p>Frank2</p>
+                <p><span>男</span>&nbsp;&nbsp;<span>2020/02/13</span>&nbsp;&nbsp;<span>18616696490</span></p>
+            </div>
+            <div class="rightIcon">
+                <ul>
+                    <li onclick="javascript:window.location.href='../family/family.html'"><img src="../../public/images/edit.png" alt=""></li>
+                    <li><img src="../../public/images/fill.png" alt="" class="del"></li>
+                </ul>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="leftBg"></div>
+        </div>
+
+    </div>
+
+
+    <script src="../../public/js/jquery.min.js"></script>
+    <script src="../../public/layui/layui.all.js"></script>
+    <script>
+        $(".listBlock").click(function(){
+           var $this = $(this);
+           if(!$this.hasClass("active")){
+               $this.addClass("active").siblings().removeClass("active");
+               window.location.href='../phone/phone.html';
+           }
+        });
+
+        $(".del").click(function(){
+           var $this = $(this);
+            layer.confirm('您确定要取消吗？', {
+                title:'提示',
+                btn: ['确定','取消'] //按钮
+
+                ,yes:function(index,layero){
+                    $this.parent().parent().parent().parent().remove();
+                    layer.close(index); //关闭弹出框
+
+                }
+            });
+
+
+
+        });
+
+
+
+
+    </script>
+
+
+</body>
+</html>
