@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{$site_title}</title>
+    <link rel="stylesheet" href="{$static_path}/ampay/mui/mui.min.css">
+    <script src="{$static_path}/ampay/mui/mui.min.js"></script>
+    <script src="{$static_path}/ampay/js/rem.js"></script>
+    <link rel="stylesheet" href="{$static_path}/ampay/css/service.css?v=1.5">
+</head>
+<body>
+    <header class="header">
+        <div class="header_left" style="display: none;">
+            <img src="{$static_path}/ampay/images/list.png" alt="">
+        </div>
+        <div class="header_center">
+            <img src="{$static_path}/ampay/images/logo.png" alt="">
+        </div>
+        <div class="header_right" style="display: none;">
+            <img src="{$static_path}/ampay/images/home.png" alt="">
+        </div>
+    </header>
+
+<div class="service_content">
+
+    <!--先弄成两个按钮左右排版-->
+    {foreach name="service_list" item="sl"}
+    <div class="service_blo {if condition="$sl.can_use eq 'no_cishu' or $sl.can_use eq 'no_date' "}bg155{elseif condition="$sl.can_use eq 'yes_zz' || ($sl.is_used eq 1 && $sl.c_isme eq 1 )"}bg373{else}bg242{/if}">  
+        <p class="service_type flex"><span>{$sl.typename}</span><span>{if condition="$sl.c_isme eq 0"}礼品卡{elseif condition="$sl.send_id neq 0"}赠送卡{/if}</span></p>
+
+        <div class="flex">
+            <div>
+                
+                <p>使用次数：{if condition="$sl.times eq 9999"}无限{else}{$sl.times}{/if}次</p>
+                {if condition="empty($sl.stop_time)"}
+                <p style="display: none;">服务时间：{$sl.duration}{if condition="$sl.unit eq 'month'"}个{$sl.unitname}{else}{$sl.unitname}{/if}</p>
+                <p>激活截止时间：{$sl.jh_stop_time|date='Y/m/d',###}</p>
+                {else}
+                <p>使用到期时间：{$sl.stop_time|date='Y/m/d',###}</p>
+                {/if}
+            </div>
+            <div>
+                <ul>
+                {if condition="$sl.is_jh eq 0"}  <!--未激活-->
+                     {if condition="$sl.c_isme eq 0 && $sl.send_id neq 0"} <!--首先看自买还是礼品-->
+                         {if condition="$sl.is_used eq 0"}  <!--是否领取-->
+                             <li class="lq" data-id='{$sl.id}'>领取</li>
+                         {else}
+                             <li class="jh" data-id='{$sl.id}' >激活</li>
+                         {/if}
+                     {else}
+                          {if condition="$sl.send_id eq 0"}  <!--首先看是否已赠送人-->
+                             <li class="jh" data-id='{$sl.id}'>激活</li>
+                             <li class="zz" data-id='{$sl.id}'>转赠</li>
+                          {elseif condition="$sl.is_used eq 1"}
+                               <li class="yzz" >已转赠</li>
+                          {else}
+                               <li class="qszz" data-id='{$sl.id}'>取消转赠</li>
+                          {/if}
+                     
+                     {/if}
+                
+                    
+                    
+                
+                {else}
+                    {if condition="$sl.can_use eq 'no_cishu'"}
+                          <li class="csyyw">次数用完</li>
+                    {elseif condition="$sl.can_use eq 'no_date'"}
+                   
+                          <li class="ygq">已过期</li>
+                    {elseif condition="$sl.can_use eq 'yes_zz'"}
+                          <li class="yzz" >已转赠</li>
+                    {else}
+                        {if condition="$sl.can_use eq 'yes'"}
+                        <li class="qsy" onclick="javascript:window.location.href='{:url(\'/servicecase\',[\'cardid\'=>$sl.id])}';">去使用</li>
+                        {/if}
+                          <li class="yjh">已激活</li>
+                    {/if}
+                
+                {/if}
+                </ul>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+    </div>
+    {/foreach}
+
+
+
+
+    <!--转赠弹框-->
+    <div class="zz_mark">
+        <p>转赠</p>
+        <input type="hidden"  class="cardid" value="0">
+        <input type="text" placeholder="请输入手机号" class="phone">
+        <a href="javascript:void(0);" class="mark_btn">确定</a>
+    </div>
+    <div class="bgColor"><!-- 遮罩 --></div>
+
+    <!--取消弹框-->
+    <div class="mui-popup mui-popup-in" style="display: none;">
+        <div class="mui-popup-inner">
+            <div class="mui-popup-title">确认要取消转赠吗？</div>
+            <div class="mui-popup-text"></div>
+        </div>
+        <div class="mui-popup-buttons">
+            <span class="mui-popup-button yes">确认</span>
+            <span class="mui-popup-button mui-popup-button-bold no">取消</span>
+        </div>
+    </div>
+
+    <!--多按钮时候的样式-->
+    <!--<div class="service_blo bg161">-->
+        <!--<p class="service_type">家庭医生随身行</p>-->
+        <!--<p class="service_time"><span>服务时间：3个月</span> <span>使用次数：3次</span></p>-->
+        <!--<div class="btn_list">-->
+            <!--<ul>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+            <!--</ul>-->
+            <!--<div style="clear: both;"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="service_blo bg107">-->
+        <!--<p class="service_type">家庭医生随身行</p>-->
+        <!--<p class="service_time"><span>服务时间：3个月</span> <span>使用次数：3次</span></p>-->
+        <!--<div class="btn_list">-->
+            <!--<ul>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+            <!--</ul>-->
+            <!--<div style="clear: both;"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="service_blo bg183">-->
+        <!--<p class="service_type">家庭医生随身行</p>-->
+        <!--<p class="service_time"><span>服务时间：3个月</span> <span>使用次数：3次</span></p>-->
+        <!--<div class="btn_list">-->
+            <!--<ul>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+            <!--</ul>-->
+            <!--<div style="clear: both;"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="service_blo bg224">-->
+        <!--<p class="service_type">家庭医生随身行</p>-->
+        <!--<p class="service_time"><span>服务时间：3个月</span> <span>使用次数：3次</span></p>-->
+        <!--<div class="btn_list">-->
+            <!--<ul>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+            <!--</ul>-->
+            <!--<div style="clear: both;"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="service_blo bg102">-->
+        <!--<p class="service_type">家庭医生随身行</p>-->
+        <!--<p class="service_time"><span>服务时间：3个月</span> <span>使用次数：3次</span></p>-->
+        <!--<div class="btn_list">-->
+            <!--<ul>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+            <!--</ul>-->
+            <!--<div style="clear: both;"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="service_blo bg144">-->
+        <!--<p class="service_type">家庭医生随身行</p>-->
+        <!--<p class="service_time"><span>服务时间：3个月</span> <span>使用次数：3次</span></p>-->
+        <!--<div class="btn_list">-->
+            <!--<ul>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+            <!--</ul>-->
+            <!--<div style="clear: both;"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="service_blo bg174">-->
+        <!--<p class="service_type">家庭医生随身行</p>-->
+        <!--<p class="service_time"><span>服务时间：3个月</span> <span>使用次数：3次</span></p>-->
+        <!--<div class="btn_list">-->
+            <!--<ul>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+                <!--<li>激活</li>-->
+            <!--</ul>-->
+            <!--<div style="clear: both;"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+</div>
+<!--底部切换-->
+<div class="foot_tab">
+    <ul>
+        <li onclick="javascript:window.location.href='{:url(\'/serviceIndex\')}';"><img src="{$static_path}/ampay/images/fw.png" alt=""><p>服务</p></li>
+        <li class="active"><img src="{$static_path}/ampay/images/my1.png" alt=""><p>我的服务卡</p></li>
+    </ul>
+    <div style="clear: both;"></div>
+</div>
+   <div class="bgImg" style="    background: rgb(51, 51, 51);height: 100%;overflow: hidden; position: fixed;top: 0;width: 100%;z-index: 99;opacity: .9;display: none;">
+        <img src="{$static_path}/ampay/images/guide.png" alt="" style="position: fixed;left: 50%;-webkit-transform: translate3d(-50%,0%,0) scale(1);transform: translate3d(-50%,0%,0) scale(1);">
+    </div>
+    <script src="{$static_path}/ampay/js/jquery.min.js"></script>
+    <script src="{$static_path}/ampay/layui/layui.all.js"></script>
+    
+    <script>
+        $(".bgImg img").click(function(){   //  点击图片隐藏引导图 并恢复页面可以滑动
+                $(".bgImg").hide();
+                $("html,body").css("overflow","auto");
+                window.location.href=window.location.href;
+            })
+        $(".zz").click(function(){
+            var id=$(this).attr('data-id');
+            $(".cardid").val(id);
+           $(".zz_mark").fadeIn();
+           $(".bgColor").fadeIn();
+        });
+
+        $(".mark_btn").click(function(){
+            var $phone = $(".phone").val();
+            var id = $(".cardid").val();
+            var regPhone = /^1[3456789]\d{9}$/;
+            if($phone == ""){
+                layer.msg("请输入你要转赠的手机号");
+                return false;
+            }else if(!regPhone.test($phone)){
+                layer.msg("手机号格式不正确，请你重新输入");
+                return false;
+            }else{
+                var layerload = layer.load();
+                $.ajax({
+                        url:"{:url('/oprateService')}",
+                        data:{id:id,action:'zhuanzeng',tel:$phone},
+//                        dataType:'json',
+                        type:'post',
+                        async: false,
+                        success:function(re){
+
+                                   layer.close(layerload);
+                                    if(re.code==1){
+                                         $(".zz_mark").fadeOut();
+                                         $(".bgColor").fadeOut(); 
+                                           layer.msg(re.msg,{time:1000},function(){
+                                               //图片显示
+                                            $(".bgImg").show();
+                                            $("html,body").css("overflow","hidden"); 
+                                               
+                                           });
+                                           
+                                       }else{
+                                           layer.msg(re.msg);
+                                       }
+
+                        }
+                });
+               
+            }
+        });
+
+        $(".bgColor").click(function(){
+            $(".zz_mark").hide();
+            $(".bgColor").hide();
+            $(".mui-popup").hide();
+        });
+
+
+        // 点击领取
+        $(".lq").click(function(){
+            var id=$(this).attr('data-id');
+            var $line = `<div class="mui-popup mui-popup-in">
+                              <div class="mui-popup-inner">
+                                    <div class="mui-popup-title">确认要领取吗？</div>
+                                    <div class="mui-popup-text"></div>
+                              </div>
+                              <div class="mui-popup-buttons">
+                                    <span class="mui-popup-button yes" data-rule="lingqu" data-id="`+id+`">确认</span>
+                                    <span class="mui-popup-button mui-popup-button-bold no">取消</span>
+                              </div>
+                         </div>`;
+            $(".service_content").append($line);
+            $(".bgColor").show();
+        });
+
+    // 点击激活
+        $(".jh").click(function(){
+            var id=$(this).attr('data-id');
+            var $line = `<div class="mui-popup mui-popup-in">
+                              <div class="mui-popup-inner">
+                                    <div class="mui-popup-title">确认要激活吗？</div>
+                                    <div class="mui-popup-text"></div>
+                              </div>
+                              <div class="mui-popup-buttons">
+                                    <span class="mui-popup-button yes" data-rule="jihuo" data-id="`+id+`">确认</span>
+                                    <span class="mui-popup-button mui-popup-button-bold no">取消</span>
+                              </div>
+                         </div>`;
+            $(".service_content").append($line);
+            $(".bgColor").show();
+        });
+
+        // 取消转增点击
+        $(".qszz").click(function(){
+            var id=$(this).attr('data-id');
+            var $line = `<div class="mui-popup mui-popup-in">
+                              <div class="mui-popup-inner">
+                                    <div class="mui-popup-title">确认要取消转赠吗？</div>
+                                    <div class="mui-popup-text"></div>
+                              </div>
+                              <div class="mui-popup-buttons">
+                                    <span class="mui-popup-button yes" data-rule="qxzhuanzeng" data-id="`+id+`">确认</span>
+                                    <span class="mui-popup-button mui-popup-button-bold no">取消</span>
+                              </div>
+                         </div>`;
+            $(".service_content").append($line);
+            $(".bgColor").show();
+        });
+
+
+
+
+
+
+        $(document).on('click','.yes',function(){
+            $(".mui-popup").hide();
+            $(".bgColor").hide();
+            //获取当前的动作和状态
+            
+            var id=$(this).attr('data-id');
+            var action=$(this).attr('data-rule');
+            var layerload = layer.load();
+            $.ajax({
+                                url:"{:url('/oprateService')}",
+                                data:{id:id,action:action},
+//                                dataType:'json',
+                                type:'post',
+                                async: false,
+                                success:function(re){
+                                         layer.close(layerload);
+                                        if(re.code==1){
+                                           layer.msg(re.msg,{time:1000},function(){
+                                               window.location.href=window.location.href;
+                                           });
+                                            
+                                       }else{
+                                           layer.msg(re.msg);
+                                       }
+
+                                }
+                        });
+            
+        });
+        $(document).on('click','.no',function(){
+            $(".mui-popup").hide();
+            $(".bgColor").hide();
+        });
+
+    </script>
+    
+    {include file="commonfoot"/}
+</body>
+</html>

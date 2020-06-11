@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{$site_title}</title>
+    <link rel="stylesheet" href="__AMOS__/public/bootstrap/css/bootstrap.min.css">
+    <script src="__AMOS__/public/js/rem.js"></script>
+    <link rel="stylesheet" href="__AMOS__/page/booked/book.css?v=1.0">
+    <style>
+        .layui-layer-content{
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!--title-->
+    <div class="header">
+        <h3>患者列表</h3>
+        <input  type="hidden" id="list_act" value="{$act}"/>
+        <a href="javascript:;" id="list_back"><img src="__AMOS__/public/images/back.png" alt="" class="leftBtn"></a>
+        <a href="{:url('/amosfamilyadd',['act'=>$act])}" class="outBtn">新增</a>
+    </div>
+
+    <div class="container">
+        
+
+    </div>
+
+
+    <script src="__AMOS__/public/js/jquery.min.js"></script>
+    <script src="__AMOS__/public/layui/layui.all.js"></script>
+    <script>
+         $(document).on('click','#list_back',function(){
+              var act=$("#list_act").val();
+              var selectid='{$selectid}';
+              if(act=='phone'){
+                   window.location.href="{:url('/amos_phonecall')}?fid="+selectid;
+               }else{
+                   window.location.href="{:url('/amos_videocall')}?fid="+selectid;
+               }
+             
+         });
+        $(document).on('click','.listBlock',function(){
+//        $(".listBlock").click(function(){
+           var $this = $(this);
+           if(!$this.hasClass("active")){
+               $this.addClass("active").siblings().removeClass("active");
+               var id=$this.attr('data-id');
+               var act=$this.attr('data-act');
+               if(act=='phone'){
+                   window.location.href="{:url('/amos_phonecall')}?fid="+id;
+               }else{
+                   window.location.href="{:url('/amos_videocall')}?fid="+id;
+               }
+               
+           }
+        });
+
+//        $(".del").click(function(){
+        $(document).on('click','.del',function(event){    
+            event.stopPropagation();
+           var $this = $(this);
+            layer.confirm('您确定要取消吗？', {
+                title:'提示',
+                btn: ['确定','取消'] //按钮
+
+                ,yes:function(index,layero){
+                    var id=$this.attr('data-id');
+                    var layerload = layer.load();
+                    $.ajax({
+                        url:"{:url('/amosfamilydel')}",
+                        data:{id:id},
+                        dataType:'json',
+                        type:'post',
+                        success:function(re){
+
+                                 layer.close(layerload);
+                                  layer.alert(re.msg);
+                          if(re.code==1){
+                              $this.parent().parent().parent().parent().remove();
+                              
+                          }
+                        }
+                    });
+                    
+                    layer.close(index); //关闭弹出框
+
+                }
+            });
+
+
+
+        });
+
+function loadlist(){
+              var layerload = layer.load();
+              var selectid='{$selectid}';
+              var act='{$act}'
+                $.ajax({
+                        url:"{:url('/amosfamily')}",
+                        data:{id:selectid,act:act},
+                        dataType:'json',
+                        type:'post',
+                        success:function(re){
+
+                                 layer.close(layerload);
+                                  
+                          if(re.code==1){
+                              
+                              $(".container").html(re.data.content);
+                          }else{
+                              layer.alert(re.msg);
+                          }
+                        }
+                });
+        }
+
+
+$(function(){
+            
+        
+                loadlist();
+                
+         })
+    </script>
+
+
+</body>
+</html>

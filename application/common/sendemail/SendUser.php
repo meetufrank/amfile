@@ -281,6 +281,21 @@ class SendUser
                 Queue::push('app\common\jobs\QueueClient@sendMAIL', $email_data, $queue ='jobs');
         //$emails->activeEmail($to,$subject,$body,$receivingparty);
     }
+    
+    //amos邮件
+    public function amoseamil($to,$title,$content) {
+                $email_data['to']=$to;
+                if($title){
+                    $email_data['title']=$title;
+                }else{
+                    $email_data['title']='国际汇医服务提醒';
+                }
+                
+                $email_data['content']=$content;
+                $email_data['sendperson']='汇医服务';
+                //加入任务队列中
+                Queue::push('app\common\jobs\QueueClient@sendMAIL', $email_data, $queue ='jobs');
+    }
 }
 
 

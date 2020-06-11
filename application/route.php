@@ -33,6 +33,7 @@ return [
     'services/:id'=>'advance/Index/service_details',
     'mobile_form/:id'=>'advance/Index/mobile_form',
     'loginApi'=>'medicalapi/User/Login',//获取个人信息接口
+    'tokenApi'=>'medicalapi/GetToken/token',//获取登录token
     'caseApi'=>'medicalapi/User/submitCase', //提交case接口
     'caseList'=>'medicalapi/User/getCaseList', //提交case接口
     'downloadArea'=>'advance/Download/downloadAreaList', //下载地址表
@@ -62,13 +63,23 @@ return [
     
     //amos服务
     'amosindex'=>'amos/index/index',
+    'amosdetail'=>'amos/index/detail',
     'amosfamily'=>'amos/index/familylist',
+    'amosfamilyadd'=>'amos/index/familyadd',
+    'amosfamilyedit'=>'amos/index/familyedit',
+    'amosfamilydel'=>'amos/index/familydel',
+    'amos_phonecall'=>'amos/index/phonecall',
+    'amos_videocall'=>'amos/index/videocall',
+    'amos_meeting'=>'amos/index/validmeeting',
     
     //am聊天demo服务
     'ltindex'=>'ltpage/login/index',
     'lthtml'=>'ltpage/index/index',
     
+    //http://www.advance-medical.com.cn/generali_china
     
+    //generali_china 服务
+    'generali_china'=>'generalichina/index/index',
     
     
      // 后台

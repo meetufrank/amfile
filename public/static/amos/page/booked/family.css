@@ -1,0 +1,466 @@
+body{
+    background: #f7f7f7;
+}
+
+div,p,h1,h2,h3,h4,h5,h6,ul,li{
+    margin: 0;
+    padding: 0;
+}
+
+
+.header{
+    position: relative;
+    background: linear-gradient(132deg, #4799F5 0%, #01B5E2 100%);
+    width: 100%;
+    border-bottom-left-radius: 23%;
+    border-bottom-right-radius: 23%;
+    height: 1.5rem;
+    z-index: 1;
+}
+
+.header h3{
+    font-family: "Microsoft YaHei";
+    font-size: .33rem;
+    color: #fff;
+    text-align: center;
+    line-height: 1rem;
+}
+.header .leftBtn{
+    position: absolute;
+    width: .4rem;
+    top: 33%;
+    left: .24rem;
+    transform: translate(0, -50%);
+}
+.header .outBtn{
+    display: inline-block;
+    width: 1.21rem;
+    height: .6rem;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    border-radius: 100px;
+    border: 1px solid #fff;
+    font-family: "Microsoft YaHei";
+    font-size: .3rem;
+    color: #40C6E8;
+    text-align: center;
+    line-height: .6rem;
+    text-decoration: none;
+    position: absolute;
+    top: 33%;
+    right: .24rem;
+    transform: translate(0, -50%);
+    background: #fff;
+    z-index: 99;
+}
+
+.container{
+    background: transparent;
+    position: relative;
+    top: -.3rem;
+    z-index: 10;
+}
+
+.relation{
+    width: 6.96rem;
+    height: 1.17rem;
+    background: #fff;
+    -webkit-border-radius: .14rem;
+    -moz-border-radius: .14rem;
+    border-radius: .14rem;
+    box-shadow: 0 7px 7px 1px #eaeaea;
+    padding: .24rem;
+    margin: 0 auto .32rem;
+    position: relative;
+}
+.relation input{
+    width: 100%;
+    height: 100%;
+    text-align: right;
+    border: none;
+    outline: none;
+    padding-right: .4rem;
+    padding-left: 1.5rem;
+    font-size: .25rem;
+    font-family: MicrosoftYaHei;
+    color: #bcbbc3;
+}
+
+
+.spanTitle{
+    position: absolute;
+    top: 50%;
+    left: .24rem;
+    transform: translate(0, -50%);
+    font-size: .33rem;
+    font-family: MicrosoftYaHei;
+    color: #3a404e;
+}
+.goto{
+    position: absolute;
+    right: .24rem;
+    top: 50%;
+    width: .3rem;
+    transform: translate(0, -50%);
+}
+
+
+.nameSex{
+    width: 6.96rem;
+    height: 2.48rem;
+    background: #fff;
+    -webkit-border-radius: .14rem;
+    -moz-border-radius: .14rem;
+    border-radius: .14rem;
+    box-shadow: 0 7px 7px 1px #eaeaea;
+    padding: .24rem;
+    margin: 0 auto .32rem;
+    position: relative;
+}
+.nameSex .name{
+    position: relative;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: .35rem;
+}
+.nameSex .name input{
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    font-size: .25rem;
+    font-family: MicrosoftYaHei;
+    color: #bcbbc3;
+    padding: .24rem 0 .4rem 0;
+    padding-left: 2rem;
+}
+.nameSex .name input::-webkit-input-placeholder {
+    font-size: .32rem;
+    font-family: MicrosoftYaHei;
+    color: #3a404e;
+}
+.nameSex .name input:-moz-placeholder {
+    font-size: .32rem;
+    font-family: MicrosoftYaHei;
+    color: #3a404e;
+}
+.nameSex .name input::-moz-placeholder {
+    font-size: .32rem;
+    font-family: MicrosoftYaHei;
+    color: #3a404e;
+}
+.nameSex .name input::-ms-input-placeholder {
+    font-size: .32rem;
+    font-family: MicrosoftYaHei;
+    color: #3a404e;
+}
+
+
+
+.nameSex .sex{
+    position: relative;
+    padding-left: 1rem;
+}
+.sex .spanBlo .bloFather{
+    display: inline-block;
+    width: 1.21rem;
+    height: .6rem;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    border-radius: 100px;
+    background: #C0BFBE;
+    text-align: center;
+    line-height: .6rem;
+}
+.sex .spanBlo .bloFather.active{
+    background: #00B5E2;
+}
+.sex .spanBlo .bloFather:first-child{
+    margin-right: .3rem;
+}
+.sex .spanBlo .bloFather img{
+    width: .4rem;
+    position: relative;
+    top: -1px;
+}
+.sex .spanBlo .bloFather span{
+    font-size: .33rem;
+    font-family: MicrosoftYaHei;
+    color: #fff;
+    /*vertical-align: middle;*/
+}
+
+.bir{
+    width: 6.96rem;
+    height: 1.17rem;
+    background: #fff;
+    -webkit-border-radius: .14rem;
+    -moz-border-radius: .14rem;
+    border-radius: .14rem;
+    box-shadow: 0 7px 7px 1px #eaeaea;
+    padding: .24rem;
+    margin: 0 auto .32rem;
+    position: relative;
+}
+.bir input{
+    width: 100%;
+    height: 100%;
+    text-align: right;
+    border: none;
+    outline: none;
+    padding-right: .4rem;
+    padding-left: 1.5rem;
+    font-size: .25rem;
+    font-family: MicrosoftYaHei;
+    color: #bcbbc3;
+}
+
+.address{
+    width: 6.96rem;
+    margin: 0 auto;
+}
+.address .area{
+    width: 2.52rem;
+    height: 1.17rem;
+    background: #fff;
+    -webkit-border-radius: .14rem;
+    -moz-border-radius: .14rem;
+    border-radius: .14rem;
+    box-shadow: 0 7px 7px 1px #eaeaea;
+    padding: .24rem;
+    margin: 0 auto .32rem;
+    position: relative;
+    display: inline-block;
+    margin-right: .14rem;
+}
+.area input{
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    font-size: .25rem;
+    font-family: MicrosoftYaHei;
+    color: #bcbbc3;
+    padding-right: .4rem;
+}
+.area input::-webkit-input-placeholder {
+    font-size: .32rem;
+    font-family: MicrosoftYaHei;
+    color: #3a404e;
+}
+.area input:-moz-placeholder {
+    font-size: .32rem;
+    font-family: MicrosoftYaHei;
+    color: #3a404e;
+}
+.area input::-moz-placeholder {
+    font-size: .32rem;
+    font-family: MicrosoftYaHei;
+    color: #3a404e;
+}
+.area input::-ms-input-placeholder {
+    font-size: .32rem;
+    font-family: MicrosoftYaHei;
+    color: #3a404e;
+}
+
+.address .time{
+    width: 4.22rem;
+    height: 1.17rem;
+    background: #fff;
+    -webkit-border-radius: .14rem;
+    -moz-border-radius: .14rem;
+    border-radius: .14rem;
+    box-shadow: 0 7px 7px 1px #eaeaea;
+    padding: .24rem;
+    margin: 0 auto .32rem;
+    position: relative;
+    display: inline-block;
+}
+.time input{
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    font-size: .25rem;
+    font-family: MicrosoftYaHei;
+    color: #bcbbc3;
+    padding-right: .4rem;
+}
+.time input::-webkit-input-placeholder {
+    font-size: .32rem;
+    font-family: MicrosoftYaHei;
+    color: #3a404e;
+}
+.time input:-moz-placeholder {
+    font-size: .32rem;
+    font-family: MicrosoftYaHei;
+    color: #3a404e;
+}
+.time input::-moz-placeholder {
+    font-size: .32rem;
+    font-family: MicrosoftYaHei;
+    color: #3a404e;
+}
+.time input::-ms-input-placeholder {
+    font-size: .32rem;
+    font-family: MicrosoftYaHei;
+    color: #3a404e;
+}
+
+
+.language{
+    width: 6.96rem;
+    height: 1.17rem;
+    background: #fff;
+    -webkit-border-radius: .14rem;
+    -moz-border-radius: .14rem;
+    border-radius: .14rem;
+    box-shadow: 0 7px 7px 1px #eaeaea;
+    padding: .24rem;
+    margin: 0 auto .32rem;
+    position: relative;
+}
+.language input{
+    width: 100%;
+    height: 100%;
+    text-align: right;
+    border: none;
+    outline: none;
+    padding-right: .4rem;
+    padding-left: 1.5rem;
+    font-size: .25rem;
+    font-family: MicrosoftYaHei;
+    color: #bcbbc3;
+}
+
+.phoneEmail{
+    width: 6.96rem;
+    height: 2.48rem;
+    background: #fff;
+    -webkit-border-radius: .14rem;
+    -moz-border-radius: .14rem;
+    border-radius: .14rem;
+    box-shadow: 0 7px 7px 1px #eaeaea;
+    padding: .24rem;
+    margin: 0 auto .32rem;
+    position: relative;
+    padding-top: 0;
+}
+.phoneEmail .phone{
+    position: relative;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: .35rem;
+}
+.phoneEmail .phone .qh{
+    position: absolute;
+    left: 42%;
+    top: 50%;
+    transform: translate(0,-50%);
+    font-size: .33rem;
+    font-family: "Microsoft YaHei";
+    color: #bcbbc3;
+}
+.phoneEmail .phone input{
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    font-size: .25rem;
+    font-family: MicrosoftYaHei;
+    color: #bcbbc3;
+    padding: .4rem 0 .4rem 0;
+    padding-left: 3.5rem;
+}
+.phoneEmail .email{
+    position: relative;
+}
+.phoneEmail .email input{
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    padding-right: .4rem;
+    padding-left: 2.8rem;
+    font-size: .25rem;
+    font-family: MicrosoftYaHei;
+    color: #bcbbc3;
+}
+input{
+    color: #3a404e !important;
+}
+
+
+
+/* 家属关系 底部弹出层样式*/
+.yz-model, .yz-model2, .yz-model3, .yz-model4 , .yz-model5 {
+    position: fixed;
+    display: none;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0, .6);
+    z-index: 10;
+}
+.country-model{
+     position: absolute;
+     width: 100%;
+     height: 5rem;
+     bottom: 0;
+     left: 0;
+     background: #fff;
+ }
+.c-header{
+    background: #eee;
+    height: 1rem;
+    line-height: 1rem;
+    padding: 0 .55rem;
+    display: flex;
+    justify-content: space-between;
+    color: #666;
+    font-size: .28rem;
+    border-bottom: 1px solid #dcdcdc;
+}
+.choice-c-btn1 {
+    font-size: .28rem;
+    color: #222;
+    font-weight: 500;
+}
+.c-section {
+    overflow-y: auto;
+}
+.c-section {
+    height: 4rem;
+}
+.c-section div{
+    padding: .35rem .55rem;
+    border-bottom: 1px solid #dcdcdc;
+    display: flex;
+    justify-content: space-between;
+}
+.c-section div img{
+    width: .32rem;
+    height: .32rem;
+    position: relative;
+    top: .07rem;
+}
+.c-section div.active{
+    background: #f7f7f7;
+}
+
+.disNone{
+    display: none;
+}
+
+
+/*提示文字*/
+label{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: red;
+}
+
+
+

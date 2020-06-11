@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{$site_title}</title>
+    <link rel="stylesheet" href="{$static_path}/ampay/mui/mui.min.css">
+    <script src="{$static_path}/ampay/mui/mui.min.js"></script>
+    <script src="{$static_path}/ampay/js/rem.js"></script>
+    <link rel="stylesheet" href="{$static_path}/ampay/swiper/swiper.min.css">
+    <link rel="stylesheet" href="{$static_path}/ampay/css/detail.css?v=1.5">
+</head>
+<body>
+    <header class="header">
+        <div class="header_left" onclick="javascript:window.location.href='{:url(\'/serviceIndex\')}';">
+            <span class="mui-icon mui-icon-arrowleft"></span>
+        </div>
+        <div class="header_center">
+            <img src="{$static_path}/ampay/images/logo.png" alt="">
+        </div>
+        <div class="header_right" style="display: none;">
+            <img src="{$static_path}/ampay/images/home.png" alt="">
+        </div>
+    </header>
+
+
+
+    <!--内容部分-->
+    {if condition="$typeid eq 5"} 
+    <div class="banner">
+        <img src="{$static_path}/ampay/images/detail_banner.png?v=1.0" alt="">
+    </div>
+    <div class="content">
+        <h3>家庭医生随身行</h3>
+        <!--服务介绍-->
+        <div class="service_intro">
+            <p class="intro_title"><span></span><span>服务介绍</span></p>
+            <p class="intro_text">
+                为您提供非紧急情况下的健康相关问题咨询，无论您身处何处，都可以通过手机或其它移动设备，与我们的资深医生团队取得联系。
+            </p>
+        </div>
+        
+        <!--服务不适用场景-->
+        <div class="service_intro">
+            <p class="intro_title"><span></span><span>服务适用场景</span></p>
+            <p class="intro_text">
+                日常健康咨询，提供您对相关领域的医疗认知，如家族史、职业病或在医院就诊后，仍需详细的解释。
+            </p>
+        </div>
+
+        <!--服务不适用场景-->
+        <div class="service_intro">
+            <p class="intro_title"><span></span><span>服务不适用场景</span></p>
+            <ul class="list">
+                <li>急症</li>
+                <li>生命体征不稳定</li>
+                <li>复杂案例，需多学科专家会诊出具第二诊疗意见</li>
+            </ul>
+        </div>
+        
+        <!--服务承诺-->
+        <div class="service_intro">
+            <p class="intro_title"><span></span><span>服务承诺</span></p>
+            <ul class="list">
+                <li>所有医生均持有有效行医执照，平均10年以上临床经验</li>
+                <li>3小时内回复，不限制咨询时间</li>
+                <li>提供书面小结，随时翻看咨询记录</li>
+                <li>国际领先服务标准</li>
+            </ul>
+        </div>
+        
+    </div>
+    
+   {elseif condition="$typeid eq 1"} <!--全球医学专家意见-->
+    <div class="banner">
+          <img src="{$static_path}/ampay/images/all.png?v=1.1" alt="">
+    </div>
+    <div class="type_text bgF">
+        <p class="label">尚未对个人用户开通</p>
+    </div>
+       <div class="content">
+        <h3>全球医学专家意见</h3>
+        <!--服务介绍-->
+        <div class="service_intro">
+            <p class="intro_title"><span></span><span>服务介绍</span></p>
+            <p class="intro_text">
+                面对重大疾病或复杂病情，不知所措？汇医让您足不出户，即可享受全球权威医学专家意见。
+            </p>
+        </div>
+
+        <!--服务适用场景-->
+        <div class="service_intro">
+            <p class="intro_title"><span></span><span>适用场景</span></p>
+<!--            <p class="intro_text">
+                日常健康咨询，提供您对相关领域的医疗认知，如家族史、职业病或在医院就诊后，仍需详细的解释。
+            </p>-->
+            <ul class="list">
+                <li>当被诊断出重疾，想要得到权威专家的鉴定</li>
+                <li>对诊断有疑问（例如在不同医院得到不同诊断）</li>
+                <li>需要做出重大医疗决策（例如手术决定）</li>
+                <li>针对已有方案，还想了解不同的治疗方案</li>
+            </ul>
+        </div>
+
+        <!--服务不适用场景-->
+        <div class="service_intro">
+            <p class="intro_title"><span></span><span>服务不适用场景</span></p>
+            <ul class="list">
+                <li>慢性病</li>
+                <li>日常健康问题</li>
+                <li>紧急及意外状况</li>
+                <li>疾病急性发作期</li>
+            </ul>
+        </div>
+        <!--服务承诺-->
+        <div class="service_intro">
+            <p class="intro_title"><span></span><span>服务承诺</span></p>
+            <p class="intro_text">
+                专案医生负责制，收到服务申请后，1个工作日内安排专案医生回电，了解详细病情，收集病历信息。<br><br>
+                全球5万名顶尖专家分布于450个子专科，根据个案精准匹配专家，专家数量无上限。<br><br>
+                10个工作日内，呈现最终报告，并由专案医生为客户详细解释报告内容。<br><br>
+                * 报告以英文形式呈现，如需翻译成其他语言，需额外2-3个工作日。
+            </p>
+        </div>
+        <!--！！-->
+        <div class="service_intro">
+            <p class="intro_text">
+                目前此业务尚未对个人用户开放，请联络您的保险公司或所在工作单位确认是否已包含此服务。进一步咨询请发送邮件至：customerservice_china@teladochealth.com
+            </p>
+        </div>
+    </div>
+   {elseif condition="$typeid eq 2"} <!--慢病管理-->
+    <div class="banner">
+          <img src="{$static_path}/ampay/images/index_img3.png?v=1.0" alt="">
+    </div>   
+   <div class="type_text bgF">
+        <p class="label">尚未对个人用户开通</p>
+    </div>
+    <div class="content">
+        <h3>慢病管理</h3>
+        <!--服务介绍-->
+        <div class="service_intro">
+            <p class="intro_title"><span></span><span>服务介绍</span></p>
+            <p class="intro_text">
+                针对糖尿病，高血压等慢性疾病，由专业健身教练及营养师提供运动及饮食计划，通过调整生活习惯，控制疾病发展，获得更佳的身体状况。
+            </p>
+        </div>
+
+        <!--服务适用场景-->
+        <div class="service_intro">
+            <p class="intro_title"><span></span><span>服务流程</span></p>
+            <ul class="list">
+<!--                <li>用户填写生活习惯问卷</li>
+                <li>护士发送欢迎邮件及电话咨询</li>
+                <li>由国际认证健身教练以及营养师进行专业评估</li>
+                <li>制定4-8周专属健身计划、健康食谱</li>
+                <li>每周由专业护士进行计划实施追踪</li>-->
+                <li>家庭医生一个工作日之内致电，进行临床沟通</li>
+                <li>由家庭医生组织营养师、健身教练团队一起制定管理计划</li>
+                <li>每周由专业护士进行计划实施追踪</li>
+            </ul>
+        </div>
+        <!--！！-->
+        <div class="service_intro">
+            <p class="intro_text">
+                目前此业务尚未对个人用户开放，请联络您的保险公司或所在工作单位确认是否已包含此服务。进一步咨询请发送邮件至：customerservice_china@teladochealth.com
+            </p>
+        </div>
+    </div>
+   
+   {elseif condition="$typeid eq 3"} <!--私人营养师-->
+    <div class="banner">
+          <img src="{$static_path}/ampay/images/index_img4.png?v=1.1" alt="">
+    </div>     
+   <div class="type_text bgF">
+        <p class="label">尚未对个人用户开通</p>
+    </div>
+   <div class="content">
+        <h3>私人营养师</h3>
+        <!--服务介绍-->
+        <div class="service_intro">
+            <p class="intro_title"><span></span><span>服务介绍</span></p>
+            <p class="intro_text">
+                私人营养师为您提供个性化的营养学咨询以及定制相应的饮食计划，在满足味蕾的同时，让您吃得更健康！
+            </p>
+        </div>
+
+        <!--服务适用场景-->
+        <div class="service_intro">
+            <p class="intro_title"><span></span><span>服务承诺</span></p>
+            <ul class="list">
+                <li>国际营养师为您量身定制饮食方案</li>
+                <li>为期4-8周，每周由专人跟进方案执行</li>
+            </ul>
+        </div>
+        <!--！！-->
+        <div class="service_intro">
+            <p class="intro_text">
+                目前此业务尚未对个人用户开放，请联络您的保险公司或所在工作单位确认是否已包含此服务。进一步咨询请发送邮件至：customerservice_china@teladochealth.com
+            </p>
+        </div>
+    </div>
+   
+   {elseif condition="$typeid eq 4"} <!--海外医疗安排-->
+    <div class="banner">
+          <img src="{$static_path}/ampay/images/index_img5.png?v=1.1" alt="">
+    </div>   
+   <div class="type_text bgF">
+        <p class="label">尚未对个人用户开通</p>
+    </div>
+      <div class="content">
+        <h3>海外医疗安排</h3>
+        <!--服务介绍-->
+        <div class="service_intro">
+            <p class="intro_title"><span></span><span>适用场景</span></p>
+            <p class="intro_text">
+                已完成全球医学专家意见，并期望于海外进行后续治疗。
+            </p>
+        </div>
+
+        <!--服务适用场景-->
+        <div class="service_intro">
+            <p class="intro_title"><span></span><span>服务流程</span></p>
+            <ul class="list">
+                <li>专案医生根据您的需要，建议合适的海外专家，并协助确认治疗方案</li>
+                <li>专案医生安排首次预约及海外就医行程，与海外专家进行前期沟通，确保治疗顺利进行</li>
+                <li>协助安排交通及住宿需求</li>
+                <li>术后半年内跟进，回复客户相关医疗咨询</li>
+            </ul>
+        </div>
+        <div class="service_intro">
+            <p class="intro_text">
+                *服务不涵盖实际发生的诊疗相关费用及旅行费用。
+            </p>
+        </div>
+        
+        <!--服务不适用场景-->
+        <div class="service_intro">
+            <p class="intro_title"><span></span><span>服务不适用场景</span></p>
+            <ul class="list">
+                <li>未完成全球医学专家意见</li>
+                <li>紧急情况或生命体征不稳定</li>
+            </ul>
+        </div>
+        <!--！！-->
+        <div class="service_intro">
+            <p class="intro_text">
+                目前此业务尚未对个人用户开放，请联络您的保险公司或所在工作单位确认是否已包含此服务。进一步咨询请发送邮件至：customerservice_china@teladochealth.com
+            </p>
+        </div>
+    </div>
+   {/if}
+    {if condition="$typeid eq 5"}
+    <!--页脚-->
+    <div class="foot">
+        <ul>
+            <li style="display: none;"><a href="">在线咨询</a></li>
+            <li onclick="javascript:window.location.href='{:url(\'/selectservice\',[\'id\'=>$typeid])}';"><a href="#">购买服务</a></li>
+        </ul>
+    </div>
+    {/if}
+<script src="{$static_path}/ampay/js/jquery.min.js"></script>
+{include file="commonfoot"/}
+</body>
+</html>

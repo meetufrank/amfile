@@ -53,20 +53,22 @@ class Base extends Controller
        
         $apiid=$request->param('apiid');
         if(empty($apiid)){
-           echo json_encode(['code' => '40001','msg' => 'invalid code']);
-           exit;
+           
+           $this->dataReturn(40001);
         }
         $apipwd=$request->param('apipwd');
         $time=$request->param('timestamp');
         $sign=$request->param('sign');
         $body=$request->param('body');
-       
-
+        $now=time();
+        if($now<$time && ($now-$time)>7200){
+            
+        }
         //验证签名密钥
         $v_sign=md5(base64_encode($body.$time.$apiid.$apipwd));
         if($v_sign!==$sign){
-             echo json_encode(['code' => '40004','msg' => 'invalid code']);
-             exit;
+            
+             $this->dataReturn(40004);
         }
         //解密body
         $this->jmbody($body);
@@ -74,12 +76,10 @@ class Base extends Controller
        
         //验证用户名和密码
         if(!isset($body['username'])){
-           echo json_encode(['code' => '50001','msg' => 'invalid code']);
-           exit;
+           $this->dataReturn(50001);
         }
         if(!isset($body['pwd'])){
-           echo json_encode(['code' => '50002','msg' => 'invalid code']);
-           exit;
+           $this->dataReturn(50002);
         }
         $username=$body['username'];
         $pwd=$body['pwd'];
@@ -92,11 +92,9 @@ class Base extends Controller
             unset($usermap['pwd']);
             $user_content=$this->ishave($usermap);
             if(empty($user_content)){
-               echo json_encode(['code' => '50001','msg' => 'invalid code']);
-               exit;
+                $this->dataReturn(50001);
             }else{
-               echo json_encode(['code' => '50002','msg' => 'invalid code']);
-               exit; 
+               $this->dataReturn(50002);
             }
             
         }
@@ -112,16 +110,13 @@ class Base extends Controller
             unset($companymap['apipwd']);
             $company_content=CompanyLogic::getInstance()->getCompanyList($companymap,1);
             if(empty($company_content)){
-                echo json_encode(['code' => '40001','msg' => 'invalid code']);
-                exit;
+                $this->dataReturn(40001);
             }else{
-               echo json_encode(['code' => '40002','msg' => 'invalid code']);
-               exit;
+               $this->dataReturn(40002);
             }
         }
         }else{
-           echo json_encode(['code' => '-1','msg' => 'invalid code']);
-           exit;
+           $this->dataReturn(-1);
         }
      }
      protected function ishave($where=null) {
@@ -129,7 +124,21 @@ class Base extends Controller
          return ChatUserLogic::getInstance()->getUserlist($where,1);
      }
      
-   
+     
+     
+     protected function dataReturn($code=0,$msg='invalid code',$data=[],$type='json') {
+         
+         $result=[
+             'code'=>$code,
+             'msg'=>$msg,
+             'data'=>$data
+         ];
+         if($type=='json'){
+             echo json_encode($result);
+             die();
+         }
+         
+     }
      //解密body
     protected function jmbody($body=null) {
          //urldecode解密

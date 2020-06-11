@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>汇医国际健康顾问</title>
+    <link rel="stylesheet" href="../../public/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="mobileSelect.css">
+    <script src="../../public/js/rem.js"></script>
+    <link rel="stylesheet" href="family.css?v=1.1">
+</head>
+<body>
+
+    <!--title-->
+    <div class="header">
+        <h3>家庭成员编辑</h3>
+        <a href="javascript:history.go(-1)"><img src="../../public/images/back.png" alt="" class="leftBtn"></a>
+        <a href="javascript:void(0);" class="outBtn">保存</a>
+    </div>
+
+    <div class="container">
+
+        <form id="medical-form" class="medical-form">
+            <!--家属关系-->
+            <div class="relation">
+                <span class="spanTitle">家属关系</span>
+                <input type="text" placeholder="请选择" readonly="readonly" value="" class="relaInput" name="familyRela">
+                <img src="../../public/images/goto.png" alt="" class="goto">
+            </div>
+
+            <!--姓名性别部分-->
+            <div class="nameSex">
+                <div class="name">
+                    <span class="spanTitle" style="left: 0;  top: 43%;">姓名</span>
+                    <input type="text" name="username" class="username">
+                </div>
+                <div class="sex">
+                    <span class="spanTitle" style="    left: 0;">性别</span>
+                    <span class="spanBlo">
+                    <span class="bloFather active"><img src="../../public/images/man.png" alt="">&nbsp;<span>男</span></span>
+                    <span class="bloFather"><img src="../../public/images/wumen.png" alt="">&nbsp;<span>女</span></span>
+                </span>
+                </div>
+            </div>
+
+            <!--生日-->
+            <div class="bir">
+                <span class="spanTitle">出生日期</span>
+                <input type="text" placeholder="请选择出生日期" readonly="readonly" value="" id="trigger1" class="birth" name="birthday">
+                <img src="../../public/images/goto.png" alt="" class="goto">
+            </div>
+
+            <!--地区/时区-->
+            <div class="address">
+                <!--地区-->
+                <div class="area">
+                    <!--<span class="spanTitle">中国</span>-->
+                    <input type="text" placeholder="地区" readonly="readonly" name="local" class="local">
+                    <img src="../../public/images/goto.png" alt="" class="goto">
+                </div>
+                <!--时区-->
+                <div class="time">
+                    <!--<span class="spanTitle">时区</span>-->
+                    <input type="text" placeholder="时区" readonly="readonly" name="timeLocal" class="timeLocal">
+                    <img src="../../public/images/goto.png" alt="" class="goto">
+                </div>
+            </div>
+
+            <!--语言-->
+            <div class="language">
+                <span class="spanTitle">语言</span>
+                <input type="text" placeholder="请选择" readonly="readonly" value="" class="languageInput" name="language">
+                <img src="../../public/images/goto.png" alt="" class="goto">
+            </div>
+
+            <!--电话/邮件-->
+            <div class="phoneEmail">
+                <!--电话-->
+                <div class="phone">
+                    <span class="spanTitle" style="left: 0;">电话</span>
+                    <span class="qh">+86</span>
+                    <input type="text" name="phone" class="tell">
+                </div>
+                <!--邮箱-->
+                <div class="email">
+                    <span class="spanTitle" style="left: 0;">E-mail</span>
+                    <input type="text" name="email" class="yx">
+                </div>
+            </div>
+            <input class="submit" type="submit" value="立即注册" style="display: none;"/>
+        </form>
+
+
+    </div>
+
+    <!--家属关系-->
+    <div class="yz-model yz-model2">
+        <div class="country-model">
+            <header class="c-header">
+                <span>亲属关系</span>
+                <span class="choice-c-btn1">确定</span>
+            </header>
+            <section class="c-section">
+                <div class="active">
+                    <span class="c-name">父母</span>
+                    <img src="../../public/images/blueG.png" alt="">
+                </div>
+                <div class="">
+                    <span class="c-name">朋友</span>
+                    <img src="../../public/images/blueG.png" alt="" class="disNone">
+                </div>
+                <div class="">
+                    <span class="c-name">同事</span>
+                    <img src="../../public/images/blueG.png" alt="" class="disNone">
+                </div>
+                <div class="">
+                    <span class="c-name">其他</span>
+                    <img src="../../public/images/blueG.png" alt="" class="disNone">
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!--中国地区-->
+    <div class="yz-model yz-model3">
+        <div class="country-model">
+            <header class="c-header">
+                <span>地区</span>
+                <span class="choice-c-btn3">确定</span>
+            </header>
+            <section class="c-section">
+                <div class="active">
+                    <span class="c-name">中国</span>
+                    <img src="../../public/images/blueG.png" alt="">
+                </div>
+                <div class="">
+                    <span class="c-name">美国</span>
+                    <img src="../../public/images/blueG.png" alt="" class="disNone">
+                </div>
+                <div class="">
+                    <span class="c-name">泰国</span>
+                    <img src="../../public/images/blueG.png" alt="" class="disNone">
+                </div>
+                <div class="">
+                    <span class="c-name">俄罗斯</span>
+                    <img src="../../public/images/blueG.png" alt="" class="disNone">
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!--时区-->
+    <div class="yz-model yz-model4">
+        <div class="country-model">
+            <header class="c-header">
+                <span>时区</span>
+                <span class="choice-c-btn4">确定</span>
+            </header>
+            <section class="c-section">
+                <div class="active">
+                    <span class="c-name">显示的时区</span>
+                    <img src="../../public/images/blueG.png" alt="">
+                </div>
+                <div class="">
+                    <span class="c-name">显示的时区</span>
+                    <img src="../../public/images/blueG.png" alt="" class="disNone">
+                </div>
+                <div class="">
+                    <span class="c-name">显示的时区</span>
+                    <img src="../../public/images/blueG.png" alt="" class="disNone">
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!--语言-->
+    <div class="yz-model yz-model5">
+        <div class="country-model">
+            <header class="c-header">
+                <span>语言</span>
+                <span class="choice-c-btn5">确定</span>
+            </header>
+            <section class="c-section">
+                <div class="active">
+                    <span class="c-name">中文</span>
+                    <img src="../../public/images/blueG.png" alt="">
+                </div>
+                <div class="">
+                    <span class="c-name">英文</span>
+                    <img src="../../public/images/blueG.png" alt="" class="disNone">
+                </div>
+                <div class="">
+                    <span class="c-name">泰文</span>
+                    <img src="../../public/images/blueG.png" alt="" class="disNone">
+                </div>
+            </section>
+        </div>
+    </div>
+
+
+    <script src="../../public/js/jquery.min.js"></script>
+    <script src="../../public/js/jquery.validate.min.js"></script>
+    <script src="mobileSelect.js"></script>
+    <script src="../../public/js/form.js"></script>
+    <script>
+        $(".bloFather").click(function(){
+           var $this = $(this);
+           if(!$this.hasClass("active")){
+               $this.addClass("active").siblings().removeClass("active");
+           }
+        });
+
+
+        // 日期选择
+        var years=[];
+        var month=[];
+        var day=[];
+        var myDate = new Date();
+        myDate.getFullYear();    //获取完整的年份(4位,1970-????)
+        myDate.getMonth();       //获取当前月份(0-11,0代表1月)
+        myDate.getDate();
+        var _data=[];
+        for(i=0; i<myDate.getFullYear()-2001; i++){
+            //年
+            var obj={};
+            var yer=2001+i+1;
+            obj.value=2001+i+1;
+            var _data2=[];
+            for(n=0; n<12; n++){
+                //月
+                var obj2={};
+                if(n<9){
+                    obj2.value='0'+(n+1);
+                }else{
+                    obj2.value=n+1;
+                }
+                var _data3=[];
+                if(n==1){
+                    var cond1 = yer % 4 == 0;  //条件1：年份必须要能被4整除
+                    var cond2 = yer % 100 != 0;  //条件2：年份不能是整百数
+                    var cond3 = yer % 400 ==0;
+                    var cond = cond1 && cond2 || cond3;
+                    //闰年
+                    if(cond){
+                        for(y=0; y<29; y++){
+                            //日
+                            var obj3={};
+                            if(y<9){
+                                obj3.value='0'+(y+1);
+                            }else{
+                                obj3.value=y+1;
+                            }
+                            _data3.push(obj3)
+                        }
+                    }else{
+                        for(y=0; y<28; y++){
+                            //日
+                            var obj3={};
+                            if(y<9){
+                                obj3.value='0'+(y+1);
+                            }else{
+                                obj3.value=y+1;
+                            }
+                            _data3.push(obj3)
+                        }
+                    }
+                }else if(n==0||n==2||n==4||n==6||n==7||n==9||n==11){
+                    for(y=0; y<31; y++){
+                        //日
+                        var obj3={};
+                        if(y<9){
+                            obj3.value='0'+(y+1);
+                        }else{
+                            obj3.value=y+1;
+                        }
+                        _data3.push(obj3)
+                    }
+                }else{
+                    for(y=0; y<30; y++){
+                        //日
+                        var obj3={};
+                        if(y<9){
+                            obj3.value='0'+(y+1);
+                        }else{
+                            obj3.value=y+1;
+                        }
+                        _data3.push(obj3)
+                    }
+                }
+                obj2.childs=_data3;
+                _data2.push(obj2);
+            }
+            obj.childs=_data2;
+            _data.push(obj)
+        }
+        var mobileSelect1 = new MobileSelect({
+            trigger: '#trigger1',
+            title: '日期选择',
+            wheels: [
+                {data:_data}
+            ],
+            position:[18],   //  初始位置
+            transitionEnd:function(indexArr, data){
+                console.log(data);
+            },
+            callback:function(indexArr, data){
+                console.log(data);
+                $("#trigger1").val(data[0].value+'-'+data[1].value+'-'+data[2].value);
+                $("#trigger1-error").hide();
+                // $("#trigger1").val(data[2].value+' / '+data[1].value+' / '+data[0].value);
+            }
+        });
+
+
+    // 选择亲属关系
+        $(".relation").click(function(){
+            $(".yz-model2").show();
+            $("body").css("overflow","hidden");
+        });
+    $(".yz-model2 .c-section").on('click','div',function(e){
+        e.stopPropagation();
+        e.preventDefault();
+
+       var $this = $(this);
+       if(!$this.hasClass("active")){
+           $this.addClass("active").find("img").removeClass("disNone").parent().siblings().removeClass("active").find("img").addClass("disNone");
+       }
+    });
+    $(".choice-c-btn1").click(function(){
+        var $html = $(".yz-model2 .c-section div.active .c-name").text();
+        $(".relaInput").val($html);
+        $(".relaInput").next().hide();
+        $(".yz-model2").hide();
+    });
+    $(".yz-model2").click(function(){
+        $(this).hide();
+        $("body").css("overflow","auto");
+    });
+
+    // 地区
+        $(".area").click(function(){
+            $(".yz-model3").show();
+            $("body").css("overflow","hidden");
+        });
+        $(".yz-model3 .c-section").on('click','div',function(e){
+            e.stopPropagation();
+            e.preventDefault();
+
+            var $this = $(this);
+            if(!$this.hasClass("active")){
+                $this.addClass("active").find("img").removeClass("disNone").parent().siblings().removeClass("active").find("img").addClass("disNone");
+            }
+        });
+        $(".choice-c-btn3").click(function(){
+            var $html = $(".yz-model3 .c-section div.active .c-name").text();
+            $(".area .local").val($html);
+            $("#local-error").hide();
+            $(".yz-model3").hide();
+        });
+        $(".yz-model3").click(function(){
+            $(this).hide();
+            $("body").css("overflow","auto");
+        });
+
+        // 时区
+        $(".time").click(function(){
+            $(".yz-model4").show();
+            $("body").css("overflow","hidden");
+        });
+        $(".yz-model4 .c-section").on('click','div',function(e){
+            e.stopPropagation();
+            e.preventDefault();
+
+            var $this = $(this);
+            if(!$this.hasClass("active")){
+                $this.addClass("active").find("img").removeClass("disNone").parent().siblings().removeClass("active").find("img").addClass("disNone");
+            }
+        });
+        $(".choice-c-btn4").click(function(){
+            var $html = $(".yz-model4 .c-section div.active .c-name").text();
+            $(".time .timeLocal").val($html);
+            $("#timeLocal-error").hide();
+            $(".yz-model4").hide();
+        });
+        $(".yz-model4").click(function(){
+            $(this).hide();
+            $("body").css("overflow","auto");
+        });
+
+        // 语言
+        $(".language").click(function(){
+            $(".yz-model5").show();
+            $("body").css("overflow","hidden");
+        });
+        $(".yz-model5 .c-section").on('click','div',function(e){
+            e.stopPropagation();
+            e.preventDefault();
+
+            var $this = $(this);
+            if(!$this.hasClass("active")){
+                $this.addClass("active").find("img").removeClass("disNone").parent().siblings().removeClass("active").find("img").addClass("disNone");
+            }
+        });
+        $(".choice-c-btn5").click(function(){
+            var $html = $(".yz-model5 .c-section div.active .c-name").text();
+            $(".languageInput").val($html);
+            $(".languageInput").next().hide();
+            $(".yz-model5").hide();
+        });
+        $(".yz-model5").click(function(){
+            $(this).hide();
+            $("body").css("overflow","auto");
+        });
+
+        $(".username").focus(function(){
+            $(this).next().hide();
+        })
+        $(".tell").focus(function(){
+            $(this).next().hide();
+            $(".qh").show();
+        })
+        $(".tell").blur(function(){
+             if($(this).val() == ""){
+                $(".qh").hide();
+            }else{
+                 $(".qh").show();
+             }
+        });
+        $(".tell").keyup(function(){
+            if($(this).val() == ""){
+                $(".qh").hide();
+            }else{
+                $(".qh").show();
+            }
+        });
+
+        $(".yx").focus(function(){
+            if($(this).val() != ""){
+                $(this).next().hide();
+                // $("#email-error").hide();
+            }else{
+                // $("#email-error").show();
+                $(this).next().show();
+            }
+
+        })
+
+
+
+    </script>
+
+</body>
+</html>

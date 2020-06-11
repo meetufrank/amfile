@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{$site_title}</title>
+   
+    <link rel="stylesheet" href="{$static_path}/ampay/mui/mui.min.css">
+    <script src="{$static_path}/ampay/mui/mui.min.js"></script>
+    <script src="{$static_path}/ampay/js/rem.js"></script>
+    <link rel="stylesheet" href="{$static_path}/ampay/swiper/swiper.min.css">
+    <link rel="stylesheet" href="{$static_path}/ampay/css/order.css?v=1.7">
+  
+     <style type="text/css">
+         .input-group-prepend,.input-group-append{
+             display: inline;
+         }
+         .input-group-prepend button,.input-group-append button{
+             background: linear-gradient(132deg, #6692ea 0%, #60c6fd 100%);
+             border: 1px solid #7aa5fb;
+             color: #fff;
+              border-radius: 0; 
+              height: 0.5rem;
+              padding: 0;
+              width: 0.5rem;
+              min-width: auto !important;
+         }
+             
+         .input-group input{
+              display: inline;
+              height: 0.5rem;
+              color: #7aa5fb;
+              border: 1px solid #7aa5fb;
+              border-radius: 0; 
+              width: 0.7rem;
+              font-size: 14px;
+              padding: 0;
+         }
+         .fw_title{
+             float: left;
+             line-height: 0.5rem;
+             color: #000;
+         }
+            
+     </style>
+  
+</head>
+<body>
+
+<header class="header">
+    <div class="header_left" onclick="goback('{:url(\'/serviceIndex\')}');">
+        <span class="mui-icon mui-icon-arrowleft"></span>
+    </div>
+    <div class="header_center">
+        <img src="{$static_path}/ampay/images/logo.png" alt="">
+    </div>
+</header>
+
+<div class="title">
+    <h4>{$typename}</h4>
+</div>
+
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        
+        {foreach name="serive_list" item="sl" key="k"}
+        {if condition='$k eq 1'}
+         <input type="hidden" value="{$sl.id}" id="service_val" />
+        {/if}
+        
+        <div class="swiper-slide" data-id="{$k}" data-key="{$sl.id}">
+            <div class="tab {if condition='$k eq 1'}active{/if}">
+                <p>{$sl.name}</p>
+                <p>{$sl.price}元/{if condition="$sl.times eq 9999"}无限{else}{$sl.times}{/if}次</p>
+                <p>(自激活起{$sl.duration}{if condition="$sl.unit eq 'month'"}个{$sl.unitname}{else}{$sl.unitname}{/if})</p>
+            </div>
+        </div>
+        {/foreach}
+        
+    </div>
+    <!-- Add Pagination -->
+    <div class="swiper-pagination"></div>
+</div>
+    
+<!--横线-->
+<div class="hr">
+    <p></p>
+</div>
+
+     <input type="hidden" name="fwnum" value="1"/>
+     <div class="terms">
+         <p class="fw_title">选择服务卡数量：</p>
+         <p>
+             <input type="number" value="1" min="1" max="20" step="1" id="fw_num" required/>
+        </p>
+     </div>
+
+<!--服务条款-->
+<div class="terms">
+    <input type="checkbox" id="cbox" >
+    <span>我已阅读并同意<b>《</b><a href="{:url('Index/payprotocol')}">购买服务条款</a><b>》</b></span>
+</div>
+
+
+<!--提交订单-->
+<div class="sub_btn">
+    <a href="javascript:void(0);">提交订单</a>
+</div>
+
+<script src="{$static_path}/ampay/js/jquery.min.js"></script>
+<script src="{$static_path}/ampay/layui/layui.all.js"></script>
+<script src="{$static_path}/ampay/swiper/swiper.min.js"></script>
+
+<script src="{$static_path}/ampay/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="{$static_path}/ampay/js/InputSpinner.js" type="text/javascript"></script>
+<script type="text/javascript">
+$("input[type='number']").InputSpinner()
+$("input.small").InputSpinner({groupClass: "input-group-sm"});
+$("input.large").InputSpinner({groupClass: "input-group-lg"});
+
+var inputNet = document.getElementById("fw_num")
+inputNet.addEventListener("change", function (event) {
+    var wfn=inputNet.value;
+
+    if(wfn>20){
+         
+        $(".input-group input[type='text']").val(20);
+       document.getElementById("fw_num").innerHTML=20;
+       $("input[type='number']").val(20);
+       wfn=20;
+    }
+    $("input[name='fwnum']").val(wfn);
+  });
+ 
+</script>
+
+<script>
+    
+    
+    var swiper = new Swiper('.swiper-container', {
+        freeMode : true,
+        slidesPerView: "auto",
+        spaceBetween : 20,
+        centeredSlides: true,
+        initialSlide :1,
+        // loop: true
+    });
+
+
+    $(".swiper-slide").on('click','.tab',function(){
+       var $tab = $(this);
+       if(!$tab.hasClass("active")){
+           $tab.addClass("active").parent().siblings().find(".tab").removeClass("active");
+       }
+    });
+
+    $(".sub_btn").click(function(){
+        if(!$("#cbox").is(":checked")){
+            layer.msg("请先阅读并勾选服务条款");
+            return false;
+        }else{
+            var inputtext=$(".input-group input[type='text']").val();
+            var r = /(^[1-9]\d*$)/;　　//正整数
+            if(!(r.test(inputtext)) || inputtext<=0){
+                layer.msg('服务卡数量不符合规则');
+                return false;
+            }
+           var key=$("#service_val").val();
+           var fw_num=$("input[name='fwnum']").val();
+          
+            window.location.href='/payorder?sid='+key+'&paynum='+fw_num;
+        }
+        
+    });
+
+     $(".swiper-slide").on('click',function(){
+         var $this = $(this);
+         var $data = $this.attr("data-id");
+         if($data == 0){
+             $(".swiper-wrapper").css("transform","translate3d(128.07px, 0px, 0px)");
+         }else if($data == 1){
+             $(".swiper-wrapper").css("transform","translate3d(-49.7885px, 0px, 0px)");
+         }else if($data == 2){
+             $(".swiper-wrapper").css("transform","translate3d(-227.648px, 0px, 0px)");
+         }
+         
+         var key=$this.attr("data-key");
+         $("#service_val").val(key);
+     });
+
+
+
+</script>
+{include file="commonfoot"/}
+</body>
+</html>

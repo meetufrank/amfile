@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{$site_title}</title>
+    <link rel="stylesheet" href="{$static_path}/ampay/mui/mui.min.css">
+    <script src="{$static_path}/ampay/mui/mui.min.js"></script>
+    <script src="{$static_path}/ampay/js/rem.js"></script>
+    <link rel="stylesheet" href="{$static_path}/ampay/swiper/swiper.min.css">
+    <link rel="stylesheet" href="{$static_path}/ampay/css/serviceList.css?v=2.3">
+</head>
+<body>
+<header class="header">
+    <div class="header_left" style="display: none;">
+            <img src="{$static_path}/ampay/images/list.png" alt="">
+        </div>
+    <div class="header_center">
+        <img src="{$static_path}/ampay/images/logo.png" alt="">
+    </div>
+    <div class="header_right" style="display: none;">
+        <img src="{$static_path}/ampay/images/home.png" alt="">
+    </div>
+</header>
+
+    <!-- Swiper -->
+    <div class="swiper-container">
+        <!--<div class="bgImg"> 图片背景遮罩 </div>-->
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img src="{$static_path}/ampay/images/banner.png?v=1.5" alt="">
+            </div>
+            <div class="swiper-slide">
+                <img src="{$static_path}/ampay/images/banner1.png?v=1.5" alt="">
+            </div>
+            <div class="swiper-slide">
+                <img src="{$static_path}/ampay/images/banner2.png?v=1.5" alt="">
+            </div>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+
+        <!--banner上文字部分-->
+<!--        <div class="banner_text">
+            <p>T&nbsp;e&nbsp;l&nbsp;a&nbsp;d&nbsp;o&nbsp;c</p>
+            <p>Teladoc&nbsp;Health</p>
+
+            <p>汇医全方位线上医疗咨询服务</p>
+        </div>-->
+    </div>
+
+
+    <!--整体-->
+    <div class="content_type">
+        <!--单个-->
+        <div class="type_blo" onclick="javascript:window.location.href='{:url(\'index/service_detail\',[\'typeid\'=>5])}';">
+            <img src="{$static_path}/ampay/images/index_img.png?v=1.1" alt="" class="big_img">
+            <div class="bgImg"><!-- 图片背景遮罩 --></div>
+            <div class="eye_num">
+                <img src="{$static_path}/ampay/images/eye.png" alt="">
+                <span>{$newlist[5]['hot_num']}</span>
+            </div>
+            <div class="type_text">
+                <p>服务适用场景：日常健康咨询，提高您对医疗常识的认知。</p>
+            </div>
+            <div class="bottom_btn bg242">
+                <a href="#">家庭医生随身行</a>
+            </div>
+        </div>
+
+        <div class="type_blo" onclick="javascript:window.location.href='{:url(\'index/service_detail\',[\'typeid\'=>1])}';">
+            <img src="{$static_path}/ampay/images/all.png?v=1.1" alt="" class="big_img">
+            <div class="bgImg"><!-- 图片背景遮罩 --></div>
+            <div class="eye_num">
+                <img src="{$static_path}/ampay/images/eye.png" alt="">
+                <span>{$newlist[1]['hot_num']}</span>
+            </div>
+            <div class="type_text bgF">
+                <p class="label">尚未对个人用户开通</p>
+            </div>
+            <div class="bottom_btn bg161">
+                <a href="#">全球医学专家意见</a>
+            </div>
+        </div>
+
+        <div class="type_blo" onclick="javascript:window.location.href='{:url(\'index/service_detail\',[\'typeid\'=>2])}';">
+            <img src="{$static_path}/ampay/images/index_img3.png?v=1.0" alt="" class="big_img">
+            <div class="bgImg"><!-- 图片背景遮罩 --></div>
+            <div class="eye_num">
+                <img src="{$static_path}/ampay/images/eye.png" alt="">
+                <span>{$newlist[2]['hot_num']}</span>
+            </div>
+            <div class="type_text bgF">
+                <p class="label">尚未对个人用户开通</p>
+            </div>
+            <div class="bottom_btn bg104">
+                <a href="#">慢病管理</a>
+            </div>
+        </div>
+
+        <div class="type_blo" onclick="javascript:window.location.href='{:url(\'index/service_detail\',[\'typeid\'=>3])}';">
+            <img src="{$static_path}/ampay/images/index_img4.png?v=2.0" alt="" class="big_img">
+            <div class="bgImg"><!-- 图片背景遮罩 --></div>
+            <div class="eye_num">
+                <img src="{$static_path}/ampay/images/eye.png" alt="">
+                <span>{$newlist[3]['hot_num']}</span>
+            </div>
+            <div class="type_text bgF">
+                <p class="label">尚未对个人用户开通</p>
+            </div>
+            <div class="bottom_btn bg183">
+                <a href="#">私人营养师</a>
+            </div>
+        </div>
+
+        <div class="type_blo" onclick="javascript:window.location.href='{:url(\'index/service_detail\',[\'typeid\'=>4])}';">
+            <img src="{$static_path}/ampay/images/index_img5.png?v=1.1" alt="" class="big_img">
+            <div class="bgImg"><!-- 图片背景遮罩 --></div>
+            <div class="eye_num">
+                <img src="{$static_path}/ampay/images/eye.png" alt="">
+                <span>{$newlist[4]['hot_num']}</span>
+            </div>
+            <div class="type_text bgF">
+                <p class="label">尚未对个人用户开通</p>
+            </div>
+            <div class="bottom_btn bg223">
+                <a href="#">海外医疗安排</a>
+            </div>
+        </div>
+
+
+    </div>
+    
+    <!--备案号-->
+    <div style="margin-top: .2rem;margin-bottom: 1.2rem;text-align: center;">
+        <a href="http://www.beian.miit.gov.cn" style="font-size: .24rem;color: #666;">沪ICP备16015507号 </a>
+    </div>
+
+    <!--页脚-->
+    <div class="foot_tab">
+        <ul>
+            <li class="active"><img src="{$static_path}/ampay/images/fw1.png" alt=""><p>服务</p></li>
+            <li onclick="javascript:window.location.href='{:url(\'/userservice\')}';"><img src="{$static_path}/ampay/images/my.png" alt=""><p>我的服务卡</p></li>
+        </ul>
+        <div style="clear: both;"></div>
+    </div>
+
+
+
+    <script src="{$static_path}/ampay/js/jquery.min.js"></script>
+    <script src="{$static_path}/ampay/swiper/swiper.min.js"></script>
+      <script src="{$static_path}/ampay/layui/layui.all.js"></script>
+    <script>
+        
+        function alertmsg(){
+            layer.msg('该服务暂未开放');
+        }
+        var swiper = new Swiper('.swiper-container', {
+            pagination: {
+                el: '.swiper-pagination',
+                dynamicBullets: true,
+            },
+        });
+    </script>
+   {include file="commonfoot"/}
+</body>
+</html>

@@ -32,7 +32,8 @@ class Base extends Controller
        
         $this->request->filter(['strip_tags','htmlspecialchars','trim']);
              
-        $uname= $this->request->param('email');
+        $uname= $this->request->param('uname');
+        $ishref= $this->request->param('ishref');  //为1不跳转
          $pwd='123456'; //密码规则
           
         if($uname){
@@ -48,7 +49,7 @@ class Base extends Controller
                $domain= $this->request->root(true);
                 $url=$this->request->baseUrl();
                $pa=$this->request->param();
-               unset($pa['email']);
+               unset($pa['uname']);
                if(!empty($pa)){
                    $pa=http_build_query($pa);
                    $url=$domain.$url.'?'.$pa;
@@ -57,7 +58,10 @@ class Base extends Controller
                    $url=$domain.$url;
 
                }
-               $this->redirect($url);
+               if(!$ishref){
+                   $this->redirect($url);
+               }
+               
               
         }else{
        

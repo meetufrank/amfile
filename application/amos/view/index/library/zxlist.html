@@ -1,0 +1,74 @@
+
+ 
+<!--每一块-->
+{foreach name="list" item="vo"}
+{if condition="$listtype eq 'phone'"}
+        <div class="blo">
+            <div class="leftImg">
+                <img src="__AMOS__/public/images/phone.png" alt="">
+            </div>
+            <div class="middleText">
+                <p>{$vo.date}</p>
+                <p class="name">电话回呼服务</p>
+                <p>{$ks_text_list[$vo.specialty]}</p>
+            </div>
+            <div class="rightBtn">
+                <p class="aloneP">
+                    <a href="{:url('/amosdetail',['id'=>$vo.id,'type'=>'phone'])}" class="lookDetail">查看详情</a>
+                </p>
+            </div>
+        </div>
+{else/}
+    <div class="blo color9">
+            <div class="leftImg">
+                <img src="__AMOS__/public/images/video.png" alt="">
+            </div>
+            <div class="middleText">
+                <p>{$vo.date}&nbsp;&nbsp;{$vo.time}</p>
+                <p class="name">视频咨询服务</p>
+                <p>{$ks_text_list[$vo.specialty]}</p>
+            </div>
+            <div class="rightBtn">
+                <p>
+                    <a href="javascript:void(0);" class="startMet" data-id="{$vo.id}">开启会议</a>
+                    <a href="{:url('/amosdetail',['id'=>$vo.id,'type'=>'video'])}" class="lookDetail">查看详情</a>
+                </p>
+            </div>
+     </div>
+
+{/if}
+{/foreach}
+
+
+<!--<div class="blo color9">
+            <div class="leftImg">
+                <img src="../../public/images/video.png" alt="">
+            </div>
+            <div class="middleText">
+                <p>2020/02/12</p>
+                <p class="name">电话回呼服务</p>
+                <p>眼科</p>
+            </div>
+            <div class="rightBtn">
+                <p>
+                    <a href="javascript:void(0);" class="startMet">开启会议</a>
+                    <a href="../detail/detail.html" class="lookDetail">查看详情</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="blo color9">
+            <div class="leftImg">
+                <img src="../../public/images/video.png" alt="">
+            </div>
+            <div class="middleText">
+                <p>2020/02/12</p>
+                <p class="name">电话回呼服务</p>
+                <p>皮肤科</p>
+            </div>
+            <div class="rightBtn">
+                <p class="aloneP">
+                    <a href="../detail/detail.html" class="lookDetail">查看详情</a>
+                </p>
+            </div>
+        </div>-->

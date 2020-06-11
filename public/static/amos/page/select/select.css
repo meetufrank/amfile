@@ -9,7 +9,8 @@ div,p,h1,h2,h3,h4,h5,h6,ul,li{
 
 
 .header{
-    position: relative;
+    position: fixed;
+    top: 0;
     background: linear-gradient(132deg, #4799F5 0%, #01B5E2 100%);
     width: 100%;
     height: 1rem;
@@ -30,19 +31,18 @@ div,p,h1,h2,h3,h4,h5,h6,ul,li{
     transform: translate(0, -50%);
 }
 .header .tabBtn{
-    width: 2.02rem;
-    height: .54rem;
+    width: 4rem;
+    height: .6rem;
     background: #E1E4E9;
     -webkit-border-radius: 100px;
     -moz-border-radius: 100px;
     border-radius: 100px;
     display: flex;
     text-align: center;
-    line-height: .54rem;
-    position: absolute;
-    top: 50%;
-    right: .24rem;
-    transform: translate(0, -50%);
+    line-height: .6rem;
+    margin: 0 auto;
+    position: relative;
+    top: .2rem;
 }
 .header .tabBtn a{
     font-family: "Microsoft YaHei";
@@ -63,6 +63,8 @@ div,p,h1,h2,h3,h4,h5,h6,ul,li{
     line-height: 1.02rem;
     background: #E1E4E9;
     margin-bottom: .3rem;
+    position: fixed;
+    top: 1rem;
 }
 .tab p{
     font-family: "Microsoft YaHei";
@@ -73,7 +75,7 @@ div,p,h1,h2,h3,h4,h5,h6,ul,li{
 }
 .tab p.active{
     background: #fff;
-    box-shadow: 0 0px 10px 4px #D3D3D3;
+    box-shadow: 0 0px 10px 1px #D3D3D3;
 
 }
 
@@ -85,7 +87,7 @@ div,p,h1,h2,h3,h4,h5,h6,ul,li{
     -webkit-border-radius: .14rem;
     -moz-border-radius: .14rem;
     border-radius: .14rem;
-    box-shadow: 0 7px 7px 1px #eaeaea;
+    box-shadow: 0 7px 7px 0 #eaeaea;
     padding: .24rem;
     margin: 0 auto .32rem;
     padding-left: .3rem;
@@ -125,15 +127,15 @@ div,p,h1,h2,h3,h4,h5,h6,ul,li{
     height: .63rem;
     text-align: center;
     line-height: .63rem;
-    background: #FF9800;
+    background: #fff;
     font-family: "Microsoft YaHei";
     font-size: .25rem;
-    color: #fff;
+    color: #00b5e2;
     -webkit-border-radius: 100px;
     -moz-border-radius: 100px;
     border-radius: 100px;
-    margin-bottom: .25rem;
     text-decoration: none;
+    box-shadow: 0 4px 3px 0 #84DBF1;
 }
 .blo .rightBtn p .startMet{
     display: inline-block;
@@ -148,6 +150,7 @@ div,p,h1,h2,h3,h4,h5,h6,ul,li{
     -webkit-border-radius: 100px;
     -moz-border-radius: 100px;
     border-radius: 100px;
+    margin-bottom: .25rem;
 }
 
 .aloneP{
@@ -162,6 +165,7 @@ div,p,h1,h2,h3,h4,h5,h6,ul,li{
 
 .container{
     margin-bottom: 4rem;
+    margin-top: 2.3rem;
 }
 .twoBtn{
     padding: .7rem 0;
@@ -205,3 +209,43 @@ div,p,h1,h2,h3,h4,h5,h6,ul,li{
     display: none;
 }
 
+.threeBlo{
+    display: flex;
+    justify-content: space-evenly;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 99;
+    background: #f7f7f7;
+    padding-bottom: .3rem;
+}
+.three_btn{
+    width: 2rem;
+    -webkit-border-radius: 14px;
+    -moz-border-radius: 14px;
+    border-radius: 14px;
+    text-align: center;
+    padding: .3rem;
+    background: #fff;
+    box-shadow: 0 4px 5px 0px #84DBF1;
+}
+.three_btn .Img{
+    background: #00b5e2;
+    width: 1.4rem;
+    height: 1.4rem;
+    border-radius: 50%;
+    margin: 0 auto;
+    position: relative;
+}
+.three_btn .Img img{
+    width: .7rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.three_btn div p{
+    font-family: "Microsoft YaHei";
+    font-size: .31rem;
+    color: #00b5e2;
+}

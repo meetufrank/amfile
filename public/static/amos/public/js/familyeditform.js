@@ -15,7 +15,8 @@ $(function(){
                     required: !0
                 },
                 phone:{
-                    required: !0
+                    required: !0,
+                    digits:true
                 },
                 email:{
                     required: !0
@@ -45,7 +46,8 @@ $(function(){
                 },
                 phone:{
                     required: "此项为必填项",
-                    phone: "请填写正确的手机号"
+                    phone: "请填写正确的手机号",
+                     digits:"请输入正确的手机号"
                 },
                 email:{
                     required: "此项为必填项",
@@ -67,4 +69,34 @@ $(function(){
         $(".submit").click();
     });
 
+
+$(".medical-form").submit(function(e) {
+    e.preventDefault();
+        if ($(".medical-form").valid()) {
+          
+            var t=$(".medical-form").serializeArray();
+            var layerload = layer.load();
+            $.ajax({
+                url: window.__editurl__,
+                type: "POST",
+                data: $.param(t),
+                success: function(re) {
+                 
+                   
+                   
+                    layer.close(layerload);
+                                  
+                          if(re.code==1){
+                              
+                             window.location.href=re.url;
+                          }else{
+                              layer.alert(re.msg);
+                          }
+                }
+            })
+            
+        }
+      
+        return false;
+    })
 });
